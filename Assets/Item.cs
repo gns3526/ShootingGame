@@ -6,9 +6,9 @@ public class Item : MonoBehaviour
 {
     public string type;
     [SerializeField] Rigidbody2D rigid;
-    void Start()
+
+    private void OnEnable()
     {
         rigid.velocity = Vector2.down * 3;
     }
-
 }

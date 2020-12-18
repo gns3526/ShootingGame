@@ -146,6 +146,7 @@ MonoBehaviour:
   enemyScore: 500
   speed: 1
   health: 20
+  maxHealth: 20
   sprites:
   - {fileID: 8596640243658272642, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
   - {fileID: -5720429097031363069, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
@@ -159,3 +160,4 @@ MonoBehaviour:
     type: 3}
   renderer: {fileID: 7461705952728156047}
   player: {fileID: 0}
+  OM: {fileID: 0}

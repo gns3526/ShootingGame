@@ -26,8 +26,11 @@ public class Player : MonoBehaviour
     [SerializeField] Animator ani;
 
     [SerializeField] GameManager GM;
+    [SerializeField] ObjectManager OM;
     public bool canHit;
     [SerializeField] bool isBoomActive;
+
+    [SerializeField] GameObject[] followers;
     private void Update()
     {
         Move();
@@ -62,13 +65,16 @@ public class Player : MonoBehaviour
         switch (power)
         {
             case 1:
-                GameObject bullet = Instantiate(bullet0, transform.position, transform.rotation);
+                GameObject bullet = OM.MakeObj("BulletPlayer0");
+                bullet.transform.position = transform.position;
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
-                GameObject bulletR = Instantiate(bullet0, transform.position + Vector3.right * 0.1f, transform.rotation);
-                GameObject bulletL = Instantiate(bullet0, transform.position + Vector3.left * 0.1f, transform.rotation);
+                GameObject bulletR = OM.MakeObj("BulletPlayer0");
+                GameObject bulletL = OM.MakeObj("BulletPlayer0");
+                bulletR.transform.position = transform.position + Vector3.right * 0.1f;
+                bulletL.transform.position = transform.position + Vector3.left * 0.1f;
 
                 Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
                 rigidR.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
@@ -76,10 +82,15 @@ public class Player : MonoBehaviour
                 Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
                 rigidL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
-            case 3:
-                GameObject bulletRR = Instantiate(bullet0, transform.position + Vector3.right * 0.25f, transform.rotation);
-                GameObject bulletCC = Instantiate(bullet1, transform.position, transform.rotation);
-                GameObject bulletLL = Instantiate(bullet0, transform.position + Vector3.left * 0.25f, transform.rotation);
+            default:
+                GameObject bulletRR = OM.MakeObj("BulletPlayer0");
+                bulletRR.transform.position = transform.position + Vector3.right * 0.35f;
+
+                GameObject bulletCC = OM.MakeObj("BulletPlayer1");
+                bulletCC.transform.position = transform.position;
+
+                GameObject bulletLL = OM.MakeObj("BulletPlayer0");
+                bulletLL.transform.position = transform.position + Vector3.left * 0.35f;
 
                 Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
                 rigidRR.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
@@ -100,7 +111,7 @@ public class Player : MonoBehaviour
     {
         curShotCoolTime += Time.deltaTime;
     }
-    void UseBoom()
+    void UseBoom()//폭탄사용
     {
         if (!Input.GetButton("Fire2"))
             return;
@@ -116,17 +127,50 @@ public class Player : MonoBehaviour
         boomEffect.SetActive(true);
         Invoke("BoomFalse", 4);
 
-        GameObject[] enemies = GameObject.FindGameObjectsWithTag("Enemy");
-        for (int i = 0; i < enemies.Length; i++)
+        GameObject[] enemyL = OM.GetPool("EnemyL");
+        GameObject[] enemyM = OM.GetPool("EnemyM");
+        GameObject[] enemyS = OM.GetPool("EnemyS");
+        for (int i = 0; i < enemyL.Length; i++)//모든적데미지주기
         {
-            EnemyScript enemyScript = enemies[i].GetComponent<EnemyScript>();
-            enemyScript.Hit(1000);
+            if (enemyL[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemyL[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemyM.Length; i++)//모든적데미지주기
+        {
+            if (enemyM[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemyM[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemyS.Length; i++)//모든적데미지주기
+        {
+            if (enemyS[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemyS[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
         }
 
-        GameObject[] bullets = GameObject.FindGameObjectsWithTag("EnemyBullet");
-        for (int i = 0; i < bullets.Length; i++)
+        GameObject[] BulletEnemy0 = OM.GetPool("BulletEnemy0");
+        GameObject[] bulletEnemy1 = OM.GetPool("BulletEnemy1");
+
+        for (int i = 0; i < BulletEnemy0.Length; i++)
         {
-            Destroy(bullets[i]);
+            if (BulletEnemy0[i].activeSelf)
+            {
+                BulletEnemy0[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < bulletEnemy1.Length; i++)
+        {
+            if (BulletEnemy0[i].activeSelf)
+            {
+                bulletEnemy1[i].SetActive(false);
+            }
         }
     }
     private void OnTriggerEnter2D(Collider2D other)
@@ -167,7 +211,7 @@ public class Player : MonoBehaviour
                 GM.ReSpawnM();
             }
             gameObject.SetActive(false);
-            Destroy(other.gameObject);
+            
         }
         else if(other.tag == "Item")
         {
@@ -182,7 +226,11 @@ public class Player : MonoBehaviour
                     {
                         score += 500;
                     }
-                    else power++;
+                    else
+                    {
+                        power++;
+                        AddFollower();
+                    }
                     break;
                 case "Boom":
                     if (boom == maxBoom)
@@ -196,7 +244,23 @@ public class Player : MonoBehaviour
                     }
                     break;
             }
-            Destroy(other.gameObject);
+            other.gameObject.SetActive(false);
+        }
+    }
+
+    void AddFollower()
+    {
+        if(power == 4)
+        {
+            followers[0].SetActive(true);
+        }
+        else if (power == 5)
+        {
+            followers[1].SetActive(true);
+        }
+        else if (power == 6)
+        {
+            followers[2].SetActive(true);
         }
     }
 

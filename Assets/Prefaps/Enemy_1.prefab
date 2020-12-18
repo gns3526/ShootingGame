@@ -150,7 +150,8 @@ MonoBehaviour:
   enemyName: M
   enemyScore: 300
   speed: 9
-  health: 20
+  health: 10
+  maxHealth: 10
   sprites:
   - {fileID: -7642239419928554605, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
   - {fileID: -7911572535675539837, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
@@ -164,3 +165,4 @@ MonoBehaviour:
     type: 3}
   renderer: {fileID: 2476502312648618133}
   player: {fileID: 0}
+  OM: {fileID: 0}
