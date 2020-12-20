@@ -117,7 +117,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   dmg: 1
-  isRotate: 1
+  isRotate: 0
 --- !u!61 &5431172195592476221
 BoxCollider2D:
   m_ObjectHideFlags: 0

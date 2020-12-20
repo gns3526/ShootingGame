@@ -155,8 +155,8 @@ MonoBehaviour:
   enemyName: Boss0
   enemyScore: 100000
   speed: 1.5
-  health: 10000
-  maxHealth: 10000
+  health: 200
+  maxHealth: 200
   sprites: []
   maxShotCoolTime: 0
   curShotCoolTime: 0
@@ -167,7 +167,9 @@ MonoBehaviour:
   boomItem: {fileID: 0}
   renderer: {fileID: 0}
   player: {fileID: 0}
+  GM: {fileID: 0}
   OM: {fileID: 0}
-  patternIndex: 0
+  patternIndex: -1
   curPatternCount: 0
-  MaxPatternCount: 0400000004000000640000000a000000
+  MaxPatternCount: 04000000040000005b0000000a000000
+  once: 1

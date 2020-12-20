@@ -24,13 +24,50 @@ public class Player : MonoBehaviour
     [SerializeField] GameObject boomEffect;
 
     [SerializeField] Animator ani;
+    [SerializeField] SpriteRenderer sprite;
 
     [SerializeField] GameManager GM;
     [SerializeField] ObjectManager OM;
-    public bool canHit;
+
     [SerializeField] bool isBoomActive;
 
     [SerializeField] GameObject[] followers;
+    public bool canHit;
+    public bool isRespawned;
+
+    public bool[] joyControl;
+    public bool isControl;
+    [SerializeField] bool isButtenA;
+    [SerializeField] bool isButtenB;
+
+    private void OnEnable()
+    {
+        Unbeatable();
+        Invoke("Unbeatable", 3);//무적시간
+    }
+    void Unbeatable()
+    {
+        isRespawned = !isRespawned;
+        if (isRespawned)
+        {
+            isRespawned = true;
+            sprite.color = new Color(1, 1, 1, 0.5f);//투명도
+            for (int i = 0; i < followers.Length; i++)
+            {
+                followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
+            }
+        }
+        else
+        {
+            isRespawned = false;
+            sprite.color = new Color(1, 1, 1, 1);//투명도
+            for (int i = 0; i < followers.Length; i++)
+            {
+                followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
+            }
+        }
+    }
+
     private void Update()
     {
         Move();
@@ -39,12 +76,40 @@ public class Player : MonoBehaviour
         UseBoom();
     }
 
+    public void JoyPanel(int type)
+    {
+        for (int i = 0; i < 9; i++)//어디방향키 눌렀나 확인
+        {
+            joyControl[i] = i == type;
+        }
+    }
+    public void JoyDown()
+    {
+        isControl = true;
+    }
+    public void JoyUp()
+    {
+        isControl = false;
+    }
+
     void Move()
     {
         float h = Input.GetAxisRaw("Horizontal");
-        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)) h = 0;
         float v = Input.GetAxisRaw("Vertical");
-        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)) v = 0;
+
+        if (joyControl[0]) { h = -1; v = 1; }
+        if (joyControl[1]) {h = 0; v = 1; }
+        if (joyControl[2]) {h = 1; v = 1; }
+        if (joyControl[3]) {h = -1; v = 0; }
+        if (joyControl[4]) {h = 0; v = 0; }
+        if (joyControl[5]) {h = 1; v = 0; }
+        if (joyControl[6]) {h = -1; v = -1; }
+        if (joyControl[7]) {h = 0; v = -1; }
+        if (joyControl[8]) {h = 1; v = -1; }
+
+
+        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1) || !isControl) h = 0;
+        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1) || !isControl) v = 0;
         Vector3 curPos = transform.position;
         Vector3 nextPos = new Vector3(h, v, 0) * moveSpeed * Time.deltaTime;
 
@@ -56,9 +121,28 @@ public class Player : MonoBehaviour
         }
     }
 
+    public void ButtonADown()
+    {
+        isButtenA = true;
+    }
+    public void ButtonAUp()
+    {
+        isButtenA = false;
+    }
+    public void ButtonBDown()
+    {
+        isButtenB = true;
+    }
+    public void BottonBUp()
+    {
+        isButtenB = false;
+    }
+
     void Fire()
     {
-        if (!Input.GetButton("Fire1")) return;
+        //if (!Input.GetButton("Fire1")) return;
+
+        if (!isButtenA) return;
 
         if (curShotCoolTime < maxShotCoolTime) return;
 
@@ -113,10 +197,14 @@ public class Player : MonoBehaviour
     }
     void UseBoom()//폭탄사용
     {
-        if (!Input.GetButton("Fire2"))
+        //if (!Input.GetButton("Fire2"))
+        //    return;
+        if (!isButtenB)
             return;
+
         if (isBoomActive)
             return;
+
         if (boom == 0)
             return;
 
@@ -195,12 +283,16 @@ public class Player : MonoBehaviour
         }
         else if (other.tag == "Enemy" || other.tag == "EnemyBullet")
         {
+            if (isRespawned)
+                return;
+
             if (canHit)
             {
                 life--;
             }
             canHit = false;
             GM.UpdateLifeIcon(life);
+            GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
 
             if(life == 0)
             {

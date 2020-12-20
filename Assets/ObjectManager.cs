@@ -18,6 +18,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject bulletFollower0_Prefap;
     [SerializeField] GameObject bulletBoss0_Prefap;
     [SerializeField] GameObject bulletBoss1_Prefap;
+    [SerializeField] GameObject explosion_Prefap;
 
     GameObject[] enemyL;
     GameObject[] enemyM;
@@ -36,6 +37,8 @@ public class ObjectManager : MonoBehaviour
     GameObject[] bulletBoss0;
     GameObject[] bulletBoss1;
 
+    GameObject[] explosion;
+
     GameObject[] targetPool;
 
     private void Awake()
@@ -53,10 +56,12 @@ public class ObjectManager : MonoBehaviour
         bulletPlayer1 = new GameObject[100];
         bulletEnemy0 = new GameObject[100];
         bulletEnemy1 = new GameObject[100];
-        bulletBoss0 = new GameObject[200];
+        bulletBoss0 = new GameObject[1000];
         bulletBoss1 = new GameObject[200];
 
         bulletFollower0 = new GameObject[20];
+
+        explosion = new GameObject[20];
 
         Generate();
     }
@@ -141,6 +146,13 @@ public class ObjectManager : MonoBehaviour
             bulletBoss1[i] = Instantiate(bulletBoss1_Prefap);
             bulletBoss1[i].SetActive(false);
         }
+        
+        //폭발 이펙트
+        for (int i = 0; i < explosion.Length; i++)
+        {
+            explosion[i] = Instantiate(explosion_Prefap);
+            explosion[i].SetActive(false);
+        }
     }
 
     public GameObject MakeObj(string type)
@@ -188,6 +200,9 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "BulletBoss1":
                 targetPool = bulletBoss1;
+                break;
+            case "Explosion":
+                targetPool = explosion;
                 break;
 
         }
@@ -248,6 +263,9 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "BulletBoss1":
                 targetPool = bulletBoss1;
+                break;
+            case "Explosion":
+                targetPool = explosion;
                 break;
         }
         return targetPool;

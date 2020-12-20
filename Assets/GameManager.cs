@@ -7,6 +7,12 @@ using System.IO;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] int stage;
+    [SerializeField] Animator startAni;
+    [SerializeField] Animator clearAni;
+    [SerializeField] Animator fadeAni;
+    [SerializeField] Transform playerPos;
+
     [SerializeField] string[] enemysName;
     [SerializeField] Transform[] enemySpawnPoint;
 
@@ -30,7 +36,38 @@ public class GameManager : MonoBehaviour
     {
         spawnList = new List<Spawn>();
         enemysName = new string[] { "EnemyS", "EnemyM", "EnemyL", "Boss0" };
-        ReadSpawnFile();
+        StageStart();
+    }
+
+    void StageStart()
+    {
+        startAni.SetTrigger("Active");//스테이지Ui
+        
+        startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
+        clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
+
+        ReadSpawnFile();//적 스폰파일 읽기
+
+        fadeAni.SetTrigger("Out");//어두워지기
+
+    }
+    public void StageEnd()
+    {
+        clearAni.SetTrigger("Active");//클리어Ui
+
+        fadeAni.SetTrigger("In");//밝아지기
+
+        player.transform.position = playerPos.position;//플래이어 위치 초기화
+
+        stage++;//스테이지 증가
+
+        if (stage > 2)//구현한 스테이지 수를 넘었을때
+            GameOver();
+        else
+            Invoke("StageStart", 5);//스테이지 시작
+
+
+
     }
 
     void ReadSpawnFile()
@@ -40,13 +77,13 @@ public class GameManager : MonoBehaviour
         spawnEnd = false;
 
         //리스폰 파일 읽기
-        TextAsset textFile = Resources.Load("Stage 0") as TextAsset;
+        TextAsset textFile = Resources.Load("Stage" + stage) as TextAsset;
         StringReader stringReader = new StringReader(textFile.text);
 
         while (stringReader != null)
         {
             string line = stringReader.ReadLine();//읽는거
-            Debug.Log(line);
+
             if(line == null)//밑부분이 비어있다면
                 break;
 
@@ -103,6 +140,7 @@ public class GameManager : MonoBehaviour
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
         enemyScript.player = player;
+        enemyScript.GM = this;
         enemyScript.OM = OM;
 
         if(spawnPoint == 5 || spawnPoint == 8)
@@ -166,6 +204,16 @@ public class GameManager : MonoBehaviour
 
         player.GetComponent<Player>().canHit = true;
     }
+
+    public void MakeExplosionEffect(Vector3 pos, string type)
+    {
+        GameObject explosion = OM.MakeObj("Explosion");
+        Explosion explosionScript = explosion.GetComponent<Explosion>();
+
+        explosion.transform.position = pos;
+        explosionScript.StartExplosion(type);
+    }
+
     public void GameOver()
     {
         retryPanel.SetActive(true);
