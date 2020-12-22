@@ -37,6 +37,7 @@ public class GameManager : MonoBehaviour
         spawnList = new List<Spawn>();
         enemysName = new string[] { "EnemyS", "EnemyM", "EnemyL", "Boss0" };
         StageStart();
+        ReadSpawnFile();//적 스폰파일 읽기
     }
 
     void StageStart()

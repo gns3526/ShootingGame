@@ -4,7 +4,7 @@ using UnityEngine;
 
 public class EnemyScript : MonoBehaviour
 {
-    [SerializeField] string enemyName;
+    public string enemyName;
     [SerializeField] int enemyScore;
     public float speed;
     [SerializeField] int health;
@@ -30,8 +30,9 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] int patternIndex;
     [SerializeField] int curPatternCount;
     [SerializeField] int[] MaxPatternCount;
+    [SerializeField] float[] fireCoolTime;
 
-    [SerializeField] bool once;
+    public bool isSpawn;
     private void Awake()
     {
         if(enemyName == "Boss0")
@@ -41,51 +42,56 @@ public class EnemyScript : MonoBehaviour
     }
     private void OnEnable()
     {
+        Debug.Log("켜짐");
         health = maxHealth;
-        if(enemyName == "Boss0")
+        if (enemyName == "Boss0" && isSpawn)
         {
-            Invoke("Stop", 3);
+            StartCoroutine(Stop());
         }
     }
-
-    void Stop()
+    
+    public IEnumerator Stop()
     {
-        Debug.Log("멈춤");
-        if (!gameObject.activeSelf)//활성화 되어있지 않다면
-            return;//되돌림
-        Rigidbody2D rigid = GetComponent<Rigidbody2D>();
-        rigid.velocity = Vector2.zero;
-        Debug.Log("Todrkrk");
-        if (once)
+        yield return new WaitForSeconds(3);
+        if (gameObject.activeSelf)
         {
-            once = false;
-            Invoke("Think", 2);
+            Debug.Log("멈춤");
+            Rigidbody2D rigid = GetComponent<Rigidbody2D>();
+            rigid.velocity = Vector2.zero;
+
+            StartCoroutine(Think(0));
         }
+
+
     }
 
-    void Think()
+    IEnumerator Think(float waitTime)
     {
+        //if (!gameObject.activeSelf)//활성화 되어있지 않다면
+        //    return;//되돌림
+        yield return new WaitForSeconds(waitTime);
         Debug.Log("생각");
         patternIndex = patternIndex >= 3 ? 0 : patternIndex + 1;//패턴갯수 오버하면 0으로만듬
         curPatternCount = 0;
+
         switch (patternIndex)
         {
             case 0:
-                FireFoward();
+                StartCoroutine(FireFoward());
                 break;
             case 1:
-                FireShot();
+                StartCoroutine(FireShot());
                 break;
             case 2:
-                FireArc();
+                StartCoroutine(FireArc());
                 break;
             case 3:
-                FireAround();
+                StartCoroutine(FireAround());
                 break;
         }
     }
 
-    void FireFoward()//앞으로 4발
+    IEnumerator FireFoward()//앞으로 4발
     {
         GameObject bulletR = OM.MakeObj("BulletBoss1");
         bulletR.transform.position = transform.position + Vector3.right * 0.3f;
@@ -107,18 +113,20 @@ public class EnemyScript : MonoBehaviour
         rigidLL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
 
         curPatternCount++;
-        Debug.Log("더하기");
-
+        Debug.Log("44444444444444");
+        yield return new WaitForSeconds(fireCoolTime[0]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            Invoke("FireFoward", 1f);
+            //Invoke("FireFoward", 1f);
+            StartCoroutine(FireFoward());
         }
         else
         {
-            Invoke("Think", 2);
+            //Invoke("Think", 2);
+            StartCoroutine(Think(2));
         }
     }
-    void FireShot()//플래이어방향으로 샷건
+    IEnumerator FireShot()//플래이어방향으로 샷건
     {
         for (int i = 0; i < 5; i++)
         {
@@ -132,18 +140,20 @@ public class EnemyScript : MonoBehaviour
             rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
         }
         curPatternCount++;
-        Debug.Log("더하기");
-
+        Debug.Log("33333333333333");
+        yield return new WaitForSeconds(fireCoolTime[1]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            Invoke("FireShot", 0.3f);
+            //Invoke("FireShot", 0.3f);
+            StartCoroutine(FireShot());
         }
         else
         {
-            Invoke("Think", 2);
+            //Invoke("Think", 2);
+            StartCoroutine(Think(2));
         }
     }
-    void FireArc()//부체모양
+    IEnumerator FireArc()//부체모양
     {
         GameObject bullet = OM.MakeObj("BulletBoss0");
         bullet.transform.position = transform.position;//초기화
@@ -155,18 +165,20 @@ public class EnemyScript : MonoBehaviour
         rigid.AddForce(dir.normalized * 5, ForceMode2D.Impulse);
 
         curPatternCount++;
-        Debug.Log("더하기");
-
+        Debug.Log("22222222222");
+        yield return new WaitForSeconds(fireCoolTime[2]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            Invoke("FireArc", 0.1f);
+            //Invoke("FireArc", 0.1f);
+            StartCoroutine(FireArc());
         }
         else
         {
-            Invoke("Think", 3);
+            //Invoke("Think", 3);
+            StartCoroutine(Think(3));
         }
     }
-    void FireAround()//원형태로 뿌림
+    IEnumerator FireAround()//원형태로 뿌림
     {
         int roundNumA = 50;
         int roundNumB = 40;
@@ -188,15 +200,17 @@ public class EnemyScript : MonoBehaviour
         }
 
         curPatternCount++;
-        Debug.Log("더하기");
-
+        Debug.Log("111111111111");
+        yield return new WaitForSeconds(fireCoolTime[3]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            Invoke("FireAround", 1f);
+            //Invoke("FireAround", 1f);
+            StartCoroutine(FireAround());
         }
         else
         {
-            Invoke("Think", 3);
+            //Invoke("Think", 3);
+            StartCoroutine(Think(3));
         }
     }
     private void Update()
@@ -287,7 +301,9 @@ public class EnemyScript : MonoBehaviour
                 GameObject ItemBoom = OM.MakeObj("ItemBoom");
                 ItemBoom.transform.position = transform.position;
             }
-            once = true;
+            patternIndex = -1;
+            curPatternCount = 0;
+            isSpawn = false;
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
             GM.MakeExplosionEffect(transform.position, enemyName);
@@ -306,12 +322,17 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BulletBorder" && enemyName != "Boss0") gameObject.SetActive(false);
+        if (other.tag == "BulletBorder" && enemyName != "Boss0")
+        {
+            isSpawn = false;
+            gameObject.SetActive(false);
+        }
         else if (other.tag == "PlayerBullet")
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
             Hit(bullet.dmg);
 
+            isSpawn = false;
             other.gameObject.SetActive(false);
         }
     }

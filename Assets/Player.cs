@@ -96,7 +96,7 @@ public class Player : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-
+        /*
         if (joyControl[0]) { h = -1; v = 1; }
         if (joyControl[1]) {h = 0; v = 1; }
         if (joyControl[2]) {h = 1; v = 1; }
@@ -106,10 +106,10 @@ public class Player : MonoBehaviour
         if (joyControl[6]) {h = -1; v = -1; }
         if (joyControl[7]) {h = 0; v = -1; }
         if (joyControl[8]) {h = 1; v = -1; }
+        */
 
-
-        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1) || !isControl) h = 0;
-        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1) || !isControl) v = 0;
+        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)/* || !isControl*/) h = 0;
+        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)/* || !isControl*/) v = 0;
         Vector3 curPos = transform.position;
         Vector3 nextPos = new Vector3(h, v, 0) * moveSpeed * Time.deltaTime;
 

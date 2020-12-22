@@ -172,4 +172,9 @@ MonoBehaviour:
   patternIndex: -1
   curPatternCount: 0
   MaxPatternCount: 04000000040000005b0000000a000000
-  once: 1
+  fireCoolTime:
+  - 1
+  - 0.5
+  - 0.05
+  - 4
+  isSpawn: 0

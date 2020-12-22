@@ -41,6 +41,8 @@ public class ObjectManager : MonoBehaviour
 
     GameObject[] targetPool;
 
+    int Code;
+
     private void Awake()
     {
         enemyL = new GameObject[20];//필요한 갯수
@@ -86,7 +88,9 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < boss0.Length; i++)
         {
             boss0[i] = Instantiate(boss0_Prefap);
+            Debug.Log("11111");
             boss0[i].SetActive(false);
+            Debug.Log("22222");
         }
 
         //아이템
@@ -157,52 +161,68 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject MakeObj(string type)
     {
+
         switch (type)
         {
             case "EnemyL":
                 targetPool = enemyL;
+                Code = -1;
                 break;
             case "EnemyM":
                 targetPool = enemyM;
+                Code = -1;
                 break;
             case "EnemyS":
                 targetPool = enemyS;
+                Code = -1;
                 break;
             case "Boss0":
                 targetPool = boss0;
+                Code = 0;
                 break;
             case "ItemCoin":
                 targetPool = itemCoin;
+                Code = -1;
                 break;
             case "ItemPow":
                 targetPool = itemPow;
+                Code = -1;
                 break;
             case "ItemBoom":
                 targetPool = itemBoom;
+                Code = -1;
                 break;
             case "BulletPlayer0":
                 targetPool = bulletPlayer0;
+                Code = -1;
                 break;
             case "BulletPlayer1":
                 targetPool = bulletPlayer1;
+                Code = -1;
                 break;
             case "BulletEnemy0":
                 targetPool = bulletEnemy0;
+                Code = -1;
                 break;
             case "BulletEnemy1":
                 targetPool = bulletEnemy1;
+                Code = -1;
                 break;
             case "BulletFollower0":
                 targetPool = bulletFollower0;
+                Code = -1;
                 break;
             case "BulletBoss0":
                 targetPool = bulletBoss0;
+                Code = -1;
                 break;
             case "BulletBoss1":
                 targetPool = bulletBoss1;
+                Code = -1;
                 break;
             case "Explosion":
                 targetPool = explosion;
+                Code = -1;
                 break;
 
         }
@@ -210,6 +230,12 @@ public class ObjectManager : MonoBehaviour
         {
             if (!targetPool[i].activeSelf)//맨위에꺼가 꺼져있다면
             {
+                if(Code == 0)
+                {
+                    targetPool[i].GetComponent<EnemyScript>().isSpawn = true;
+                }
+
+
                 targetPool[i].SetActive(true);
                 return targetPool[i];//켜준다
             }
