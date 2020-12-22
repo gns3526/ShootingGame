@@ -40,6 +40,9 @@ public class Player : MonoBehaviour
     [SerializeField] bool isButtenA;
     [SerializeField] bool isButtenB;
 
+    public float dmgPer;
+    public float firePer;
+
     private void OnEnable()
     {
         Unbeatable();

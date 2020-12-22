@@ -64,6 +64,7 @@
   <ItemGroup>
     <Compile Include="Assets\BackGroundScript.cs" />
     <Compile Include="Assets\BulletScript.cs" />
+    <Compile Include="Assets\Cards.cs" />
     <Compile Include="Assets\EnemyScript.cs" />
     <Compile Include="Assets\Explosion.cs" />
     <Compile Include="Assets\Follower.cs" />

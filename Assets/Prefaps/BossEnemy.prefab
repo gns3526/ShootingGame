@@ -156,7 +156,7 @@ MonoBehaviour:
   enemyScore: 100000
   speed: 1.5
   health: 200
-  maxHealth: 200
+  maxHealth: 1
   sprites: []
   maxShotCoolTime: 0
   curShotCoolTime: 0

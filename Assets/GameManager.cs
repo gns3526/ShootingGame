@@ -8,6 +8,7 @@ using System.IO;
 public class GameManager : MonoBehaviour
 {
     [SerializeField] int stage;
+    [SerializeField] int MaxStage;
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
     [SerializeField] Animator fadeAni;
@@ -28,13 +29,19 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] ObjectManager OM;
 
-
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
     [SerializeField] bool spawnEnd;
+
+
+    [SerializeField] List<GameObject> cards;
+    [SerializeField] List<GameObject> cardsSave;
     private void Awake()
     {
         spawnList = new List<Spawn>();
+
+        cardsSave = new List<GameObject>(cards);
+
         enemysName = new string[] { "EnemyS", "EnemyM", "EnemyL", "Boss0" };
         StageStart();
         ReadSpawnFile();//적 스폰파일 읽기
@@ -49,28 +56,45 @@ public class GameManager : MonoBehaviour
 
         ReadSpawnFile();//적 스폰파일 읽기
 
-        fadeAni.SetTrigger("Out");//어두워지기
+        fadeAni.SetTrigger("Out");//밝아지기
 
     }
     public void StageEnd()
     {
         clearAni.SetTrigger("Active");//클리어Ui
 
-        fadeAni.SetTrigger("In");//밝아지기
+        fadeAni.SetTrigger("In");//어두워 지기
 
         player.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
 
-        if (stage > 2)//구현한 스테이지 수를 넘었을때
+        if (stage > MaxStage)//구현한 스테이지 수를 넘었을때
             GameOver();
         else
-            Invoke("StageStart", 5);//스테이지 시작
+            Invoke("SelectCard", 5);//카드고르기
 
 
 
     }
-
+    public void SelectCard()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int random = Random.Range(0, cards.Count);
+            cards[random].SetActive(true);
+            cards.RemoveAt(random);
+        }
+    }
+    public void SelectComplete()
+    {
+        cards = new List<GameObject>(cardsSave); 
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].SetActive(false);
+        }
+        StageStart();
+    }
     void ReadSpawnFile()
     {
         spawnList.Clear();//초기화
