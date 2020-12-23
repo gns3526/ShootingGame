@@ -147,22 +147,26 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1ecb30204d08b4a852e618f3342361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyName: M
+  enemyNum: 2
   enemyScore: 300
   speed: 9
-  health: 10
+  health: 0
   maxHealth: 10
   sprites:
   - {fileID: -7642239419928554605, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
   - {fileID: -7911572535675539837, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
+  healthImage: {fileID: 0}
+  isShootingMonster: 0
+  isChasingMonster: 0
   maxShotCoolTime: 0
   curShotCoolTime: 0
-  bullet0: {fileID: 5808032221045866145, guid: 2ff21ef5f0132a741924cb006c0dedf3, type: 3}
-  bullet1: {fileID: 5808032221045866145, guid: 3ac438e757774534fb3ff3b6b1c0313d, type: 3}
-  coinItem: {fileID: 312716260742267322, guid: 947f362e9bb0604418423fc58e77bd80, type: 3}
-  powItem: {fileID: 3263685794571498105, guid: a4c6518ac11997846bbe83dc6842544b, type: 3}
-  boomItem: {fileID: 4846170340590529611, guid: 434e00d06d74d914c83d3a1aa27ac601,
-    type: 3}
-  renderer: {fileID: 2476502312648618133}
+  stopTImeMonster: 0
+  spriteRendererEnemy: {fileID: 0}
   player: {fileID: 0}
+  GM: {fileID: 0}
   OM: {fileID: 0}
+  patternIndex: 0
+  curPatternCount: 0
+  MaxPatternCount: 
+  fireCoolTime: []
+  isSpawn: 0

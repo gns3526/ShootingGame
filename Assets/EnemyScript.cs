@@ -1,26 +1,27 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
-    public string enemyName;
+    public int enemyNum;
     [SerializeField] int enemyScore;
     public float speed;
-    [SerializeField] int health;
-    [SerializeField] int maxHealth;
+    [SerializeField] float health;
+    [SerializeField] float maxHealth;
     [SerializeField] Sprite[] sprites;
+    [SerializeField] Image healthImage;
+
+    [SerializeField] bool isShootingMonster;
+    [SerializeField] bool isChasingMonster;
 
     [SerializeField] float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
 
-    [SerializeField] GameObject bullet0;
-    [SerializeField] GameObject bullet1;
-    [SerializeField] GameObject coinItem;
-    [SerializeField] GameObject powItem;
-    [SerializeField] GameObject boomItem;
+    [SerializeField] float stopTImeMonster;
 
-    [SerializeField] SpriteRenderer renderer;
+    [SerializeField] SpriteRenderer spriteRendererEnemy;
 
     public GameObject player;
     public GameManager GM;
@@ -35,24 +36,23 @@ public class EnemyScript : MonoBehaviour
     public bool isSpawn;
     private void Awake()
     {
-        if(enemyName == "Boss0")
-        {
-            ani = GetComponent<Animator>();
-        }
+
+         ani = GetComponent<Animator>();
+
     }
     private void OnEnable()
     {
         Debug.Log("켜짐");
         health = maxHealth;
-        if (enemyName == "Boss0" && isSpawn)
-        {
-            StartCoroutine(Stop());
-        }
+        healthImage.fillAmount = 1;
+
+        StartCoroutine(Stop());
+
     }
     
     public IEnumerator Stop()
     {
-        yield return new WaitForSeconds(3);
+        yield return new WaitForSeconds(stopTImeMonster);
         if (gameObject.activeSelf)
         {
             Debug.Log("멈춤");
@@ -215,7 +215,7 @@ public class EnemyScript : MonoBehaviour
     }
     private void Update()
     {
-        if (enemyName == "Boss0")
+        if (enemyNum == 4)
             return;
         Fire();
         Reload();
@@ -224,7 +224,7 @@ public class EnemyScript : MonoBehaviour
     {
         if (curShotCoolTime < maxShotCoolTime) return;
 
-        if(enemyName == "S")
+        if(enemyNum == 1)
         {
             GameObject bullet = OM.MakeObj("BulletEnemy0");
             bullet.transform.position = transform.position;
@@ -233,7 +233,7 @@ public class EnemyScript : MonoBehaviour
             Vector3 dir = player.transform.position - transform.position;
             rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
         }
-        else if(enemyName == "L")
+        else if(enemyNum == 2)
         {
             GameObject bulletR = OM.MakeObj("BulletEnemy1");
             bulletR.transform.position = transform.position + Vector3.right * 0.3f;
@@ -263,13 +263,14 @@ public class EnemyScript : MonoBehaviour
             return;
 
         health -= Dmg;
-        if(enemyName == "Boss0")
+        healthImage.fillAmount = health / maxHealth;
+        if (enemyNum == 4)
         {
             ani.SetTrigger("Hit");
         }
         else
         {
-            renderer.sprite = sprites[1];
+            spriteRendererEnemy.sprite = sprites[1];
             Invoke("ReturnSprite", 0.1f);
         }
 
@@ -281,7 +282,7 @@ public class EnemyScript : MonoBehaviour
             playerScript.score += enemyScore;
 
 
-            int random = enemyName == "Boss0" ? 0 : Random.Range(0, 10);
+            int random = enemyNum == 4 ? 0 : Random.Range(0, 10);
             if(random < 4)
             {
                 //없으
@@ -304,12 +305,15 @@ public class EnemyScript : MonoBehaviour
             patternIndex = -1;
             curPatternCount = 0;
             isSpawn = false;
+            
+
+
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
-            GM.MakeExplosionEffect(transform.position, enemyName);
+            GM.MakeExplosionEffect(transform.position, enemyNum);
 
             //보스죽음
-            if(enemyName == "Boss0")
+            if(enemyNum == 4)
             {
                 GM.StageEnd();
             }
@@ -317,12 +321,12 @@ public class EnemyScript : MonoBehaviour
     }
     void ReturnSprite()
     {
-        renderer.sprite = sprites[0];
+        spriteRendererEnemy.sprite = sprites[0];
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BulletBorder" && enemyName != "Boss0")
+        if (other.tag == "BulletBorder" && enemyNum != 4)
         {
             isSpawn = false;
             gameObject.SetActive(false);

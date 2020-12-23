@@ -295,7 +295,7 @@ public class Player : MonoBehaviour
             }
             canHit = false;
             GM.UpdateLifeIcon(life);
-            GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+            GM.MakeExplosionEffect(transform.position, 0);//폭발이펙트
 
             if(life == 0)
             {

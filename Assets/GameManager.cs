@@ -230,13 +230,13 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Player>().canHit = true;
     }
 
-    public void MakeExplosionEffect(Vector3 pos, string type)
+    public void MakeExplosionEffect(Vector3 pos, int targetCode)
     {
         GameObject explosion = OM.MakeObj("Explosion");
         Explosion explosionScript = explosion.GetComponent<Explosion>();
 
         explosion.transform.position = pos;
-        explosionScript.StartExplosion(type);
+        explosionScript.StartExplosion(targetCode);
     }
 
     public void GameOver()
