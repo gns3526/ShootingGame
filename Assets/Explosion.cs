@@ -15,25 +15,25 @@ public class Explosion : MonoBehaviour
         gameObject.SetActive(false);
     }
 
-    public void StartExplosion(int targetCode)
+    public void StartExplosion(string monsterType)
     {
         ani.SetTrigger("Active");
 
-        switch (targetCode)
+        switch (monsterType)
         {
-            case 0:
+            case "Player":
                 transform.localScale = Vector3.one * 1;
                 break;
-            case 1:
+            case "monster1":
                 transform.localScale = Vector3.one * 0.7f;
                 break;
-            case 2:
+            case "monster2":
                 transform.localScale = Vector3.one * 1;
                 break;
-            case 3:
+            case "monster3":
                 transform.localScale = Vector3.one * 2;
                 break;
-            case 4:
+            case "Boss1":
                 transform.localScale = Vector3.one * 3;
                 break;
         }

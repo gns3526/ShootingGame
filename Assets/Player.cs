@@ -4,19 +4,25 @@ using UnityEngine;
 
 public class Player : MonoBehaviour
 {
+    public bool godMode;
+
     [SerializeField] bool isTouchTop;
     [SerializeField] bool isTouchLeft;
     [SerializeField] bool isTouchRight;
     [SerializeField] bool isTouchBottom;
 
     public int life;
+    public int maxLife;
+    [SerializeField] int maximumLife;
     public int score;
-    [SerializeField] float moveSpeed;
-    [SerializeField] int power;
-    [SerializeField] int maxPower;
+    public float moveSpeed;
+    public int power;
+    public int maxPower;
+    public int increaseDamage;
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
     [SerializeField] float maxShotCoolTime;
+    public float shotCoolTimeReduce;
     [SerializeField] float curShotCoolTime;
 
     [SerializeField] GameObject bullet0;
@@ -32,6 +38,9 @@ public class Player : MonoBehaviour
     [SerializeField] bool isBoomActive;
 
     [SerializeField] GameObject[] followers;
+    public int petType1Amount;
+    public int petType2Amount;
+
     public bool canHit;
     public bool isRespawned;
 
@@ -147,7 +156,7 @@ public class Player : MonoBehaviour
 
         if (!isButtenA) return;
 
-        if (curShotCoolTime < maxShotCoolTime) return;
+        if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
 
         switch (power)
         {
@@ -218,36 +227,47 @@ public class Player : MonoBehaviour
         boomEffect.SetActive(true);
         Invoke("BoomFalse", 4);
 
-        GameObject[] enemyL = OM.GetPool("EnemyL");
-        GameObject[] enemyM = OM.GetPool("EnemyM");
-        GameObject[] enemyS = OM.GetPool("EnemyS");
-        for (int i = 0; i < enemyL.Length; i++)//모든적데미지주기
+        GameObject[] enemy1 = OM.GetPool("1");
+        GameObject[] enemy2 = OM.GetPool("2");
+        GameObject[] enemy3 = OM.GetPool("3");
+        GameObject[] enemy4 = OM.GetPool("4");
+        for (int i = 0; i < enemy1.Length; i++)//모든적데미지주기
         {
-            if (enemyL[i].activeSelf)
+            if (enemy1[i].activeSelf)
             {
-                EnemyScript enemyScript = enemyL[i].GetComponent<EnemyScript>();
+                EnemyScript enemyScript = enemy1[i].GetComponent<EnemyScript>();
                 enemyScript.Hit(1000);
             }
         }
-        for (int i = 0; i < enemyM.Length; i++)//모든적데미지주기
+        for (int i = 0; i < enemy2.Length; i++)//모든적데미지주기
         {
-            if (enemyM[i].activeSelf)
+            if (enemy2[i].activeSelf)
             {
-                EnemyScript enemyScript = enemyM[i].GetComponent<EnemyScript>();
+                EnemyScript enemyScript = enemy2[i].GetComponent<EnemyScript>();
                 enemyScript.Hit(1000);
             }
         }
-        for (int i = 0; i < enemyS.Length; i++)//모든적데미지주기
+        for (int i = 0; i < enemy3.Length; i++)//모든적데미지주기
         {
-            if (enemyS[i].activeSelf)
+            if (enemy3[i].activeSelf)
             {
-                EnemyScript enemyScript = enemyS[i].GetComponent<EnemyScript>();
+                EnemyScript enemyScript = enemy3[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemy4.Length; i++)//모든적데미지주기
+        {
+            if (enemy4[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemy4[i].GetComponent<EnemyScript>();
                 enemyScript.Hit(1000);
             }
         }
 
         GameObject[] BulletEnemy0 = OM.GetPool("BulletEnemy0");
-        GameObject[] bulletEnemy1 = OM.GetPool("BulletEnemy1");
+        GameObject[] BulletEnemy1 = OM.GetPool("BulletEnemy1");
+        GameObject[] BulletEnemy2 = OM.GetPool("BulletEnemy2");
+        GameObject[] BulletEnemy3 = OM.GetPool("BulletEnemy3");
 
         for (int i = 0; i < BulletEnemy0.Length; i++)
         {
@@ -256,11 +276,25 @@ public class Player : MonoBehaviour
                 BulletEnemy0[i].SetActive(false);
             }
         }
-        for (int i = 0; i < bulletEnemy1.Length; i++)
+        for (int i = 0; i < BulletEnemy1.Length; i++)
         {
-            if (BulletEnemy0[i].activeSelf)
+            if (BulletEnemy1[i].activeSelf)
             {
-                bulletEnemy1[i].SetActive(false);
+                BulletEnemy1[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < BulletEnemy2.Length; i++)
+        {
+            if (BulletEnemy2[i].activeSelf)
+            {
+                BulletEnemy2[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < BulletEnemy3.Length; i++)
+        {
+            if (BulletEnemy3[i].activeSelf)
+            {
+                BulletEnemy3[i].SetActive(false);
             }
         }
     }
@@ -289,13 +323,16 @@ public class Player : MonoBehaviour
             if (isRespawned)
                 return;
 
+            if (godMode)
+                return;
+
             if (canHit)
             {
                 life--;
             }
             canHit = false;
             GM.UpdateLifeIcon(life);
-            GM.MakeExplosionEffect(transform.position, 0);//폭발이펙트
+            GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
 
             if(life == 0)
             {
@@ -316,6 +353,7 @@ public class Player : MonoBehaviour
                 case "Coin":
                     score += 1000;
                     break;
+                    /*
                 case "Pow":
                     if (power == maxPower)
                     {
@@ -326,7 +364,7 @@ public class Player : MonoBehaviour
                         power++;
                         AddFollower();
                     }
-                    break;
+                    break;*/
                 case "Boom":
                     if (boom == maxBoom)
                     {
@@ -343,19 +381,23 @@ public class Player : MonoBehaviour
         }
     }
 
-    void AddFollower()
+    public void AddFollower(int type)
     {
-        if(power == 4)
+        for (int i = 0; i < followers.Length; i++)
         {
-            followers[0].SetActive(true);
-        }
-        else if (power == 5)
-        {
-            followers[1].SetActive(true);
-        }
-        else if (power == 6)
-        {
-            followers[2].SetActive(true);
+            if (!followers[i].activeSelf)
+            {
+                switch (type)
+                {
+                    case 1:
+                        dasfoifiujjinfe 
+                        break;
+                }
+            }
+            else
+            {
+                break;
+            }
         }
     }
 

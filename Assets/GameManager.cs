@@ -33,7 +33,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] int spawnIndex;
     [SerializeField] bool spawnEnd;
 
-
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
     private void Awake()
@@ -42,7 +41,7 @@ public class GameManager : MonoBehaviour
 
         cardsSave = new List<GameObject>(cards);
 
-        enemysName = new string[] { "EnemyS", "EnemyM", "EnemyL", "Boss0" };
+        enemysName = new string[] { "1", "2", "3", "4", "Boss0" };
         StageStart();
         ReadSpawnFile();//적 스폰파일 읽기
     }
@@ -58,13 +57,17 @@ public class GameManager : MonoBehaviour
 
         fadeAni.SetTrigger("Out");//밝아지기
 
+        player.GetComponent<Player>().godMode = false;
     }
     public void StageEnd()
     {
+        ClearEnemys();
+
         clearAni.SetTrigger("Active");//클리어Ui
 
         fadeAni.SetTrigger("In");//어두워 지기
 
+        player.GetComponent<Player>().godMode = true;
         player.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
@@ -73,10 +76,81 @@ public class GameManager : MonoBehaviour
             GameOver();
         else
             Invoke("SelectCard", 5);//카드고르기
-
-
-
     }
+    void ClearEnemys()
+    {
+        GameObject[] enemy1 = OM.GetPool("1");
+        GameObject[] enemy2 = OM.GetPool("2");
+        GameObject[] enemy3 = OM.GetPool("3");
+        GameObject[] enemy4 = OM.GetPool("4");
+        for (int i = 0; i < enemy1.Length; i++)//모든적데미지주기
+        {
+            if (enemy1[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemy1[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemy2.Length; i++)//모든적데미지주기
+        {
+            if (enemy2[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemy2[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemy3.Length; i++)//모든적데미지주기
+        {
+            if (enemy3[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemy3[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+        for (int i = 0; i < enemy4.Length; i++)//모든적데미지주기
+        {
+            if (enemy4[i].activeSelf)
+            {
+                EnemyScript enemyScript = enemy4[i].GetComponent<EnemyScript>();
+                enemyScript.Hit(1000);
+            }
+        }
+
+        GameObject[] BulletEnemy0 = OM.GetPool("BulletEnemy0");
+        GameObject[] BulletEnemy1 = OM.GetPool("BulletEnemy1");
+        GameObject[] BulletEnemy2 = OM.GetPool("BulletEnemy2");
+        GameObject[] BulletEnemy3 = OM.GetPool("BulletEnemy3");
+
+        for (int i = 0; i < BulletEnemy0.Length; i++)
+        {
+            if (BulletEnemy0[i].activeSelf)
+            {
+                BulletEnemy0[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < BulletEnemy1.Length; i++)
+        {
+            if (BulletEnemy1[i].activeSelf)
+            {
+                BulletEnemy1[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < BulletEnemy2.Length; i++)
+        {
+            if (BulletEnemy2[i].activeSelf)
+            {
+                BulletEnemy2[i].SetActive(false);
+            }
+        }
+        for (int i = 0; i < BulletEnemy3.Length; i++)
+        {
+            if (BulletEnemy3[i].activeSelf)
+            {
+                BulletEnemy3[i].SetActive(false);
+            }
+        }
+    }
+
     public void SelectCard()
     {
         for (int i = 0; i < 3; i++)
@@ -145,17 +219,20 @@ public class GameManager : MonoBehaviour
         int enemyIndex = 0;
         switch (spawnList[spawnIndex].type) 
         {
-            case "S":
+            case "1":
                 enemyIndex = 0;
                 break;
-            case "M":
+            case "2":
                 enemyIndex = 1;
                 break;
-            case "L":
+            case "3":
                 enemyIndex = 2;
                 break;
-            case "Boss0":
+            case "4":
                 enemyIndex = 3;
+                break;
+            case "Boss0":
+                enemyIndex = 4;
                 break;
         }
         int spawnPoint = spawnList[spawnIndex].point;
@@ -171,16 +248,14 @@ public class GameManager : MonoBehaviour
         if(spawnPoint == 5 || spawnPoint == 8)
         {
             enemy.transform.Rotate(Vector3.back * 90);
-            rigid.velocity = new Vector2(enemyScript.speed * (-1), -1);
         }
         else if (spawnPoint == 6 || spawnPoint == 7)
         {
             enemy.transform.Rotate(Vector3.forward * 90);
-            rigid.velocity = new Vector2(enemyScript.speed, -1);
         }
         else
         {
-            rigid.velocity = new Vector2(0, enemyScript.speed * (-1));
+
         }
 
         //리스폰 인덱스 증가
@@ -230,13 +305,13 @@ public class GameManager : MonoBehaviour
         player.GetComponent<Player>().canHit = true;
     }
 
-    public void MakeExplosionEffect(Vector3 pos, int targetCode)
+    public void MakeExplosionEffect(Vector3 pos, string targetType)
     {
         GameObject explosion = OM.MakeObj("Explosion");
         Explosion explosionScript = explosion.GetComponent<Explosion>();
 
         explosion.transform.position = pos;
-        explosionScript.StartExplosion(targetCode);
+        explosionScript.StartExplosion(targetType);
     }
 
     public void GameOver()

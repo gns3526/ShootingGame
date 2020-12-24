@@ -5,23 +5,26 @@ using UnityEngine.UI;
 
 public class EnemyScript : MonoBehaviour
 {
-    public int enemyNum;
+    public string enemyType;
     [SerializeField] int enemyScore;
     public float speed;
     [SerializeField] float health;
     [SerializeField] float maxHealth;
     [SerializeField] Sprite[] sprites;
     [SerializeField] Image healthImage;
-
-    [SerializeField] bool isShootingMonster;
-    [SerializeField] bool isChasingMonster;
+    [SerializeField] GameObject healthBarGameObject;
 
     [SerializeField] float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
 
     [SerializeField] float stopTImeMonster;
+    [SerializeField] float dashWaitTIme;
+    [SerializeField] float dashToPlayerPower;
+    [SerializeField] bool isDashing;
+    [SerializeField] bool canMoveMonster;
 
     [SerializeField] SpriteRenderer spriteRendererEnemy;
+    [SerializeField] Rigidbody2D rigid;
 
     public GameObject player;
     public GameManager GM;
@@ -36,15 +39,20 @@ public class EnemyScript : MonoBehaviour
     public bool isSpawn;
     private void Awake()
     {
-
          ani = GetComponent<Animator>();
-
     }
     private void OnEnable()
     {
         Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
+
+        canMoveMonster = true;
+        curShotCoolTime = 0;
+        isDashing = false;
+
+        transform.rotation = Quaternion.identity;
+        healthBarGameObject.transform.rotation = Quaternion.identity;
 
         StartCoroutine(Stop());
 
@@ -56,15 +64,15 @@ public class EnemyScript : MonoBehaviour
         if (gameObject.activeSelf)
         {
             Debug.Log("멈춤");
-            Rigidbody2D rigid = GetComponent<Rigidbody2D>();
-            rigid.velocity = Vector2.zero;
 
-            StartCoroutine(Think(0));
+            canMoveMonster = false;
+
+            if(enemyType == "Boss1")
+            {
+                StartCoroutine(Think(0));
+            }
         }
-
-
     }
-
     IEnumerator Think(float waitTime)
     {
         //if (!gameObject.activeSelf)//활성화 되어있지 않다면
@@ -93,13 +101,13 @@ public class EnemyScript : MonoBehaviour
 
     IEnumerator FireFoward()//앞으로 4발
     {
-        GameObject bulletR = OM.MakeObj("BulletBoss1");
+        GameObject bulletR = OM.MakeObj("BulletEnemy4");
         bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-        GameObject bulletRR = OM.MakeObj("BulletBoss1");
+        GameObject bulletRR = OM.MakeObj("BulletEnemy4");
         bulletRR.transform.position = transform.position + Vector3.right * 0.45f;
-        GameObject bulletL = OM.MakeObj("BulletBoss1");
+        GameObject bulletL = OM.MakeObj("BulletEnemy4");
         bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-        GameObject bulletLL = OM.MakeObj("BulletBoss1");
+        GameObject bulletLL = OM.MakeObj("BulletEnemy4");
         bulletLL.transform.position = transform.position + Vector3.left * 0.45f;
 
         Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
@@ -113,16 +121,13 @@ public class EnemyScript : MonoBehaviour
         rigidLL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
 
         curPatternCount++;
-        Debug.Log("44444444444444");
         yield return new WaitForSeconds(fireCoolTime[0]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            //Invoke("FireFoward", 1f);
             StartCoroutine(FireFoward());
         }
         else
         {
-            //Invoke("Think", 2);
             StartCoroutine(Think(2));
         }
     }
@@ -130,7 +135,7 @@ public class EnemyScript : MonoBehaviour
     {
         for (int i = 0; i < 5; i++)
         {
-            GameObject bullet = OM.MakeObj("BulletBoss0");
+            GameObject bullet = OM.MakeObj("BulletEnemy3");
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
@@ -140,7 +145,6 @@ public class EnemyScript : MonoBehaviour
             rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
         }
         curPatternCount++;
-        Debug.Log("33333333333333");
         yield return new WaitForSeconds(fireCoolTime[1]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
@@ -155,7 +159,7 @@ public class EnemyScript : MonoBehaviour
     }
     IEnumerator FireArc()//부체모양
     {
-        GameObject bullet = OM.MakeObj("BulletBoss0");
+        GameObject bullet = OM.MakeObj("BulletEnemy3");
         bullet.transform.position = transform.position;//초기화
         bullet.transform.rotation = Quaternion.identity;//초기화
 
@@ -165,16 +169,13 @@ public class EnemyScript : MonoBehaviour
         rigid.AddForce(dir.normalized * 5, ForceMode2D.Impulse);
 
         curPatternCount++;
-        Debug.Log("22222222222");
         yield return new WaitForSeconds(fireCoolTime[2]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            //Invoke("FireArc", 0.1f);
             StartCoroutine(FireArc());
         }
         else
         {
-            //Invoke("Think", 3);
             StartCoroutine(Think(3));
         }
     }
@@ -185,7 +186,7 @@ public class EnemyScript : MonoBehaviour
         int roundNum = curPatternCount % 2 == 0 ? roundNumA : roundNumB;//roundNumA와roundNumB의 수를 교차
         for (int i = 0; i < roundNum; i++)
         {
-            GameObject bullet = OM.MakeObj("BulletBoss0");
+            GameObject bullet = OM.MakeObj("BulletEnemy3");
             bullet.transform.position = transform.position;//초기화
             bullet.transform.rotation = Quaternion.identity;//초기화
 
@@ -200,57 +201,89 @@ public class EnemyScript : MonoBehaviour
         }
 
         curPatternCount++;
-        Debug.Log("111111111111");
         yield return new WaitForSeconds(fireCoolTime[3]);
         if (curPatternCount < MaxPatternCount[patternIndex])
         {
-            //Invoke("FireAround", 1f);
             StartCoroutine(FireAround());
         }
         else
         {
-            //Invoke("Think", 3);
             StartCoroutine(Think(3));
         }
     }
     private void Update()
     {
-        if (enemyNum == 4)
+        Move();
+
+        if (enemyType == "Boss1")
             return;
+
         Fire();
         Reload();
     }
+    void Move()
+    {
+        if (canMoveMonster)
+        {
+            if (isDashing)
+            {
+                transform.Translate(new Vector2(0, -dashToPlayerPower));
+            }
+            else
+            transform.Translate(new Vector2(0, -speed));
+        }
+    }
     void Fire()
     {
-        if (curShotCoolTime < maxShotCoolTime) return;
-
-        if(enemyNum == 1)
+        if (curShotCoolTime > maxShotCoolTime)
         {
-            GameObject bullet = OM.MakeObj("BulletEnemy0");
-            bullet.transform.position = transform.position;
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            if (enemyType == "Monster1")
+            {
+                GameObject bullet = OM.MakeObj("BulletEnemy1");
+                bullet.transform.position = transform.position;
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
-            Vector3 dir = player.transform.position - transform.position;
-            rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                Vector3 dir = player.transform.position - transform.position;
+                rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                curShotCoolTime = 0;
+            }
+            else if (enemyType == "Monster3")
+            {
+                GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+
+                Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
+                Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
+
+                Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+
+                rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
+                rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
+                curShotCoolTime = 0;
+            }
+            else if (enemyType == "Monster4")
+            {
+
+                canMoveMonster = false;
+                StartCoroutine(LookAtPlayer());
+                isDashing = true;
+                curShotCoolTime = -100;
+
+
+            }
         }
-        else if(enemyNum == 2)
-        {
-            GameObject bulletR = OM.MakeObj("BulletEnemy1");
-            bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-            GameObject bulletL = OM.MakeObj("BulletEnemy1");
-            bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+    }
+    IEnumerator LookAtPlayer()
+    {
+        yield return new WaitForSeconds(dashWaitTIme);
+        float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+        this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+        healthBarGameObject.transform.rotation = Quaternion.identity;
 
-            Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
-            Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
-
-            Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-            Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
-
-            rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
-            rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
-        }
-
-        curShotCoolTime = 0;
+        canMoveMonster = true;
     }
 
     void Reload()
@@ -264,7 +297,7 @@ public class EnemyScript : MonoBehaviour
 
         health -= Dmg;
         healthImage.fillAmount = health / maxHealth;
-        if (enemyNum == 4)
+        if (enemyType == "Boss1")
         {
             ani.SetTrigger("Hit");
         }
@@ -282,7 +315,7 @@ public class EnemyScript : MonoBehaviour
             playerScript.score += enemyScore;
 
 
-            int random = enemyNum == 4 ? 0 : Random.Range(0, 10);
+            int random = enemyType == "Boss1" ? 0 : Random.Range(0, 10);
             if(random < 4)
             {
                 //없으
@@ -294,8 +327,8 @@ public class EnemyScript : MonoBehaviour
             }
             else if (random < 8)//파워
             {
-                GameObject ItemPow = OM.MakeObj("ItemPow");
-                ItemPow.transform.position = transform.position;
+                //GameObject ItemPow = OM.MakeObj("ItemPow");
+                //ItemPow.transform.position = transform.position;
             }
             else if (random < 10)//폭
             {
@@ -310,10 +343,10 @@ public class EnemyScript : MonoBehaviour
 
             gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
-            GM.MakeExplosionEffect(transform.position, enemyNum);
+            GM.MakeExplosionEffect(transform.position, enemyType);
 
             //보스죽음
-            if(enemyNum == 4)
+            if(enemyType == "Boss1")
             {
                 GM.StageEnd();
             }
@@ -326,7 +359,7 @@ public class EnemyScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BulletBorder" && enemyNum != 4)
+        if (other.tag == "BulletBorder" && enemyType != "Boss1")
         {
             isSpawn = false;
             gameObject.SetActive(false);
@@ -334,7 +367,7 @@ public class EnemyScript : MonoBehaviour
         else if (other.tag == "PlayerBullet")
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
-            Hit(bullet.dmg);
+            Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
             isSpawn = false;
             other.gameObject.SetActive(false);

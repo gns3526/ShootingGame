@@ -6,21 +6,50 @@ public class Cards : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] GameManager GM;
-    public void Card1()
-    {
 
-        GM.SelectComplete();
-    }
-    public void Card2()
+    public void CardS(int num)
     {
-        GM.SelectComplete();
-    }
-    public void Card3()
-    {
-        GM.SelectComplete();
-    }
-    public void Card4()
-    {
-        GM.SelectComplete();
+        switch (num)
+        {
+            case 1:
+                if (player.shotCoolTimeReduce != 10)
+                {
+                    player.shotCoolTimeReduce -= 10;
+                }
+                GM.SelectComplete();
+                break;
+            case 2:
+                player.moveSpeed += 1;
+                GM.SelectComplete();
+                break;
+            case 3:
+                player.increaseDamage += 3;
+                GM.SelectComplete();
+                break;
+            case 4:
+                if (player.power != player.maxPower)
+                {
+                    player.power++;
+                }
+                GM.SelectComplete();
+                break;
+            case 5:
+                if (player.maxLife != 10)
+                {
+                    player.maxLife++;
+                    player.life++;
+                }
+                GM.SelectComplete();
+                break;
+            case 6:
+                player.life = player.maxLife;
+                GM.SelectComplete();
+                break;
+            case 7:
+                player.petType1Amount++;
+                player.foll
+                GM.SelectComplete();
+                break;
+        }
     }
 }

@@ -4,9 +4,10 @@ using UnityEngine;
 
 public class ObjectManager : MonoBehaviour
 {
-    [SerializeField] GameObject enemyL_Prefap;
-    [SerializeField] GameObject enemyM_Prefap;
-    [SerializeField] GameObject enemyS_Prefap;
+    [SerializeField] GameObject enemy1_Prefap;
+    [SerializeField] GameObject enemy2_Prefap;
+    [SerializeField] GameObject enemy3_Prefap;
+    [SerializeField] GameObject enemy4_Prefap;
     [SerializeField] GameObject boss0_Prefap;
     [SerializeField] GameObject itemCoin_Prefap;
     [SerializeField] GameObject itemPow_Prefap;
@@ -15,15 +16,18 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject bulletPlayer1_Prefap;
     [SerializeField] GameObject bulletEnemy0_Prefap;
     [SerializeField] GameObject bulletEnemy1_Prefap;
+    [SerializeField] GameObject bulletEnemy2_Prefap;
+    [SerializeField] GameObject bulletEnemy3_Prefap;
     [SerializeField] GameObject bulletFollower0_Prefap;
-    [SerializeField] GameObject bulletBoss0_Prefap;
-    [SerializeField] GameObject bulletBoss1_Prefap;
+
     [SerializeField] GameObject explosion_Prefap;
 
-    GameObject[] enemyL;
-    GameObject[] enemyM;
-    GameObject[] enemyS;
+    GameObject[] enemy1;
+    GameObject[] enemy2;
+    GameObject[] enemy3;
+    GameObject[] enemy4;
     GameObject[] boss0;
+
 
     GameObject[] itemCoin;
     GameObject[] itemPow;
@@ -33,9 +37,9 @@ public class ObjectManager : MonoBehaviour
     GameObject[] bulletPlayer1;
     GameObject[] bulletEnemy0;
     GameObject[] bulletEnemy1;
+    GameObject[] bulletEnemy2;
+    GameObject[] bulletEnemy3;
     GameObject[] bulletFollower0;
-    GameObject[] bulletBoss0;
-    GameObject[] bulletBoss1;
 
     GameObject[] explosion;
 
@@ -45,9 +49,11 @@ public class ObjectManager : MonoBehaviour
 
     private void Awake()
     {
-        enemyL = new GameObject[20];//필요한 갯수
-        enemyM = new GameObject[20];
-        enemyS = new GameObject[20];
+        enemy1 = new GameObject[20];//필요한 갯수
+        enemy2 = new GameObject[20];
+        enemy3 = new GameObject[20];
+        enemy4 = new GameObject[20];
+
         boss0 = new GameObject[10];
 
         itemCoin = new GameObject[20];
@@ -58,8 +64,8 @@ public class ObjectManager : MonoBehaviour
         bulletPlayer1 = new GameObject[100];
         bulletEnemy0 = new GameObject[100];
         bulletEnemy1 = new GameObject[100];
-        bulletBoss0 = new GameObject[1000];
-        bulletBoss1 = new GameObject[200];
+        bulletEnemy3 = new GameObject[1000];
+        bulletEnemy2 = new GameObject[200];
 
         bulletFollower0 = new GameObject[20];
 
@@ -69,31 +75,34 @@ public class ObjectManager : MonoBehaviour
     }
     void Generate()
     {
-        //적
-        for (int i = 0; i < enemyL.Length; i++)
+        //Enemy Object
+        for (int i = 0; i < enemy1.Length; i++)
         {
-            enemyL[i] = Instantiate(enemyL_Prefap);
-            enemyL[i].SetActive(false);
+            enemy1[i] = Instantiate(enemy1_Prefap);
+            enemy1[i].SetActive(false);
         }
-        for (int i = 0; i < enemyM.Length; i++)
+        for (int i = 0; i < enemy2.Length; i++)
         {
-            enemyM[i] = Instantiate(enemyM_Prefap);
-            enemyM[i].SetActive(false);
+            enemy2[i] = Instantiate(enemy2_Prefap);
+            enemy2[i].SetActive(false);
         }
-        for (int i = 0; i < enemyS.Length; i++)
+        for (int i = 0; i < enemy3.Length; i++)
         {
-            enemyS[i] = Instantiate(enemyS_Prefap);
-            enemyS[i].SetActive(false);
+            enemy3[i] = Instantiate(enemy3_Prefap);
+            enemy3[i].SetActive(false);
+        }
+        for (int i = 0; i < enemy4.Length; i++)
+        {
+            enemy4[i] = Instantiate(enemy4_Prefap);
+            enemy4[i].SetActive(false);
         }
         for (int i = 0; i < boss0.Length; i++)
         {
             boss0[i] = Instantiate(boss0_Prefap);
-            Debug.Log("11111");
             boss0[i].SetActive(false);
-            Debug.Log("22222");
         }
 
-        //아이템
+        //Item
         for (int i = 0; i < itemCoin.Length; i++)
         {
             itemCoin[i] = Instantiate(itemCoin_Prefap);
@@ -110,7 +119,7 @@ public class ObjectManager : MonoBehaviour
             itemBoom[i].SetActive(false);
         }
 
-        //플래이어 총알
+        //Player Bullet
         for (int i = 0; i < bulletPlayer0.Length; i++)
         {
             bulletPlayer0[i] = Instantiate(bulletPlayer0_Prefap);
@@ -121,6 +130,8 @@ public class ObjectManager : MonoBehaviour
             bulletPlayer1[i] = Instantiate(bulletPlayer1_Prefap);
             bulletPlayer1[i].SetActive(false);
         }
+
+        //Monster Bullet
         for (int i = 0; i < bulletEnemy0.Length; i++)
         {
             bulletEnemy0[i] = Instantiate(bulletEnemy0_Prefap);
@@ -131,26 +142,24 @@ public class ObjectManager : MonoBehaviour
             bulletEnemy1[i] = Instantiate(bulletEnemy1_Prefap);
             bulletEnemy1[i].SetActive(false);
         }
+        for (int i = 0; i < bulletEnemy2.Length; i++)
+        {
+            bulletEnemy2[i] = Instantiate(bulletEnemy2_Prefap);
+            bulletEnemy2[i].SetActive(false);
+        }
+        for (int i = 0; i < bulletEnemy3.Length; i++)
+        {
+            bulletEnemy3[i] = Instantiate(bulletEnemy3_Prefap);
+            bulletEnemy3[i].SetActive(false);
+        }
 
-        //펫 총알
+        //Pet Bullet
         for (int i = 0; i < bulletFollower0.Length; i++)
         {
             bulletFollower0[i] = Instantiate(bulletFollower0_Prefap);
             bulletFollower0[i].SetActive(false);
         }
 
-        //보스총알
-        for (int i = 0; i < bulletBoss0.Length; i++)
-        {
-            bulletBoss0[i] = Instantiate(bulletBoss0_Prefap);
-            bulletBoss0[i].SetActive(false);
-        }
-        for (int i = 0; i < bulletBoss1.Length; i++)
-        {
-            bulletBoss1[i] = Instantiate(bulletBoss1_Prefap);
-            bulletBoss1[i].SetActive(false);
-        }
-        
         //폭발 이펙트
         for (int i = 0; i < explosion.Length; i++)
         {
@@ -164,16 +173,20 @@ public class ObjectManager : MonoBehaviour
 
         switch (type)
         {
-            case "EnemyL":
-                targetPool = enemyL;
+            case "1":
+                targetPool = enemy1;
                 Code = -1;
                 break;
-            case "EnemyM":
-                targetPool = enemyM;
+            case "2":
+                targetPool = enemy2;
                 Code = -1;
                 break;
-            case "EnemyS":
-                targetPool = enemyS;
+            case "3":
+                targetPool = enemy3;
+                Code = -1;
+                break;
+            case "4":
+                targetPool = enemy4;
                 Code = -1;
                 break;
             case "Boss0":
@@ -200,24 +213,24 @@ public class ObjectManager : MonoBehaviour
                 targetPool = bulletPlayer1;
                 Code = -1;
                 break;
-            case "BulletEnemy0":
+            case "BulletEnemy1":
                 targetPool = bulletEnemy0;
                 Code = -1;
                 break;
-            case "BulletEnemy1":
+            case "BulletEnemy2":
                 targetPool = bulletEnemy1;
+                Code = -1;
+                break;
+            case "BulletEnemy3":
+                targetPool = bulletEnemy2;
+                Code = -1;
+                break;
+            case "BulletEnemy4":
+                targetPool = bulletEnemy3;
                 Code = -1;
                 break;
             case "BulletFollower0":
                 targetPool = bulletFollower0;
-                Code = -1;
-                break;
-            case "BulletBoss0":
-                targetPool = bulletBoss0;
-                Code = -1;
-                break;
-            case "BulletBoss1":
-                targetPool = bulletBoss1;
                 Code = -1;
                 break;
             case "Explosion":
@@ -248,16 +261,19 @@ public class ObjectManager : MonoBehaviour
     {
         switch (type)
         {
-            case "EnemyL":
-                targetPool = enemyL;
+            case "1":
+                targetPool = enemy1;
                 break;
-            case "EnemyM":
-                targetPool = enemyM;
+            case "2":
+                targetPool = enemy2;
                 break;
-            case "EnemyS":
-                targetPool = enemyS;
+            case "3":
+                targetPool = enemy3;
                 break;
-            case "Boss0":
+            case "4":
+                targetPool = enemy4;
+                break;
+            case "Boss1":
                 targetPool = boss0;
                 break;
             case "ItemCoin":
@@ -275,20 +291,20 @@ public class ObjectManager : MonoBehaviour
             case "BulletPlayer1":
                 targetPool = bulletPlayer1;
                 break;
-            case "BulletEnemy0":
+            case "BulletEnemy1":
                 targetPool = bulletEnemy0;
                 break;
-            case "BulletEnemy1":
+            case "BulletEnemy2":
                 targetPool = bulletEnemy1;
+                break;
+            case "BulletEnemy3":
+                targetPool = bulletEnemy2;
+                break;
+            case "BulletEnemy4":
+                targetPool = bulletEnemy3;
                 break;
             case "BulletFollower0":
                 targetPool = bulletFollower0;
-                break;
-            case "BulletBoss0":
-                targetPool = bulletBoss0;
-                break;
-            case "BulletBoss1":
-                targetPool = bulletBoss1;
                 break;
             case "Explosion":
                 targetPool = explosion;
