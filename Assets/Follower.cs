@@ -4,8 +4,10 @@ using UnityEngine;
 
 public class Follower : MonoBehaviour
 {
-    [SerializeField] float maxShotCoolTime;
+    public float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
+    public int bulletType;
+
     [SerializeField] ObjectManager OM;
 
     [SerializeField] Vector3 followPos;
@@ -52,11 +54,26 @@ public class Follower : MonoBehaviour
 
         if (curShotCoolTime < maxShotCoolTime) return;
 
-        GameObject bullet = OM.MakeObj("BulletFollower0");
-        bullet.transform.position = transform.position;
+        switch (bulletType)
+        {
+            case 1:
+                GameObject bullet = OM.MakeObj("BulletFollower0");
+                bullet.transform.position = transform.position;
 
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-        rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                break;
+            case 2:
+                GameObject bullet2 = OM.MakeObj("BulletFollower1");
+                bullet2.transform.position = transform.position;
+
+                Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
+                rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                break;
+        }
+ 
+
+
 
 
         curShotCoolTime = 0;

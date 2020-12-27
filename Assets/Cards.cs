@@ -38,16 +38,21 @@ public class Cards : MonoBehaviour
                 {
                     player.maxLife++;
                     player.life++;
+                    GM.UpdateLifeIcon(player.life);
                 }
                 GM.SelectComplete();
                 break;
             case 6:
                 player.life = player.maxLife;
+                GM.UpdateLifeIcon(player.life);
                 GM.SelectComplete();
                 break;
             case 7:
-                player.petType1Amount++;
-                player.foll
+                player.AddFollower(1);
+                GM.SelectComplete();
+                break;
+            case 8:
+                player.AddFollower(2);
                 GM.SelectComplete();
                 break;
         }

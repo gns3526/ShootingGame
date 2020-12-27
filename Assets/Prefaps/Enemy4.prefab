@@ -146,7 +146,7 @@ MonoBehaviour:
   curShotCoolTime: 0
   stopTImeMonster: 100
   dashWaitTIme: 0.2
-  dashToPlayerPower: 0.3
+  dashToPlayerPower: 0.15
   isDashing: 0
   canMoveMonster: 0
   spriteRendererEnemy: {fileID: 2566655035291444882}

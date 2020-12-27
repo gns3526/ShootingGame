@@ -283,7 +283,7 @@ public class GameManager : MonoBehaviour
     }
     public void UpdateLifeIcon(int life)
     {
-        for (int i = 0; i < 3; i++)//끄기
+        for (int i = 0; i < lifeImage.Length; i++)//끄기
         {
             lifeImage[i].color = new Color(1, 1, 1, 0);
         }

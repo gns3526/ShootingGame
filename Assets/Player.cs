@@ -38,8 +38,7 @@ public class Player : MonoBehaviour
     [SerializeField] bool isBoomActive;
 
     [SerializeField] GameObject[] followers;
-    public int petType1Amount;
-    public int petType2Amount;
+    [SerializeField] Sprite[] followerSprites;
 
     public bool canHit;
     public bool isRespawned;
@@ -55,6 +54,7 @@ public class Player : MonoBehaviour
     private void OnEnable()
     {
         Unbeatable();
+        GM.UpdateLifeIcon(life);
         Invoke("Unbeatable", 3);//무적시간
     }
     void Unbeatable()
@@ -86,6 +86,14 @@ public class Player : MonoBehaviour
         Fire();
         Reload();
         UseBoom();
+        if (Input.GetKeyDown(KeyCode.R))
+        {
+            AddFollower(1);
+        }
+        if (Input.GetKeyDown(KeyCode.T))
+        {
+            AddFollower(2);
+        }
     }
 
     public void JoyPanel(int type)
@@ -108,17 +116,6 @@ public class Player : MonoBehaviour
     {
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
-        /*
-        if (joyControl[0]) { h = -1; v = 1; }
-        if (joyControl[1]) {h = 0; v = 1; }
-        if (joyControl[2]) {h = 1; v = 1; }
-        if (joyControl[3]) {h = -1; v = 0; }
-        if (joyControl[4]) {h = 0; v = 0; }
-        if (joyControl[5]) {h = 1; v = 0; }
-        if (joyControl[6]) {h = -1; v = -1; }
-        if (joyControl[7]) {h = 0; v = -1; }
-        if (joyControl[8]) {h = 1; v = -1; }
-        */
 
         if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)/* || !isControl*/) h = 0;
         if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)/* || !isControl*/) v = 0;
@@ -387,15 +384,22 @@ public class Player : MonoBehaviour
         {
             if (!followers[i].activeSelf)
             {
+                followers[i].SetActive(true);
+                Follower followerScript = followers[i].GetComponent<Follower>();
+                SpriteRenderer followersprite = followers[i].GetComponent<SpriteRenderer>();
                 switch (type)
                 {
                     case 1:
-                        dasfoifiujjinfe 
+                        followerScript.maxShotCoolTime = 0.2f;
+                        followerScript.bulletType = 1;
+                        followersprite.sprite = followerSprites[0];
+                        break;
+                    case 2:
+                        followerScript.maxShotCoolTime = 2f;
+                        followerScript.bulletType = 2;
+                        followersprite.sprite = followerSprites[1];
                         break;
                 }
-            }
-            else
-            {
                 break;
             }
         }

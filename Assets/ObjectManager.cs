@@ -19,6 +19,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject bulletEnemy2_Prefap;
     [SerializeField] GameObject bulletEnemy3_Prefap;
     [SerializeField] GameObject bulletFollower0_Prefap;
+    [SerializeField] GameObject bulletFollower1_Prefap;
 
     [SerializeField] GameObject explosion_Prefap;
 
@@ -39,7 +40,9 @@ public class ObjectManager : MonoBehaviour
     GameObject[] bulletEnemy1;
     GameObject[] bulletEnemy2;
     GameObject[] bulletEnemy3;
+
     GameObject[] bulletFollower0;
+    GameObject[] bulletFollower1;
 
     GameObject[] explosion;
 
@@ -67,7 +70,8 @@ public class ObjectManager : MonoBehaviour
         bulletEnemy3 = new GameObject[1000];
         bulletEnemy2 = new GameObject[200];
 
-        bulletFollower0 = new GameObject[20];
+        bulletFollower0 = new GameObject[100];
+        bulletFollower1 = new GameObject[50];
 
         explosion = new GameObject[20];
 
@@ -159,6 +163,11 @@ public class ObjectManager : MonoBehaviour
             bulletFollower0[i] = Instantiate(bulletFollower0_Prefap);
             bulletFollower0[i].SetActive(false);
         }
+        for (int i = 0; i < bulletFollower1.Length; i++)
+        {
+            bulletFollower1[i] = Instantiate(bulletFollower1_Prefap);
+            bulletFollower1[i].SetActive(false);
+        }
 
         //폭발 이펙트
         for (int i = 0; i < explosion.Length; i++)
@@ -233,6 +242,10 @@ public class ObjectManager : MonoBehaviour
                 targetPool = bulletFollower0;
                 Code = -1;
                 break;
+            case "BulletFollower1":
+                targetPool = bulletFollower1;
+                Code = -1;
+                break;
             case "Explosion":
                 targetPool = explosion;
                 Code = -1;
@@ -305,6 +318,10 @@ public class ObjectManager : MonoBehaviour
                 break;
             case "BulletFollower0":
                 targetPool = bulletFollower0;
+                break;
+            case "BulletFollower1":
+                targetPool = bulletFollower1;
+                Code = -1;
                 break;
             case "Explosion":
                 targetPool = explosion;
