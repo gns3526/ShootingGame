@@ -1,8 +1,11 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class Player : MonoBehaviour
+public class Player : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool godMode;
 
@@ -31,6 +34,7 @@ public class Player : MonoBehaviour
 
     [SerializeField] Animator ani;
     [SerializeField] SpriteRenderer sprite;
+    [SerializeField] Rigidbody2D rigid;
 
     [SerializeField] GameManager GM;
     [SerializeField] ObjectManager OM;
@@ -50,7 +54,26 @@ public class Player : MonoBehaviour
 
     public float dmgPer;
     public float firePer;
+   
 
+    //Photon Panel
+
+
+    [SerializeField] Text nickNameText;
+    [SerializeField] PhotonView pv;
+
+    [SerializeField] Vector3 curPosPv;
+
+
+    private void Awake()
+    {
+        GM = FindObjectOfType<GameManager>();
+        OM = FindObjectOfType<ObjectManager>();
+
+        GM.player = gameObject;
+
+        nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
+    }
     private void OnEnable()
     {
         Unbeatable();
@@ -82,18 +105,31 @@ public class Player : MonoBehaviour
 
     private void Update()
     {
-        Move();
-        Fire();
-        Reload();
-        UseBoom();
-        if (Input.GetKeyDown(KeyCode.R))
+        if (pv.IsMine)
         {
-            AddFollower(1);
+            Move();
+            Fire();
+            Reload();
+            UseBoom();
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                AddFollower(1);
+            }
+            if (Input.GetKeyDown(KeyCode.T))
+            {
+                AddFollower(2);
+            }
         }
-        if (Input.GetKeyDown(KeyCode.T))
+        else if((transform.position - curPosPv).sqrMagnitude >= 100)
         {
-            AddFollower(2);
+            transform.position = curPosPv;
         }
+        else//Moving Softly
+        {
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
+        }
+
+       
     }
 
     public void JoyPanel(int type)
@@ -119,10 +155,13 @@ public class Player : MonoBehaviour
 
         if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)/* || !isControl*/) h = 0;
         if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)/* || !isControl*/) v = 0;
-        Vector3 curPos = transform.position;
-        Vector3 nextPos = new Vector3(h, v, 0) * moveSpeed * Time.deltaTime;
+        //Vector3 curPos = transform.position;
+        //Vector3 nextPos = new Vector3(h, v, 0) * moveSpeed * Time.deltaTime;
 
-        transform.position = curPos + nextPos;
+        //transform.position = curPos + nextPos;
+
+        //transform.Translate(Vector3.right * 7 * Time.deltaTime * h);
+        rigid.velocity = new Vector2(4 * h, 4 * v);
 
         if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
         {
@@ -147,21 +186,24 @@ public class Player : MonoBehaviour
         isButtenB = false;
     }
 
+ 
     void Fire()
     {
-        //if (!Input.GetButton("Fire1")) return;
+        if (!Input.GetButton("Fire1")) return;
 
-        if (!isButtenA) return;
+        //if (!isButtenA) return;
 
         if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
 
         switch (power)
         {
             case 1:
-                GameObject bullet = OM.MakeObj("BulletPlayer0");
-                bullet.transform.position = transform.position;
-                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+
+                pv.RPC("shhotiung", RpcTarget.AllBuffered);
+                /* GameObject bullet = OM.MakeObj("BulletPlayer0");
+                 bullet.transform.position = transform.position;
+                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);*/
                 break;
             case 2:
                 GameObject bulletR = OM.MakeObj("BulletPlayer0");
@@ -200,6 +242,16 @@ public class Player : MonoBehaviour
         curShotCoolTime = 0;
     }
 
+    [PunRPC]
+    void shhotiung()
+    {
+        GameObject bullet = OM.MakeObj("BulletPlayer0");
+        bullet.SetActive(true); // test
+
+        bullet.transform.position = transform.position;
+        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+    }
     void Reload()
     {
         curShotCoolTime += Time.deltaTime;
@@ -337,7 +389,8 @@ public class Player : MonoBehaviour
             }
             else
             {
-                GM.ReSpawnM();
+                
+                GM.StartCoroutine("ReSpawnM");
             }
             gameObject.SetActive(false);
             
@@ -429,6 +482,18 @@ public class Player : MonoBehaviour
                     isTouchBottom = false;
                     break;
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)//isMine = true
+        {
+            stream.SendNext(transform.position);
+        }
+        else
+        {
+            curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
 }

@@ -1,7 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
+using Photon.Realtime;
 public class ObjectManager : MonoBehaviour
 {
     [SerializeField] GameObject enemy1_Prefap;
@@ -20,7 +21,7 @@ public class ObjectManager : MonoBehaviour
     [SerializeField] GameObject bulletEnemy3_Prefap;
     [SerializeField] GameObject bulletFollower0_Prefap;
     [SerializeField] GameObject bulletFollower1_Prefap;
-
+    
     [SerializeField] GameObject explosion_Prefap;
 
     GameObject[] enemy1;
@@ -49,6 +50,8 @@ public class ObjectManager : MonoBehaviour
     GameObject[] targetPool;
 
     int Code;
+
+    [SerializeField] PhotonView pv;
 
     private void Awake()
     {
@@ -83,26 +86,36 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < enemy1.Length; i++)
         {
             enemy1[i] = Instantiate(enemy1_Prefap);
+            enemy1[i].GetComponent<PhotonView>().ViewID = 10 + i;
+           // enemy1[i].GetComponent<EnemyScript>().creat();
             enemy1[i].SetActive(false);
         }
         for (int i = 0; i < enemy2.Length; i++)
         {
             enemy2[i] = Instantiate(enemy2_Prefap);
+            enemy2[i].GetComponent<PhotonView>().ViewID = 50 + i;
+           // enemy2[i].GetComponent<EnemyScript>().creat();
             enemy2[i].SetActive(false);
         }
         for (int i = 0; i < enemy3.Length; i++)
         {
             enemy3[i] = Instantiate(enemy3_Prefap);
+            enemy3[i].GetComponent<PhotonView>().ViewID = 100 + i;
+           // enemy3[i].GetComponent<EnemyScript>().creat();
             enemy3[i].SetActive(false);
         }
         for (int i = 0; i < enemy4.Length; i++)
         {
             enemy4[i] = Instantiate(enemy4_Prefap);
+            enemy4[i].GetComponent<PhotonView>().ViewID = 150 + i;
+          //  enemy4[i].GetComponent<EnemyScript>().creat();
             enemy4[i].SetActive(false);
         }
         for (int i = 0; i < boss0.Length; i++)
         {
             boss0[i] = Instantiate(boss0_Prefap);
+            boss0[i].GetComponent<PhotonView>().ViewID = 200 + i;
+          //  boss0[i].GetComponent<EnemyScript>().creat();
             boss0[i].SetActive(false);
         }
 
@@ -127,11 +140,13 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletPlayer0.Length; i++)
         {
             bulletPlayer0[i] = Instantiate(bulletPlayer0_Prefap);
+            bulletPlayer0[i].GetComponent<PhotonView>().ViewID = 350 + i;
             bulletPlayer0[i].SetActive(false);
         }
         for (int i = 0; i < bulletPlayer1.Length; i++)
         {
             bulletPlayer1[i] = Instantiate(bulletPlayer1_Prefap);
+            bulletPlayer1[i].GetComponent<PhotonView>().ViewID = 450 + i;
             bulletPlayer1[i].SetActive(false);
         }
 
@@ -139,21 +154,25 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletEnemy0.Length; i++)
         {
             bulletEnemy0[i] = Instantiate(bulletEnemy0_Prefap);
+            bulletEnemy0[i].GetComponent<PhotonView>().ViewID = 550 + i;
             bulletEnemy0[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy1.Length; i++)
         {
             bulletEnemy1[i] = Instantiate(bulletEnemy1_Prefap);
+            bulletEnemy1[i].GetComponent<PhotonView>().ViewID = 650 + i;
             bulletEnemy1[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy2.Length; i++)
         {
             bulletEnemy2[i] = Instantiate(bulletEnemy2_Prefap);
+            bulletEnemy2[i].GetComponent<PhotonView>().ViewID = 1650 + i;
             bulletEnemy2[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy3.Length; i++)
         {
             bulletEnemy3[i] = Instantiate(bulletEnemy3_Prefap);
+            bulletEnemy3[i].GetComponent<PhotonView>().ViewID = 1850 + i;
             bulletEnemy3[i].SetActive(false);
         }
 
@@ -161,11 +180,13 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletFollower0.Length; i++)
         {
             bulletFollower0[i] = Instantiate(bulletFollower0_Prefap);
+            bulletFollower0[i].GetComponent<PhotonView>().ViewID = 3000 + i;
             bulletFollower0[i].SetActive(false);
         }
         for (int i = 0; i < bulletFollower1.Length; i++)
         {
             bulletFollower1[i] = Instantiate(bulletFollower1_Prefap);
+            bulletFollower1[i].GetComponent<PhotonView>().ViewID = 3100 + i;
             bulletFollower1[i].SetActive(false);
         }
 
@@ -179,24 +200,23 @@ public class ObjectManager : MonoBehaviour
 
     public GameObject MakeObj(string type)
     {
-
         switch (type)
         {
             case "1":
                 targetPool = enemy1;
-                Code = -1;
+                Code = 4;
                 break;
             case "2":
                 targetPool = enemy2;
-                Code = -1;
+                Code = 4;
                 break;
             case "3":
                 targetPool = enemy3;
-                Code = -1;
+                Code = 4;
                 break;
             case "4":
                 targetPool = enemy4;
-                Code = -1;
+                Code = 4;
                 break;
             case "Boss0":
                 targetPool = boss0;
@@ -250,25 +270,28 @@ public class ObjectManager : MonoBehaviour
                 targetPool = explosion;
                 Code = -1;
                 break;
-
+      
         }
         for (int i = 0; i < targetPool.Length; i++)
         {
             if (!targetPool[i].activeSelf)//맨위에꺼가 꺼져있다면
             {
-                if(Code == 0)
+                if (Code == 0)
                 {
                     targetPool[i].GetComponent<EnemyScript>().isSpawn = true;
                 }
-
-
+                if (Code == 4)
+                {
+                    targetPool[i].GetComponent<EnemyScript>().creat();
+                }
                 targetPool[i].SetActive(true);
                 return targetPool[i];//켜준다
             }
-
         }
+
         return null;
     }
+  
 
     public GameObject[] GetPool(string type)
     {

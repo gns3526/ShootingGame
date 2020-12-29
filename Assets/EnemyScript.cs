@@ -2,8 +2,10 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
-public class EnemyScript : MonoBehaviour
+public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 {
     public string enemyType;
     [SerializeField] int enemyScore;
@@ -27,25 +29,39 @@ public class EnemyScript : MonoBehaviour
     [SerializeField] Rigidbody2D rigid;
 
     public GameObject player;
+    public GameObject[] players;
     public GameManager GM;
     public ObjectManager OM;
     Animator ani;
-
     [SerializeField] int patternIndex;
     [SerializeField] int curPatternCount;
     [SerializeField] int[] MaxPatternCount;
     [SerializeField] float[] fireCoolTime;
 
+    //
+    [SerializeField] PhotonView pv;
     public bool isSpawn;
     private void Awake()
     {
          ani = GetComponent<Animator>();
+    }
+    public void creat()
+    {
+        if (!player)
+        {
+            players = GameObject.FindGameObjectsWithTag("Player");
+        }
+            player = players[Random.Range(0, players.Length)]; // AA
     }
     private void OnEnable()
     {
         Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
+       // player = GameObject.FindGameObjectWithTag("Player");
+
+     //   players = GameObject.FindGameObjectsWithTag("Player");
+      //  player = players[Random.Range(0, players.Length)];
 
         canMoveMonster = true;
         curShotCoolTime = 0;
@@ -56,8 +72,15 @@ public class EnemyScript : MonoBehaviour
 
         StartCoroutine(Stop());
 
+
     }
-    
+
+    private void OnDisable()
+    {
+        //StopCoroutine(FindPlayer());
+    }
+
+
     public IEnumerator Stop()
     {
         yield return new WaitForSeconds(stopTImeMonster);
@@ -139,6 +162,7 @@ public class EnemyScript : MonoBehaviour
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
+            //Vector2 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
             Vector2 dir = player.transform.position - transform.position;
             Vector2 randomVector = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0, 2));
             dir += randomVector;
@@ -214,7 +238,6 @@ public class EnemyScript : MonoBehaviour
     private void Update()
     {
         Move();
-
         if (enemyType == "Boss1")
             return;
 
@@ -233,57 +256,93 @@ public class EnemyScript : MonoBehaviour
             transform.Translate(new Vector2(0, -speed));
         }
     }
+    [PunRPC]
     void Fire()
     {
         if (curShotCoolTime > maxShotCoolTime)
         {
+            
             if (enemyType == "Monster1")
             {
-                GameObject bullet = OM.MakeObj("BulletEnemy1");
-                bullet.transform.position = transform.position;
-                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                if (player.activeSelf)
+                {
 
-                Vector3 dir = player.transform.position - transform.position;
-                rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
-                curShotCoolTime = 0;
+
+                    GameObject bullet = OM.MakeObj("BulletEnemy1");
+                    bullet.transform.position = transform.position;
+                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    Debug.Log("qwdqwd");
+
+                    // Vector3 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
+
+                    //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
+
+                    Vector3 dir = player.transform.position - transform.position;
+                    rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                    curShotCoolTime = 0;
+                }
+                else
+                {
+                    GameObject bullet = OM.MakeObj("BulletEnemy1");
+                    bullet.transform.position = transform.position;
+                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    curShotCoolTime = 0;
+                }
             }
             else if (enemyType == "Monster3")
             {
-                GameObject bulletR = OM.MakeObj("BulletEnemy2");
-                bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                if (player.activeSelf)
+                {
+                
+                    GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                    bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                    GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                    bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
-                Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
-                Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
+                    Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
+                    Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
 
-                Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+                    Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                    Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
 
-                rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
-                rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
-                curShotCoolTime = 0;
+                    rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
+                    rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
+                    curShotCoolTime = 0;
+                }
+                else
+                {
+                    GameObject bullet = OM.MakeObj("BulletEnemy1");
+                    bullet.transform.position = transform.position;
+                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    curShotCoolTime = 0;
+                }
             }
             else if (enemyType == "Monster4")
             {
-
-                canMoveMonster = false;
-                StartCoroutine(LookAtPlayer());
-                isDashing = true;
-                curShotCoolTime = -100;
-
-
+                    canMoveMonster = false;
+                    StartCoroutine(LookAtPlayer());
+                    isDashing = true;
+                    curShotCoolTime = -100;
+                
             }
         }
     }
     IEnumerator LookAtPlayer()
     {
-        yield return new WaitForSeconds(dashWaitTIme);
-        float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-        healthBarGameObject.transform.rotation = Quaternion.identity;
+        if (player.activeSelf)
+        {
+            yield return new WaitForSeconds(dashWaitTIme);
+            float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+            this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+            healthBarGameObject.transform.rotation = Quaternion.identity;
 
-        canMoveMonster = true;
+            canMoveMonster = true;
+        }
+        else
+        {
+            yield return new WaitForSeconds(dashWaitTIme);
+            canMoveMonster = true;
+        }
     }
 
     void Reload()
@@ -362,15 +421,40 @@ public class EnemyScript : MonoBehaviour
         if (other.tag == "BulletBorder" && enemyType != "Boss1")
         {
             isSpawn = false;
-            gameObject.SetActive(false);
+            //gameObject.SetActive(false);
+            pv.RPC("DestroyRpc", RpcTarget.AllBuffered);
         }
         else if (other.tag == "PlayerBullet")
         {
-            BulletScript bullet = other.GetComponent<BulletScript>();
-            Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
+            if (player)
+            {
+                BulletScript bullet = other.GetComponent<BulletScript>();
+                Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
-            isSpawn = false;
-            other.gameObject.SetActive(false);
+                isSpawn = false;
+                //other.gameObject.SetActive(false);
+            }
+
         }
     }
+
+    [PunRPC]
+    void DestroyRpc()
+    {
+        gameObject.SetActive(false);
+    }
+
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)//isMine = true
+        {
+            stream.SendNext(healthImage.fillAmount);
+        }
+        else
+        {
+            healthImage.fillAmount = (float)stream.ReceiveNext();
+        }
+    }
+
 }

@@ -87,6 +87,8 @@ GameObject:
   - component: {fileID: 7461705952728156046}
   - component: {fileID: 7461705952728156045}
   - component: {fileID: 7461705952728156044}
+  - component: {fileID: 6279287305572448718}
+  - component: {fileID: 6447052280214845121}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -236,14 +238,53 @@ MonoBehaviour:
   canMoveMonster: 0
   spriteRendererEnemy: {fileID: 7461705952728156047}
   rigid: {fileID: 0}
-  player: {fileID: 0}
+  player: []
   GM: {fileID: 0}
   OM: {fileID: 0}
   patternIndex: 0
   curPatternCount: 0
   MaxPatternCount: 
   fireCoolTime: []
+  pv: {fileID: 6279287305572448718}
   isSpawn: 0
+--- !u!114 &6279287305572448718
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461705952728156019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 7461705952728156044}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
+--- !u!114 &6447052280214845121
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461705952728156019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_SynchronizePosition: 1
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &7529607913075604165
 GameObject:
   m_ObjectHideFlags: 0

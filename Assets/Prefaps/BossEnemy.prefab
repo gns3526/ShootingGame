@@ -162,6 +162,7 @@ GameObject:
   - component: {fileID: 3646381594106627791}
   - component: {fileID: 3646381594106627790}
   - component: {fileID: 3646381594106627785}
+  - component: {fileID: 3168336670733261172}
   m_Layer: 0
   m_Name: BossEnemy
   m_TagString: Enemy
@@ -318,7 +319,7 @@ MonoBehaviour:
   canMoveMonster: 0
   spriteRendererEnemy: {fileID: 0}
   rigid: {fileID: 0}
-  player: {fileID: 0}
+  player: []
   GM: {fileID: 0}
   OM: {fileID: 0}
   patternIndex: -1
@@ -329,7 +330,31 @@ MonoBehaviour:
   - 0.5
   - 0.05
   - 4
+  pv: {fileID: 3168336670733261172}
   isSpawn: 0
+--- !u!114 &3168336670733261172
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 3646381594106627784}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents:
+  - {fileID: 3646381594106627785}
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5694560200886538556
 GameObject:
   m_ObjectHideFlags: 0

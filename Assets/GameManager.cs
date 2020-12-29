@@ -4,11 +4,14 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.SceneManagement;
 using System.IO;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
+    [SerializeField] bool isGameStart;
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
     [SerializeField] Animator fadeAni;
@@ -20,7 +23,8 @@ public class GameManager : MonoBehaviour
     [SerializeField] float nextSpawnDelay;
     [SerializeField] float curSpawnDelay;
 
-    [SerializeField] GameObject player;
+    public GameObject player;
+    [SerializeField] float respawnCoolTIme;
 
     [SerializeField] Text scoreText;
     [SerializeField] Image[] lifeImage;
@@ -35,6 +39,10 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
+
+    //
+
+    [SerializeField] PhotonView pv;
     private void Awake()
     {
         spawnList = new List<Spawn>();
@@ -42,10 +50,12 @@ public class GameManager : MonoBehaviour
         cardsSave = new List<GameObject>(cards);
 
         enemysName = new string[] { "1", "2", "3", "4", "Boss0" };
-        StageStart();
-        ReadSpawnFile();//적 스폰파일 읽기
-    }
 
+
+
+        //ReadSpawnFile();//적 스폰파일 읽기
+    }
+    [PunRPC]
     void StageStart()
     {
         startAni.SetTrigger("Active");//스테이지Ui
@@ -54,10 +64,12 @@ public class GameManager : MonoBehaviour
         clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
 
         ReadSpawnFile();//적 스폰파일 읽기
+        isGameStart = true;
 
         fadeAni.SetTrigger("Out");//밝아지기
 
         player.GetComponent<Player>().godMode = false;
+
     }
     public void StageEnd()
     {
@@ -204,14 +216,16 @@ public class GameManager : MonoBehaviour
     {
         curSpawnDelay += Time.deltaTime;
 
-        if(curSpawnDelay > nextSpawnDelay && !spawnEnd)
+        if(curSpawnDelay > nextSpawnDelay && !spawnEnd && isGameStart)
         {
             SpawnEnemy();
             
             curSpawnDelay = 0;
         }
-        Player playerScript = player.GetComponent<Player>();
-        scoreText.text = string.Format("{0:n0}",playerScript.score);
+        //Player playerScript = player.GetComponent<Player>();
+        //scoreText.text = string.Format("{0:n0}",playerScript.score);
+
+        if (Input.GetKeyDown(KeyCode.Y)) pv.RPC("StageStart",RpcTarget.AllBuffered);
     }
 
     void SpawnEnemy()
@@ -241,7 +255,7 @@ public class GameManager : MonoBehaviour
 
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-        enemyScript.player = player;
+        //enemyScript.player = player;
         enemyScript.GM = this;
         enemyScript.OM = OM;
 
@@ -293,16 +307,23 @@ public class GameManager : MonoBehaviour
         }
     }
 
-    public void ReSpawnM()
+    public IEnumerator ReSpawnM()
     {
-        Invoke("ReSpawn", 2);
+        //Invoke("ReSpawn", respawnCoolTIme);
+        yield return new WaitForSeconds(respawnCoolTIme);
+        player.transform.position = new Vector3(0, -3.5f, 0);
+        player.GetComponent<Player>().canHit = true;
+        pv.RPC("ReSpawn", RpcTarget.AllBuffered);
+        //ReSpawn();
     }
+
+    [PunRPC]
     void ReSpawn()
     {
-        player.transform.position = new Vector3(0, -3.5f, 0);
+      
         player.SetActive(true);
-
-        player.GetComponent<Player>().canHit = true;
+       // Debug.Log("리스폰");
+      
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)

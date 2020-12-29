@@ -1,6 +1,8 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Follower : MonoBehaviour
 {
@@ -19,6 +21,12 @@ public class Follower : MonoBehaviour
     {
         parentPos = new Queue<Vector3>();
     }
+
+    private void OnEnable()
+    {
+        OM = FindObjectOfType<ObjectManager>();
+    }
+
     private void Update()
     {
         Watch();
@@ -52,6 +60,8 @@ public class Follower : MonoBehaviour
     {
         if (!Input.GetButton("Fire1")) return;
 
+        if (!parent.GetComponent<PhotonView>().IsMine) return;
+
         if (curShotCoolTime < maxShotCoolTime) return;
 
         switch (bulletType)
@@ -71,10 +81,6 @@ public class Follower : MonoBehaviour
                 rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
         }
- 
-
-
-
 
         curShotCoolTime = 0;
     }
