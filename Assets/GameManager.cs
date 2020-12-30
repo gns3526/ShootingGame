@@ -32,6 +32,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject retryPanel;
 
     [SerializeField] ObjectManager OM;
+    [SerializeField] bool generateOnce;
 
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
@@ -42,7 +43,10 @@ public class GameManager : MonoBehaviour
 
     //
 
+
     [SerializeField] PhotonView pv;
+
+
     private void Awake()
     {
         spawnList = new List<Spawn>();
@@ -55,9 +59,16 @@ public class GameManager : MonoBehaviour
 
         //ReadSpawnFile();//적 스폰파일 읽기
     }
+
     [PunRPC]
     void StageStart()
     {
+        if (generateOnce)
+        {
+            generateOnce = false;
+            OM.Generate();
+        }
+
         startAni.SetTrigger("Active");//스테이지Ui
         
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
@@ -343,4 +354,6 @@ public class GameManager : MonoBehaviour
     {
         SceneManager.LoadScene(0);
     }
+
+
 }

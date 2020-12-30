@@ -44,6 +44,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
          ani = GetComponent<Animator>();
+
     }
     public void creat()
     {
@@ -51,10 +52,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             players = GameObject.FindGameObjectsWithTag("Player");
         }
-            player = players[Random.Range(0, players.Length)]; // AA
+        player = players[Random.Range(0, players.Length)]; // AA
     }
     private void OnEnable()
     {
+        creat();
         Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
@@ -283,9 +285,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    GameObject bullet = OM.MakeObj("BulletEnemy1");
-                    bullet.transform.position = transform.position;
-                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    GameObject bulletM = OM.MakeObj("BulletEnemy1");
+                    bulletM.transform.position = transform.position;
+                    Rigidbody2D rigidM = bulletM.GetComponent<Rigidbody2D>();
+                    rigidM.AddForce(Vector2.down * 2, ForceMode2D.Impulse);
                     curShotCoolTime = 0;
                 }
             }
@@ -311,9 +314,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    GameObject bullet = OM.MakeObj("BulletEnemy1");
-                    bullet.transform.position = transform.position;
-                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                    bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                    Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                    GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                    bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                    Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+                    rigidR.AddForce(Vector2.down, ForceMode2D.Impulse);
+                    rigidL.AddForce(Vector2.down, ForceMode2D.Impulse);
                     curShotCoolTime = 0;
                 }
             }
@@ -329,6 +337,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     IEnumerator LookAtPlayer()
     {
+
         if (player.activeSelf)
         {
             yield return new WaitForSeconds(dashWaitTIme);

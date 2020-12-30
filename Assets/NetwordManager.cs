@@ -5,11 +5,18 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
-public class NetwordManager : MonoBehaviourPunCallbacks
+public class NetwordManager : MonoBehaviourPunCallbacks,IPunObservable
 {
+    [SerializeField] PhotonView pv;
+
+    [SerializeField] GameManager GM;
+
     [SerializeField] InputField nickNameInput;
     [SerializeField] GameObject connectPanel;
     [SerializeField] GameObject respawnPanel;
+
+    [SerializeField] Text playerAmountText;
+    public int playerAmount;
 
     private void Awake()
     {
@@ -34,6 +41,7 @@ public class NetwordManager : MonoBehaviourPunCallbacks
     public void Spawn()
     {
         PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered);
         respawnPanel.SetActive(false);
     }
     private void Update()
@@ -50,5 +58,25 @@ public class NetwordManager : MonoBehaviourPunCallbacks
     {
         connectPanel.SetActive(true);
         respawnPanel.SetActive(false);
+    }
+
+    [PunRPC]
+    void IncreasePlayerAmountRPC()
+    {
+        playerAmount++;
+        playerAmountText.text = "플래이어수:" + playerAmount.ToString();
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)
+        {
+            stream.SendNext(playerAmount);
+        }
+        else
+        {
+            playerAmount = (int)stream.ReceiveNext();
+        }
+
     }
 }

@@ -78,44 +78,44 @@ public class ObjectManager : MonoBehaviour
 
         explosion = new GameObject[20];
 
-        Generate();
+        //Generate();
     }
-    void Generate()
+    public void Generate()
     {
         //Enemy Object
         for (int i = 0; i < enemy1.Length; i++)
         {
             enemy1[i] = Instantiate(enemy1_Prefap);
             enemy1[i].GetComponent<PhotonView>().ViewID = 10 + i;
-           // enemy1[i].GetComponent<EnemyScript>().creat();
+            //enemy1[i].GetComponent<EnemyScript>().creat();
             enemy1[i].SetActive(false);
         }
         for (int i = 0; i < enemy2.Length; i++)
         {
             enemy2[i] = Instantiate(enemy2_Prefap);
             enemy2[i].GetComponent<PhotonView>().ViewID = 50 + i;
-           // enemy2[i].GetComponent<EnemyScript>().creat();
+            //enemy2[i].GetComponent<EnemyScript>().creat();
             enemy2[i].SetActive(false);
         }
         for (int i = 0; i < enemy3.Length; i++)
         {
             enemy3[i] = Instantiate(enemy3_Prefap);
             enemy3[i].GetComponent<PhotonView>().ViewID = 100 + i;
-           // enemy3[i].GetComponent<EnemyScript>().creat();
+            //enemy3[i].GetComponent<EnemyScript>().creat();
             enemy3[i].SetActive(false);
         }
         for (int i = 0; i < enemy4.Length; i++)
         {
             enemy4[i] = Instantiate(enemy4_Prefap);
             enemy4[i].GetComponent<PhotonView>().ViewID = 150 + i;
-          //  enemy4[i].GetComponent<EnemyScript>().creat();
+            //enemy4[i].GetComponent<EnemyScript>().creat();
             enemy4[i].SetActive(false);
         }
         for (int i = 0; i < boss0.Length; i++)
         {
             boss0[i] = Instantiate(boss0_Prefap);
             boss0[i].GetComponent<PhotonView>().ViewID = 200 + i;
-          //  boss0[i].GetComponent<EnemyScript>().creat();
+            //boss0[i].GetComponent<EnemyScript>().creat();
             boss0[i].SetActive(false);
         }
 
@@ -282,7 +282,7 @@ public class ObjectManager : MonoBehaviour
                 }
                 if (Code == 4)
                 {
-                    targetPool[i].GetComponent<EnemyScript>().creat();
+                    //targetPool[i].GetComponent<EnemyScript>().creat();
                 }
                 targetPool[i].SetActive(true);
                 return targetPool[i];//켜준다
