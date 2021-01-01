@@ -58,7 +58,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     //Photon Panel
 
-    NetwordManager NM;
+    NetworkManager NM;
     [SerializeField] Text nickNameText;
     [SerializeField] PhotonView pv;
 
@@ -69,7 +69,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         GM = FindObjectOfType<GameManager>();
         OM = FindObjectOfType<ObjectManager>();
-        NM = FindObjectOfType<NetwordManager>();
+        NM = FindObjectOfType<NetworkManager>();
 
         GM.player = gameObject;
         NM.player = this;
