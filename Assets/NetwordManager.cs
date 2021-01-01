@@ -10,13 +10,20 @@ public class NetwordManager : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] PhotonView pv;
 
     [SerializeField] GameManager GM;
+    [SerializeField] ObjectManager OM;
+    [SerializeField] bool generateOnce;
 
     [SerializeField] InputField nickNameInput;
     [SerializeField] GameObject connectPanel;
     [SerializeField] GameObject respawnPanel;
 
+
+    
+
     [SerializeField] Text playerAmountText;
     public int playerAmount;
+
+    public Player player;
 
     private void Awake()
     {
@@ -40,24 +47,55 @@ public class NetwordManager : MonoBehaviourPunCallbacks,IPunObservable
     }
     public void Spawn()
     {
-        PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        GameObject playerOB = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        if (generateOnce)
+        {
+            generateOnce = false;
+            
+            OM.Generate();
+        }
+
+        
+        
+
+        pv.RPC("ReadyRoomReset", RpcTarget.AllBuffered);
+
+
+
+
+        //ReadyRoomReset();
+
         pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered);
         respawnPanel.SetActive(false);
     }
-    private void Update()
+    [PunRPC]
+    void ReadyRoomReset()
     {
-        if(Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
-        {
-            PhotonNetwork.Disconnect();
-        }
+        //////
+        PhotonView playerPv = player.GetComponent<PhotonView>();
+        
+        
     }
 
+    private void Update()
+    {
 
 
+        if(Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
+        {
+
+            connectPanel.SetActive(true);
+            PhotonNetwork.Disconnect();
+
+        }
+    }
+    
+    
     public override void OnDisconnected(DisconnectCause cause)
     {
         connectPanel.SetActive(true);
         respawnPanel.SetActive(false);
+
     }
 
     [PunRPC]
@@ -65,11 +103,12 @@ public class NetwordManager : MonoBehaviourPunCallbacks,IPunObservable
     {
         playerAmount++;
         playerAmountText.text = "플래이어수:" + playerAmount.ToString();
+
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        if (stream.IsWriting)
+        if (stream.IsWriting)//isMine
         {
             stream.SendNext(playerAmount);
         }
@@ -77,6 +116,5 @@ public class NetwordManager : MonoBehaviourPunCallbacks,IPunObservable
         {
             playerAmount = (int)stream.ReceiveNext();
         }
-
     }
 }

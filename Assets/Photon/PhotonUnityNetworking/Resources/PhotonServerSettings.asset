@@ -47,6 +47,11 @@ MonoBehaviour:
   - TurnOffRpc
   - StageStart
   - IncreasePlayerAmountRPC
+  - ReadyRoomReset
+  - OutingRoom
+  - aaaaaaaa
+  - One
+  - Two
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

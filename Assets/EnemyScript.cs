@@ -285,10 +285,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    GameObject bulletM = OM.MakeObj("BulletEnemy1");
-                    bulletM.transform.position = transform.position;
-                    Rigidbody2D rigidM = bulletM.GetComponent<Rigidbody2D>();
-                    rigidM.AddForce(Vector2.down * 2, ForceMode2D.Impulse);
+                    //GameObject bulletM = OM.MakeObj("BulletEnemy1");
+                    //bulletM.transform.position = transform.position;
+                    //Rigidbody2D rigidM = bulletM.GetComponent<Rigidbody2D>();
+                    //rigidM.AddForce(Vector2.down * 2, ForceMode2D.Impulse);
                     curShotCoolTime = 0;
                 }
             }
@@ -314,14 +314,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                 {
-                    GameObject bulletR = OM.MakeObj("BulletEnemy2");
-                    bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                    Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                    GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                    bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-                    Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
-                    rigidR.AddForce(Vector2.down, ForceMode2D.Impulse);
-                    rigidL.AddForce(Vector2.down, ForceMode2D.Impulse);
+                    //GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                    //bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                    //Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                    //GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                    //bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                    //Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+                    //rigidR.AddForce(Vector2.down, ForceMode2D.Impulse);
+                    //rigidL.AddForce(Vector2.down, ForceMode2D.Impulse);
                     curShotCoolTime = 0;
                 }
             }

@@ -54,11 +54,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public float dmgPer;
     public float firePer;
-   
+
 
     //Photon Panel
 
-
+    NetwordManager NM;
     [SerializeField] Text nickNameText;
     [SerializeField] PhotonView pv;
 
@@ -69,8 +69,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         GM = FindObjectOfType<GameManager>();
         OM = FindObjectOfType<ObjectManager>();
+        NM = FindObjectOfType<NetwordManager>();
 
         GM.player = gameObject;
+        NM.player = this;
 
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
     }

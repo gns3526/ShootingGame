@@ -2454,7 +2454,6 @@ MonoBehaviour:
   - {fileID: 1329598033}
   retryPanel: {fileID: 1245969849}
   OM: {fileID: 2060594361}
-  generateOnce: 1
   spawnIndex: 0
   spawnEnd: 0
   cards:
@@ -8034,6 +8033,7 @@ GameObject:
   - component: {fileID: 1905378083}
   - component: {fileID: 1905378082}
   - component: {fileID: 1905378084}
+  - component: {fileID: 1905378086}
   m_Layer: 0
   m_Name: NetwordManager
   m_TagString: Untagged
@@ -8055,11 +8055,14 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   pv: {fileID: 1905378084}
   GM: {fileID: 601972270}
+  OM: {fileID: 2060594361}
+  generateOnce: 1
   nickNameInput: {fileID: 1182712291}
   connectPanel: {fileID: 543970773}
   respawnPanel: {fileID: 1245969849}
   playerAmountText: {fileID: 313130777}
   playerAmount: 0
+  player: {fileID: 0}
 --- !u!4 &1905378083
 Transform:
   m_ObjectHideFlags: 0
@@ -8094,9 +8097,34 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 1905378082}
+  - {fileID: 1905378086}
   viewIdField: 3
   InstantiationId: 0
   isRuntimeInstantiated: 0
+--- !u!114 &1905378086
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1905378081}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 9b8c4a61274f60b4ea5fb4299cfdbf14, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ShowLayerWeightsInspector: 1
+  ShowParameterInspector: 1
+  m_SynchronizeParameters:
+  - Type: 9
+    SynchronizeType: 0
+    Name: Enter
+  - Type: 9
+    SynchronizeType: 0
+    Name: Disconnect
+  m_SynchronizeLayers:
+  - SynchronizeType: 1
+    LayerIndex: 0
 --- !u!1 &1920809258
 GameObject:
   m_ObjectHideFlags: 0

@@ -32,7 +32,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject retryPanel;
 
     [SerializeField] ObjectManager OM;
-    [SerializeField] bool generateOnce;
 
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
@@ -63,12 +62,6 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void StageStart()
     {
-        if (generateOnce)
-        {
-            generateOnce = false;
-            OM.Generate();
-        }
-
         startAni.SetTrigger("Active");//스테이지Ui
         
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";

@@ -70,8 +70,9 @@ public class ObjectManager : MonoBehaviour
         bulletPlayer1 = new GameObject[100];
         bulletEnemy0 = new GameObject[100];
         bulletEnemy1 = new GameObject[100];
-        bulletEnemy3 = new GameObject[1000];
         bulletEnemy2 = new GameObject[200];
+        bulletEnemy3 = new GameObject[1000];
+
 
         bulletFollower0 = new GameObject[100];
         bulletFollower1 = new GameObject[50];
@@ -86,35 +87,35 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < enemy1.Length; i++)
         {
             enemy1[i] = Instantiate(enemy1_Prefap);
-            enemy1[i].GetComponent<PhotonView>().ViewID = 10 + i;
+            enemy1[i].GetComponent<PhotonView>().ViewID = 2010 + i;
             //enemy1[i].GetComponent<EnemyScript>().creat();
             enemy1[i].SetActive(false);
         }
         for (int i = 0; i < enemy2.Length; i++)
         {
             enemy2[i] = Instantiate(enemy2_Prefap);
-            enemy2[i].GetComponent<PhotonView>().ViewID = 50 + i;
+            enemy2[i].GetComponent<PhotonView>().ViewID = 2050 + i;
             //enemy2[i].GetComponent<EnemyScript>().creat();
             enemy2[i].SetActive(false);
         }
         for (int i = 0; i < enemy3.Length; i++)
         {
             enemy3[i] = Instantiate(enemy3_Prefap);
-            enemy3[i].GetComponent<PhotonView>().ViewID = 100 + i;
+            enemy3[i].GetComponent<PhotonView>().ViewID = 2100 + i;
             //enemy3[i].GetComponent<EnemyScript>().creat();
             enemy3[i].SetActive(false);
         }
         for (int i = 0; i < enemy4.Length; i++)
         {
             enemy4[i] = Instantiate(enemy4_Prefap);
-            enemy4[i].GetComponent<PhotonView>().ViewID = 150 + i;
+            enemy4[i].GetComponent<PhotonView>().ViewID = 2150 + i;
             //enemy4[i].GetComponent<EnemyScript>().creat();
             enemy4[i].SetActive(false);
         }
         for (int i = 0; i < boss0.Length; i++)
         {
             boss0[i] = Instantiate(boss0_Prefap);
-            boss0[i].GetComponent<PhotonView>().ViewID = 200 + i;
+            boss0[i].GetComponent<PhotonView>().ViewID = 2200 + i;
             //boss0[i].GetComponent<EnemyScript>().creat();
             boss0[i].SetActive(false);
         }
@@ -140,13 +141,13 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletPlayer0.Length; i++)
         {
             bulletPlayer0[i] = Instantiate(bulletPlayer0_Prefap);
-            bulletPlayer0[i].GetComponent<PhotonView>().ViewID = 350 + i;
+            bulletPlayer0[i].GetComponent<PhotonView>().ViewID = 2350 + i;
             bulletPlayer0[i].SetActive(false);
         }
         for (int i = 0; i < bulletPlayer1.Length; i++)
         {
             bulletPlayer1[i] = Instantiate(bulletPlayer1_Prefap);
-            bulletPlayer1[i].GetComponent<PhotonView>().ViewID = 450 + i;
+            bulletPlayer1[i].GetComponent<PhotonView>().ViewID = 2450 + i;
             bulletPlayer1[i].SetActive(false);
         }
 
@@ -154,25 +155,25 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletEnemy0.Length; i++)
         {
             bulletEnemy0[i] = Instantiate(bulletEnemy0_Prefap);
-            bulletEnemy0[i].GetComponent<PhotonView>().ViewID = 550 + i;
+            bulletEnemy0[i].GetComponent<PhotonView>().ViewID = 2550 + i;
             bulletEnemy0[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy1.Length; i++)
         {
             bulletEnemy1[i] = Instantiate(bulletEnemy1_Prefap);
-            bulletEnemy1[i].GetComponent<PhotonView>().ViewID = 650 + i;
+            bulletEnemy1[i].GetComponent<PhotonView>().ViewID = 2650 + i;
             bulletEnemy1[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy2.Length; i++)
         {
             bulletEnemy2[i] = Instantiate(bulletEnemy2_Prefap);
-            bulletEnemy2[i].GetComponent<PhotonView>().ViewID = 1650 + i;
+            bulletEnemy2[i].GetComponent<PhotonView>().ViewID = 3650 + i;
             bulletEnemy2[i].SetActive(false);
         }
         for (int i = 0; i < bulletEnemy3.Length; i++)
         {
             bulletEnemy3[i] = Instantiate(bulletEnemy3_Prefap);
-            bulletEnemy3[i].GetComponent<PhotonView>().ViewID = 1850 + i;
+            bulletEnemy3[i].GetComponent<PhotonView>().ViewID = 3850 + i;
             bulletEnemy3[i].SetActive(false);
         }
 
@@ -180,13 +181,13 @@ public class ObjectManager : MonoBehaviour
         for (int i = 0; i < bulletFollower0.Length; i++)
         {
             bulletFollower0[i] = Instantiate(bulletFollower0_Prefap);
-            bulletFollower0[i].GetComponent<PhotonView>().ViewID = 3000 + i;
+            bulletFollower0[i].GetComponent<PhotonView>().ViewID = 5000 + i;
             bulletFollower0[i].SetActive(false);
         }
         for (int i = 0; i < bulletFollower1.Length; i++)
         {
             bulletFollower1[i] = Instantiate(bulletFollower1_Prefap);
-            bulletFollower1[i].GetComponent<PhotonView>().ViewID = 3100 + i;
+            bulletFollower1[i].GetComponent<PhotonView>().ViewID = 5100 + i;
             bulletFollower1[i].SetActive(false);
         }
 
