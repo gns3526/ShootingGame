@@ -33,6 +33,16 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] GameObject roomPanel;
     [SerializeField] Text listText;
     [SerializeField] Text roomInfoText;
+    [SerializeField] GameObject[] playerInfoGroup;
+    [SerializeField] int playerInfoGroupInt;
+    [SerializeField] Button readyButton;
+    [SerializeField] Button startButton;
+    [SerializeField] GameObject[] readyImage;
+    [SerializeField] bool player1ready;
+
+    [SerializeField] bool isReady;
+
+    bool canStart;
     [SerializeField] Text[] chatTextT;
     [SerializeField] InputField chatInput;
 
@@ -127,6 +137,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     public void OutingRoom() => PhotonNetwork.LeaveRoom();
     public override void OnJoinedRoom()
     {
+
         roomPanel.SetActive(true);
         chatInput.text = "";
         RoomRenewal();
@@ -134,6 +145,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
         {
             chatTextT[i].text = "";
         }
+    }
+    public override void OnLeftRoom()
+    {
+        //isReadyLIst[playerInfoGroupInt] = false;
+        isReady = false;
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -149,24 +165,86 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)//notice everyone about joined new player
     {
+
         RoomRenewal();
         pv.RPC("ChatRPC", RpcTarget.All,"<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
     }
+
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
         RoomRenewal();
+
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
+
     void RoomRenewal()
     {
+
         listText.text = "";//player list text reset
+        Debug.Log(PhotonNetwork.IsMasterClient);
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            readyButton.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(true);
+            Debug.Log("1111111111111111");
+        }
+        else
+        {
+            startButton.gameObject.SetActive(false);
+            readyButton.gameObject.SetActive(true);
+        }
+
+        for (int i = 0; i < playerInfoGroup.Length; i++)
+        {
+            //playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
+            playerInfoGroup[i].SetActive(true);
+        }
+
+
+        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
+
+
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
             listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
             roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+
+            playerInfoGroup[i].SetActive(true);
+            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
+
+
+
+            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
+            {
+                playerInfoGroupInt = i;
+            }
         }
     }
 
+    public void Ready()
+    {
+
+    }
+
+    public void StartButton()
+    {
+        //if (isReadyLIst[0] && isReadyLIst[1] && isReadyLIst[2] && isReadyLIst[3]) canStart = true;
+        //else canStart = false;
+
+        //if (PhotonNetwork.IsMasterClient && canStart)
+        //{
+        //    readyButton.interactable = true;
+        //}
+        //else readyButton.interactable = false;
+    }
+
+    [PunRPC]
+    void ReadyRPO(int index ,int colorI)
+    {
+
+
+    }
     public void Send()
     {
         string msg = PhotonNetwork.NickName + ":" + chatInput.text;
@@ -247,10 +325,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
         if (stream.IsWriting)//isMine
         {
             stream.SendNext(playerAmount);
+            stream.SendNext(player1ready);
         }
         else
         {
             playerAmount = (int)stream.ReceiveNext();
+            player1ready = (bool)stream.ReceiveNext();
         }
     }
 }
