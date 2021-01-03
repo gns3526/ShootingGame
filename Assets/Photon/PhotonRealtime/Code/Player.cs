@@ -68,7 +68,7 @@ namespace Photon.Realtime
 
         /// <summary>Background field for nickName.</summary>
 		private string nickName = string.Empty;
-
+        private bool readyonn = false;
         /// <summary>Non-unique nickname of this player. Synced automatically in a room.</summary>
         /// <remarks>
         /// A player might change his own playername in a room (it's only a property).
@@ -97,6 +97,23 @@ namespace Photon.Realtime
             }
         }
 
+        public bool ReadyON
+        {
+            get
+            {
+                return this.readyonn;
+            }
+            set
+            {
+                this.readyonn = value;
+
+                if (this.IsLocal)
+                {
+                    this.readyonn = value;
+                }
+
+            }
+        }
         /// <summary>UserId of the player, available when the room got created with RoomOptions.PublishUserId = true.</summary>
         /// <remarks>Useful for <see cref="LoadBalancingClient.OpFindFriends"/> and blocking slots in a room for expected players (e.g. in <see cref="LoadBalancingClient.OpCreateRoom"/>).</remarks>
         public string UserId { get; internal set; }
@@ -448,5 +465,6 @@ namespace Photon.Realtime
 
             return false;
         }
+
     }
 }

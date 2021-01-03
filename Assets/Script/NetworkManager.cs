@@ -5,7 +5,7 @@ using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
 
-public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
+public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] PhotonView pv;
 
@@ -38,7 +38,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] Button readyButton;
     [SerializeField] Button startButton;
     [SerializeField] GameObject[] readyImage;
-    [SerializeField] bool player1ready;
+    [SerializeField] bool[] playerReadyList;
 
     [SerializeField] bool isReady;
 
@@ -75,10 +75,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     public override void OnConnectedToMaster()//2
     {
         PhotonNetwork.JoinLobby();
-        
+
         //PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null);//Make Room
     }
-    
+
     public override void OnJoinedLobby()//3
     {
         lobbyPanel.SetActive(true);
@@ -130,6 +130,19 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
         MyListRenewal();
     }
 
+    public bool[] checkRedayss;
+
+
+    void test()
+    {
+        // pv.RPC("readyCheck", RpcTarget.All);
+        // pv.RPC("readyReset", RpcTarget.All);
+    }
+
+
+
+  
+
     public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 4 });
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
@@ -138,6 +151,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     public override void OnJoinedRoom()
     {
 
+        pv.RPC("readyReset", RpcTarget.All); // hoon
+        //readyReset();
         roomPanel.SetActive(true);
         chatInput.text = "";
         RoomRenewal();
@@ -149,7 +164,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     public override void OnLeftRoom()
     {
         //isReadyLIst[playerInfoGroupInt] = false;
-        isReady = false;
+
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -165,13 +180,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)//notice everyone about joined new player
     {
-
+        if (PhotonNetwork.LocalPlayer == newPlayer)
+        {
+            isReady = false;
+        }
         RoomRenewal();
-        pv.RPC("ChatRPC", RpcTarget.All,"<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
+
+
+        pv.RPC("readyReset", RpcTarget.All); // hoon
+        //readyReset(); // hoon
+        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
+        //if( PhotonNetwork.LocalPlayer == otherPlayer)
+        //{
+        //    isReady = false;
+        //}
+        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 4);
         RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
@@ -180,8 +207,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     void RoomRenewal()
     {
 
+        pv.RPC("readyReset", RpcTarget.All);//hoon
+        //readyReset();
+
         listText.text = "";//player list text reset
-        Debug.Log(PhotonNetwork.IsMasterClient);
+        //Debug.Log(PhotonNetwork.IsMasterClient);
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -197,34 +227,82 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
 
         for (int i = 0; i < playerInfoGroup.Length; i++)
         {
-            //playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
-            playerInfoGroup[i].SetActive(true);
+            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
+            playerReadyList[i] = false;
+            //playerInfoGroup[i].SetActive(false);
         }
-
-
-        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
-
 
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-            roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
-
-            playerInfoGroup[i].SetActive(true);
-            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
-
-
-
-            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
+            if (PhotonNetwork.PlayerList[i].ReadyON)
             {
-                playerInfoGroupInt = i;
+                playerReadyList[i] = true;
+
+            }
+            else
+            {
+                playerReadyList[i] = false;
+
             }
         }
-    }
 
+        int playerCount;
+
+        for (playerCount = 0; playerCount < PhotonNetwork.PlayerList.Length; playerCount++)
+        {
+            listText.text += PhotonNetwork.PlayerList[playerCount].NickName + ((playerCount + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+            roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+
+            playerInfoGroup[playerCount].SetActive(true);
+            playerInfoGroup[playerCount].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[playerCount].NickName;
+            readyImage[playerCount].GetComponent<Image>().color = Color.red;
+
+
+            if (PhotonNetwork.PlayerList[playerCount].NickName == PhotonNetwork.NickName)
+            {
+                playerInfoGroupInt = playerCount;
+            }
+
+            
+        }
+        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
+    }
+    [PunRPC]
+    void readyReset()
+    {
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        {
+            checkRedayss[i] = PhotonNetwork.PlayerList[i].ReadyON;
+        }
+    }
     public void Ready()
     {
+        
 
+        if (isReady)
+        {
+            isReady = false;
+            
+
+            // pv.RPC("readyCheck", RpcTarget.All); // hoon
+            PhotonNetwork.LocalPlayer.ReadyON = false;
+            
+            //readyCheck() = false; // hoon
+            pv.RPC("readyReset", RpcTarget.All); //hoon
+            pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 0);
+        }
+        else
+        {
+            isReady = true;
+            
+
+            //pv.RPC("readyCheck", RpcTarget.All); // hoon
+            PhotonNetwork.LocalPlayer.ReadyON = true;
+            // readyCheck() = true; // hoon
+            pv.RPC("readyReset", RpcTarget.All); //hoon
+            pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 1);
+        }
+        RoomRenewal();
     }
 
     public void StartButton()
@@ -242,8 +320,51 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     [PunRPC]
     void ReadyRPO(int index ,int colorI)
     {
+        for (index = 0; index < PhotonNetwork.PlayerList.Length; index++)
+        {
+            Debug.Log(PhotonNetwork.PlayerList[index].ReadyON);
+
+        }
 
 
+        if(colorI == 1)
+        {
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+            //playerReadyList[index] = true;
+            //PhotonNetwork.LocalPlayer.ReadyON = true;
+            readyImage[index].GetComponent<Image>().color = Color.green;
+        }
+        else if(colorI == 0)
+        {
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+            //playerReadyList[index] = false;
+            //PhotonNetwork.LocalPlayer.ReadyON = false;
+            readyImage[index].GetComponent<Image>().color = Color.red;
+        }
+        else if(colorI == 3)
+        {
+            if (isReady)
+            {
+                Debug.Log(PhotonNetwork.PlayerList.Length);
+                //playerReadyList[index] = true;
+                //PhotonNetwork.LocalPlayer.ReadyON = true;
+                readyImage[index].GetComponent<Image>().color = Color.green;
+            }
+            else
+            {
+                //playerReadyList[index] = false;
+                //PhotonNetwork.LocalPlayer.ReadyON = false;
+                readyImage[index].GetComponent<Image>().color = Color.red;
+            }
+        }
+        else if (colorI == 4)
+        {
+            Debug.Log(PhotonNetwork.PlayerList.Length);
+            readyImage[index].GetComponent<Image>().color = Color.red;
+            //playerReadyList[index] = false;
+            //PhotonNetwork.LocalPlayer.ReadyON = false;
+        }
+        //Debug.Log(isReady);
     }
     public void Send()
     {
@@ -324,13 +445,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks,IPunObservable
     {
         if (stream.IsWriting)//isMine
         {
+          //  stream.SendNext(checkRedayss);
             stream.SendNext(playerAmount);
-            stream.SendNext(player1ready);
+            stream.SendNext(playerReadyList);
         }
         else
         {
+          //  checkRedayss = (bool[])stream.ReceiveNext();
             playerAmount = (int)stream.ReceiveNext();
-            player1ready = (bool)stream.ReceiveNext();
+            playerReadyList = (bool[])stream.ReceiveNext();
         }
     }
 }

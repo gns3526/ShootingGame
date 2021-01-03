@@ -14159,7 +14159,7 @@ MonoBehaviour:
   - {fileID: 766090372}
   - {fileID: 1349190709}
   - {fileID: 1712239507}
-  isReadyLIst: 00000000
+  playerReadyList: 00000000
   isReady: 0
   chatTextT:
   - {fileID: 102670099}
@@ -14179,6 +14179,8 @@ MonoBehaviour:
   chatInput: {fileID: 2107840419}
   curInfoText: {fileID: 0}
   player: {fileID: 0}
+  checkRedays: 0
+  checkRedayss: 00000000
 --- !u!4 &1905378083
 Transform:
   m_ObjectHideFlags: 0
