@@ -267,7 +267,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
     }
-    [PunRPC]
+    
     void readyReset()
     {
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
@@ -445,13 +445,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)//isMine
         {
-          //  stream.SendNext(checkRedayss);
+            stream.SendNext(checkRedayss);
             stream.SendNext(playerAmount);
             stream.SendNext(playerReadyList);
         }
         else
         {
-          //  checkRedayss = (bool[])stream.ReceiveNext();
+            checkRedayss = (bool[])stream.ReceiveNext();
             playerAmount = (int)stream.ReceiveNext();
             playerReadyList = (bool[])stream.ReceiveNext();
         }
