@@ -151,7 +151,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
 
-        pv.RPC("readyReset", RpcTarget.All); // hoon
+        //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset();
         roomPanel.SetActive(true);
         chatInput.text = "";
@@ -187,7 +187,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         RoomRenewal();
 
 
-        pv.RPC("readyReset", RpcTarget.All); // hoon
+        //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset(); // hoon
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
     }
@@ -207,7 +207,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     void RoomRenewal()
     {
 
-        pv.RPC("readyReset", RpcTarget.All);//hoon
+        //pv.RPC("readyReset", RpcTarget.All);//hoon
         //readyReset();
 
         listText.text = "";//player list text reset
@@ -288,7 +288,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.LocalPlayer.ReadyON = false;
             
             //readyCheck() = false; // hoon
-            pv.RPC("readyReset", RpcTarget.All); //hoon
+            //pv.RPC("readyReset", RpcTarget.All); //hoon
             pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 0);
         }
         else
@@ -299,7 +299,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             //pv.RPC("readyCheck", RpcTarget.All); // hoon
             PhotonNetwork.LocalPlayer.ReadyON = true;
             // readyCheck() = true; // hoon
-            pv.RPC("readyReset", RpcTarget.All); //hoon
+            //pv.RPC("readyReset", RpcTarget.All); //hoon
             pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 1);
         }
         RoomRenewal();
