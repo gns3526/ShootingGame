@@ -4,3 +4,5 @@ Logs
 obj
 ShootingGame.sln
 *.csproj
+
+Temp/UnityLockfile

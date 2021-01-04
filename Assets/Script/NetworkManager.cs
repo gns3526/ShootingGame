@@ -267,12 +267,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
     }
-    
+
+    public bool readys;
+
+
     void readyReset()
     {
         for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            checkRedayss[i] = PhotonNetwork.PlayerList[i].ReadyON;
+            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName && readys)
+            {
+                checkRedayss[i] = PhotonNetwork.PlayerList[i].ReadyON;
+            }
+            else if (readys == false)
+            {
+                checkRedayss[i] = false;
+            }
         }
     }
     public void Ready()
@@ -286,20 +296,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
             // pv.RPC("readyCheck", RpcTarget.All); // hoon
             PhotonNetwork.LocalPlayer.ReadyON = false;
-            
+            readys = false;
             //readyCheck() = false; // hoon
             //pv.RPC("readyReset", RpcTarget.All); //hoon
+            readyReset();
             pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 0);
         }
         else
         {
             isReady = true;
-            
 
+            readys = true;
             //pv.RPC("readyCheck", RpcTarget.All); // hoon
             PhotonNetwork.LocalPlayer.ReadyON = true;
             // readyCheck() = true; // hoon
             //pv.RPC("readyReset", RpcTarget.All); //hoon
+            readyReset();
             pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 1);
         }
         RoomRenewal();
