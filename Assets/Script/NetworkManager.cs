@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] Text playerAmountText;
     public int playerAmount;
+    [SerializeField] int readyPlayerAmount;
 
     [Header("LobbyPanel")]
     [SerializeField] GameObject lobbyPanel;
@@ -36,10 +37,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject[] playerInfoGroup;
     [SerializeField] int playerInfoGroupInt;
     [SerializeField] Button startButton;
-    [SerializeField] GameObject[] readyImage;
-    [SerializeField] bool[] playerReadyList;
 
     [SerializeField] bool isReady;
+    [SerializeField] BoxCollider2D readyArea;
+    GameObject[] temp;
 
     bool canStart;
     [SerializeField] Text[] chatTextT;
@@ -147,10 +148,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
 
-    public void OutingRoom() => PhotonNetwork.LeaveRoom();
+    public void OutingRoom()
+    {
+        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered, false);
+        PhotonNetwork.LeaveRoom();
+    }
+    
+
     public override void OnJoinedRoom()
     {
-
+        Spawn();
+        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered, true);
         //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset();
         roomPanel.SetActive(true);
@@ -164,7 +172,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     public override void OnLeftRoom()
     {
-        //isReadyLIst[playerInfoGroupInt] = false;
+
 
     }
 
@@ -200,50 +208,43 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //    isReady = false;
         //}
         pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 4);
-        RoomRenewal();
+        Invoke("RoomRenewal", 0.1f);
+        //RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
 
-    void RoomRenewal()
+    public void RoomRenewal()
     {
-
-        //pv.RPC("readyReset", RpcTarget.All);//hoon
-        //readyReset();
-
         listText.text = "";//player list text reset
-        //Debug.Log(PhotonNetwork.IsMasterClient);
+
+
+        playerAmount = PhotonNetwork.PlayerList.Length;
+
 
         if (PhotonNetwork.IsMasterClient)
         {
-
+            readyArea.enabled = true;
             startButton.gameObject.SetActive(true);
-            Debug.Log("1111111111111111");
+
+            pv.RPC("IncreaseReadyAmount", RpcTarget.All, true, true);
+            temp = GameObject.FindGameObjectsWithTag("Player");
+            for (int i = 0; i < temp.Length; i++)
+            {
+                if (temp[i].transform.position.x < 0)
+                {
+                    pv.RPC("IncreaseReadyAmount", RpcTarget.All, true, false);
+                }
+                else
+                {
+
+                }
+            }
         }
         else
         {
+            readyArea.enabled = false;
             startButton.gameObject.SetActive(false);
-        }
-
-        for (int i = 0; i < playerInfoGroup.Length; i++)
-        {
-            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
-            playerReadyList[i] = false;
-            //playerInfoGroup[i].SetActive(false);
-        }
-
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-        {
-            if (PhotonNetwork.PlayerList[i].ReadyON)
-            {
-                playerReadyList[i] = true;
-
-            }
-            else
-            {
-                playerReadyList[i] = false;
-
-            }
         }
 
         int playerCount;
@@ -255,7 +256,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
             playerInfoGroup[playerCount].SetActive(true);
             playerInfoGroup[playerCount].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[playerCount].NickName;
-            readyImage[playerCount].GetComponent<Image>().color = Color.red;
 
 
             if (PhotonNetwork.PlayerList[playerCount].NickName == PhotonNetwork.NickName)
@@ -265,58 +265,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
             
         }
-        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 3);
-    }
-
-    public bool readys;
-
-
-    void readyReset()
-    {
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
-        {
-            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName && readys)
-            {
-                checkRedayss[i] = PhotonNetwork.PlayerList[i].ReadyON;
-            }
-            else if (readys == false)
-            {
-                checkRedayss[i] = false;
-            }
-        }
-    }
-    public void Ready()
-    {
         
-
-        if (isReady)
-        {
-            isReady = false;
-        }
-        else
-        {
-
-        }
-        RoomRenewal();
     }
 
     public void StartButton()
     {
-        //if (isReadyLIst[0] && isReadyLIst[1] && isReadyLIst[2] && isReadyLIst[3]) canStart = true;
-        //else canStart = false;
 
-        //if (PhotonNetwork.IsMasterClient && canStart)
-        //{
-        //    readyButton.interactable = true;
-        //}
-        //else readyButton.interactable = false;
     }
 
-    [PunRPC]
-    void ReadyRPO(int index ,int colorI)
-    {
-        
-    }
+
     public void Send()
     {
         string msg = PhotonNetwork.NickName + ":" + chatInput.text;
@@ -353,7 +310,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Spawn()
     {
-        GameObject playerOB = PhotonNetwork.Instantiate("Player", Vector3.zero, Quaternion.identity);
+        GameObject playerOB = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
         if (generateOnce)
         {
             generateOnce = false;
@@ -362,19 +319,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         pv.RPC("ReadyRoomReset", RpcTarget.AllBuffered);
 
-        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered);
+        
         respawnPanel.SetActive(false);
     }
-    [PunRPC]
-    void ReadyRoomReset()
-    {
-        //////
-        PhotonView playerPv = player.GetComponent<PhotonView>();
-        
-        
-    }
-
-
 
     public void DisConnect() => PhotonNetwork.Disconnect();
 
@@ -385,12 +332,37 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         connectPanel.SetActive(true);
     }
 
-    [PunRPC]
-    void IncreasePlayerAmountRPC()
-    {
-        playerAmount++;
-        playerAmountText.text = "플래이어수:" + playerAmount.ToString();
 
+
+    [PunRPC]
+    void IncreaseReadyAmount(bool isIncrease, bool isReset)
+    {
+        if (isReset)
+        {
+            readyPlayerAmount = 0;
+        }
+        else
+        {
+            if (isIncrease)
+            {
+                Debug.Log("엥ㄹㄹ리잉");
+                readyPlayerAmount++;
+            }
+            else if (!isIncrease)
+            {
+                Debug.Log("엥ㄹㄹ리잉22");
+                readyPlayerAmount--;
+            }
+        }
+
+        if (PhotonNetwork.IsMasterClient && (playerAmount == readyPlayerAmount))
+        {
+            startButton.interactable = true;
+        }
+        else
+        {
+            startButton.interactable = false;
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
@@ -398,14 +370,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine
         {
             stream.SendNext(checkRedayss);
-            stream.SendNext(playerAmount);
-            stream.SendNext(playerReadyList);
+            stream.SendNext(readyPlayerAmount);
         }
         else
         {
             checkRedayss = (bool[])stream.ReceiveNext();
-            playerAmount = (int)stream.ReceiveNext();
-            playerReadyList = (bool[])stream.ReceiveNext();
+            readyPlayerAmount = (int)stream.ReceiveNext();
         }
     }
 }

@@ -36,8 +36,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Rigidbody2D rigid;
 
-    [SerializeField] GameManager GM;
-    [SerializeField] ObjectManager OM;
+    GameManager GM;
+    ObjectManager OM;
+
 
     [SerializeField] bool isBoomActive;
 
@@ -59,6 +60,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     //Photon Panel
 
     NetworkManager NM;
+    PhotonView NMPV;
     [SerializeField] Text nickNameText;
     [SerializeField] PhotonView pv;
 
@@ -74,6 +76,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         GM.player = gameObject;
         NM.player = this;
 
+        NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
     }
     private void OnEnable()
@@ -82,6 +85,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         GM.UpdateLifeIcon(life);
         Invoke("Unbeatable", 3);//무적시간
     }
+    
+
     void Unbeatable()
     {
         isRespawned = !isRespawned;
@@ -433,6 +438,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+
     public void AddFollower(int type)
     {
         for (int i = 0; i < followers.Length; i++)
@@ -485,6 +491,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     break;
             }
         }
+
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

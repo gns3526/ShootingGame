@@ -828,8 +828,6 @@ MonoBehaviour:
   ani: {fileID: 3941946227140826655}
   sprite: {fileID: 3941946227140826627}
   rigid: {fileID: 3941946227140826625}
-  GM: {fileID: 0}
-  OM: {fileID: 0}
   isBoomActive: 0
   followers:
   - {fileID: 3941946225890586680}
