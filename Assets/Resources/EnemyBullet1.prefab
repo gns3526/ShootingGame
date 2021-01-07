@@ -14,7 +14,7 @@ GameObject:
   - component: {fileID: 4523676975212939094}
   - component: {fileID: -7009757729329537234}
   - component: {fileID: -1216926684363502740}
-  - component: {fileID: -129105610545381144}
+  - component: {fileID: 5906557224416500757}
   m_Layer: 0
   m_Name: EnemyBullet1
   m_TagString: EnemyBullet
@@ -167,12 +167,11 @@ MonoBehaviour:
   observableSearch: 2
   Synchronization: 3
   OwnershipTransfer: 0
-  ObservedComponents:
-  - {fileID: -129105610545381144}
+  ObservedComponents: []
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &-129105610545381144
+--- !u!114 &5906557224416500757
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -181,9 +180,10 @@ MonoBehaviour:
   m_GameObject: {fileID: 5808032221045866145}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 0e7cb724808c322458aa4d15f5035fa9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+  m_SynchronizeVelocity: 1
+  m_SynchronizeAngularVelocity: 0
+  m_TeleportEnabled: 0
+  m_TeleportIfDistanceGreaterThan: 3
