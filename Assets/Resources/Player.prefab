@@ -1060,7 +1060,7 @@ MonoBehaviour:
     SynchronizeType: 1
     Name: AxisX
   - Type: 4
-    SynchronizeType: 0
+    SynchronizeType: 1
     Name: GodOn
   m_SynchronizeLayers:
   - SynchronizeType: 1

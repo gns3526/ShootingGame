@@ -12,7 +12,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] GameManager GM;
     [SerializeField] ObjectManager OM;
-    [SerializeField] bool generateOnce;
+
 
     [SerializeField] InputField nickNameInput;
     [SerializeField] GameObject connectPanel;
@@ -36,7 +36,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Text listText;
     [SerializeField] Text roomInfoText;
     [SerializeField] GameObject[] playerInfoGroup;
-    [SerializeField] int playerInfoGroupInt;
+    public int playerInfoGroupInt;
     [SerializeField] GameObject[] playerLIst;
     [SerializeField] Button startButton;
 
@@ -140,7 +140,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void OutingRoom()
     {
-        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered, false);
         PhotonNetwork.LeaveRoom();
     }
     
@@ -148,7 +147,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         Spawn();
-        pv.RPC("IncreasePlayerAmountRPC", RpcTarget.AllBuffered, true);
+
         //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset();
         roomPanel.SetActive(true);
@@ -257,6 +256,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public void StartButton()
     {
         pvGM.RPC("StageStart", RpcTarget.All);
+
+
     }
 
 
@@ -296,14 +297,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void Spawn()
     {
+
         GameObject playerOB = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
-        if (generateOnce)
-        {
-            generateOnce = false;
-            
-            OM.Generate();
-        }
-        
+
+
         respawnPanel.SetActive(false);
     }
 

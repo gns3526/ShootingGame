@@ -44,7 +44,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> cardsSave;
 
     //
-
+    [SerializeField] bool generateOnce;
 
     [SerializeField] PhotonView pv;
 
@@ -65,6 +65,8 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void StageStart()
     {
+        OM.Generate();
+
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
 

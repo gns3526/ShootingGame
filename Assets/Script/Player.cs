@@ -77,6 +77,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
+
+        //pv.ViewID = 1000 + NM.playerInfoGroupInt;
     }
     private void OnEnable()
     {

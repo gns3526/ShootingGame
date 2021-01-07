@@ -26,7 +26,7 @@ public class BulletScript : MonoBehaviour
             if (other.tag == "BulletBorder" || other.tag == "Enemy")
             {
                 Debug.Log("111111");
-                pv.RPC("TurnOffRpc", RpcTarget.AllBuffered);
+                pv.RPC("TurnOffRpc", RpcTarget.All, false);
             }
             
         }
@@ -34,14 +34,14 @@ public class BulletScript : MonoBehaviour
         {
             if (other.tag == "BulletBorder")
             {
-                pv.RPC("TurnOffRpc", RpcTarget.AllBuffered);
+                pv.RPC("TurnOffRpc", RpcTarget.All, false);
             }
         }
     }
     [PunRPC]
-    void TurnOffRpc()
+    void TurnOffRpc(bool actives)
     {
         Debug.Log("222222");
-        gameObject.SetActive(false);
+        gameObject.SetActive(actives);
     }
 }

@@ -41,19 +41,15 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     //
     [SerializeField] PhotonView pv;
     public bool isSpawn;
+
+    [SerializeField] int targetRandomNum;
     private void Awake()
     {
          ani = GetComponent<Animator>();
 
     }
-    public void creat()
-    {
-        if (!player)
-        {
-            players = GameObject.FindGameObjectsWithTag("Player");
-        }
-        player = players[Random.Range(0, players.Length)]; // AA
-    }
+
+
     private void OnEnable()
     {
         creat();
@@ -75,6 +71,23 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         StartCoroutine(Stop());
 
 
+    }
+    public void creat()
+    {
+        players = GameObject.FindGameObjectsWithTag("Player");
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            targetRandomNum = Random.Range(0, PhotonNetwork.PlayerList.Length);
+        }
+        //pv.RPC("RandomRPC", RpcTarget.All);
+
+        player = players[targetRandomNum]; // AA
+    }
+    [PunRPC]
+    void RandomRPC()
+    {
+        
     }
 
     private void OnDisable()
@@ -459,10 +472,12 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(healthImage.fillAmount);
+            stream.SendNext(targetRandomNum);
         }
         else
         {
             healthImage.fillAmount = (float)stream.ReceiveNext();
+            targetRandomNum = (int)stream.ReceiveNext();
         }
     }
 
