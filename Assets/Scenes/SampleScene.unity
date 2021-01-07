@@ -4165,6 +4165,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 001a1877571115440b2fc2a8a8ab2e9a, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  OM: {fileID: 2060594361}
+  NM: {fileID: 1905378082}
   stage: 1
   MaxStage: 3
   isGameStart: 0
@@ -4203,8 +4205,8 @@ MonoBehaviour:
   - {fileID: 1857135586}
   - {fileID: 1624751723}
   - {fileID: 1329598033}
+  scorePanel: {fileID: 521488090}
   retryPanel: {fileID: 1245969849}
-  OM: {fileID: 2060594361}
   spawnIndex: 0
   spawnEnd: 0
   cards:
@@ -9867,7 +9869,7 @@ MonoBehaviour:
     m_PersistentCalls:
       m_Calls:
       - m_Target: {fileID: 1905378082}
-        m_MethodName: Ready
+        m_MethodName: StartButton
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -14283,6 +14285,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   pv: {fileID: 1905378084}
+  pvGM: {fileID: 601972272}
   GM: {fileID: 601972270}
   OM: {fileID: 2060594361}
   generateOnce: 1
@@ -14312,6 +14315,7 @@ MonoBehaviour:
   - {fileID: 1239557486}
   - {fileID: 1463196732}
   playerInfoGroupInt: 0
+  playerLIst: []
   startButton: {fileID: 1362354609}
   isReady: 0
   readyArea: {fileID: 964663248}
@@ -14333,7 +14337,6 @@ MonoBehaviour:
   chatInput: {fileID: 2107840419}
   curInfoText: {fileID: 0}
   player: {fileID: 0}
-  checkRedayss: 00000000
 --- !u!4 &1905378083
 Transform:
   m_ObjectHideFlags: 0

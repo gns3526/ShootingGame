@@ -9,6 +9,9 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
+    [SerializeField] ObjectManager OM;
+    [SerializeField] NetworkManager NM;
+
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
     [SerializeField] bool isGameStart;
@@ -29,9 +32,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text scoreText;
     [SerializeField] Image[] lifeImage;
     [SerializeField] Image[] boomImage;
-    [SerializeField] GameObject retryPanel;
+    [SerializeField] GameObject scorePanel;
 
-    [SerializeField] ObjectManager OM;
+    [SerializeField] GameObject retryPanel;
 
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
@@ -62,6 +65,9 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void StageStart()
     {
+        NM.roomPanel.SetActive(false);
+        scorePanel.SetActive(true);
+
         startAni.SetTrigger("Active");//스테이지Ui
         
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
@@ -183,7 +189,7 @@ public class GameManager : MonoBehaviour
         {
             cards[i].SetActive(false);
         }
-        StageStart();
+        //StageStart();
     }
     void ReadSpawnFile()
     {
@@ -315,7 +321,6 @@ public class GameManager : MonoBehaviour
     {
         //Invoke("ReSpawn", respawnCoolTIme);
         yield return new WaitForSeconds(respawnCoolTIme);
-        player.transform.position = new Vector3(0, -3.5f, 0);
         player.GetComponent<Player>().canHit = true;
         pv.RPC("ReSpawn", RpcTarget.AllBuffered);
         //ReSpawn();

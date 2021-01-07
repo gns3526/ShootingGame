@@ -18,19 +18,7 @@ public class ReadyArea : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        // if (other.tag == "Player")
-        //  {
-        //      NMPV.RPC("IncreaseReadyAmount", RpcTarget.All, true, false);
-        //  }
         NM.RoomRenewal();
         
-    }
-    private void OnTriggerExit2D(Collider2D other)
-    {
-        //  if (other.tag == "Player")
-        //  {
-        //      NMPV.RPC("IncreaseReadyAmount", RpcTarget.All, false, false);
-        //  }
-       // NM.RoomRenewal();
     }
 }

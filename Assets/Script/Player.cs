@@ -27,16 +27,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] float maxShotCoolTime;
     public float shotCoolTimeReduce;
     [SerializeField] float curShotCoolTime;
+    public float godTime;
 
-    [SerializeField] GameObject bullet0;
-    [SerializeField] GameObject bullet1;
     [SerializeField] GameObject boomEffect;
 
     [SerializeField] Animator ani;
     [SerializeField] SpriteRenderer sprite;
     [SerializeField] Rigidbody2D rigid;
 
-    GameManager GM;
+    public GameManager GM;
     ObjectManager OM;
 
 
@@ -374,34 +373,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     break;
             }
         }
-        else if (other.tag == "Enemy" || other.tag == "EnemyBullet")
-        {
-            if (isRespawned)
-                return;
-
-            if (godMode)
-                return;
-
-            if (canHit)
-            {
-                life--;
-            }
-            canHit = false;
-            GM.UpdateLifeIcon(life);
-            GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
-
-            if(life == 0)
-            {
-                GM.GameOver();
-            }
-            else
-            {
-                
-                GM.StartCoroutine("ReSpawnM");
-            }
-            gameObject.SetActive(false);
-            
-        }
+        
+        
         else if(other.tag == "Item")
         {
             Item itemScript = other.GetComponent<Item>();

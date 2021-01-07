@@ -8,6 +8,7 @@ using UnityEngine.UI;
 public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] PhotonView pv;
+    [SerializeField] PhotonView pvGM;
 
     [SerializeField] GameManager GM;
     [SerializeField] ObjectManager OM;
@@ -31,11 +32,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Button nextBtn;
 
     [Header("RoomPanel")]
-    [SerializeField] GameObject roomPanel;
+    public GameObject roomPanel;
     [SerializeField] Text listText;
     [SerializeField] Text roomInfoText;
     [SerializeField] GameObject[] playerInfoGroup;
     [SerializeField] int playerInfoGroupInt;
+    [SerializeField] GameObject[] playerLIst;
     [SerializeField] Button startButton;
 
     [SerializeField] bool isReady;
@@ -131,18 +133,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         MyListRenewal();
     }
 
-    public bool[] checkRedayss;
-
-
-    void test()
-    {
-        // pv.RPC("readyCheck", RpcTarget.All);
-        // pv.RPC("readyReset", RpcTarget.All);
-    }
-
-
-
-  
 
     public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 4 });
 
@@ -235,10 +225,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     pv.RPC("IncreaseReadyAmount", RpcTarget.All, true, false);
                 }
-                else
-                {
-
-                }
             }
         }
         else
@@ -247,20 +233,20 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             startButton.gameObject.SetActive(false);
         }
 
-        int playerCount;
 
-        for (playerCount = 0; playerCount < PhotonNetwork.PlayerList.Length; playerCount++)
+
+        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
         {
-            listText.text += PhotonNetwork.PlayerList[playerCount].NickName + ((playerCount + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+            listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
             roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
 
-            playerInfoGroup[playerCount].SetActive(true);
-            playerInfoGroup[playerCount].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[playerCount].NickName;
+            playerInfoGroup[i].SetActive(true);
+            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
 
 
-            if (PhotonNetwork.PlayerList[playerCount].NickName == PhotonNetwork.NickName)
+            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
             {
-                playerInfoGroupInt = playerCount;
+                playerInfoGroupInt = i;
             }
 
             
@@ -270,7 +256,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void StartButton()
     {
-
+        pvGM.RPC("StageStart", RpcTarget.All);
     }
 
 
@@ -317,8 +303,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             
             OM.Generate();
         }
-        pv.RPC("ReadyRoomReset", RpcTarget.AllBuffered);
-
         
         respawnPanel.SetActive(false);
     }
@@ -331,8 +315,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         lobbyPanel.SetActive(false);
         connectPanel.SetActive(true);
     }
-
-
 
     [PunRPC]
     void IncreaseReadyAmount(bool isIncrease, bool isReset)
@@ -347,11 +329,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 Debug.Log("엥ㄹㄹ리잉");
                 readyPlayerAmount++;
-            }
-            else if (!isIncrease)
-            {
-                Debug.Log("엥ㄹㄹ리잉22");
-                readyPlayerAmount--;
             }
         }
 
@@ -369,12 +346,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)//isMine
         {
-            stream.SendNext(checkRedayss);
             stream.SendNext(readyPlayerAmount);
         }
         else
         {
-            checkRedayss = (bool[])stream.ReceiveNext();
             readyPlayerAmount = (int)stream.ReceiveNext();
         }
     }
