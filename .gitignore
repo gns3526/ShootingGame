@@ -6,3 +6,5 @@ ShootingGame.sln
 *.csproj
 
 Temp/UnityLockfile
+
+Temp/
