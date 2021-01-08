@@ -5,19 +5,26 @@ using UnityEngine;
 public class Explosion : MonoBehaviour
 {
     [SerializeField] Animator ani;
+    ObjectPooler OP;
 
+    private void Start()
+    {
+
+    }
     private void OnEnable()
     {
+        OP = FindObjectOfType<ObjectPooler>();
+        ani.SetTrigger("Active");
         Invoke("Disable", 2f);
     }
     void Disable()
     {
-        gameObject.SetActive(false);
+        OP.PoolDestroy(gameObject);
     }
 
     public void StartExplosion(string monsterType)
     {
-        ani.SetTrigger("Active");
+
 
         switch (monsterType)
         {

@@ -32,6 +32,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject[] players;
     public GameManager GM;
     public ObjectManager OM;
+    [SerializeField] ObjectPooler OP;
     Animator ani;
     [SerializeField] int patternIndex;
     [SerializeField] int curPatternCount;
@@ -46,7 +47,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
          ani = GetComponent<Animator>();
-
+        OP = FindObjectOfType<ObjectPooler>();
     }
 
 
@@ -283,8 +284,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 {
 
 
-                    GameObject bullet = OM.MakeObj("BulletEnemy1");
-                    bullet.transform.position = transform.position;
+                    //GameObject bullet = OM.MakeObj("BulletEnemy1");
+                    GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
+                    //bullet.transform.position = transform.position;
                     Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                     Debug.Log("qwdqwd");
 
@@ -310,9 +312,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 if (player.activeSelf)
                 {
                 
-                    GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                    //GameObject bulletR = OM.MakeObj("BulletEnemy2");
+                    GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
                     bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                    GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                    //GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                    GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
                     bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
                     Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
@@ -395,7 +399,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Player playerScript = player.GetComponent<Player>();
             playerScript.score += enemyScore;
 
-
+            /*
             int random = enemyType == "Boss1" ? 0 : Random.Range(0, 10);
             if(random < 4)
             {
@@ -415,16 +419,17 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GameObject ItemBoom = OM.MakeObj("ItemBoom");
                 ItemBoom.transform.position = transform.position;
-            }
+            }*/
             patternIndex = -1;
             curPatternCount = 0;
             isSpawn = false;
-            
 
+            OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
+            OP.PoolDestroy(gameObject);
 
-            gameObject.SetActive(false);
             transform.rotation = Quaternion.identity;
-            GM.MakeExplosionEffect(transform.position, enemyType);
+            //GM.MakeExplosionEffect(transform.position, enemyType);
+
 
             //보스죽음
             if(enemyType == "Boss1")
@@ -443,8 +448,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         if (other.tag == "BulletBorder" && enemyType != "Boss1")
         {
             isSpawn = false;
-            //gameObject.SetActive(false);
-            pv.RPC("DestroyRpc", RpcTarget.AllBuffered);
+            OP.PoolDestroy(gameObject);
         }
         else if (other.tag == "PlayerBullet")
         {
@@ -460,11 +464,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [PunRPC]
-    void DestroyRpc()
-    {
-        gameObject.SetActive(false);
-    }
 
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

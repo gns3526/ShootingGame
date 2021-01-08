@@ -88,7 +88,8 @@ GameObject:
   - component: {fileID: 2476502312648618135}
   - component: {fileID: 2476502312648618134}
   - component: {fileID: 5966246444998689558}
-  - component: {fileID: 5558643380694145293}
+  - component: {fileID: -8694124505645375467}
+  - component: {fileID: -3331244527686188577}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -247,6 +248,7 @@ MonoBehaviour:
   players: []
   GM: {fileID: 0}
   OM: {fileID: 0}
+  OP: {fileID: 0}
   patternIndex: 0
   curPatternCount: 0
   MaxPatternCount: 
@@ -274,11 +276,11 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 2476502312648618134}
-  - {fileID: 5558643380694145293}
+  - {fileID: -3331244527686188577}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &5558643380694145293
+--- !u!114 &-8694124505645375467
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -287,12 +289,42 @@ MonoBehaviour:
   m_GameObject: {fileID: 2476502312648618137}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
+--- !u!114 &-3331244527686188577
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476502312648618137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PositionModel:
+    SynchronizeEnabled: 1
+    TeleportEnabled: 1
+    TeleportIfDistanceGreaterThan: 3
+    InterpolateOption: 4
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 5
+    ExtrapolateOption: 0
+    ExtrapolateSpeed: 1
+    ExtrapolateIncludingRoundTripTime: 1
+    ExtrapolateNumberOfStoredPositions: 1
+  m_RotationModel:
+    SynchronizeEnabled: 1
+    InterpolateOption: 2
+    InterpolateRotateTowardsSpeed: 180
+    InterpolateLerpSpeed: 5
+  m_ScaleModel:
+    SynchronizeEnabled: 0
+    InterpolateOption: 0
+    InterpolateMoveTowardsSpeed: 1
+    InterpolateLerpSpeed: 0
 --- !u!1 &4899678657330169777
 GameObject:
   m_ObjectHideFlags: 0

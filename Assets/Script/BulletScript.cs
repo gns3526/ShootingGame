@@ -12,6 +12,13 @@ public class BulletScript : MonoBehaviour
     [SerializeField] bool isPassThrough;
     [SerializeField] PhotonView pv;
 
+    [SerializeField] ObjectPooler OP;
+
+    private void OnEnable()
+    {
+        OP = FindObjectOfType<ObjectPooler>();
+    }
+
     private void Update()
     {
         if (isRotate)
@@ -26,7 +33,7 @@ public class BulletScript : MonoBehaviour
             if (other.tag == "BulletBorder" || other.tag == "Enemy")
             {
                 Debug.Log("111111");
-                pv.RPC("TurnOffRpc", RpcTarget.All, false);
+                OP.PoolDestroy(gameObject);
             }
             
         }
@@ -34,14 +41,8 @@ public class BulletScript : MonoBehaviour
         {
             if (other.tag == "BulletBorder")
             {
-                pv.RPC("TurnOffRpc", RpcTarget.All, false);
+                OP.PoolDestroy(gameObject);
             }
         }
-    }
-    [PunRPC]
-    void TurnOffRpc(bool actives)
-    {
-        Debug.Log("222222");
-        gameObject.SetActive(actives);
     }
 }

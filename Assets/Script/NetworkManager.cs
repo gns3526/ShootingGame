@@ -11,7 +11,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] PhotonView pvGM;
 
     [SerializeField] GameManager GM;
-    [SerializeField] ObjectManager OM;
+    //[SerializeField] ObjectManager OM;
+    [SerializeField] ObjectPooler OP;
 
 
     [SerializeField] InputField nickNameInput;
@@ -54,7 +55,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
 
-    public Player player;
+    public GameObject myPlayer;
 
     private void Awake()
     {
@@ -192,13 +193,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        //if( PhotonNetwork.LocalPlayer == otherPlayer)
-        //{
-        //    isReady = false;
-        //}
-        pv.RPC("ReadyRPO", RpcTarget.All, playerInfoGroupInt, 4);
         Invoke("RoomRenewal", 0.1f);
-        //RoomRenewal();
+        RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
     }
@@ -298,8 +294,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public void Spawn()
     {
 
-        GameObject playerOB = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
+        myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
 
+        //OP.PrePoolInstantiate();
 
         respawnPanel.SetActive(false);
     }

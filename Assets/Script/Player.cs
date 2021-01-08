@@ -37,7 +37,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public GameManager GM;
     ObjectManager OM;
-
+    [SerializeField] ObjectPooler OP;
 
     [SerializeField] bool isBoomActive;
 
@@ -71,9 +71,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         GM = FindObjectOfType<GameManager>();
         OM = FindObjectOfType<ObjectManager>();
         NM = FindObjectOfType<NetworkManager>();
+        OP = FindObjectOfType<ObjectPooler>();
 
         GM.player = gameObject;
-        NM.player = this;
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
@@ -207,11 +207,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             case 1:
 
-                pv.RPC("shhotiung", RpcTarget.AllBuffered);
-                /* GameObject bullet = OM.MakeObj("BulletPlayer0");
-                 bullet.transform.position = transform.position;
-                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);*/
+                //pv.RPC("shhotiung", RpcTarget.AllBuffered);
+                //GameObject bullet = OM.MakeObj("BulletPlayer0");
+                GameObject bullet = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
+                //bullet.transform.position = transform.position;
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
                 GameObject bulletR = OM.MakeObj("BulletPlayer0");

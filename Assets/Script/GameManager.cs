@@ -9,8 +9,9 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
-    [SerializeField] ObjectManager OM;
+    //[SerializeField] ObjectManager OM;
     [SerializeField] NetworkManager NM;
+    [SerializeField] ObjectPooler OP;
 
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
@@ -65,7 +66,9 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void StageStart()
     {
-        OM.Generate();
+        //OM.Generate();
+        if(PhotonNetwork.IsMasterClient)
+        OP.PrePoolInstantiate();
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
@@ -103,10 +106,12 @@ public class GameManager : MonoBehaviour
     }
     void ClearEnemys()
     {
+        /*
         GameObject[] enemy1 = OM.GetPool("1");
         GameObject[] enemy2 = OM.GetPool("2");
         GameObject[] enemy3 = OM.GetPool("3");
         GameObject[] enemy4 = OM.GetPool("4");
+
         for (int i = 0; i < enemy1.Length; i++)//모든적데미지주기
         {
             if (enemy1[i].activeSelf)
@@ -172,7 +177,7 @@ public class GameManager : MonoBehaviour
             {
                 BulletEnemy3[i].SetActive(false);
             }
-        }
+        }*/
     }
 
     public void SelectCard()
@@ -242,34 +247,35 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        int enemyIndex = 0;
+        string enemyIndex = "None";
         switch (spawnList[spawnIndex].type) 
         {
             case "1":
-                enemyIndex = 0;
+                enemyIndex = "Enemy1";
                 break;
             case "2":
-                enemyIndex = 1;
+                enemyIndex = "Enemy2";
                 break;
             case "3":
-                enemyIndex = 2;
+                enemyIndex = "Enemy3";
                 break;
             case "4":
-                enemyIndex = 3;
+                enemyIndex = "Enemy4";
                 break;
             case "Boss0":
-                enemyIndex = 4;
+                enemyIndex = "Boss1";
                 break;
         }
         int spawnPoint = spawnList[spawnIndex].point;
-        GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
-        enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
+        //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
+        GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
+        //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
 
         Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
         EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
         //enemyScript.player = player;
         enemyScript.GM = this;
-        enemyScript.OM = OM;
+        //enemyScript.OM = OM;
 
         if(spawnPoint == 5 || spawnPoint == 8)
         {
@@ -339,7 +345,8 @@ public class GameManager : MonoBehaviour
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
     {
-        GameObject explosion = OM.MakeObj("Explosion");
+        //GameObject explosion = OM.MakeObj("Explosion");
+        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity);
         Explosion explosionScript = explosion.GetComponent<Explosion>();
 
         explosion.transform.position = pos;
