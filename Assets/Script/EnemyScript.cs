@@ -253,6 +253,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     private void Update()
     {
+        healthImage.fillAmount = health / maxHealth;
         Move();
         if (enemyType == "Boss1")
             return;
@@ -283,20 +284,23 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 if (player.activeSelf)
                 {
 
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        //GameObject bullet = OM.MakeObj("BulletEnemy1");
+                        GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
+                        //bullet.transform.position = transform.position;
+                        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                        Debug.Log("qwdqwd");
 
-                    //GameObject bullet = OM.MakeObj("BulletEnemy1");
-                    GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
-                    //bullet.transform.position = transform.position;
-                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                    Debug.Log("qwdqwd");
+                        // Vector3 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
 
-                    // Vector3 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
+                        //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
 
-                    //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
-
-                    Vector3 dir = player.transform.position - transform.position;
-                    rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
-                    curShotCoolTime = 0;
+                        Vector3 dir = player.transform.position - transform.position;
+                        rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                        curShotCoolTime = 0;
+                    }
+                    
                 }
                 else
                 {
@@ -311,23 +315,27 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (player.activeSelf)
                 {
-                
+
                     //GameObject bulletR = OM.MakeObj("BulletEnemy2");
-                    GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                    bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                    //GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                    GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                    bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                    if (PhotonNetwork.IsMasterClient)
+                    {
+                        GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+                        bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                        //GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                        GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+                        bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
-                    Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
-                    Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
+                        Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
+                        Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
 
-                    Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                    Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+                        Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                        Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
 
-                    rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
-                    rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
-                    curShotCoolTime = 0;
+                        rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
+                        rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
+                        curShotCoolTime = 0;
+                    }
+                    
                 }
                 else
                 {
@@ -381,7 +389,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         health -= Dmg;
-        healthImage.fillAmount = health / maxHealth;
+        
         if (enemyType == "Boss1")
         {
             ani.SetTrigger("Hit");
@@ -424,6 +432,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             curPatternCount = 0;
             isSpawn = false;
 
+            if(PhotonNetwork.IsMasterClient)
             OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
             OP.PoolDestroy(gameObject);
 
@@ -452,14 +461,12 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (other.tag == "PlayerBullet")
         {
-            if (player)
-            {
-                BulletScript bullet = other.GetComponent<BulletScript>();
-                Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
+            BulletScript bullet = other.GetComponent<BulletScript>();
+            Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
-                isSpawn = false;
-                //other.gameObject.SetActive(false);
-            }
+            isSpawn = false;
+            //other.gameObject.SetActive(false);
+
 
         }
     }
@@ -470,11 +477,13 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (stream.IsWriting)//isMine = true
         {
+            stream.SendNext(health);
             stream.SendNext(healthImage.fillAmount);
             stream.SendNext(targetRandomNum);
         }
         else
         {
+            health = (float)stream.ReceiveNext();
             healthImage.fillAmount = (float)stream.ReceiveNext();
             targetRandomNum = (int)stream.ReceiveNext();
         }

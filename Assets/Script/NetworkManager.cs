@@ -295,6 +295,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
+        GM.player = myPlayer;
 
         //OP.PrePoolInstantiate();
 

@@ -67,7 +67,7 @@ public class GameManager : MonoBehaviour
     void StageStart()
     {
         //OM.Generate();
-        if(PhotonNetwork.IsMasterClient)
+        
         OP.PrePoolInstantiate();
 
         NM.roomPanel.SetActive(false);
@@ -268,27 +268,31 @@ public class GameManager : MonoBehaviour
         }
         int spawnPoint = spawnList[spawnIndex].point;
         //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
-        GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
-        //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
-
-        Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
-        EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-        //enemyScript.player = player;
-        enemyScript.GM = this;
-        //enemyScript.OM = OM;
-
-        if(spawnPoint == 5 || spawnPoint == 8)
+        if (PhotonNetwork.IsMasterClient)
         {
-            enemy.transform.Rotate(Vector3.back * 90);
-        }
-        else if (spawnPoint == 6 || spawnPoint == 7)
-        {
-            enemy.transform.Rotate(Vector3.forward * 90);
-        }
-        else
-        {
+            GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
+            //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
 
+            Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
+            EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
+            //enemyScript.player = player;
+            enemyScript.GM = this;
+            //enemyScript.OM = OM;
+
+            if (spawnPoint == 5 || spawnPoint == 8)
+            {
+                enemy.transform.Rotate(Vector3.back * 90);
+            }
+            else if (spawnPoint == 6 || spawnPoint == 7)
+            {
+                enemy.transform.Rotate(Vector3.forward * 90);
+            }
+            else
+            {
+
+            }
         }
+            
 
         //리스폰 인덱스 증가
         spawnIndex++;
