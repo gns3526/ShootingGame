@@ -152,6 +152,7 @@ MonoBehaviour:
   isPassThrough: 0
   pv: {fileID: 668855957982877930}
   OP: {fileID: 0}
+  boxCol: {fileID: 2332362531343683147}
 --- !u!114 &668855957982877930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -171,6 +172,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: -1186807551407220135}
   - {fileID: 7470966320609034674}
   - {fileID: -6112678195325725980}
   viewIdField: 0

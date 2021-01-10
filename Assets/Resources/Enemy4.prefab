@@ -14,9 +14,8 @@ GameObject:
   - component: {fileID: 2566655035291444880}
   - component: {fileID: 2566655035291444881}
   - component: {fileID: 1405196066104455288}
-  - component: {fileID: 1366432127266393990}
-  - component: {fileID: -6440432708287615520}
   - component: {fileID: 5245478864493976949}
+  - component: {fileID: -8148483522704293848}
   m_Layer: 0
   m_Name: Enemy4
   m_TagString: Enemy
@@ -187,27 +186,23 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 2566655035291444881}
-  - {fileID: 1366432127266393990}
-  - {fileID: -6440432708287615520}
+  - {fileID: -8148483522704293848}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &1366432127266393990
+--- !u!114 &5245478864493976949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 2566655035291444886}
-  m_Enabled: 0
+  m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
+  m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_SynchronizePosition: 1
-  m_SynchronizeRotation: 1
-  m_SynchronizeScale: 0
---- !u!114 &-6440432708287615520
+--- !u!114 &-8148483522704293848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -240,18 +235,6 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &5245478864493976949
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
 --- !u!1 &5026966738304181840
 GameObject:
   m_ObjectHideFlags: 0

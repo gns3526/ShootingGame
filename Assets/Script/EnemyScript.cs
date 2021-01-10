@@ -43,6 +43,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] PhotonView pv;
     public bool isSpawn;
 
+    Vector3 curPosPv;
+
     [SerializeField] int targetRandomNum;
     private void Awake()
     {
@@ -81,20 +83,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             targetRandomNum = Random.Range(0, PhotonNetwork.PlayerList.Length);
         }
-        //pv.RPC("RandomRPC", RpcTarget.All);
+
 
         player = players[targetRandomNum]; // AA
     }
-    [PunRPC]
-    void RandomRPC()
-    {
-        
-    }
 
-    private void OnDisable()
-    {
-        //StopCoroutine(FindPlayer());
-    }
 
 
     public IEnumerator Stop()
@@ -253,13 +246,20 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     private void Update()
     {
-        healthImage.fillAmount = health / maxHealth;
-        Move();
-        if (enemyType == "Boss1")
-            return;
+        if (PhotonNetwork.IsMasterClient)
+        {
+            healthImage.fillAmount = health / maxHealth;
+            Move();
+            if (enemyType == "Boss1")
+                return;
 
-        Fire();
-        Reload();
+            Fire();
+            Reload();
+        }
+        if (!pv.IsMine)
+        {
+            //transform.position = curPosPv;
+        }
     }
     void Move()
     {
@@ -383,6 +383,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         curShotCoolTime += Time.deltaTime;
     }
+
+    //[PunRPC]
     public void Hit(int Dmg)
     {
         if (health <= 0)
@@ -434,6 +436,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if(PhotonNetwork.IsMasterClient)
             OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
+
             OP.PoolDestroy(gameObject);
 
             transform.rotation = Quaternion.identity;
@@ -462,6 +465,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         else if (other.tag == "PlayerBullet")
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
+
+            
+            //pv.RPC("Hit", RpcTarget.All, bullet.dmg + player.GetComponent<Player>().increaseDamage);
             Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
             isSpawn = false;
@@ -480,12 +486,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(health);
             stream.SendNext(healthImage.fillAmount);
             stream.SendNext(targetRandomNum);
+            //stream.SendNext(transform.position);
         }
         else
         {
             health = (float)stream.ReceiveNext();
             healthImage.fillAmount = (float)stream.ReceiveNext();
             targetRandomNum = (int)stream.ReceiveNext();
+            //curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
 

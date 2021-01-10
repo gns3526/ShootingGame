@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
-    [SerializeField] bool isGameStart;
+    public bool isGameStart;
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
     [SerializeField] Animator fadeAni;
@@ -247,37 +247,36 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
-        string enemyIndex = "None";
-        switch (spawnList[spawnIndex].type) 
-        {
-            case "1":
-                enemyIndex = "Enemy1";
-                break;
-            case "2":
-                enemyIndex = "Enemy2";
-                break;
-            case "3":
-                enemyIndex = "Enemy3";
-                break;
-            case "4":
-                enemyIndex = "Enemy4";
-                break;
-            case "Boss0":
-                enemyIndex = "Boss1";
-                break;
-        }
-        int spawnPoint = spawnList[spawnIndex].point;
-        //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
         if (PhotonNetwork.IsMasterClient)
         {
+            string enemyIndex = "None";
+            switch (spawnList[spawnIndex].type)
+            {
+                case "1":
+                    enemyIndex = "Enemy1";
+                    break;
+                case "2":
+                    enemyIndex = "Enemy2";
+                    break;
+                case "3":
+                    enemyIndex = "Enemy3";
+                    break;
+                case "4":
+                    enemyIndex = "Enemy4";
+                    break;
+                case "Boss0":
+                    enemyIndex = "Boss1";
+                    break;
+            }
+            int spawnPoint = spawnList[spawnIndex].point;
+            //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
+
             GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
             //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
 
             Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
             EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-            //enemyScript.player = player;
             enemyScript.GM = this;
-            //enemyScript.OM = OM;
 
             if (spawnPoint == 5 || spawnPoint == 8)
             {
@@ -291,19 +290,18 @@ public class GameManager : MonoBehaviour
             {
 
             }
-        }
-            
 
-        //리스폰 인덱스 증가
-        spawnIndex++;
-        if(spawnIndex == spawnList.Count)
-        {
-            spawnEnd = true;//스폰다됨
-            return;
-        }
+            //리스폰 인덱스 증가
+            spawnIndex++;
+            if (spawnIndex == spawnList.Count)
+            {
+                spawnEnd = true;//스폰다됨
+                return;
+            }
 
-        //다음 리스폰 딜레이 갱신
-        nextSpawnDelay = spawnList[spawnIndex].delay;
+            //다음 리스폰 딜레이 갱신
+            nextSpawnDelay = spawnList[spawnIndex].delay;
+        }
     }
 
     public void UpdateBoomIcon(int boom)

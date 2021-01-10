@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class BulletScript : MonoBehaviour
+public class BulletScript : MonoBehaviour, IPunObservable
 {
     public int dmg;
     [SerializeField] bool isPlayerAttack;
@@ -14,9 +14,23 @@ public class BulletScript : MonoBehaviour
 
     [SerializeField] ObjectPooler OP;
 
+    Vector3 curPosPv;
+
+    [SerializeField] BoxCollider2D boxCol;
     private void OnEnable()
     {
         OP = FindObjectOfType<ObjectPooler>();
+        if (isPlayerAttack)
+        {
+            if (!PhotonNetwork.IsMasterClient)
+            {
+                //boxCol.enabled = false;
+            }
+            else
+            {
+
+            }
+        }
     }
 
     private void Update()
@@ -25,6 +39,8 @@ public class BulletScript : MonoBehaviour
         {
             transform.Rotate(Vector3.forward * 10);
         }
+        //if(!pv.IsMine && isPlayerAttack)
+        //transform.position = curPosPv;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -35,7 +51,6 @@ public class BulletScript : MonoBehaviour
                 Debug.Log("111111");
                 OP.PoolDestroy(gameObject);
             }
-            
         }
         else
         {
@@ -43,6 +58,20 @@ public class BulletScript : MonoBehaviour
             {
                 OP.PoolDestroy(gameObject);
             }
+        }
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)//isMine = true
+        {
+            //if(isPlayerAttack)
+            //stream.SendNext(transform.position);
+        }
+        else
+        {
+            //if(isPlayerAttack)
+            //curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
 }

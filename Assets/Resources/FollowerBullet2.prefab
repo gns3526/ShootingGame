@@ -151,6 +151,7 @@ MonoBehaviour:
   isPassThrough: 0
   pv: {fileID: -5103508010015265109}
   OP: {fileID: 0}
+  boxCol: {fileID: 0}
 --- !u!114 &-5103508010015265109
 MonoBehaviour:
   m_ObjectHideFlags: 0

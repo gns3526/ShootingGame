@@ -124,6 +124,7 @@ MonoBehaviour:
   isPassThrough: 0
   pv: {fileID: 1612910835171533520}
   OP: {fileID: 0}
+  boxCol: {fileID: 0}
 --- !u!61 &5431172195592476221
 BoxCollider2D:
   m_ObjectHideFlags: 0
