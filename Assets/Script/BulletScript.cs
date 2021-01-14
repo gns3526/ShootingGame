@@ -17,20 +17,23 @@ public class BulletScript : MonoBehaviour, IPunObservable
     Vector3 curPosPv;
 
     [SerializeField] BoxCollider2D boxCol;
+
+    bool once;
     private void OnEnable()
     {
         OP = FindObjectOfType<ObjectPooler>();
-        if (isPlayerAttack)
+        if (isPlayerAttack && once)
         {
             if (!PhotonNetwork.IsMasterClient)
             {
-                //boxCol.enabled = false;
+                boxCol.enabled = false;
             }
             else
             {
-
+                boxCol.enabled = true;
             }
         }
+        once = true;
     }
 
     private void Update()
