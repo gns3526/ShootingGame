@@ -13,6 +13,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameManager GM;
     //[SerializeField] ObjectManager OM;
     [SerializeField] ObjectPooler OP;
+    [SerializeField] Cards CM;
 
 
     [SerializeField] InputField nickNameInput;
@@ -296,6 +297,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
         GM.player = myPlayer;
+        CM.player = myPlayer.GetComponent<Player>();
 
         //OP.PrePoolInstantiate();
 
