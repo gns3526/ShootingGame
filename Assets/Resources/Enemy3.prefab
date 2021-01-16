@@ -250,6 +250,7 @@ MonoBehaviour:
   MaxPatternCount: 
   fireCoolTime: []
   pv: {fileID: 6279287305572448718}
+  gmPv: {fileID: 0}
   isSpawn: 0
   targetRandomNum: 0
 --- !u!114 &6279287305572448718

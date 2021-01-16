@@ -41,6 +41,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     //
     [SerializeField] PhotonView pv;
+    public PhotonView gmPv;
     public bool isSpawn;
 
     Vector3 curPosPv;
@@ -48,7 +49,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int targetRandomNum;
     private void Awake()
     {
-         ani = GetComponent<Animator>();
+        ani = GetComponent<Animator>();
         OP = FindObjectOfType<ObjectPooler>();
     }
 
@@ -59,10 +60,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
-       // player = GameObject.FindGameObjectWithTag("Player");
-
-     //   players = GameObject.FindGameObjectsWithTag("Player");
-      //  player = players[Random.Range(0, players.Length)];
 
         canMoveMonster = true;
         curShotCoolTime = 0;
@@ -70,6 +67,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
+
 
         StartCoroutine(Stop());
 
@@ -446,7 +444,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             //보스죽음
             if(enemyType == "Boss1")
             {
-                GM.StageEnd();
+                gmPv.RPC("StageEnd", RpcTarget.All);
             }
         }
     }
@@ -496,5 +494,4 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             //curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
-
 }

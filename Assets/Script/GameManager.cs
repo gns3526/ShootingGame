@@ -47,7 +47,7 @@ public class GameManager : MonoBehaviour
     //
     [SerializeField] bool generateOnce;
 
-    [SerializeField] PhotonView pv;
+    public PhotonView pv;
 
 
     private void Awake()
@@ -65,9 +65,7 @@ public class GameManager : MonoBehaviour
 
     [PunRPC]
     void StageStart()
-    {
-        //OM.Generate();
-        
+    {   
         OP.PrePoolInstantiate();
 
         NM.roomPanel.SetActive(false);
@@ -84,8 +82,8 @@ public class GameManager : MonoBehaviour
         fadeAni.SetTrigger("Out");//밝아지기
 
         player.GetComponent<Player>().godMode = false;
-
     }
+    [PunRPC]
     public void StageEnd()
     {
         ClearEnemys();
@@ -102,7 +100,7 @@ public class GameManager : MonoBehaviour
         if (stage > MaxStage)//구현한 스테이지 수를 넘었을때
             GameOver();
         else
-            Invoke("SelectCard", 5);//카드고르기
+            Invoke("SelectCard", 3);//카드고르기
     }
     void ClearEnemys()
     {
@@ -191,12 +189,15 @@ public class GameManager : MonoBehaviour
     }
     public void SelectComplete()
     {
+        Debug.Log("카드 고르기3");
         cards = new List<GameObject>(cardsSave); 
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].SetActive(false);
         }
-        //StageStart();
+        Debug.Log("카드 고르기4");
+        pv.RPC("StageStart", RpcTarget.All);
+        Debug.Log("카드 고르기5");
     }
     void ReadSpawnFile()
     {
@@ -273,10 +274,11 @@ public class GameManager : MonoBehaviour
 
             GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
             //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
-
+            Debug.Log(enemy.name);
             Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
             EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
             enemyScript.GM = this;
+            enemyScript.gmPv = pv;
 
             if (spawnPoint == 5 || spawnPoint == 8)
             {

@@ -8,6 +8,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 {
     public Player player;
     [SerializeField] GameManager GM;
+    [SerializeField] PhotonView pv;
 
     [SerializeField] int readyAmount;
     public void CardS(int num)
@@ -52,8 +53,9 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.AddFollower(2);
                 break;
         }
-
-
+        Debug.Log("카드 고르기1");
+        pv.RPC("ReadyAmountReset", RpcTarget.All);
+        Debug.Log("카드 고르기2");
     }
 
 
@@ -63,8 +65,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     {
         readyAmount++;
 
-
-        if(PhotonNetwork.CountOfPlayersInRooms == readyAmount)
+        if(PhotonNetwork.PlayerList.Length == readyAmount)
         {
             GM.SelectComplete();
             readyAmount = 0;
