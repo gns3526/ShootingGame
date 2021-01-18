@@ -50,6 +50,8 @@ public class GameManager : MonoBehaviour
     public PhotonView pv;
 
 
+    [SerializeField] bool once;
+
     private void Awake()
     {
         spawnList = new List<Spawn>();
@@ -65,8 +67,14 @@ public class GameManager : MonoBehaviour
 
     [PunRPC]
     void StageStart()
-    {   
-        OP.PrePoolInstantiate();
+    {
+        if (once)
+        {
+            OP.PrePoolInstantiate();
+            once = false;
+        }
+
+
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
@@ -76,7 +84,11 @@ public class GameManager : MonoBehaviour
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
         clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
 
-        ReadSpawnFile();//적 스폰파일 읽기
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ReadSpawnFile();//적 스폰파일 읽기
+        }
+
         isGameStart = true;
 
         fadeAni.SetTrigger("Out");//밝아지기

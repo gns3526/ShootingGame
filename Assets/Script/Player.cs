@@ -42,7 +42,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isBoomActive;
 
     [SerializeField] GameObject[] followers;
-    [SerializeField] Sprite[] followerSprites;
 
     public bool canHit;
     public bool isRespawned;
@@ -77,6 +76,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
+
+        for (int i = 0; i < followers.Length; i++)
+        {
+            followers[i].GetComponent<Follower>().OP = OP;
+            followers[i].GetComponent<Follower>().player = this;
+        }
 
         //pv.ViewID = 1000 + NM.playerInfoGroupInt;
     }
@@ -423,24 +428,33 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 followers[i].SetActive(true);
                 Follower followerScript = followers[i].GetComponent<Follower>();
-                SpriteRenderer followersprite = followers[i].GetComponent<SpriteRenderer>();
+                pv.RPC("FollowerSpriteChangeRPC", RpcTarget.All,i,type);
                 switch (type)
                 {
                     case 1:
                         followerScript.maxShotCoolTime = 0.2f;
                         followerScript.bulletType = 1;
-                        followersprite.sprite = followerSprites[0];
                         break;
                     case 2:
                         followerScript.maxShotCoolTime = 2f;
                         followerScript.bulletType = 2;
-                        followersprite.sprite = followerSprites[1];
                         break;
                 }
                 break;
             }
         }
     }
+
+    [PunRPC]
+    void FollowerSpriteChangeRPC(int i, int type)
+    {
+        if(type == 1)
+            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num1", typeof(Sprite)) as Sprite;
+
+        else if(type == 2)
+            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num2", typeof(Sprite)) as Sprite;
+    }
+
 
     void BoomFalse()
     {

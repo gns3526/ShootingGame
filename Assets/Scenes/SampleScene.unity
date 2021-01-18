@@ -4387,6 +4387,7 @@ MonoBehaviour:
   cardsSave: []
   generateOnce: 0
   pv: {fileID: 601972272}
+  once: 1
 --- !u!4 &601972271
 Transform:
   m_ObjectHideFlags: 0

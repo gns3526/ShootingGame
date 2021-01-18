@@ -4,6 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 using UnityEngine.UI;
+using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 {
@@ -78,6 +79,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnConnectedToMaster()//2
     {
+        RoomOptions roomOption = new RoomOptions();
+        roomOption.CustomRoomProperties = new Hashtable() { { "Name", "문자열" }, { "Lv", 2 } };//형식{"여긴무조건 String값",여긴변수 아무거나}
+
         PhotonNetwork.JoinLobby();
 
         //PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null);//Make Room
@@ -146,9 +150,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     
 
+
     public override void OnJoinedRoom()
     {
         Spawn();
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "CT", "1" } });
+        }
 
         //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset();
@@ -202,6 +212,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void RoomRenewal()
     {
+        Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+
+
+
         listText.text = "";//player list text reset
 
 

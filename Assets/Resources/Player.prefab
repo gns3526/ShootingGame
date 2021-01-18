@@ -13,7 +13,7 @@ GameObject:
   - component: {fileID: 4441079796904589050}
   - component: {fileID: 6770348892743492470}
   m_Layer: 0
-  m_Name: GameObject
+  m_Name: HitBox
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -189,10 +189,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227140826626}
+  player: {fileID: 0}
 --- !u!1 &3941946225981818743
 GameObject:
   m_ObjectHideFlags: 0
@@ -288,10 +289,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227690431952}
+  player: {fileID: 0}
 --- !u!1 &3941946226391667026
 GameObject:
   m_ObjectHideFlags: 0
@@ -387,10 +389,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226561177524}
+  player: {fileID: 0}
 --- !u!1 &3941946226552155322
 GameObject:
   m_ObjectHideFlags: 0
@@ -486,10 +489,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225981818742}
+  player: {fileID: 0}
 --- !u!1 &3941946226561177525
 GameObject:
   m_ObjectHideFlags: 0
@@ -585,10 +589,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227259702257}
+  player: {fileID: 0}
 --- !u!1 &3941946226629464981
 GameObject:
   m_ObjectHideFlags: 0
@@ -684,10 +689,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226894128444}
+  player: {fileID: 0}
 --- !u!1 &3941946226894128447
 GameObject:
   m_ObjectHideFlags: 0
@@ -783,10 +789,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227448219102}
+  player: {fileID: 0}
 --- !u!1 &3941946227140826629
 GameObject:
   m_ObjectHideFlags: 0
@@ -937,9 +944,6 @@ MonoBehaviour:
   - {fileID: 3941946227690431953}
   - {fileID: 3941946225981818743}
   - {fileID: 3941946226552155322}
-  followerSprites:
-  - {fileID: 21300000, guid: e9e51d66c96317443a8e6cf9e6c199bf, type: 3}
-  - {fileID: 1802310193581816292, guid: 8584809810c56574e80ab5bff07d10e6, type: 3}
   canHit: 1
   isRespawned: 0
   joyControl: 000000000000000000
@@ -1177,10 +1181,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226629464980}
+  player: {fileID: 0}
 --- !u!1 &3941946227448219103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1276,10 +1281,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225890586677}
+  player: {fileID: 0}
 --- !u!1 &3941946227652808678
 GameObject:
   m_ObjectHideFlags: 0
@@ -1375,10 +1381,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226391667025}
+  player: {fileID: 0}
 --- !u!1 &3941946227690431953
 GameObject:
   m_ObjectHideFlags: 0
@@ -1474,10 +1481,11 @@ MonoBehaviour:
   maxShotCoolTime: 0.4
   curShotCoolTime: 0
   bulletType: 0
-  OM: {fileID: 0}
+  OP: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227652808677}
+  player: {fileID: 0}
 --- !u!1 &4127158019707452856
 GameObject:
   m_ObjectHideFlags: 0
