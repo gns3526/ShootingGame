@@ -12,7 +12,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] PhotonView pvGM;
 
     [SerializeField] GameManager GM;
-    //[SerializeField] ObjectManager OM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
 

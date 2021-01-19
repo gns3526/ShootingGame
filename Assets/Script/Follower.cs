@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Follower : MonoBehaviour
+public class Follower : MonoBehaviourPun, IPunObservable
 {
     public float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
@@ -18,6 +18,8 @@ public class Follower : MonoBehaviour
     [SerializeField] Queue<Vector3> parentPos;
 
     public Player player;
+
+    Vector3 curPosPv;
     private void Awake()
     {
         parentPos = new Queue<Vector3>();
@@ -26,10 +28,18 @@ public class Follower : MonoBehaviour
 
     private void Update()
     {
-        Watch();
-        Follow();
-        Fire();
-        curShotCoolTime += Time.deltaTime;
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            Watch();
+            Follow();
+            Fire();
+            curShotCoolTime += Time.deltaTime;
+        }
+        else
+        {
+            //transform.position = curPosPv;
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
+        }
     }
 
 
@@ -80,5 +90,17 @@ public class Follower : MonoBehaviour
         }
 
         curShotCoolTime = 0;
+    }
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)//isMine = true
+        {
+            stream.SendNext(followPos);
+        }
+        else
+        {
+            curPosPv = (Vector3)stream.ReceiveNext();
+        }
     }
 }

@@ -150,7 +150,7 @@ MonoBehaviour:
   isPassThrough: 0
   pv: {fileID: -5103508010015265109}
   OP: {fileID: 0}
-  boxCol: {fileID: 0}
+  boxCol: {fileID: 6428041374053074998}
 --- !u!114 &-5103508010015265109
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -201,5 +201,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   m_SynchronizeVelocity: 1
   m_SynchronizeAngularVelocity: 0
-  m_TeleportEnabled: 0
+  m_TeleportEnabled: 1
   m_TeleportIfDistanceGreaterThan: 3
