@@ -70,8 +70,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
 
         StartCoroutine(Stop());
-
-
     }
     public void creat()
     {
@@ -81,8 +79,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             targetRandomNum = Random.Range(0, PhotonNetwork.PlayerList.Length);
         }
-
-
         player = players[targetRandomNum]; // AA
     }
 

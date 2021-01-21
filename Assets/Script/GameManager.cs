@@ -9,9 +9,9 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
-    //[SerializeField] ObjectManager OM;
     [SerializeField] NetworkManager NM;
     [SerializeField] ObjectPooler OP;
+    [SerializeField] Cards CM;
 
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
@@ -43,12 +43,15 @@ public class GameManager : MonoBehaviour
 
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
+    [SerializeField] GameObject cardPanel;
 
     //
     [SerializeField] bool generateOnce;
 
     public PhotonView pv;
 
+
+    [SerializeField] bool once;
 
     private void Awake()
     {
@@ -65,8 +68,14 @@ public class GameManager : MonoBehaviour
 
     [PunRPC]
     void StageStart()
-    {   
-        OP.PrePoolInstantiate();
+    {
+        if (once)
+        {
+            OP.PrePoolInstantiate();
+            once = false;
+        }
+
+
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
@@ -76,10 +85,16 @@ public class GameManager : MonoBehaviour
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
         clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
 
-        ReadSpawnFile();//적 스폰파일 읽기
+        if (PhotonNetwork.IsMasterClient)
+        {
+            ReadSpawnFile();//적 스폰파일 읽기
+        }
+
         isGameStart = true;
 
         fadeAni.SetTrigger("Out");//밝아지기
+
+        cardPanel.SetActive(false);
 
         player.GetComponent<Player>().godMode = false;
     }
@@ -180,25 +195,34 @@ public class GameManager : MonoBehaviour
 
     public void SelectCard()
     {
+        CM.isReady = false;
+        CM.curMin = 1;
+        CM.curSec = 0;
+        CM.isCellectingTime = true;
         for (int i = 0; i < 3; i++)
         {
             int random = Random.Range(0, cards.Count);
             cards[random].SetActive(true);
             cards.RemoveAt(random);
         }
+        cardPanel.SetActive(true);
     }
     public void SelectComplete()
     {
-        Debug.Log("카드 고르기3");
-        cards = new List<GameObject>(cardsSave); 
+        pv.RPC("StageStart", RpcTarget.All);
+    }
+    public void ClearCards()
+    {
+        cards = new List<GameObject>(cardsSave);
+        Debug.Log("카드 없앰1");
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].SetActive(false);
         }
-        Debug.Log("카드 고르기4");
-        pv.RPC("StageStart", RpcTarget.All);
-        Debug.Log("카드 고르기5");
+
+        Debug.Log("카드 없앰2");
     }
+
     void ReadSpawnFile()
     {
         spawnList.Clear();//초기화

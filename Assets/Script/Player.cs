@@ -36,13 +36,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Rigidbody2D rigid;
 
     public GameManager GM;
-    ObjectManager OM;
     [SerializeField] ObjectPooler OP;
 
     [SerializeField] bool isBoomActive;
 
     [SerializeField] GameObject[] followers;
-    [SerializeField] Sprite[] followerSprites;
 
     public bool canHit;
     public bool isRespawned;
@@ -69,7 +67,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>();
-        OM = FindObjectOfType<ObjectManager>();
         NM = FindObjectOfType<NetworkManager>();
         OP = FindObjectOfType<ObjectPooler>();
 
@@ -77,6 +74,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
+
+        for (int i = 0; i < followers.Length; i++)
+        {
+            followers[i].GetComponent<Follower>().OP = OP;
+            followers[i].GetComponent<Follower>().player = this;
+        }
 
         //pv.ViewID = 1000 + NM.playerInfoGroupInt;
     }
@@ -121,11 +124,13 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             UseBoom();
             if (Input.GetKeyDown(KeyCode.R))
             {
-                AddFollower(1);
+                pv.RPC("AddFollower", RpcTarget.All, 1);
+                //AddFollower(1);
             }
             if (Input.GetKeyDown(KeyCode.T))
             {
-                AddFollower(2);
+                pv.RPC("AddFollower", RpcTarget.All, 2);
+                //AddFollower(2);
             }
         }
         else if((transform.position - curPosPv).sqrMagnitude >= 100)
@@ -215,6 +220,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
+                /*
                 GameObject bulletR = OM.MakeObj("BulletPlayer0");
                 GameObject bulletL = OM.MakeObj("BulletPlayer0");
                 bulletR.transform.position = transform.position + Vector3.right * 0.1f;
@@ -225,8 +231,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
                 Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
                 rigidL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                */
                 break;
             default:
+                /*
                 GameObject bulletRR = OM.MakeObj("BulletPlayer0");
                 bulletRR.transform.position = transform.position + Vector3.right * 0.35f;
 
@@ -244,23 +252,16 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
                 Rigidbody2D rigidLL = bulletLL.GetComponent<Rigidbody2D>();
                 rigidLL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                */
                 break;
+
         }
 
 
         curShotCoolTime = 0;
     }
 
-    [PunRPC]
-    void shhotiung()
-    {
-        GameObject bullet = OM.MakeObj("BulletPlayer0");
-        bullet.SetActive(true); // test
-
-        bullet.transform.position = transform.position;
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-        rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-    }
+    
     void Reload()
     {
         curShotCoolTime += Time.deltaTime;
@@ -285,6 +286,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         boomEffect.SetActive(true);
         Invoke("BoomFalse", 4);
 
+        /*
         GameObject[] enemy1 = OM.GetPool("1");
         GameObject[] enemy2 = OM.GetPool("2");
         GameObject[] enemy3 = OM.GetPool("3");
@@ -355,6 +357,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 BulletEnemy3[i].SetActive(false);
             }
         }
+        */
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
@@ -414,33 +417,43 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-
+    [PunRPC]
     public void AddFollower(int type)
     {
+        
         for (int i = 0; i < followers.Length; i++)
         {
             if (!followers[i].activeSelf)
             {
                 followers[i].SetActive(true);
                 Follower followerScript = followers[i].GetComponent<Follower>();
-                SpriteRenderer followersprite = followers[i].GetComponent<SpriteRenderer>();
+                pv.RPC("FollowerSpriteChangeRPC", RpcTarget.All,i,type);
                 switch (type)
                 {
                     case 1:
                         followerScript.maxShotCoolTime = 0.2f;
                         followerScript.bulletType = 1;
-                        followersprite.sprite = followerSprites[0];
                         break;
                     case 2:
                         followerScript.maxShotCoolTime = 2f;
                         followerScript.bulletType = 2;
-                        followersprite.sprite = followerSprites[1];
                         break;
                 }
                 break;
             }
         }
     }
+
+    [PunRPC]
+    void FollowerSpriteChangeRPC(int i, int type)
+    {
+        if(type == 1)
+            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num1", typeof(Sprite)) as Sprite;
+
+        else if(type == 2)
+            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num2", typeof(Sprite)) as Sprite;
+    }
+
 
     void BoomFalse()
     {

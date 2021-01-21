@@ -4,35 +4,42 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Follower : MonoBehaviour
+public class Follower : MonoBehaviourPun, IPunObservable
 {
     public float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
     public int bulletType;
 
-    [SerializeField] ObjectManager OM;
+    public ObjectPooler OP;
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
     [SerializeField] Transform parent;
     [SerializeField] Queue<Vector3> parentPos;
 
+    public Player player;
+
+    Vector3 curPosPv;
     private void Awake()
     {
         parentPos = new Queue<Vector3>();
     }
 
-    private void OnEnable()
-    {
-        OM = FindObjectOfType<ObjectManager>();
-    }
 
     private void Update()
     {
-        Watch();
-        Follow();
-        Fire();
-        Reload();
+        if (GetComponent<PhotonView>().IsMine)
+        {
+            Watch();
+            Follow();
+            Fire();
+            curShotCoolTime += Time.deltaTime;
+        }
+        else
+        {
+            //transform.position = curPosPv;
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
+        }
     }
 
 
@@ -60,22 +67,22 @@ public class Follower : MonoBehaviour
     {
         if (!Input.GetButton("Fire1")) return;
 
-        if (!parent.GetComponent<PhotonView>().IsMine) return;
+        if (!player.GetComponent<PhotonView>().IsMine) return;
 
         if (curShotCoolTime < maxShotCoolTime) return;
 
         switch (bulletType)
         {
             case 1:
-                GameObject bullet = OM.MakeObj("BulletFollower0");
-                bullet.transform.position = transform.position;
+                GameObject bullet = OP.PoolInstantiate("FollowerBullet1", transform.position,Quaternion.identity);
+                //bullet.transform.position = transform.position;
 
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
-                GameObject bullet2 = OM.MakeObj("BulletFollower1");
-                bullet2.transform.position = transform.position;
+                GameObject bullet2 = OP.PoolInstantiate("FollowerBullet2", transform.position, Quaternion.identity);
+                //bullet2.transform.position = transform.position;
 
                 Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
                 rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
@@ -84,8 +91,16 @@ public class Follower : MonoBehaviour
 
         curShotCoolTime = 0;
     }
-    void Reload()
+
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
-        curShotCoolTime += Time.deltaTime;
+        if (stream.IsWriting)//isMine = true
+        {
+            stream.SendNext(followPos);
+        }
+        else
+        {
+            curPosPv = (Vector3)stream.ReceiveNext();
+        }
     }
 }
