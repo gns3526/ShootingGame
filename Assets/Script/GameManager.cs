@@ -21,7 +21,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] Animator fadeAni;
     [SerializeField] Transform playerPos;
 
-    [SerializeField] string[] enemysName;
     [SerializeField] Transform[] enemySpawnPoint;
 
     [SerializeField] float nextSpawnDelay;
@@ -58,10 +57,6 @@ public class GameManager : MonoBehaviour
         spawnList = new List<Spawn>();
 
         cardsSave = new List<GameObject>(cards);
-
-        enemysName = new string[] { "1", "2", "3", "4", "Boss0" };
-
-
 
         //ReadSpawnFile();//적 스폰파일 읽기
     }

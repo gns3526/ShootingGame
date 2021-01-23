@@ -66,6 +66,12 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             case 8:
                 player.AddFollower(2);
                 break;
+            case 9:
+                player.godTime += 2;
+                break;
+            case 10:
+                player.godTime += 2;
+                break;
         }
         Debug.Log("카드 고르기1");
         GM.ClearCards();

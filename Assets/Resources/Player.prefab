@@ -1199,6 +1199,7 @@ MonoBehaviour:
   shotCoolTimeReduce: 100
   curShotCoolTime: 0
   godTime: 2
+  missPercentage: 0
   boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
   sprite: {fileID: 3941946227140826627}
@@ -1224,8 +1225,6 @@ MonoBehaviour:
   isControl: 0
   isButtenA: 0
   isButtenB: 0
-  dmgPer: 0
-  firePer: 0
   nickNameText: {fileID: 9020922032865828001}
   pv: {fileID: -8026742147984905641}
   curPosPv: {x: 0, y: 0, z: 0}

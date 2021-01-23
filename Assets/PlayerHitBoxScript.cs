@@ -11,11 +11,15 @@ public class PlayerHitBoxScript : MonoBehaviour
     {
         if (other.tag == "Enemy" || other.tag == "EnemyBullet")
         {
+            if (player.canHit) return;
 
-            if (player.canHit)
+            int randomNum = Random.Range(0, 101);
+            if(player.missPercentage > randomNum)
             {
-                player.life--;
+                return;
             }
+
+            player.life--;
             player.canHit = false;
             player.GM.UpdateLifeIcon(player.life);
             player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트

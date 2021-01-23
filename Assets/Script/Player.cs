@@ -14,6 +14,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isTouchRight;
     [SerializeField] bool isTouchBottom;
 
+    [Header("Player Stats")]
     public int life;
     public int maxLife;
     [SerializeField] int maximumLife;
@@ -28,7 +29,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public float shotCoolTimeReduce;
     [SerializeField] float curShotCoolTime;
     public float godTime;
+    public int missPercentage;
 
+    [Header("Others")]
     [SerializeField] GameObject boomEffect;
 
     [SerializeField] Animator ani;
@@ -50,8 +53,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isButtenA;
     [SerializeField] bool isButtenB;
 
-    public float dmgPer;
-    public float firePer;
+
 
 
     //Photon Panel
