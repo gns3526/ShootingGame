@@ -1,21 +1,37 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class PlayerHitBoxScript : MonoBehaviour
 {
     [SerializeField] Player player;
     [SerializeField] Animator playerAni;
 
+    [SerializeField] PhotonView pv;
+    GameManager GM;
+
+    private void Start()
+    {
+        if (pv.IsMine)
+        {
+            GM = FindObjectOfType<GameManager>();
+            player = GM.myplayer.GetComponent<Player>();
+        }
+    }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy" || other.tag == "EnemyBullet")
         {
-            if (player.canHit) return;
+            if (!player.canHit) return;
 
             int randomNum = Random.Range(0, 101);
+            Debug.Log(randomNum);
             if(player.missPercentage > randomNum)
             {
+                GodTime();
                 return;
             }
 
@@ -26,6 +42,7 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             if (player.life == 0)
             {
+                player.isDie = true;
                 player.GM.GameOver();
             }
             else

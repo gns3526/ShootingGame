@@ -26,7 +26,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] float nextSpawnDelay;
     [SerializeField] float curSpawnDelay;
 
-    public GameObject player;
+    public GameObject myplayer;
     [SerializeField] float respawnCoolTIme;
 
     [SerializeField] Text scoreText;
@@ -43,6 +43,9 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
     [SerializeField] GameObject cardPanel;
+
+    [Header("Player State")]
+    [SerializeField] bool isDie;
 
     //
     [SerializeField] bool generateOnce;
@@ -91,7 +94,7 @@ public class GameManager : MonoBehaviour
 
         cardPanel.SetActive(false);
 
-        player.GetComponent<Player>().godMode = false;
+        myplayer.GetComponent<Player>().godMode = false;
     }
     [PunRPC]
     public void StageEnd()
@@ -102,8 +105,8 @@ public class GameManager : MonoBehaviour
 
         fadeAni.SetTrigger("In");//어두워 지기
 
-        player.GetComponent<Player>().godMode = true;
-        player.transform.position = playerPos.position;//플래이어 위치 초기화
+        myplayer.GetComponent<Player>().godMode = true;
+        myplayer.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
 
@@ -352,7 +355,7 @@ public class GameManager : MonoBehaviour
     {
         //Invoke("ReSpawn", respawnCoolTIme);
         yield return new WaitForSeconds(respawnCoolTIme);
-        player.GetComponent<Player>().canHit = true;
+        myplayer.GetComponent<Player>().canHit = true;
         pv.RPC("ReSpawn", RpcTarget.AllBuffered);
         //ReSpawn();
     }
@@ -360,10 +363,20 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     void ReSpawn()
     {
-      
-        player.SetActive(true);
+
+        myplayer.SetActive(true);
        // Debug.Log("리스폰");
       
+    }
+
+    [PunRPC]
+    void ReviveTeam()
+    {
+        if (myplayer.GetComponent<Player>().isDie)
+        {
+            isDie = false;
+            myplayer.GetComponent<Player>().life = 1;
+        }
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)

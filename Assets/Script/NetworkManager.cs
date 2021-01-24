@@ -53,10 +53,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [Header("ETC")]
     [SerializeField] Text curInfoText;
 
+    [Header("PlayerInfo")]
+
+  
+    [Header("Others")]
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
 
     public GameObject myPlayer;
+
 
     private void Awake()
     {
@@ -309,7 +314,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
-        GM.player = myPlayer;
+        GM.myplayer = myPlayer;
         CM.player = myPlayer.GetComponent<Player>();
 
         //OP.PrePoolInstantiate();
@@ -351,7 +356,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             startButton.interactable = false;
         }
     }
-
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)//isMine

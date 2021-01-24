@@ -67,6 +67,7 @@ MonoBehaviour:
   - FollowerSpriteChangeRPC
   - AddFollower
   - ReadyAmountSetZero
+  - ReviveTeam
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

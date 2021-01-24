@@ -70,7 +70,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.godTime += 2;
                 break;
             case 10:
-                player.godTime += 2;
+                player.missPercentage += 10;
+                break;
+            case 11:
+                GM.pv.RPC("ReviveTeam",RpcTarget.All);
                 break;
         }
         Debug.Log("카드 고르기1");

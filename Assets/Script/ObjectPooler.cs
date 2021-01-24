@@ -12,6 +12,7 @@ public class ObjectPooler : MonoBehaviourPun
         public string tag;
         public GameObject prefab;
         public int size;
+        public bool isMyBullet;
     }
 
     public static ObjectPooler OP;
@@ -31,6 +32,17 @@ public class ObjectPooler : MonoBehaviourPun
             for (int i = 0; i < pool.size; i++)
             {
                 GameObject obj = PhotonNetwork.Instantiate(pool.tag, new Vector3(4, 4, 0), Quaternion.identity);
+
+                /*
+                if (obj.GetComponent<PhotonView>().IsMine && pool.isMyBullet)
+                {
+                    obj.GetComponent<BulletScript>().boxCol.enabled = true;
+                }
+                else if(!obj.GetComponent<PhotonView>().IsMine && pool.isMyBullet)
+                {
+                    obj.GetComponent<BulletScript>().boxCol.enabled = false;
+                }*/
+
                 obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
                 objectPool.Enqueue(obj);
             }

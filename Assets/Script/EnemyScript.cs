@@ -378,7 +378,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         curShotCoolTime += Time.deltaTime;
     }
 
-    //[PunRPC]
+    [PunRPC]
     public void Hit(int Dmg)
     {
         if (health <= 0)
@@ -461,8 +461,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             BulletScript bullet = other.GetComponent<BulletScript>();
 
             
-            //pv.RPC("Hit", RpcTarget.All, bullet.dmg + player.GetComponent<Player>().increaseDamage);
-            Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
+            pv.RPC("Hit", RpcTarget.All, bullet.dmg + player.GetComponent<Player>().increaseDamage);
+            //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
             isSpawn = false;
             //other.gameObject.SetActive(false);

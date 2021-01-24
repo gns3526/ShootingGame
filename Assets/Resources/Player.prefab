@@ -12,6 +12,7 @@ GameObject:
   - component: {fileID: 3562700330013443446}
   - component: {fileID: 4441079796904589050}
   - component: {fileID: 6770348892743492470}
+  - component: {fileID: 4950260049077055768}
   m_Layer: 0
   m_Name: HitBox
   m_TagString: Untagged
@@ -71,8 +72,9 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da98e7ed38851845a89ad286dfcb861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3941946227140826628}
+  player: {fileID: 0}
   playerAni: {fileID: 3941946227140826655}
+  pv: {fileID: -8026742147984905641}
 --- !u!50 &6770348892743492470
 Rigidbody2D:
   serializedVersion: 4
@@ -94,6 +96,28 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
+--- !u!114 &4950260049077055768
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 514433345074499091}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &3941946225890586680
 GameObject:
   m_ObjectHideFlags: 0
@@ -1181,6 +1205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   godMode: 0
+  isDie: 0
   isTouchTop: 0
   isTouchLeft: 0
   isTouchRight: 0
@@ -1193,13 +1218,14 @@ MonoBehaviour:
   power: 1
   maxPower: 6
   increaseDamage: 0
+  bossDamagePer: 0
   boom: 0
   maxBoom: 3
   maxShotCoolTime: 0.15
   shotCoolTimeReduce: 100
   curShotCoolTime: 0
   godTime: 2
-  missPercentage: 0
+  missPercentage: 50
   boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
   sprite: {fileID: 3941946227140826627}

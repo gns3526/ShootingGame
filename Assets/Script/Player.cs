@@ -8,6 +8,7 @@ using Photon.Realtime;
 public class Player : MonoBehaviourPunCallbacks, IPunObservable
 {
     public bool godMode;
+    public bool isDie;
 
     [SerializeField] bool isTouchTop;
     [SerializeField] bool isTouchLeft;
@@ -23,6 +24,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int power;
     public int maxPower;
     public int increaseDamage;
+    public int bossDamagePer; 
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
     [SerializeField] float maxShotCoolTime;
@@ -61,7 +63,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     NetworkManager NM;
     PhotonView NMPV;
     [SerializeField] Text nickNameText;
-    [SerializeField] PhotonView pv;
+    public PhotonView pv;
 
     [SerializeField] Vector3 curPosPv;
 
@@ -71,8 +73,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         GM = FindObjectOfType<GameManager>();
         NM = FindObjectOfType<NetworkManager>();
         OP = FindObjectOfType<ObjectPooler>();
-
-        GM.player = gameObject;
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
@@ -124,14 +124,19 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             Fire();
             Reload();
             UseBoom();
-            if (Input.GetKeyDown(KeyCode.R))
+            if (Input.GetKeyDown(KeyCode.Y))
             {
                 pv.RPC("AddFollower", RpcTarget.All, 1);
                 //AddFollower(1);
             }
-            if (Input.GetKeyDown(KeyCode.T))
+            if (Input.GetKeyDown(KeyCode.U))
             {
                 pv.RPC("AddFollower", RpcTarget.All, 2);
+                //AddFollower(2);
+            }
+            if (Input.GetKeyDown(KeyCode.R))
+            {
+                GM.pv.RPC("ReviveTeam", RpcTarget.All);
                 //AddFollower(2);
             }
         }
@@ -206,18 +211,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!Input.GetButton("Fire1")) return;
 
-        //if (!isButtenA) return;
+        if (isDie) return;
 
         if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
 
         switch (power)
         {
             case 1:
-
-                //pv.RPC("shhotiung", RpcTarget.AllBuffered);
-                //GameObject bullet = OM.MakeObj("BulletPlayer0");
                 GameObject bullet = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
-                //bullet.transform.position = transform.position;
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
