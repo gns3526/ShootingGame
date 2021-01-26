@@ -8,6 +8,7 @@ using Photon.Realtime;
 public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 {
     public string enemyType;
+    [SerializeField] bool isBoss;
     [SerializeField] int enemyScore;
     public float speed;
     [SerializeField] float health;
@@ -451,17 +452,22 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BulletBorder" && enemyType != "Boss1")
+        if (other.tag == "BulletBorder" && !isBoss)
         {
             isSpawn = false;
             OP.PoolDestroy(gameObject);
         }
-        else if (other.tag == "PlayerBullet")
+        else if (other.tag == "PlayerBullet" && other.GetComponent<PhotonView>().IsMine)
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
 
+            if (isBoss)
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg + player.GetComponent<Player>().increaseDamage)
+                    * ((player.GetComponent<Player>().bossDamagePer / 100) + 1));
+
+            else
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg + player.GetComponent<Player>().increaseDamage));
             
-            pv.RPC("Hit", RpcTarget.All, bullet.dmg + player.GetComponent<Player>().increaseDamage);
             //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
             isSpawn = false;

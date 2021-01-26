@@ -24,7 +24,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int power;
     public int maxPower;
     public int increaseDamage;
-    public int bossDamagePer; 
+    public int bossDamagePer;
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
     [SerializeField] float maxShotCoolTime;
@@ -138,6 +138,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 GM.pv.RPC("ReviveTeam", RpcTarget.All);
                 //AddFollower(2);
+            }
+            if(Input.GetKeyDown(KeyCode.B))
+            {
+                bossDamagePer += 100;
             }
         }
         else if((transform.position - curPosPv).sqrMagnitude >= 100)

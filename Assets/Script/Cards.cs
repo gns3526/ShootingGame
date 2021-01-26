@@ -75,6 +75,12 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             case 11:
                 GM.pv.RPC("ReviveTeam",RpcTarget.All);
                 break;
+            case 12:
+                player.missPercentage += 10;//none
+                break;
+            case 13:
+                player.bossDamagePer += 100;
+                break;
         }
         Debug.Log("카드 고르기1");
         GM.ClearCards();

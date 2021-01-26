@@ -137,6 +137,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   enemyType: Monster4
+  isBoss: 0
   enemyScore: 100
   speed: 0.1
   health: 0

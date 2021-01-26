@@ -1225,7 +1225,7 @@ MonoBehaviour:
   shotCoolTimeReduce: 100
   curShotCoolTime: 0
   godTime: 2
-  missPercentage: 50
+  missPercentage: 0
   boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
   sprite: {fileID: 3941946227140826627}
