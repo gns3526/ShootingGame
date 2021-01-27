@@ -76,10 +76,28 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.pv.RPC("ReviveTeam",RpcTarget.All);
                 break;
             case 12:
-                player.missPercentage += 10;//none
+                player.isDamageStack = true;
                 break;
             case 13:
+                player.isAttackSpeedStack = true;
+                break;
+            case 14:
                 player.bossDamagePer += 100;
+                break;
+            case 15:
+                player.criticalPer += 20;
+                break;
+            case 16:
+                player.criticalDamagePer += 100;
+                break;
+            case 17:
+                player.isSpecialBulletAbility1 = true;
+                player.isSpecialBulletAbility2 = false;
+                break;
+            case 18:
+                player.criticalDamagePer += 100;
+                player.isSpecialBulletAbility1 = false;
+                player.isSpecialBulletAbility2 = true;
                 break;
         }
         Debug.Log("카드 고르기1");

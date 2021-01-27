@@ -45,7 +45,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject cardPanel;
 
     [Header("Player State")]
-    [SerializeField] bool isDie;
+    //[SerializeField] bool isDie;
 
     //
     [SerializeField] bool generateOnce;
@@ -300,6 +300,7 @@ public class GameManager : MonoBehaviour
             Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
             EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
             enemyScript.GM = this;
+            enemyScript.myPlayerScript = myplayer.GetComponent<Player>();
             enemyScript.gmPv = pv;
 
             if (spawnPoint == 5 || spawnPoint == 8)
@@ -374,8 +375,11 @@ public class GameManager : MonoBehaviour
     {
         if (myplayer.GetComponent<Player>().isDie)
         {
-            isDie = false;
+            //isDie = false;
+            myplayer.GetComponent<Player>().isDie = false;
             myplayer.GetComponent<Player>().life = 1;
+            UpdateLifeIcon(myplayer.GetComponent<Player>().life);
+            retryPanel.SetActive(false);
         }
     }
 

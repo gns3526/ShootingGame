@@ -31,6 +31,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     public GameObject player;
     public GameObject[] players;
+    public Player myPlayerScript;
     public GameManager GM;
     public ObjectManager OM;
     [SerializeField] ObjectPooler OP;
@@ -68,6 +69,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
+
 
 
         StartCoroutine(Stop());
@@ -385,7 +387,16 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         if (health <= 0)
             return;
 
-        health -= Dmg;
+        int randomNum;
+        randomNum = Random.Range(0, 101);
+
+        if (myPlayerScript.criticalPer > randomNum)
+            health -= Mathf.Round(Dmg * ((myPlayerScript.criticalDamagePer / 100) + 1));
+        
+        else
+            health -= Mathf.Round(Dmg);
+
+
         
         if (enemyType == "Boss1")
         {
@@ -398,12 +409,30 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         }
 
 
-
         if(health <= 0)
         {
-            Player playerScript = player.GetComponent<Player>();
-            playerScript.score += enemyScore;
+            myPlayerScript.score += enemyScore;
 
+            if (myPlayerScript.isAttackSpeedStack)
+            {
+                myPlayerScript.attackSpeedStackint++;
+
+                if (myPlayerScript.attackSpeedStackint == 10)
+                {
+                    myPlayerScript.attackSpeedStackint = 0;
+                    myPlayerScript.attackSpeedStack++;
+                }
+            }
+            if (myPlayerScript.isDamageStack)
+            {
+                myPlayerScript.damageStackint++;
+
+                if (myPlayerScript.damageStackint == 10)
+                {
+                    myPlayerScript.damageStackint = 0;
+                    myPlayerScript.damageStack++;
+                }
+            }
             /*
             int random = enemyType == "Boss1" ? 0 : Random.Range(0, 10);
             if(random < 4)

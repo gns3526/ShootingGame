@@ -247,6 +247,7 @@ MonoBehaviour:
   rigid: {fileID: 0}
   player: {fileID: 0}
   players: []
+  myPlayerScript: {fileID: 0}
   GM: {fileID: 0}
   OM: {fileID: 0}
   OP: {fileID: 0}

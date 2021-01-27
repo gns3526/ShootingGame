@@ -20,11 +20,18 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int maxLife;
     [SerializeField] int maximumLife;
     public int score;
+
     public float moveSpeed;
     public int power;
     public int maxPower;
     public int increaseDamage;
     public int bossDamagePer;
+    public int criticalPer;
+    public int criticalDamagePer;
+
+    public bool isSpecialBulletAbility1;
+    public bool isSpecialBulletAbility2;
+
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
     [SerializeField] float maxShotCoolTime;
@@ -32,6 +39,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] float curShotCoolTime;
     public float godTime;
     public int missPercentage;
+
+    public bool isAttackSpeedStack;
+    public int attackSpeedStackint;
+    public int attackSpeedStack;
+    public bool isDamageStack;
+    public int damageStackint;
+    public int damageStack;
+
 
     [Header("Others")]
     [SerializeField] GameObject boomEffect;
@@ -218,6 +233,26 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (isDie) return;
 
         if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
+
+
+        int randomNum = Random.Range(0,101);
+
+        if(isSpecialBulletAbility1 && (30 > randomNum))
+        {
+            GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity);
+            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+            curShotCoolTime = 0;
+            return;
+        }
+        if (isSpecialBulletAbility2 && (30 > randomNum))
+        {
+            GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity);
+            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+            rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+            curShotCoolTime = 0;
+            return;
+        }
 
         switch (power)
         {

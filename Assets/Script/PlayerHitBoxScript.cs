@@ -28,7 +28,6 @@ public class PlayerHitBoxScript : MonoBehaviour
             if (!player.canHit) return;
 
             int randomNum = Random.Range(0, 101);
-            Debug.Log(randomNum);
             if(player.missPercentage > randomNum)
             {
                 GodTime();
