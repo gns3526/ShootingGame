@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
     public bool isGameStart;
+    public bool isPlaying;
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
     [SerializeField] Animator fadeAni;
@@ -72,7 +73,7 @@ public class GameManager : MonoBehaviour
             OP.PrePoolInstantiate();
             once = false;
         }
-
+        isPlaying = true;
 
 
         NM.roomPanel.SetActive(false);
@@ -99,6 +100,7 @@ public class GameManager : MonoBehaviour
     [PunRPC]
     public void StageEnd()
     {
+        isPlaying = false;
         ClearEnemys();
 
         clearAni.SetTrigger("Active");//클리어Ui

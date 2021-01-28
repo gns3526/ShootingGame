@@ -253,6 +253,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Fire();
             Reload();
         }
+        if (!GM.isPlaying)
+        {
+            Hit(10000);
+        }
         if (!pv.IsMine)
         {
             //transform.position = curPosPv;
