@@ -1221,6 +1221,14 @@ MonoBehaviour:
   bossDamagePer: 0
   criticalPer: 20
   criticalDamagePer: 1000
+  gotSpecialWeaponAbility: 1
+  weaponCode: 1
+  toTalChargeTime: 2
+  curChargeTime: 2
+  curBulletAmount: 0
+  maxSpecialBullet: 20
+  weaponTotalShotCoolTime: 0.5
+  curWeaponShotCoolTime: -1
   isSpecialBulletAbility1: 0
   isSpecialBulletAbility2: 0
   boom: 0
@@ -1261,6 +1269,8 @@ MonoBehaviour:
   isControl: 0
   isButtenA: 0
   isButtenB: 0
+  isFire: 0
+  specialShot: 0
   nickNameText: {fileID: 9020922032865828001}
   pv: {fileID: -8026742147984905641}
   curPosPv: {x: 0, y: 0, z: 0}

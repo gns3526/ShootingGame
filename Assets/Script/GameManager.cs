@@ -9,10 +9,12 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviour
 {
+    [Header("Managers")]
     [SerializeField] NetworkManager NM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
 
+    [Header("GamePlayInfo")]
     [SerializeField] int stage;
     [SerializeField] int MaxStage;
     public bool isGameStart;
@@ -20,35 +22,44 @@ public class GameManager : MonoBehaviour
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
     [SerializeField] Animator fadeAni;
-    [SerializeField] Transform playerPos;
 
+    [Header("MonsterSpawn")]
     [SerializeField] Transform[] enemySpawnPoint;
-
     [SerializeField] float nextSpawnDelay;
     [SerializeField] float curSpawnDelay;
-
-    public GameObject myplayer;
-    [SerializeField] float respawnCoolTIme;
-
-    [SerializeField] Text scoreText;
-    [SerializeField] Image[] lifeImage;
-    [SerializeField] Image[] boomImage;
-    [SerializeField] GameObject scorePanel;
-
-    [SerializeField] GameObject retryPanel;
-
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
     [SerializeField] bool spawnEnd;
 
+    [Header("Score")]
+    [SerializeField] Text scoreText;
+    [SerializeField] Image[] lifeImage;
+    [SerializeField] Image[] boomImage;
+
+    [Header("Panels")]
+    [SerializeField] GameObject scorePanel;
+    [SerializeField] GameObject retryPanel;
+
+    [Header("Cards")]
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
     [SerializeField] GameObject cardPanel;
 
-    [Header("Player State")]
-    //[SerializeField] bool isDie;
+    [SerializeField] int[] gacha;
 
-    //
+    [Header("ControlPanel")]
+    public GameObject normalShotBotton;
+    public GameObject specialShotBotton;
+
+    public Text weaponBulletText;
+    public Image weaponShotButtonImage;
+
+    [Header("Player")]
+    [SerializeField] Transform playerPos;
+    public GameObject myplayer;
+    [SerializeField] float respawnCoolTIme;
+
+    [Header("Other")]
     [SerializeField] bool generateOnce;
 
     public PhotonView pv;
@@ -201,6 +212,12 @@ public class GameManager : MonoBehaviour
         CM.isCellectingTime = true;
         for (int i = 0; i < 3; i++)
         {
+            int a = Random.Range(0, 101);
+
+            
+
+
+
             int random = Random.Range(0, cards.Count);
             cards[random].SetActive(true);
             cards.RemoveAt(random);
@@ -352,6 +369,31 @@ public class GameManager : MonoBehaviour
         {
             lifeImage[i].color = new Color(1, 1, 1, 1);
         }
+    }
+
+    public void ChangeShotType()
+    {
+        Player myplayerScript = myplayer.GetComponent<Player>();
+        if (myplayerScript.gotSpecialWeaponAbility)
+        {
+            myplayerScript.specialShot = !myplayerScript.specialShot;
+
+            if (myplayerScript.specialShot)
+            {
+                normalShotBotton.SetActive(false);
+                specialShotBotton.SetActive(true);
+            }
+            else
+            {
+                specialShotBotton.SetActive(false);
+                normalShotBotton.SetActive(true);
+            }
+        }
+    }
+
+    public void Shot(bool a)
+    {
+        myplayer.GetComponent<Player>().isFire = a;
     }
 
     public IEnumerator ReSpawnM()

@@ -99,6 +99,16 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.isSpecialBulletAbility1 = false;
                 player.isSpecialBulletAbility2 = true;
                 break;
+            case 19:
+                player.gotSpecialWeaponAbility = true;
+                player.weaponCode = 1;
+                player.toTalChargeTime = 2;
+                player.curChargeTime = player.toTalChargeTime;
+                player.curBulletAmount = 0;
+                player.maxSpecialBullet = 20;
+                player.weaponTotalShotCoolTime = 0.5f;
+                player.curWeaponShotCoolTime = -1;
+                break;
         }
         Debug.Log("카드 고르기1");
         GM.ClearCards();

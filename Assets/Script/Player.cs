@@ -29,6 +29,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int criticalPer;
     public int criticalDamagePer;
 
+    public bool gotSpecialWeaponAbility;
+    public int weaponCode;
+    public float toTalChargeTime;
+    public float curChargeTime;
+    public int curBulletAmount;
+    public int maxSpecialBullet;
+    public float weaponTotalShotCoolTime;
+    public float curWeaponShotCoolTime;
+
     public bool isSpecialBulletAbility1;
     public bool isSpecialBulletAbility2;
 
@@ -69,8 +78,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isControl;
     [SerializeField] bool isButtenA;
     [SerializeField] bool isButtenB;
+    public bool isFire;
 
-
+    public bool specialShot;
 
 
     //Photon Panel
@@ -158,6 +168,21 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 bossDamagePer += 100;
             }
+            if (maxSpecialBullet > curBulletAmount)
+            {
+                curChargeTime -= Time.deltaTime;
+                if(curChargeTime < 0)
+                {
+                    curChargeTime = toTalChargeTime;
+                    curBulletAmount++;
+                    GM.weaponBulletText.text = curBulletAmount.ToString();
+                }
+            }
+            if(curWeaponShotCoolTime < weaponTotalShotCoolTime)
+            {
+                curWeaponShotCoolTime += Time.deltaTime;
+                GM.weaponShotButtonImage.fillAmount = curWeaponShotCoolTime / weaponTotalShotCoolTime;
+            }
         }
         else if((transform.position - curPosPv).sqrMagnitude >= 100)
         {
@@ -228,14 +253,28 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
  
     void Fire()
     {
-        if (!Input.GetButton("Fire1")) return;
+        //if (!Input.GetButton("Fire1")) return;
+        if (!isFire) return;
 
         if (isDie) return;
 
         if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
 
-
         int randomNum = Random.Range(0,101);
+
+        if ((gotSpecialWeaponAbility && specialShot))
+        {
+            if(weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
+            {
+                GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity);
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                curBulletAmount--;
+                curWeaponShotCoolTime = 0;
+            }
+            GM.weaponBulletText.text = curBulletAmount.ToString();
+            return;
+        }
 
         if(isSpecialBulletAbility1 && (30 > randomNum))
         {
@@ -303,7 +342,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         curShotCoolTime = 0;
     }
 
-    
+
     void Reload()
     {
         curShotCoolTime += Time.deltaTime;
