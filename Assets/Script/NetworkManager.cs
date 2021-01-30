@@ -270,6 +270,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void StartButton()
     {
+        PhotonNetwork.CurrentRoom.IsOpen = false;
+        PhotonNetwork.CurrentRoom.IsVisible = false;
         pvGM.RPC("StageStart", RpcTarget.All);
 
 

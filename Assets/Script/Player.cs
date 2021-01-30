@@ -168,7 +168,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 bossDamagePer += 100;
             }
-            if (maxSpecialBullet > curBulletAmount)
+            if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
             {
                 curChargeTime -= Time.deltaTime;
                 if(curChargeTime < 0)
@@ -178,7 +178,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     GM.weaponBulletText.text = curBulletAmount.ToString();
                 }
             }
-            if(curWeaponShotCoolTime < weaponTotalShotCoolTime)
+            if(curWeaponShotCoolTime < weaponTotalShotCoolTime && GM.isPlaying)
             {
                 curWeaponShotCoolTime += Time.deltaTime;
                 GM.weaponShotButtonImage.fillAmount = curWeaponShotCoolTime / weaponTotalShotCoolTime;
@@ -255,6 +255,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         //if (!Input.GetButton("Fire1")) return;
         if (!isFire) return;
+
+        if (!GM.isPlaying) return;
 
         if (isDie) return;
 

@@ -43,6 +43,17 @@ public class GameManager : MonoBehaviour
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
     [SerializeField] List<GameObject> cardsSave;
+
+    [SerializeField] List<GameObject> rare;
+    [SerializeField] List<GameObject> epic;
+    [SerializeField] List<GameObject> unique;
+    [SerializeField] List<GameObject> legendary;
+
+    [SerializeField] List<GameObject> rareSave;
+    [SerializeField] List<GameObject> epicSave;
+    [SerializeField] List<GameObject> uniqueSave;
+    [SerializeField] List<GameObject> legendarySave;
+
     [SerializeField] GameObject cardPanel;
 
     [SerializeField] int[] gacha;
@@ -73,6 +84,10 @@ public class GameManager : MonoBehaviour
 
         cardsSave = new List<GameObject>(cards);
 
+        rareSave = new List<GameObject>(rare);
+        epicSave = new List<GameObject>(epic);
+        uniqueSave = new List<GameObject>(unique);
+        legendarySave = new List<GameObject>(legendary);
         //ReadSpawnFile();//적 스폰파일 읽기
     }
 
@@ -210,17 +225,49 @@ public class GameManager : MonoBehaviour
         CM.curMin = 1;
         CM.curSec = 0;
         CM.isCellectingTime = true;
+
         for (int i = 0; i < 3; i++)
         {
             int a = Random.Range(0, 101);
+            Debug.Log(a);
+            if(0 <= a && a < 40)
+            {
+                int randomR = Random.Range(0, rare.Count);
 
-            
+                rare[randomR].SetActive(true);
+                rare.RemoveAt(randomR);
+                Debug.Log("레어");
+            }
+            else if (40 <= a && a < 70)
+            {
+                int randomR = Random.Range(0, epic.Count);
+
+                epic[randomR].SetActive(true);
+                epic.RemoveAt(randomR);
+                Debug.Log("에픽");
+            }
+            else if (70 <= a && a < 90)
+            {
+                int randomR = Random.Range(0, unique.Count);
+
+                unique[randomR].SetActive(true);
+                unique.RemoveAt(randomR);
+                Debug.Log("유니크");
+            }
+            else if (90 <= a && a < 101)
+            {
+                int randomR = Random.Range(0, legendary.Count);
+
+                legendary[randomR].SetActive(true);
+                legendary.RemoveAt(randomR);
+                Debug.Log("레전");
+            }
 
 
 
-            int random = Random.Range(0, cards.Count);
-            cards[random].SetActive(true);
-            cards.RemoveAt(random);
+            //int random = Random.Range(0, cards.Count);
+            //cards[random].SetActive(true);
+            //cards.RemoveAt(random);
         }
         cardPanel.SetActive(true);
     }
@@ -231,6 +278,11 @@ public class GameManager : MonoBehaviour
     public void ClearCards()
     {
         cards = new List<GameObject>(cardsSave);
+
+        rare = new List<GameObject>(rareSave);
+        epic = new List<GameObject>(epicSave);
+        unique = new List<GameObject>(uniqueSave);
+        legendary = new List<GameObject>(legendarySave);
         Debug.Log("카드 없앰1");
         for (int i = 0; i < cards.Count; i++)
         {

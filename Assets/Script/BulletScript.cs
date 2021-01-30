@@ -13,12 +13,19 @@ public class BulletScript : MonoBehaviour, IPunObservable
     [SerializeField] PhotonView pv;
 
     [SerializeField] ObjectPooler OP;
+    GameManager GM;
 
     Vector3 curPosPv;
 
     public BoxCollider2D boxCol;
 
     bool once;
+
+    private void Awake()
+    {
+        GM = FindObjectOfType<GameManager>();
+    }
+
     private void OnEnable()
     {
         OP = FindObjectOfType<ObjectPooler>();
@@ -41,6 +48,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (isRotate)
         {
             transform.Rotate(Vector3.forward * 10);
+        }
+
+        if (!GM.isPlaying)
+        {
+            OP.PoolDestroy(gameObject);
         }
         //if(!pv.IsMine && isPlayerAttack)
         //transform.position = curPosPv;

@@ -130,13 +130,13 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     IEnumerator FireFoward()//앞으로 4발
     {
-        GameObject bulletR = OM.MakeObj("BulletEnemy4");
+        GameObject bulletR = OP.PoolInstantiate("EnemyBullet4",transform.position,Quaternion.identity);
         bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-        GameObject bulletRR = OM.MakeObj("BulletEnemy4");
+        GameObject bulletRR = OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
         bulletRR.transform.position = transform.position + Vector3.right * 0.45f;
-        GameObject bulletL = OM.MakeObj("BulletEnemy4");
+        GameObject bulletL = OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
         bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-        GameObject bulletLL = OM.MakeObj("BulletEnemy4");
+        GameObject bulletLL = OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
         bulletLL.transform.position = transform.position + Vector3.left * 0.45f;
 
         Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
@@ -164,7 +164,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         for (int i = 0; i < 5; i++)
         {
-            GameObject bullet = OM.MakeObj("BulletEnemy3");
+            GameObject bullet = OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
@@ -189,7 +189,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     IEnumerator FireArc()//부체모양
     {
-        GameObject bullet = OM.MakeObj("BulletEnemy3");
+        GameObject bullet = OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
         bullet.transform.position = transform.position;//초기화
         bullet.transform.rotation = Quaternion.identity;//초기화
 
@@ -216,7 +216,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         int roundNum = curPatternCount % 2 == 0 ? roundNumA : roundNumB;//roundNumA와roundNumB의 수를 교차
         for (int i = 0; i < roundNum; i++)
         {
-            GameObject bullet = OM.MakeObj("BulletEnemy3");
+            GameObject bullet = OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
             bullet.transform.position = transform.position;//초기화
             bullet.transform.rotation = Quaternion.identity;//초기화
 
