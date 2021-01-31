@@ -67,6 +67,8 @@ public class Follower : MonoBehaviourPun, IPunObservable
     {
         if (!Input.GetButton("Fire1")) return;
 
+        if (player.isDie) return;
+
         if (!player.GetComponent<PhotonView>().IsMine) return;
 
         if (curShotCoolTime < maxShotCoolTime) return;

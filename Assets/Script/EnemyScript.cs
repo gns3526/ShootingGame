@@ -71,7 +71,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         healthBarGameObject.transform.rotation = Quaternion.identity;
 
 
-
+        if(PhotonNetwork.IsMasterClient)
         StartCoroutine(Stop());
     }
     public void creat()

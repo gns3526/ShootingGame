@@ -36,9 +36,15 @@ public class GameManager : MonoBehaviour
     [SerializeField] Image[] lifeImage;
     [SerializeField] Image[] boomImage;
 
+    [SerializeField] Text clearScoreText;
+    [SerializeField] Text clearLifeText;
+    [SerializeField] Text clearTotalScore;
+
     [Header("Panels")]
     [SerializeField] GameObject scorePanel;
     [SerializeField] GameObject retryPanel;
+    public GameObject controlPanel;
+    [SerializeField] GameObject finalStageClearPanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -49,10 +55,10 @@ public class GameManager : MonoBehaviour
     [SerializeField] List<GameObject> unique;
     [SerializeField] List<GameObject> legendary;
 
-    [SerializeField] List<GameObject> rareSave;
-    [SerializeField] List<GameObject> epicSave;
-    [SerializeField] List<GameObject> uniqueSave;
-    [SerializeField] List<GameObject> legendarySave;
+    List<GameObject> rareSave;
+    List<GameObject> epicSave;
+    List<GameObject> uniqueSave;
+    List<GameObject> legendarySave;
 
     [SerializeField] GameObject cardPanel;
 
@@ -71,7 +77,6 @@ public class GameManager : MonoBehaviour
     [SerializeField] float respawnCoolTIme;
 
     [Header("Other")]
-    [SerializeField] bool generateOnce;
 
     public PhotonView pv;
 
@@ -131,17 +136,24 @@ public class GameManager : MonoBehaviour
 
         clearAni.SetTrigger("Active");//클리어Ui
 
-        fadeAni.SetTrigger("In");//어두워 지기
+
 
         myplayer.GetComponent<Player>().godMode = true;
         myplayer.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
 
-        if (stage > MaxStage)//구현한 스테이지 수를 넘었을때
-            GameOver();
+        if (stage > MaxStage)
+        {
+            FinalStageClear();
+        }
+
         else
+        {
+            fadeAni.SetTrigger("In");//어두워 지기
             Invoke("SelectCard", 3);//카드고르기
+        }
+
     }
     void ClearEnemys()
     {
@@ -273,6 +285,7 @@ public class GameManager : MonoBehaviour
     }
     public void SelectComplete()
     {
+
         pv.RPC("StageStart", RpcTarget.All);
     }
     public void ClearCards()
@@ -487,6 +500,36 @@ public class GameManager : MonoBehaviour
 
         explosion.transform.position = pos;
         explosionScript.StartExplosion(targetType);
+    }
+
+    public void FinalStageClear()
+    {
+        finalStageClearPanel.SetActive(true);
+        Player myplayerScript = myplayer.GetComponent<Player>();
+
+        clearScoreText.text = myplayerScript.score.ToString();
+        clearLifeText.text = (myplayerScript.life * 1000).ToString();
+        clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
+    }
+
+    public void GoToLobby()
+    {
+        stage = 1;
+        isGameStart = false;
+        isPlaying = false;
+        curSpawnDelay = 0;
+        spawnIndex = 0;
+        spawnEnd = false;
+
+        once = true;
+
+
+        scorePanel.SetActive(false);
+        controlPanel.SetActive(false);
+        finalStageClearPanel.SetActive(false);
+        NM.lobbyPanel.SetActive(true);
+        PhotonNetwork.LeaveRoom();
+        
     }
 
     public void GameOver()

@@ -126,6 +126,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
         if(PhotonNetwork.PlayerList.Length == readyAmount)
         {
+            curSec = -11;
             GM.SelectComplete();
             readyAmount = 0;
         }
@@ -151,6 +152,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             if (curSec > 0)
             {
                 curTimeText.text = string.Format("{0:00}:{1:00}", curMin, curSec);
+            }
+            else if(curSec < -10)
+            {
+                return;
             }
             else
             {

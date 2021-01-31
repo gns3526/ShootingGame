@@ -25,7 +25,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int readyPlayerAmount;
 
     [Header("LobbyPanel")]
-    [SerializeField] GameObject lobbyPanel;
+    public GameObject lobbyPanel;
     [SerializeField] InputField roomInput;
     [SerializeField] Text welcomeText;
     [SerializeField] Text lobbyInforText;
@@ -96,6 +96,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         lobbyPanel.SetActive(true);
         roomPanel.SetActive(false);
         connectPanel.SetActive(false);
+        GM.controlPanel.SetActive(false);
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         myList.Clear();
@@ -168,6 +169,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //readyReset();
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
+        GM.controlPanel.SetActive(true);
         chatInput.text = "";
         RoomRenewal();
         for (int i = 0; i < chatTextT.Length; i++)
@@ -321,6 +323,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         //OP.PrePoolInstantiate();
 
+
         respawnPanel.SetActive(false);
     }
 
@@ -328,6 +331,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+        GM.controlPanel.SetActive(false);
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(false);
         connectPanel.SetActive(true);
