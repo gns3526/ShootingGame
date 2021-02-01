@@ -69,7 +69,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] bool isBoomActive;
 
-    [SerializeField] GameObject[] followers;
+    public GameObject[] followers;
+    public int followerAmount;
 
     public bool canHit;
     public bool isRespawned;
@@ -106,7 +107,62 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             followers[i].GetComponent<Follower>().OP = OP;
             followers[i].GetComponent<Follower>().player = this;
+            followers[i].SetActive(false);
         }
+
+        if (gotSpecialWeaponAbility)
+        {
+            GM.weaponBulletText.gameObject.SetActive(true);
+            GM.weaponBulletText.text = "0";
+        }
+
+        else
+        {
+            GM.weaponBulletText.gameObject.SetActive(false);
+            GM.weaponBulletText.text = "0";
+        }
+            
+
+        /*
+        maxLife = 5;
+        life = maxLife;
+        maximumLife = 10;
+        score = 0;
+        moveSpeed = 3;
+        power = 1;
+        maxPower = 6;
+        increaseDamage = 100;
+        bossDamagePer = 100;
+
+        criticalPer = 20;
+        criticalDamagePer = 100;
+
+        gotSpecialWeaponAbility = false;
+        weaponCode = 0;
+        toTalChargeTime = 0;
+        curChargeTime = toTalChargeTime;
+        curBulletAmount = 0;
+        maxSpecialBullet = 0;
+        weaponTotalShotCoolTime = 0;
+        curWeaponShotCoolTime = -1;
+
+        isSpecialBulletAbility1 = false;
+        isSpecialBulletAbility2 = false;
+
+        maxShotCoolTime = 0.15f;
+        shotCoolTimeReduce = 100;
+        curShotCoolTime = maxShotCoolTime;
+
+        godTime = 2;
+        missPercentage = 0;
+
+        isAttackSpeedStack = false;
+        attackSpeedStackint = 0;
+        attackSpeedStack = 0;
+        isDamageStack = false;
+        damageStackint = 0;
+        damageStack = 0;
+        */
 
         //pv.ViewID = 1000 + NM.playerInfoGroupInt;
     }
@@ -303,9 +359,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
-                /*
-                GameObject bulletR = OM.MakeObj("BulletPlayer0");
-                GameObject bulletL = OM.MakeObj("BulletPlayer0");
+                
+                GameObject bulletR = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
+                GameObject bulletL = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
                 bulletR.transform.position = transform.position + Vector3.right * 0.1f;
                 bulletL.transform.position = transform.position + Vector3.left * 0.1f;
 
@@ -314,17 +370,17 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
                 Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
                 rigidL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                */
+                
                 break;
-            default:
-                /*
-                GameObject bulletRR = OM.MakeObj("BulletPlayer0");
+            case 3:
+                
+                GameObject bulletRR = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
                 bulletRR.transform.position = transform.position + Vector3.right * 0.35f;
 
-                GameObject bulletCC = OM.MakeObj("BulletPlayer1");
+                GameObject bulletCC = OP.PoolInstantiate("PlayerBullet2", transform.position, Quaternion.identity);
                 bulletCC.transform.position = transform.position;
 
-                GameObject bulletLL = OM.MakeObj("BulletPlayer0");
+                GameObject bulletLL = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
                 bulletLL.transform.position = transform.position + Vector3.left * 0.35f;
 
                 Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
@@ -335,7 +391,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
                 Rigidbody2D rigidLL = bulletLL.GetComponent<Rigidbody2D>();
                 rigidLL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                */
+                
                 break;
 
         }
@@ -530,6 +586,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void FollowerSpriteChangeRPC(int i, int type)
     {
+        followerAmount++;
         if(type == 1)
             followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num1", typeof(Sprite)) as Sprite;
 

@@ -41,7 +41,7 @@ public class GameManager : MonoBehaviour
     [SerializeField] Text clearTotalScore;
 
     [Header("Panels")]
-    [SerializeField] GameObject scorePanel;
+    public GameObject scorePanel;
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
@@ -63,6 +63,11 @@ public class GameManager : MonoBehaviour
     [SerializeField] GameObject cardPanel;
 
     [SerializeField] int[] gacha;
+
+    [SerializeField] int rarePer;
+    [SerializeField] int epicPer;
+    [SerializeField] int uniquePer;
+    [SerializeField] int legendaryPer;
 
     [Header("ControlPanel")]
     public GameObject normalShotBotton;
@@ -238,11 +243,24 @@ public class GameManager : MonoBehaviour
         CM.curSec = 0;
         CM.isCellectingTime = true;
 
+        Player myplayerScript = myplayer.GetComponent<Player>();
+
+        //rare40
+        //epic70
+        //unique90
+        //legen101
+        if(myplayerScript.followers.Length <= myplayerScript.followerAmount)
+        {
+            epic.RemoveAt(1);
+            epic.RemoveAt(2);
+        }
+
+
         for (int i = 0; i < 3; i++)
         {
             int a = Random.Range(0, 101);
             Debug.Log(a);
-            if(0 <= a && a < 40)
+            if(0 <= a && a < rarePer)
             {
                 int randomR = Random.Range(0, rare.Count);
 
@@ -250,7 +268,7 @@ public class GameManager : MonoBehaviour
                 rare.RemoveAt(randomR);
                 Debug.Log("레어");
             }
-            else if (40 <= a && a < 70)
+            else if (rarePer <= a && a < rarePer + epicPer)
             {
                 int randomR = Random.Range(0, epic.Count);
 
@@ -258,7 +276,7 @@ public class GameManager : MonoBehaviour
                 epic.RemoveAt(randomR);
                 Debug.Log("에픽");
             }
-            else if (70 <= a && a < 90)
+            else if (rarePer + epicPer <= a && a < rarePer + epicPer + uniquePer)
             {
                 int randomR = Random.Range(0, unique.Count);
 
@@ -266,7 +284,7 @@ public class GameManager : MonoBehaviour
                 unique.RemoveAt(randomR);
                 Debug.Log("유니크");
             }
-            else if (90 <= a && a < 101)
+            else if (rarePer + epicPer + uniquePer <= a && a < rarePer + epicPer + uniquePer + legendaryPer)
             {
                 int randomR = Random.Range(0, legendary.Count);
 
@@ -347,7 +365,8 @@ public class GameManager : MonoBehaviour
             curSpawnDelay = 0;
         }
         //Player playerScript = player.GetComponent<Player>();
-        //scoreText.text = string.Format("{0:n0}",playerScript.score);
+        if(isGameStart)
+        scoreText.text = string.Format("{0:n0}",myplayer.GetComponent<Player>().score);
 
         if (Input.GetKeyDown(KeyCode.Y)) pv.RPC("StageStart",RpcTarget.AllBuffered);
     }

@@ -30,7 +30,8 @@ public class PlayerHitBoxScript : MonoBehaviour
             int randomNum = Random.Range(0, 101);
             if(player.missPercentage > randomNum)
             {
-                GodTime();
+                StartCoroutine(GodTime());
+                player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
                 return;
             }
 

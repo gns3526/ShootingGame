@@ -395,7 +395,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         randomNum = Random.Range(0, 101);
 
         if (myPlayerScript.criticalPer > randomNum)
-            health -= Mathf.Round(Dmg * ((myPlayerScript.criticalDamagePer / 100) + 1));
+            health -= Mathf.Round(Dmg * (myPlayerScript.criticalDamagePer / 100));
         
         else
             health -= Mathf.Round(Dmg);
@@ -495,11 +495,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             BulletScript bullet = other.GetComponent<BulletScript>();
 
             if (isBoss)
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg + player.GetComponent<Player>().increaseDamage)
-                    * ((player.GetComponent<Player>().bossDamagePer / 100) + 1));
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
+                    * (player.GetComponent<Player>().bossDamagePer / 100));
 
             else
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg + player.GetComponent<Player>().increaseDamage));
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
             
             //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 

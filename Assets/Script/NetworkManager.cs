@@ -170,6 +170,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         GM.controlPanel.SetActive(true);
+        GM.scorePanel.SetActive(false);
         chatInput.text = "";
         RoomRenewal();
         for (int i = 0; i < chatTextT.Length; i++)

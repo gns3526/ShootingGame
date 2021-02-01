@@ -40,7 +40,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.moveSpeed += 1;
                 break;
             case 3:
-                player.increaseDamage += 3;
+                player.increaseDamage += 50;
                 break;
             case 4:
                 if (player.power != player.maxPower)
@@ -108,6 +108,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.maxSpecialBullet = 20;
                 player.weaponTotalShotCoolTime = 0.5f;
                 player.curWeaponShotCoolTime = -1;
+
+                GM.weaponBulletText.gameObject.SetActive(true);
                 break;
         }
         Debug.Log("카드 고르기1");
