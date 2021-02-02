@@ -73,7 +73,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.missPercentage += 10;
                 break;
             case 11:
-                GM.pv.RPC("ReviveTeam",RpcTarget.All);
+                GM.pv.RPC("ReviveTeam", RpcTarget.All, 1);
                 break;
             case 12:
                 player.isDamageStack = true;

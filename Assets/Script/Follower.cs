@@ -18,11 +18,15 @@ public class Follower : MonoBehaviourPun, IPunObservable
     [SerializeField] Queue<Vector3> parentPos;
 
     public Player player;
+    [SerializeField] Rigidbody2D rigid;
+
+    [SerializeField] int iiii;
 
     Vector3 curPosPv;
     private void Awake()
     {
         parentPos = new Queue<Vector3>();
+        rigid.Sleep();
     }
 
 
@@ -34,12 +38,15 @@ public class Follower : MonoBehaviourPun, IPunObservable
             Follow();
             Fire();
             curShotCoolTime += Time.deltaTime;
+
         }
         else
         {
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15;
             //transform.position = curPosPv;
-            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
         }
+        rigid.velocity = new Vector2(0, 0);
+
     }
 
 

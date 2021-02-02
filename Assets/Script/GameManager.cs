@@ -367,8 +367,6 @@ public class GameManager : MonoBehaviour
         //Player playerScript = player.GetComponent<Player>();
         if(isGameStart)
         scoreText.text = string.Format("{0:n0}",myplayer.GetComponent<Player>().score);
-
-        if (Input.GetKeyDown(KeyCode.Y)) pv.RPC("StageStart",RpcTarget.AllBuffered);
     }
 
     void SpawnEnemy()
@@ -402,9 +400,9 @@ public class GameManager : MonoBehaviour
             Debug.Log(enemy.name);
             Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
             EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-            enemyScript.GM = this;
-            enemyScript.myPlayerScript = myplayer.GetComponent<Player>();
-            enemyScript.gmPv = pv;
+            //enemyScript.GM = this;
+            //enemyScript.myPlayerScript = myplayer.GetComponent<Player>();
+            //enemyScript.gmPv = pv;
 
             if (spawnPoint == 5 || spawnPoint == 8)
             {
@@ -499,13 +497,13 @@ public class GameManager : MonoBehaviour
     }
 
     [PunRPC]
-    void ReviveTeam()
+    void ReviveTeam(int Life)
     {
         if (myplayer.GetComponent<Player>().isDie)
         {
             //isDie = false;
             myplayer.GetComponent<Player>().isDie = false;
-            myplayer.GetComponent<Player>().life = 1;
+            myplayer.GetComponent<Player>().life = Life;
             UpdateLifeIcon(myplayer.GetComponent<Player>().life);
             retryPanel.SetActive(false);
         }

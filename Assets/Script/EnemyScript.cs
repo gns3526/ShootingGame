@@ -53,6 +53,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         ani = GetComponent<Animator>();
         OP = FindObjectOfType<ObjectPooler>();
+        GM = FindObjectOfType<GameManager>();
+
+        myPlayerScript = GM.myplayer.GetComponent<Player>();
+        gmPv = GM.pv;
     }
 
 
@@ -245,6 +249,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (PhotonNetwork.IsMasterClient)
         {
+            if (!GM.isPlaying)
+            {
+                //pv.RPC("Hit", RpcTarget.All, 10000);
+                Hit(10000);
+            }
             healthImage.fillAmount = health / maxHealth;
             Move();
             if (enemyType == "Boss1")
@@ -253,10 +262,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Fire();
             Reload();
         }
-        if (!GM.isPlaying)
-        {
-            Hit(10000);
-        }
+
         if (!pv.IsMine)
         {
             //transform.position = curPosPv;
@@ -385,9 +391,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         curShotCoolTime += Time.deltaTime;
     }
 
-    [PunRPC]
+    //[PunRPC]
     public void Hit(int Dmg)
     {
+        //if (!myPlayerScript.pv.IsMine) return;
+
         if (health <= 0)
             return;
 
@@ -495,11 +503,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             BulletScript bullet = other.GetComponent<BulletScript>();
 
             if (isBoss)
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
+                //pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
+                //    * (player.GetComponent<Player>().bossDamagePer / 100));
+                Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
                     * (player.GetComponent<Player>().bossDamagePer / 100));
 
             else
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
+                //pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
+                Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
             
             //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 

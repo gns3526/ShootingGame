@@ -217,7 +217,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
-                GM.pv.RPC("ReviveTeam", RpcTarget.All);
+                GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
                 //AddFollower(2);
             }
             if(Input.GetKeyDown(KeyCode.B))

@@ -100,6 +100,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
         myList.Clear();
+        MyListRenewal();
     }
 
     public void MyListClick(int num)//방 클릭했을때

@@ -25,6 +25,8 @@ public class PlayerHitBoxScript : MonoBehaviour
     {
         if (other.tag == "Enemy" || other.tag == "EnemyBullet")
         {
+            if (player == null) return;
+
             if (!player.canHit) return;
 
             int randomNum = Random.Range(0, 101);
