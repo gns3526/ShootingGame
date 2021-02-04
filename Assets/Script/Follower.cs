@@ -42,7 +42,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15;
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
             //transform.position = curPosPv;
         }
         rigid.velocity = new Vector2(0, 0);
