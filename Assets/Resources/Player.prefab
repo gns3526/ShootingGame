@@ -221,7 +221,7 @@ MonoBehaviour:
   parent: {fileID: 3941946227140826626}
   player: {fileID: 0}
   rigid: {fileID: 8242009468384621392}
-  iiii: 30
+  iiii: 0
 --- !u!114 &3229597382091293050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -279,7 +279,6 @@ GameObject:
   - component: {fileID: 3941946225981818741}
   - component: {fileID: 1392863723199145665}
   - component: {fileID: 5286581912542367927}
-  - component: {fileID: 8562955377622966765}
   m_Layer: 0
   m_Name: Pet10
   m_TagString: Untagged
@@ -369,7 +368,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946227690431952}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 5286581912542367927}
   iiii: 0
 --- !u!114 &1392863723199145665
 MonoBehaviour:
@@ -391,7 +390,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946225981818741}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -416,39 +414,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8562955377622966765
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946225981818743}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946226391667026
 GameObject:
   m_ObjectHideFlags: 0
@@ -462,7 +427,6 @@ GameObject:
   - component: {fileID: 3941946226391667024}
   - component: {fileID: 6334808207860319744}
   - component: {fileID: 7417675186443054760}
-  - component: {fileID: 6254918409918615035}
   m_Layer: 0
   m_Name: Pet7
   m_TagString: Untagged
@@ -552,7 +516,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946226561177524}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 7417675186443054760}
   iiii: 0
 --- !u!114 &6334808207860319744
 MonoBehaviour:
@@ -574,7 +538,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946226391667024}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -599,39 +562,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &6254918409918615035
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946226391667026}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946226552155322
 GameObject:
   m_ObjectHideFlags: 0
@@ -645,7 +575,6 @@ GameObject:
   - component: {fileID: 3941946226552155321}
   - component: {fileID: 3132938149911840192}
   - component: {fileID: 1333552995362690029}
-  - component: {fileID: 2601751103986648809}
   m_Layer: 0
   m_Name: Pet11
   m_TagString: Untagged
@@ -735,7 +664,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946225981818742}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 1333552995362690029}
   iiii: 0
 --- !u!114 &3132938149911840192
 MonoBehaviour:
@@ -757,7 +686,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946226552155321}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -782,39 +710,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2601751103986648809
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946226552155322}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946226561177525
 GameObject:
   m_ObjectHideFlags: 0
@@ -828,7 +723,6 @@ GameObject:
   - component: {fileID: 3941946226561177523}
   - component: {fileID: 1259396175902000729}
   - component: {fileID: 7890349116386129299}
-  - component: {fileID: 4433816200051711280}
   m_Layer: 0
   m_Name: Pet6
   m_TagString: Untagged
@@ -918,7 +812,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946227259702257}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 7890349116386129299}
   iiii: 0
 --- !u!114 &1259396175902000729
 MonoBehaviour:
@@ -940,7 +834,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946226561177523}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -965,39 +858,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &4433816200051711280
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946226561177525}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946226629464981
 GameObject:
   m_ObjectHideFlags: 0
@@ -1011,7 +871,6 @@ GameObject:
   - component: {fileID: 3941946226629464979}
   - component: {fileID: 2539984814799554278}
   - component: {fileID: 119737740469841147}
-  - component: {fileID: 1639342941096209642}
   m_Layer: 0
   m_Name: Pet4
   m_TagString: Untagged
@@ -1101,7 +960,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946226894128444}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 119737740469841147}
   iiii: 0
 --- !u!114 &2539984814799554278
 MonoBehaviour:
@@ -1123,7 +982,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946226629464979}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1148,39 +1006,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &1639342941096209642
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946226629464981}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946226894128447
 GameObject:
   m_ObjectHideFlags: 0
@@ -1194,7 +1019,6 @@ GameObject:
   - component: {fileID: 3941946226894128446}
   - component: {fileID: 5998207396118162516}
   - component: {fileID: 7987381444111652798}
-  - component: {fileID: 8331248760619085801}
   m_Layer: 0
   m_Name: Pet3
   m_TagString: Untagged
@@ -1284,7 +1108,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946227448219102}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 7987381444111652798}
   iiii: 0
 --- !u!114 &5998207396118162516
 MonoBehaviour:
@@ -1306,7 +1130,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946226894128446}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1331,39 +1154,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &8331248760619085801
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946226894128447}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946227140826629
 GameObject:
   m_ObjectHideFlags: 0
@@ -1691,7 +1481,6 @@ GameObject:
   - component: {fileID: 3941946227259702256}
   - component: {fileID: 8200164006916119318}
   - component: {fileID: 8398975905416010760}
-  - component: {fileID: 2511021231972806996}
   m_Layer: 0
   m_Name: Pet5
   m_TagString: Untagged
@@ -1781,7 +1570,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946226629464980}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 8398975905416010760}
   iiii: 0
 --- !u!114 &8200164006916119318
 MonoBehaviour:
@@ -1803,7 +1592,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946227259702256}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -1828,39 +1616,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2511021231972806996
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946227259702258}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946227448219103
 GameObject:
   m_ObjectHideFlags: 0
@@ -1874,7 +1629,6 @@ GameObject:
   - component: {fileID: 3941946227448219101}
   - component: {fileID: 8562319221204444732}
   - component: {fileID: 8947601787096767117}
-  - component: {fileID: 9169660103036140943}
   m_Layer: 0
   m_Name: Pet2
   m_TagString: Untagged
@@ -1964,7 +1718,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946225890586677}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 8947601787096767117}
   iiii: 0
 --- !u!114 &8562319221204444732
 MonoBehaviour:
@@ -1986,7 +1740,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946227448219101}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2011,39 +1764,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &9169660103036140943
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946227448219103}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946227652808678
 GameObject:
   m_ObjectHideFlags: 0
@@ -2057,7 +1777,6 @@ GameObject:
   - component: {fileID: 3941946227652808676}
   - component: {fileID: 3906439361933426806}
   - component: {fileID: 4890734205602142628}
-  - component: {fileID: 2240408083192595527}
   m_Layer: 0
   m_Name: Pet8
   m_TagString: Untagged
@@ -2147,7 +1866,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946226391667025}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 4890734205602142628}
   iiii: 0
 --- !u!114 &3906439361933426806
 MonoBehaviour:
@@ -2169,7 +1888,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946227652808676}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2194,39 +1912,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2240408083192595527
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946227652808678}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &3941946227690431953
 GameObject:
   m_ObjectHideFlags: 0
@@ -2240,7 +1925,6 @@ GameObject:
   - component: {fileID: 3941946227690431535}
   - component: {fileID: 1279442445436232798}
   - component: {fileID: 2254529163335762336}
-  - component: {fileID: 3969543071432661672}
   m_Layer: 0
   m_Name: Pet9
   m_TagString: Untagged
@@ -2330,7 +2014,7 @@ MonoBehaviour:
   followDelay: 6
   parent: {fileID: 3941946227652808677}
   player: {fileID: 0}
-  rigid: {fileID: 0}
+  rigid: {fileID: 2254529163335762336}
   iiii: 0
 --- !u!114 &1279442445436232798
 MonoBehaviour:
@@ -2352,7 +2036,6 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 3941946227690431535}
-  - {fileID: 0}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -2377,39 +2060,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &3969543071432661672
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 3941946227690431953}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 8efc6b1d64977384eb3405357896c656, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  m_PositionModel:
-    SynchronizeEnabled: 0
-    TeleportEnabled: 1
-    TeleportIfDistanceGreaterThan: 3
-    InterpolateOption: 2
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 1
-    ExtrapolateOption: 0
-    ExtrapolateSpeed: 1
-    ExtrapolateIncludingRoundTripTime: 1
-    ExtrapolateNumberOfStoredPositions: 1
-  m_RotationModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 1
-    InterpolateRotateTowardsSpeed: 180
-    InterpolateLerpSpeed: 5
-  m_ScaleModel:
-    SynchronizeEnabled: 0
-    InterpolateOption: 0
-    InterpolateMoveTowardsSpeed: 1
-    InterpolateLerpSpeed: 0
 --- !u!1 &4127158019707452856
 GameObject:
   m_ObjectHideFlags: 0

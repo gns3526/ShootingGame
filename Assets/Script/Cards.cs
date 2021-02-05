@@ -61,10 +61,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.UpdateLifeIcon(player.life);
                 break;
             case 7:
-                player.AddFollower(1);
+                player.pv.RPC("AddFollower", RpcTarget.All, 1);
                 break;
             case 8:
-                player.AddFollower(2);
+                player.pv.RPC("AddFollower", RpcTarget.All, 2);
                 break;
             case 9:
                 player.godTime += 2;

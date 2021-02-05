@@ -62,6 +62,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public GameObject myPlayer;
 
+    float stopTime;
+    public GameObject reconnectPanel;
 
     private void Awake()
     {
@@ -78,6 +80,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //    connectPanel.SetActive(true);
         //    PhotonNetwork.Disconnect();
         //}
+        
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
@@ -155,7 +158,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LeaveRoom();
     }
     
-
+    
 
     public override void OnJoinedRoom()
     {
@@ -181,8 +184,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     public override void OnLeftRoom()
     {
-
-
+        pv.RPC("StopSpawning", RpcTarget.All);
+        Debug.Log("111112122222222222222222");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -216,6 +219,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
+
+        stopTime = 5;
     }
 
     public void RoomRenewal()
@@ -333,10 +338,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisconnected(DisconnectCause cause)
     {
+
+
         GM.controlPanel.SetActive(false);
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(false);
         connectPanel.SetActive(true);
+    }
+
+
+
+
+    private void OnApplicationQuit()
+    {
+        //Debug.Log("나갔다");
+        //pv.RPC("StopSpawning", RpcTarget.All);
+    }
+    [PunRPC]
+    void StopSpawning()
+    {
+        GM.stopTime = 5;
+        Debug.Log("11111111111222222222222222");
     }
 
     [PunRPC]
@@ -364,6 +386,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             startButton.interactable = false;
         }
     }
+
+
+    public override void OnMasterClientSwitched(Photon.Realtime.Player newMasterClient)
+    {
+        base.OnMasterClientSwitched(newMasterClient);
+    }
+
+
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)//isMine

@@ -12,6 +12,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int enemyScore;
     public float speed;
     [SerializeField] float health;
+    [SerializeField] float healthpv;
     [SerializeField] float maxHealth;
     [SerializeField] Sprite[] sprites;
     [SerializeField] Image healthImage;
@@ -280,43 +281,38 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             transform.Translate(new Vector2(0, -speed));
         }
     }
-    [PunRPC]
     void Fire()
     {
+        if (player == null)
+        {
+            creat();
+            return;
+        }
+
+
         if (curShotCoolTime > maxShotCoolTime)
         {
             
             if (enemyType == "Monster1")
             {
-                if (player.activeSelf)
+
+                if (PhotonNetwork.IsMasterClient)
                 {
+                    //GameObject bullet = OM.MakeObj("BulletEnemy1");
+                    GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
+                    //bullet.transform.position = transform.position;
+                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                    Debug.Log("qwdqwd");
 
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        //GameObject bullet = OM.MakeObj("BulletEnemy1");
-                        GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
-                        //bullet.transform.position = transform.position;
-                        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                        Debug.Log("qwdqwd");
+                    // Vector3 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
 
-                        // Vector3 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
+                    //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
 
-                        //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
-
-                        Vector3 dir = player.transform.position - transform.position;
-                        rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
-                        curShotCoolTime = 0;
-                    }
-                    
-                }
-                else
-                {
-                    //GameObject bulletM = OM.MakeObj("BulletEnemy1");
-                    //bulletM.transform.position = transform.position;
-                    //Rigidbody2D rigidM = bulletM.GetComponent<Rigidbody2D>();
-                    //rigidM.AddForce(Vector2.down * 2, ForceMode2D.Impulse);
+                    Vector3 dir = player.transform.position - transform.position;
+                    rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
                     curShotCoolTime = 0;
                 }
+
             }
             else if (enemyType == "Monster3")
             {
@@ -391,10 +387,12 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         curShotCoolTime += Time.deltaTime;
     }
 
-    //[PunRPC]
+    [PunRPC]
     public void Hit(int Dmg)
     {
-        //if (!myPlayerScript.pv.IsMine) return;
+        if (!myPlayerScript.pv.IsMine) return;
+
+
 
         if (health <= 0)
             return;
@@ -503,14 +501,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             BulletScript bullet = other.GetComponent<BulletScript>();
 
             if (isBoss)
-                //pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
-                //    * (player.GetComponent<Player>().bossDamagePer / 100));
-                Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
                     * (player.GetComponent<Player>().bossDamagePer / 100));
+                //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
+                //    * (player.GetComponent<Player>().bossDamagePer / 100));
 
             else
-                //pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
-                Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
+                //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
             
             //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 

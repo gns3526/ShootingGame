@@ -309,7 +309,8 @@ MonoBehaviour:
   enemyScore: 100000
   speed: 0.05
   health: 0
-  maxHealth: 10
+  healthpv: 0
+  maxHealth: 1000
   sprites: []
   healthImage: {fileID: 7442901919019272915}
   healthBarGameObject: {fileID: 5694560200886538556}

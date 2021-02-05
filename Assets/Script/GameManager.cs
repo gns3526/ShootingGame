@@ -85,6 +85,8 @@ public class GameManager : MonoBehaviour
 
     public PhotonView pv;
 
+    public bool stop;
+    public float stopTime;
 
     [SerializeField] bool once;
 
@@ -120,10 +122,10 @@ public class GameManager : MonoBehaviour
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
         clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
 
-        if (PhotonNetwork.IsMasterClient)
-        {
+        //if (PhotonNetwork.IsMasterClient)
+        //{
             ReadSpawnFile();//적 스폰파일 읽기
-        }
+        //}
 
         isGameStart = true;
 
@@ -235,7 +237,7 @@ public class GameManager : MonoBehaviour
             }
         }*/
     }
-
+    
     public void SelectCard()
     {
         CM.isReady = false;
@@ -356,10 +358,25 @@ public class GameManager : MonoBehaviour
     }
     private void Update()
     {
+        if (stopTime > 0)
+        {
+            stopTime -= Time.deltaTime;
+            stop = true;
+            NM.reconnectPanel.SetActive(true);
+            if(stopTime < 0)
+            {
+                stop = false;
+                NM.reconnectPanel.SetActive(false);
+            }
+        }
+
+
+        if(!stop)
         curSpawnDelay += Time.deltaTime;
 
-        if(curSpawnDelay > nextSpawnDelay && !spawnEnd && isGameStart)
+        if (curSpawnDelay > nextSpawnDelay && !spawnEnd && isGameStart)
         {
+
             SpawnEnemy();
             
             curSpawnDelay = 0;
@@ -371,8 +388,13 @@ public class GameManager : MonoBehaviour
 
     void SpawnEnemy()
     {
+
+
+        //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
+
         if (PhotonNetwork.IsMasterClient)
         {
+
             string enemyIndex = "None";
             switch (spawnList[spawnIndex].type)
             {
@@ -392,9 +414,8 @@ public class GameManager : MonoBehaviour
                     enemyIndex = "Boss1";
                     break;
             }
-            int spawnPoint = spawnList[spawnIndex].point;
-            //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
 
+            int spawnPoint = spawnList[spawnIndex].point;
             GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
             //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
             Debug.Log(enemy.name);
@@ -416,18 +437,20 @@ public class GameManager : MonoBehaviour
             {
 
             }
-
-            //리스폰 인덱스 증가
-            spawnIndex++;
-            if (spawnIndex == spawnList.Count)
-            {
-                spawnEnd = true;//스폰다됨
-                return;
-            }
-
-            //다음 리스폰 딜레이 갱신
-            nextSpawnDelay = spawnList[spawnIndex].delay;
         }
+        //리스폰 인덱스 증가
+        spawnIndex++;
+        if (spawnIndex == spawnList.Count)
+        {
+            spawnEnd = true;//스폰다됨
+            return;
+        }
+
+        //다음 리스폰 딜레이 갱신
+        nextSpawnDelay = spawnList[spawnIndex].delay;
+
+
+
     }
 
     public void UpdateBoomIcon(int boom)
