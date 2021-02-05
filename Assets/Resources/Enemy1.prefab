@@ -75,7 +75,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -3876759189950653258, guid: 94b49441a479e744d968e4d0e1869eb9,
+  m_Sprite: {fileID: 5444818707947512093, guid: b248307cd7b403b41bde96737e7d6b2f,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -144,8 +144,8 @@ MonoBehaviour:
   healthpv: 0
   maxHealth: 4
   sprites:
-  - {fileID: -3876759189950653258, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
-  - {fileID: 5398807837072792716, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
+  - {fileID: 5444818707947512093, guid: b248307cd7b403b41bde96737e7d6b2f, type: 3}
+  - {fileID: 8648355717292792857, guid: b248307cd7b403b41bde96737e7d6b2f, type: 3}
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
   maxShotCoolTime: 1
@@ -275,7 +275,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.505}
-  m_SizeDelta: {x: 1.0925, y: 0.173}
+  m_SizeDelta: {x: 1.02, y: 0.11}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5079749319113321006
 CanvasRenderer:
@@ -372,7 +372,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0, b: 0, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
