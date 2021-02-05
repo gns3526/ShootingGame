@@ -5926,7 +5926,7 @@ MonoBehaviour:
   OP: {fileID: 264256441}
   CM: {fileID: 1229472097}
   stage: 1
-  MaxStage: 2
+  MaxStage: 5
   isGameStart: 0
   isPlaying: 0
   startAni: {fileID: 620177317}

@@ -58,6 +58,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     [Header("Others")]
+    [SerializeField] GameObject playerPoint;
+
     [SerializeField] GameObject boomEffect;
 
     [SerializeField] Animator ani;
@@ -121,8 +123,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             GM.weaponBulletText.gameObject.SetActive(false);
             GM.weaponBulletText.text = "0";
         }
-            
 
+        if (pv.IsMine)
+        {
+            playerPoint.SetActive(true);
+        }
         /*
         maxLife = 5;
         life = maxLife;

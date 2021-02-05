@@ -371,7 +371,7 @@ public class GameManager : MonoBehaviour
         }
 
 
-        if(!stop)
+        if(!stop && isPlaying)
         curSpawnDelay += Time.deltaTime;
 
         if (curSpawnDelay > nextSpawnDelay && !spawnEnd && isGameStart)
