@@ -266,7 +266,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
         if (!pv.IsMine)
         {
-            //transform.position = curPosPv;
+            if ((transform.position - curPosPv).sqrMagnitude >= 3) transform.position = curPosPv;
+            else
+                transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
         }
     }
     void Move()

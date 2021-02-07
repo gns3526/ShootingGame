@@ -70,7 +70,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         {
             if ((transform.position - curPosPv).sqrMagnitude >= 3) transform.position = curPosPv;
             else
-            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
         }
         //if(!pv.IsMine && isPlayerAttack)
         //transform.position = curPosPv;

@@ -5,10 +5,11 @@ using Photon.Pun;
 using Photon.Realtime;
 public class PoolScript : MonoBehaviourPun
 {
-    bool once;
-    private void Start()
+
+    private void Awake()
     {
-        once = true;
+
+        gameObject.transform.position = new Vector3(4, 4, 0);
     }
 
 
@@ -20,6 +21,6 @@ public class PoolScript : MonoBehaviourPun
         gameObject.transform.position = new Vector3(4, 4, 0);
 
         gameObject.SetActive(a);
-        once = false;
+
     }
 }

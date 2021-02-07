@@ -33,16 +33,6 @@ public class ObjectPooler : MonoBehaviourPun
             {
                 GameObject obj = PhotonNetwork.Instantiate(pool.tag, new Vector3(4, 4, 0), Quaternion.identity);
 
-                /*
-                if (obj.GetComponent<PhotonView>().IsMine && pool.isMyBullet)
-                {
-                    obj.GetComponent<BulletScript>().boxCol.enabled = true;
-                }
-                else if(!obj.GetComponent<PhotonView>().IsMine && pool.isMyBullet)
-                {
-                    obj.GetComponent<BulletScript>().boxCol.enabled = false;
-                }*/
-
                 obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
                 objectPool.Enqueue(obj);
             }
