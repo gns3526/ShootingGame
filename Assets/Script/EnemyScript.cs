@@ -308,8 +308,12 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
                     //Vector3 dir = players[Random.Range(0, players.Length)].transform.position - transform.position;
 
-                    Vector3 dir = player.transform.position - transform.position;
-                    rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                    //Vector3 dir = player.transform.position - transform.position;
+                    //rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
+                    //rigid.AddForce(new Vector2(0,-5), ForceMode2D.Impulse);
+                    
+                    float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
                     curShotCoolTime = 0;
                 }
 
@@ -499,18 +503,20 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         else if (other.tag == "PlayerBullet" && other.GetComponent<PhotonView>().IsMine)
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
+            Player myPlayerScript = GM.myplayer.GetComponent<Player>();
 
             if (isBoss)
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
-                    * (player.GetComponent<Player>().bossDamagePer / 100));
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (myPlayerScript.increaseDamage / 100))
+                    * (myPlayerScript.bossDamagePer / 100) * (((myPlayerScript.damageStack * 10)/100) + 1));
                 //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
                 //    * (player.GetComponent<Player>().bossDamagePer / 100));
 
             else
-                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
+                pv.RPC("Hit", RpcTarget.All, (bullet.dmg * (myPlayerScript.increaseDamage / 100))
+                    * (((myPlayerScript.damageStack * 10) / 100) + 1));
                 //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
-            
-            //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
+
+                //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
 
             isSpawn = false;
             //other.gameObject.SetActive(false);
@@ -528,14 +534,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             stream.SendNext(health);
             stream.SendNext(healthImage.fillAmount);
             stream.SendNext(targetRandomNum);
-            //stream.SendNext(transform.position);
+            stream.SendNext(transform.position);
         }
         else
         {
             health = (float)stream.ReceiveNext();
             healthImage.fillAmount = (float)stream.ReceiveNext();
             targetRandomNum = (int)stream.ReceiveNext();
-            //curPosPv = (Vector3)stream.ReceiveNext();
+            curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
 }

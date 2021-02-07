@@ -321,7 +321,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if (isDie) return;
 
-        if (curShotCoolTime < (maxShotCoolTime * (shotCoolTimeReduce / 100))) return;
+        if (curShotCoolTime < maxShotCoolTime) return;
 
         int randomNum = Random.Range(0,101);
 
@@ -408,7 +408,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     void Reload()
     {
-        curShotCoolTime += Time.deltaTime;
+        curShotCoolTime += Time.deltaTime * ((shotCoolTimeReduce / 100) + ((attackSpeedStack * 10) / 100) + 1);
     }
     void UseBoom()//폭탄사용
     {

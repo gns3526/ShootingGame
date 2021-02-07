@@ -6,6 +6,7 @@ using Photon.Realtime;
 
 public class BulletScript : MonoBehaviour, IPunObservable
 {
+    [SerializeField] int bulletCode;
     public int dmg;
     [SerializeField] bool isPlayerAttack;
     [SerializeField] bool isRotate;
@@ -54,6 +55,23 @@ public class BulletScript : MonoBehaviour, IPunObservable
         {
             OP.PoolDestroy(gameObject);
         }
+
+        if (PhotonNetwork.IsMasterClient)
+        {
+            if(bulletCode == 1)
+            transform.Translate(new Vector3(0, -0.1f));
+        }
+
+
+
+
+
+        if (!pv.IsMine)
+        {
+            if ((transform.position - curPosPv).sqrMagnitude >= 3) transform.position = curPosPv;
+            else
+            transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
+        }
         //if(!pv.IsMine && isPlayerAttack)
         //transform.position = curPosPv;
     }
@@ -80,13 +98,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         if (stream.IsWriting)//isMine = true
         {
-            //if(isPlayerAttack)
-            //stream.SendNext(transform.position);
+            stream.SendNext(transform.position);
         }
         else
         {
-            //if(isPlayerAttack)
-            //curPosPv = (Vector3)stream.ReceiveNext();
+            curPosPv = (Vector3)stream.ReceiveNext();
         }
     }
 }

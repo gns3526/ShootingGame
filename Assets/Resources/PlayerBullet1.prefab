@@ -144,6 +144,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb874595fff2992498f0bf5ae0ad8ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletCode: 1001
   dmg: 1
   isPlayerAttack: 1
   isRotate: 0
