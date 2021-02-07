@@ -139,7 +139,7 @@ public class GameManager : MonoBehaviour
     public void StageEnd()
     {
         isPlaying = false;
-        ClearEnemys();
+        //ClearEnemys();
 
         clearAni.SetTrigger("Active");//클리어Ui
 
@@ -251,7 +251,7 @@ public class GameManager : MonoBehaviour
         //epic70
         //unique90
         //legen101
-        if(myplayerScript.followers.Length <= myplayerScript.followerAmount)
+        if(myplayerScript.followers.Length == myplayerScript.followerAmount)
         {
             epic.RemoveAt(1);
             epic.RemoveAt(2);
@@ -286,7 +286,7 @@ public class GameManager : MonoBehaviour
                 unique.RemoveAt(randomR);
                 Debug.Log("유니크");
             }
-            else if (rarePer + epicPer + uniquePer <= a && a < rarePer + epicPer + uniquePer + legendaryPer)
+            else if (rarePer + epicPer + uniquePer <= a && a <= rarePer + epicPer + uniquePer + legendaryPer)
             {
                 int randomR = Random.Range(0, legendary.Count);
 
