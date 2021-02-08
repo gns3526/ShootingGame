@@ -30,6 +30,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     private void OnEnable()
     {
         OP = FindObjectOfType<ObjectPooler>();
+        curPosPv = new Vector3(16, 16, 0);
         if (isPlayerAttack && once)
         {
             if (pv.IsMine)
@@ -42,6 +43,10 @@ public class BulletScript : MonoBehaviour, IPunObservable
             }
         }
         once = true;
+    }
+    private void OnDisable()
+    {
+        curPosPv = new Vector3(16, 16, 0);
     }
 
     private void Update()

@@ -49,9 +49,11 @@ public class ObjectPooler : MonoBehaviourPun
         }
 
         GameObject obj = poolDictionary[tag].Dequeue();//Take out First as Num
+
         obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, true);
         obj.transform.position = position;
         obj.transform.rotation = rotation;
+
         poolDictionary[tag].Enqueue(obj);
 
         return obj;

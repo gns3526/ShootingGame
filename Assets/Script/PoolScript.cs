@@ -24,10 +24,8 @@ public class PoolScript : MonoBehaviourPun
     [PunRPC]
     void SetActiveRPC(bool a)
     {
-
         //gameObject.transform.position = new Vector3(4, 4, 0);
-
         gameObject.SetActive(a);
-
+        //gameObject.SetActive(a);
     }
 }

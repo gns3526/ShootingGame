@@ -63,6 +63,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnEnable()
     {
+        curPosPv = new Vector3(16, 16, 0);
+
         creat();
         Debug.Log("켜짐");
         health = maxHealth;
@@ -78,6 +80,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
         if(PhotonNetwork.IsMasterClient)
         StartCoroutine(Stop());
+    }
+    private void OnDisable()
+    {
+        curPosPv = new Vector3(16, 16, 0);
     }
     public void creat()
     {

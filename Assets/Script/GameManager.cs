@@ -158,6 +158,7 @@ public class GameManager : MonoBehaviour
         else
         {
             fadeAni.SetTrigger("In");//어두워 지기
+            if(pv.IsMine)
             Invoke("SelectCard", 3);//카드고르기
         }
 
