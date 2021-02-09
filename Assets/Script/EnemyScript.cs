@@ -30,7 +30,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     [SerializeField] Rigidbody2D rigid;
 
-    public GameObject player;
+    public GameObject target;
     public GameObject[] players;
     public Player myPlayerScript;
     public GameManager GM;
@@ -50,6 +50,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     Vector3 curPosPv;
 
     [SerializeField] int targetRandomNum;
+    int a;
     private void Awake()
     {
         ani = GetComponent<Animator>();
@@ -65,7 +66,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         curPosPv = new Vector3(16, 16, 0);
 
-        creat();
+
         Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
@@ -77,8 +78,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
 
+        creat();
 
-        if(PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient)
         StartCoroutine(Stop());
     }
     private void OnDisable()
@@ -87,13 +89,32 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     public void creat()
     {
-        players = GameObject.FindGameObjectsWithTag("Player");
 
+        if (GM.alivePlayers[3])
+        {
+            a = 4;
+        }
+        else if (GM.alivePlayers[2])
+        {
+            a = 3;
+        }
+        else if (GM.alivePlayers[1])
+        {
+            a = 2;
+        }
+        else if (GM.alivePlayers[0])
+        {
+            a = 1;
+        }
+
+        Debug.Log(a);
         if (PhotonNetwork.IsMasterClient)
         {
-            targetRandomNum = Random.Range(0, PhotonNetwork.PlayerList.Length);
+            targetRandomNum = Random.Range(0, a);
+            target = GM.alivePlayers[targetRandomNum].gameObject;
         }
-        player = players[targetRandomNum]; // AA
+
+        
     }
 
 
@@ -180,7 +201,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
             //Vector2 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
-            Vector2 dir = player.transform.position - transform.position;
+            Vector2 dir = target.transform.position - transform.position;
             Vector2 randomVector = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0, 2));
             dir += randomVector;
             rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
@@ -258,10 +279,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (!GM.isPlaying)
             {
-                //pv.RPC("Hit", RpcTarget.All, 10000);
-                Hit(10000);
+                pv.RPC("Hit", RpcTarget.All, 10000);
+                //Hit(10000);
             }
-            healthImage.fillAmount = health / maxHealth;
+            
             Move();
             if (enemyType == "Boss1")
                 return;
@@ -291,16 +312,16 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     }
     void Fire()
     {
-        if (player == null)
-        {
-            creat();
-            return;
-        }
+
 
 
         if (curShotCoolTime > maxShotCoolTime)
         {
-            
+            if (target.GetComponent<Player>().isDie)
+            {
+                creat();
+                return;
+            }
             if (enemyType == "Monster1")
             {
 
@@ -320,7 +341,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                     //rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
                     //rigid.AddForce(new Vector2(0,-5), ForceMode2D.Impulse);
                     
-                    float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
                     bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
                     curShotCoolTime = 0;
                 }
@@ -328,7 +349,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             }
             else if (enemyType == "Monster3")
             {
-                if (player.activeSelf)
+                if (target.activeSelf)
                 {
 
                     //GameObject bulletR = OM.MakeObj("BulletEnemy2");
@@ -340,8 +361,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                         GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
                         bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
-                        Vector3 dirR = player.transform.position - (transform.position + Vector3.right * 0.3f);
-                        Vector3 dirL = player.transform.position - (transform.position + Vector3.left * 0.3f);
+                        Vector3 dirR = target.transform.position - (transform.position + Vector3.right * 0.3f);
+                        Vector3 dirL = target.transform.position - (transform.position + Vector3.left * 0.3f);
 
                         Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
                         Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
@@ -378,10 +399,10 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator LookAtPlayer()
     {
 
-        if (player.activeSelf)
+        if (target.activeSelf)
         {
             yield return new WaitForSeconds(dashWaitTIme);
-            float angle = Mathf.Atan2(player.transform.position.y - gameObject.transform.position.y, player.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+            float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
             this.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
             healthBarGameObject.transform.rotation = Quaternion.identity;
 
@@ -402,7 +423,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void Hit(int Dmg)
     {
-        if (!myPlayerScript.pv.IsMine) return;
+        //if (!myPlayerScript.pv.IsMine) return;
 
         if (health <= 0)
             return;
@@ -416,7 +437,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         else
             health -= Mathf.Round(Dmg);
 
-
+        healthImage.fillAmount = health / maxHealth;
 
         if (enemyType == "Boss1")
         {
@@ -488,7 +509,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (enemyType == "Boss1")
             {
-                gmPv.RPC("StageEnd", RpcTarget.All);
+                //gmPv.RPC("StageEnd", RpcTarget.All);
+                GM.StageEnd();
             }
         }
 
@@ -542,14 +564,14 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(health);
-            stream.SendNext(healthImage.fillAmount);
+            //stream.SendNext(healthImage.fillAmount);
             stream.SendNext(targetRandomNum);
             stream.SendNext(transform.position);
         }
         else
         {
             health = (float)stream.ReceiveNext();
-            healthImage.fillAmount = (float)stream.ReceiveNext();
+            //healthImage.fillAmount = (float)stream.ReceiveNext();
             targetRandomNum = (int)stream.ReceiveNext();
             curPosPv = (Vector3)stream.ReceiveNext();
         }

@@ -158,7 +158,7 @@ MonoBehaviour:
   canMoveMonster: 0
   spriteRendererEnemy: {fileID: 2566655035291444882}
   rigid: {fileID: 2566655035291444880}
-  player: {fileID: 0}
+  target: {fileID: 0}
   players: []
   myPlayerScript: {fileID: 0}
   GM: {fileID: 0}

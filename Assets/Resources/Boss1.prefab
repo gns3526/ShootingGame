@@ -323,7 +323,7 @@ MonoBehaviour:
   canMoveMonster: 0
   spriteRendererEnemy: {fileID: 0}
   rigid: {fileID: 0}
-  player: {fileID: 0}
+  target: {fileID: 0}
   players: []
   myPlayerScript: {fileID: 0}
   GM: {fileID: 0}

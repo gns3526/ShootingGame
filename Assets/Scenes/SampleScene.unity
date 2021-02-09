@@ -6120,6 +6120,11 @@ MonoBehaviour:
   playerPos: {fileID: 36089541}
   myplayer: {fileID: 0}
   respawnCoolTIme: 2
+  alivePlayers:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
   pv: {fileID: 601972272}
   stop: 0
   stopTime: -1
@@ -16899,8 +16904,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 996, y: -293.4}
-  m_SizeDelta: {x: 760.8, y: 412.5}
+  m_AnchoredPosition: {x: 996, y: -377.7}
+  m_SizeDelta: {x: 760.8, y: 581.1}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1686635549
 MonoBehaviour:
@@ -16936,7 +16941,7 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1
   m_Text: "\uD3AB1\uCD94\uAC00 Y\n\uD3AB2\uCD94\uAC00 U\n\uD300\uC6D0\uBD80\uD65C
-    R"
+    R\n\uC790\uD3ED Z"
 --- !u!222 &1686635550
 CanvasRenderer:
   m_ObjectHideFlags: 0
