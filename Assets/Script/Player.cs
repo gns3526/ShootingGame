@@ -85,7 +85,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool specialShot;
 
-
+    public Color playerColor; 
     //Photon Panel
 
     NetworkManager NM;
@@ -185,7 +185,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (isRespawned)
         {
             isRespawned = true;
-            sprite.color = new Color(1, 1, 1, 0.5f);//투명도
+            //sprite.color = new Color(1, 1, 1, 0.5f);//투명도
             for (int i = 0; i < followers.Length; i++)
             {
                 followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
@@ -194,7 +194,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             isRespawned = false;
-            sprite.color = new Color(1, 1, 1, 1);//투명도
+            //sprite.color = new Color(1, 1, 1, 1);//투명도
             for (int i = 0; i < followers.Length; i++)
             {
                 followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
@@ -599,6 +599,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num2", typeof(Sprite)) as Sprite;
     }
 
+
+    [PunRPC]
+    void ChangeRPC(float r,float g, float b)
+    {
+        GetComponent<SpriteRenderer>().color = new Color(r, g, b, 1);
+    }
 
     void BoomFalse()
     {

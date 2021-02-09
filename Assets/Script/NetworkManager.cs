@@ -184,8 +184,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     public override void OnLeftRoom()
     {
-        pv.RPC("StopSpawning", RpcTarget.All);
-        Debug.Log("111112122222222222222222");
     }
 
     public override void OnCreateRoomFailed(short returnCode, string message)
@@ -219,8 +217,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
+        if (GM.isGameStart)
+        {
+            if (otherPlayer.IsMasterClient)
+                //pv.RPC("KickAll", RpcTarget.All);
+                GM.GoToLobby();
+        }
 
-        stopTime = 5;
     }
 
     public void RoomRenewal()
@@ -355,10 +358,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //pv.RPC("StopSpawning", RpcTarget.All);
     }
     [PunRPC]
-    void StopSpawning()
+    void KickAll()
     {
-        GM.stopTime = 5;
-        Debug.Log("11111111111222222222222222");
+        GM.GoToLobby();
     }
 
     [PunRPC]

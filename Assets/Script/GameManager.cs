@@ -158,7 +158,8 @@ public class GameManager : MonoBehaviour
         else
         {
             fadeAni.SetTrigger("In");//어두워 지기
-            if(pv.IsMine)
+            
+            
             Invoke("SelectCard", 3);//카드고르기
         }
 
@@ -541,6 +542,16 @@ public class GameManager : MonoBehaviour
 
         explosion.transform.position = pos;
         explosionScript.StartExplosion(targetType);
+    }
+
+    public void RandomChangePlayerColor()
+    {
+        float R = Random.Range(0, 1f);
+        float G = Random.Range(0, 1f);
+        float B = Random.Range(0, 1f);
+        //Color dd = new Color(R, G, B, 1);
+        //myplayer.GetComponent<SpriteRenderer>().color = dd;
+        myplayer.GetComponent<PhotonView>().RPC("ChangeRPC", RpcTarget.All,R,G,B);
     }
 
     public void FinalStageClear()

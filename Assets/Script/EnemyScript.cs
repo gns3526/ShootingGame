@@ -404,8 +404,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (!myPlayerScript.pv.IsMine) return;
 
-
-
         if (health <= 0)
             return;
 
@@ -414,12 +412,12 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
         if (myPlayerScript.criticalPer > randomNum)
             health -= Mathf.Round(Dmg * (myPlayerScript.criticalDamagePer / 100));
-        
+
         else
             health -= Mathf.Round(Dmg);
 
 
-        
+
         if (enemyType == "Boss1")
         {
             ani.SetTrigger("Hit");
@@ -431,7 +429,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         }
 
 
-        if(health <= 0)
+        if (health <= 0)
         {
             myPlayerScript.score += enemyScore;
 
@@ -480,21 +478,25 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             curPatternCount = 0;
             isSpawn = false;
 
-            if(PhotonNetwork.IsMasterClient)
-            OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
+            if (PhotonNetwork.IsMasterClient)
+                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
 
             OP.PoolDestroy(gameObject);
 
             transform.rotation = Quaternion.identity;
             //GM.MakeExplosionEffect(transform.position, enemyType);
 
-
-            //보스죽음
-            if(enemyType == "Boss1")
+            if (enemyType == "Boss1")
             {
                 gmPv.RPC("StageEnd", RpcTarget.All);
             }
         }
+
+
+
+
+
+
     }
     void ReturnSprite()
     {
@@ -508,7 +510,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             isSpawn = false;
             OP.PoolDestroy(gameObject);
         }
-        else if (other.tag == "PlayerBullet" && other.GetComponent<PhotonView>().IsMine)
+        else if (other.tag == "PlayerBullet")
         {
             BulletScript bullet = other.GetComponent<BulletScript>();
             Player myPlayerScript = GM.myplayer.GetComponent<Player>();
