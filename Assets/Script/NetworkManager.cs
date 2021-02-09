@@ -335,6 +335,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         respawnPanel.SetActive(false);
+
+
+        //GM.AlivePlayerSet();
     }
 
     public void DisConnect() => PhotonNetwork.Disconnect();

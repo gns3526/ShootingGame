@@ -1361,7 +1361,7 @@ MonoBehaviour:
   maxPower: 3
   increaseDamage: 100
   bossDamagePer: 100
-  criticalPer: 20
+  criticalPer: 0
   criticalDamagePer: 1000
   gotSpecialWeaponAbility: 0
   weaponCode: 1

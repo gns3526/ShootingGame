@@ -176,6 +176,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         Unbeatable();
         GM.UpdateLifeIcon(life);
         Invoke("Unbeatable", 3);//무적시간
+
+        GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
     }
     
 
@@ -225,9 +227,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
                 //AddFollower(2);
             }
-            if(Input.GetKeyDown(KeyCode.B))
+            if(Input.GetKeyDown(KeyCode.Z))
             {
-                bossDamagePer += 100;
+                life = 0;
+                GM.UpdateLifeIcon(life);
+                pv.RPC("PlayerIsDie", RpcTarget.All);
+                GM.GameOver();
             }
             if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
             {
@@ -611,6 +616,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         boomEffect.SetActive(false);
         isBoomActive = false;
     }
+
+    [PunRPC]
+    void PlayerIsDie()
+    {
+        isDie = true;
+    }
+
+
+
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Border")

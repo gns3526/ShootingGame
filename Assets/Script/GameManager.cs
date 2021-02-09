@@ -7,7 +7,7 @@ using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class GameManager : MonoBehaviour
+public class GameManager : MonoBehaviourPunCallbacks
 {
     [Header("Managers")]
     [SerializeField] NetworkManager NM;
@@ -81,6 +81,8 @@ public class GameManager : MonoBehaviour
     public GameObject myplayer;
     [SerializeField] float respawnCoolTIme;
 
+    public Player[] alivePlayers;
+
     [Header("Other")]
 
     public PhotonView pv;
@@ -134,8 +136,10 @@ public class GameManager : MonoBehaviour
         cardPanel.SetActive(false);
 
         myplayer.GetComponent<Player>().godMode = false;
+
+
     }
-    [PunRPC]
+    //[PunRPC]
     public void StageEnd()
     {
         isPlaying = false;
@@ -526,12 +530,14 @@ public class GameManager : MonoBehaviour
     {
         if (myplayer.GetComponent<Player>().isDie)
         {
-            //isDie = false;
             myplayer.GetComponent<Player>().isDie = false;
             myplayer.GetComponent<Player>().life = Life;
             UpdateLifeIcon(myplayer.GetComponent<Player>().life);
             retryPanel.SetActive(false);
+            pv.RPC("AlivePlayerSet", RpcTarget.All);
         }
+
+            
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
@@ -587,11 +593,45 @@ public class GameManager : MonoBehaviour
     public void GameOver()
     {
         retryPanel.SetActive(true);
+        pv.RPC("AlivePlayerSet", RpcTarget.All);
+        //AlivePlayerSet();
     }
+
+    [PunRPC]
+    public void AlivePlayerSet()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < 3; i++)
+        {
+            alivePlayers[i] = null;
+        }
+
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (!players[i].GetComponent<Player>().isDie)
+            {
+                Debug.Log(players[0].name);
+                alivePlayers[i] = players[i].GetComponent<Player>();
+            }
+        }
+    }
+
     public void ReStartGame()
     {
         SceneManager.LoadScene(0);
     }
 
-
+    public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
+    {
+        if (stream.IsWriting)//isMine = true
+        {
+            stream.SendNext(alivePlayers);
+        }
+        else
+        {
+            alivePlayers = (Player[])stream.ReceiveNext();
+        }
+    }
 }

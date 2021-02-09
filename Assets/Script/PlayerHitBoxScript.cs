@@ -44,7 +44,7 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             if (player.life == 0)
             {
-                player.isDie = true;
+                pv.RPC("PlayerIsDie", RpcTarget.All);
                 player.GM.GameOver();
             }
             else
@@ -55,6 +55,9 @@ public class PlayerHitBoxScript : MonoBehaviour
             StartCoroutine(GodTime());
         }
     }
+
+    
+
 
     IEnumerator GodTime()
     {
