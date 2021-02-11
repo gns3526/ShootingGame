@@ -2012,7 +2012,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 1, y: 1}
-  m_AnchoredPosition: {x: -4, y: -58.000008}
+  m_AnchoredPosition: {x: -4, y: -58}
   m_SizeDelta: {x: 0, y: 0}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &238989385
@@ -3711,6 +3711,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 386828966}
+  - component: {fileID: 386828967}
+  - component: {fileID: 386828968}
   m_Layer: 5
   m_Name: Group
   m_TagString: Untagged
@@ -3741,6 +3743,49 @@ RectTransform:
   m_AnchoredPosition: {x: 50, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &386828967
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386828965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526c73906a92a15499e4cb23b9b38c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NM: {fileID: 1905378082}
+  playerIconCode: 0
+  imageGroup:
+  - {fileID: 21300000, guid: 181f11c7917a1db48b6b33f33b98c37f, type: 3}
+  - {fileID: 21300000, guid: 80aaa94ca0eccbb4ea5ca8ebf2bf8656, type: 3}
+  - {fileID: 21300000, guid: 1b41aa8ffc07fe7429c57eafeb04585d, type: 3}
+  - {fileID: 21300000, guid: add1ea024df8cd94f83cf6f3b89ba61a, type: 3}
+  image: {fileID: 1357680630}
+  text: {fileID: 1950234749}
+--- !u!114 &386828968
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 386828965}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 6
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &388215096
 GameObject:
   m_ObjectHideFlags: 0
@@ -12278,6 +12323,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1239557487}
+  - component: {fileID: 1239557488}
+  - component: {fileID: 1239557489}
   m_Layer: 5
   m_Name: Group (2)
   m_TagString: Untagged
@@ -12308,6 +12355,49 @@ RectTransform:
   m_AnchoredPosition: {x: 530.8, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1239557488
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239557486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526c73906a92a15499e4cb23b9b38c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NM: {fileID: 1905378082}
+  playerIconCode: 0
+  imageGroup:
+  - {fileID: 21300000, guid: 181f11c7917a1db48b6b33f33b98c37f, type: 3}
+  - {fileID: 21300000, guid: 80aaa94ca0eccbb4ea5ca8ebf2bf8656, type: 3}
+  - {fileID: 21300000, guid: 1b41aa8ffc07fe7429c57eafeb04585d, type: 3}
+  - {fileID: 21300000, guid: add1ea024df8cd94f83cf6f3b89ba61a, type: 3}
+  image: {fileID: 1326102368}
+  text: {fileID: 465873392}
+--- !u!114 &1239557489
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1239557486}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 1
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1245969849
 GameObject:
   m_ObjectHideFlags: 0
@@ -13470,6 +13560,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1357969971}
+  - component: {fileID: 1357969972}
+  - component: {fileID: 1357969973}
   m_Layer: 5
   m_Name: Group (1)
   m_TagString: Untagged
@@ -13500,6 +13592,49 @@ RectTransform:
   m_AnchoredPosition: {x: 290.4, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1357969972
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357969970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526c73906a92a15499e4cb23b9b38c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NM: {fileID: 1905378082}
+  playerIconCode: 0
+  imageGroup:
+  - {fileID: 21300000, guid: 181f11c7917a1db48b6b33f33b98c37f, type: 3}
+  - {fileID: 21300000, guid: 80aaa94ca0eccbb4ea5ca8ebf2bf8656, type: 3}
+  - {fileID: 21300000, guid: 1b41aa8ffc07fe7429c57eafeb04585d, type: 3}
+  - {fileID: 21300000, guid: add1ea024df8cd94f83cf6f3b89ba61a, type: 3}
+  image: {fileID: 288892942}
+  text: {fileID: 1956634851}
+--- !u!114 &1357969973
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1357969970}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 8
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1362354608
 GameObject:
   m_ObjectHideFlags: 0
@@ -14332,6 +14467,8 @@ GameObject:
   serializedVersion: 6
   m_Component:
   - component: {fileID: 1463196733}
+  - component: {fileID: 1463196734}
+  - component: {fileID: 1463196735}
   m_Layer: 5
   m_Name: Group (3)
   m_TagString: Untagged
@@ -14362,6 +14499,49 @@ RectTransform:
   m_AnchoredPosition: {x: 771.19995, y: -50}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
+--- !u!114 &1463196734
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463196732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 526c73906a92a15499e4cb23b9b38c49, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  NM: {fileID: 1905378082}
+  playerIconCode: 0
+  imageGroup:
+  - {fileID: 21300000, guid: 181f11c7917a1db48b6b33f33b98c37f, type: 3}
+  - {fileID: 21300000, guid: 80aaa94ca0eccbb4ea5ca8ebf2bf8656, type: 3}
+  - {fileID: 21300000, guid: 1b41aa8ffc07fe7429c57eafeb04585d, type: 3}
+  - {fileID: 21300000, guid: add1ea024df8cd94f83cf6f3b89ba61a, type: 3}
+  image: {fileID: 1471289116}
+  text: {fileID: 293865975}
+--- !u!114 &1463196735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1463196732}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 7
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &1471289114
 GameObject:
   m_ObjectHideFlags: 0
@@ -18987,6 +19167,11 @@ MonoBehaviour:
   playerInfoGroupInt: 0
   playerLIst: []
   startButton: {fileID: 1362354609}
+  playerIconScript:
+  - {fileID: 386828967}
+  - {fileID: 1357969972}
+  - {fileID: 1239557488}
+  - {fileID: 1463196734}
   isReady: 0
   readyArea: {fileID: 964663248}
   chatTextT:
@@ -19006,8 +19191,16 @@ MonoBehaviour:
   - {fileID: 1074034412}
   chatInput: {fileID: 2107840419}
   curInfoText: {fileID: 0}
+  playerIconCode: 2
   myPlayer: {fileID: 0}
   reconnectPanel: {fileID: 1504509766}
+  imagess:
+  - {fileID: 21300000, guid: 59e029e644bfd9d468eb73472f8cc4a8, type: 3}
+  - {fileID: 21300000, guid: 7a7c7023f6574344d8b5f89184e1caeb, type: 3}
+  - {fileID: 21300000, guid: 049c92134ebb63e4e9adb33c6459375a, type: 3}
+  - {fileID: 21300000, guid: c94c5d19291cabf439782e331610fda6, type: 3}
+  sss: 0
+  img: {fileID: 1401485383}
 --- !u!4 &1905378083
 Transform:
   m_ObjectHideFlags: 0

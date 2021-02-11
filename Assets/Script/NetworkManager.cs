@@ -41,6 +41,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public int playerInfoGroupInt;
     [SerializeField] GameObject[] playerLIst;
     [SerializeField] Button startButton;
+    [SerializeField] Player_Icon[] playerIconScript;
 
     [SerializeField] bool isReady;
     [SerializeField] BoxCollider2D readyArea;
@@ -54,8 +55,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Text curInfoText;
 
     [Header("PlayerInfo")]
+    public int playerIconCode;
 
-  
+
     [Header("Others")]
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
@@ -67,6 +69,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        img.sprite = imagess[sss];
         Screen.SetResolution(540, 960, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
@@ -80,7 +83,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //    connectPanel.SetActive(true);
         //    PhotonNetwork.Disconnect();
         //}
-        
+
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
@@ -157,8 +160,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         PhotonNetwork.LeaveRoom();
     }
-    
-    
+
+
 
     public override void OnJoinedRoom()
     {
@@ -226,6 +229,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
+    public Sprite[] imagess;
+    public int sss;
+    public Image img;
+
+    [PunRPC]
+    void num(int index , int ssss)
+    {
+        if (0 == index)
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+        else if (1 == index)
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+        else if (2 == index)
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+        else if (3 == index)
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+    }
+    
+
 
     public void RoomRenewal()
     {
@@ -237,7 +258,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         playerAmount = PhotonNetwork.PlayerList.Length;
-
+      
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -261,24 +282,43 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
 
-
-        for (int i = 0; i < PhotonNetwork.PlayerList.Length; i++)
+        for (int i = 0; i < 4; i++)
         {
-            listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-            roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
-
-            playerInfoGroup[i].SetActive(true);
-            playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
-
-
-            if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
+            if(i < PhotonNetwork.PlayerList.Length)
             {
-                playerInfoGroupInt = i;
+                
+
+                listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+                roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+
+                //몇번째 있는가  (
+                
+
+
+                //playerInfoGroup[i].  = 게임메니저 초상화가져옴
+                playerInfoGroup[i].SetActive(true);
+                
+                playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = PhotonNetwork.PlayerList[i].NickName;
+                if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
+                {
+                    playerInfoGroupInt = i;
+                    pv.RPC("num", RpcTarget.All, playerInfoGroupInt , sss);
+                }
+            }
+            else
+            {
+                playerInfoGroup[i].SetActive(false);
+                playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
             }
 
-            
+         //   playerIconScript[i].bbb();
+
         }
-        
+        for (int i = 0; i < 4; i++)
+        {
+         //   playerIconScript[i].aaa();
+        }
+
     }
 
     public void StartButton()

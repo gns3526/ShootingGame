@@ -83,6 +83,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public Player[] alivePlayers;
 
+
+    
+
     [Header("Other")]
 
     public PhotonView pv;
@@ -158,7 +161,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             FinalStageClear();
         }
-
+        
         else
         {
             fadeAni.SetTrigger("In");//어두워 지기
