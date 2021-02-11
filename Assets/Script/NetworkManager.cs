@@ -205,10 +205,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
         RoomRenewal();
 
-
+        Player player = myPlayer.GetComponent<Player>();
         //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset(); // hoon
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
+        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, player.playerColor[0], player.playerColor[1], player.playerColor[2]);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)

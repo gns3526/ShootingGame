@@ -162,8 +162,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         else
         {
             fadeAni.SetTrigger("In");//어두워 지기
-            
-            
+
+            Debug.Log("1111111111112");
             Invoke("SelectCard", 3);//카드고르기
         }
 
@@ -509,20 +509,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public IEnumerator ReSpawnM()
     {
-        //Invoke("ReSpawn", respawnCoolTIme);
         yield return new WaitForSeconds(respawnCoolTIme);
         myplayer.GetComponent<Player>().canHit = true;
-        pv.RPC("ReSpawn", RpcTarget.AllBuffered);
-        //ReSpawn();
-    }
-
-    [PunRPC]
-    void ReSpawn()
-    {
-
-        myplayer.SetActive(true);
-       // Debug.Log("리스폰");
-      
     }
 
     [PunRPC]
@@ -530,14 +518,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (myplayer.GetComponent<Player>().isDie)
         {
-            myplayer.GetComponent<Player>().isDie = false;
+            myplayer.GetComponent<PhotonView>().RPC("PlayerIsAlive", RpcTarget.All);
             myplayer.GetComponent<Player>().life = Life;
             UpdateLifeIcon(myplayer.GetComponent<Player>().life);
             retryPanel.SetActive(false);
-            pv.RPC("AlivePlayerSet", RpcTarget.All);
-        }
 
-            
+        }
+        pv.RPC("AlivePlayerSet", RpcTarget.All);
+
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
@@ -557,7 +545,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         float B = Random.Range(0, 1f);
         //Color dd = new Color(R, G, B, 1);
         //myplayer.GetComponent<SpriteRenderer>().color = dd;
-        myplayer.GetComponent<PhotonView>().RPC("ChangeRPC", RpcTarget.All,R,G,B);
+        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,R,G,B);
+        myplayer.GetComponent<PhotonView>().RPC("SendColorInfoRPC", RpcTarget.All);
     }
 
     public void FinalStageClear()
@@ -602,18 +591,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             alivePlayers[i] = null;
         }
 
 
+        int a;
+        a = 0;
+
         for (int i = 0; i < players.Length; i++)
         {
+
             if (!players[i].GetComponent<Player>().isDie)
             {
-                Debug.Log(players[0].name);
-                alivePlayers[i] = players[i].GetComponent<Player>();
+                alivePlayers[a] = players[i].GetComponent<Player>();
+                a++;
             }
         }
     }

@@ -85,7 +85,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool specialShot;
 
-    public Color playerColor; 
+    public float[] playerColor;
     //Photon Panel
 
     NetworkManager NM;
@@ -170,9 +170,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         */
 
         //pv.ViewID = 1000 + NM.playerInfoGroupInt;
+        
     }
     private void OnEnable()
     {
+
         Unbeatable();
         GM.UpdateLifeIcon(life);
         Invoke("Unbeatable", 3);//무적시간
@@ -233,6 +235,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 GM.UpdateLifeIcon(life);
                 pv.RPC("PlayerIsDie", RpcTarget.All);
                 GM.GameOver();
+            }
+            if (Input.GetKeyDown(KeyCode.C))
+            {
+                pv.RPC("ChangeColorRPC", RpcTarget.All, playerColor[0], playerColor[1], playerColor[2]);
+
             }
             if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
             {
@@ -606,9 +613,19 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     [PunRPC]
-    void ChangeRPC(float r,float g, float b)
+    void ChangeColorRPC(float r,float g, float b)
     {
-        GetComponent<SpriteRenderer>().color = new Color(r, g, b, 1);
+        //curPlayerColor = new Color(r, g, b, 1);
+        playerColor[0] = r;
+        playerColor[1] = g;
+        playerColor[2] = b;
+        GetComponent<SpriteRenderer>().color = new Color(playerColor[0], playerColor[1], playerColor[2], 1);
+    }
+
+    [PunRPC]
+    void SendColorInfoRPC()
+    {
+        
     }
 
     void BoomFalse()
@@ -623,7 +640,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         isDie = true;
     }
 
-
+    [PunRPC]
+    void PlayerIsAlive()
+    {
+        isDie = false;
+    }
 
     private void OnTriggerExit2D(Collider2D other)
     {
@@ -653,10 +674,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(transform.position);
+            stream.SendNext(playerColor);
         }
         else
         {
             curPosPv = (Vector3)stream.ReceiveNext();
+            playerColor = (float[])stream.ReceiveNext();
         }
     }
 }
