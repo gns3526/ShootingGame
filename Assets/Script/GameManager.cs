@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
+    [SerializeField] GameObject codyPanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -82,6 +83,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] float respawnCoolTIme;
 
     public Player[] alivePlayers;
+
+    public float[] playerColors;
+    public int codyBodyCode;
+    
 
     [Header("Other")]
 
@@ -158,12 +163,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             FinalStageClear();
         }
-
+        
         else
         {
             fadeAni.SetTrigger("In");//어두워 지기
-            
-            
+
+            Debug.Log("1111111111112");
             Invoke("SelectCard", 3);//카드고르기
         }
 
@@ -509,20 +514,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public IEnumerator ReSpawnM()
     {
-        //Invoke("ReSpawn", respawnCoolTIme);
         yield return new WaitForSeconds(respawnCoolTIme);
         myplayer.GetComponent<Player>().canHit = true;
-        pv.RPC("ReSpawn", RpcTarget.AllBuffered);
-        //ReSpawn();
-    }
-
-    [PunRPC]
-    void ReSpawn()
-    {
-
-        myplayer.SetActive(true);
-       // Debug.Log("리스폰");
-      
     }
 
     [PunRPC]
@@ -530,14 +523,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (myplayer.GetComponent<Player>().isDie)
         {
-            myplayer.GetComponent<Player>().isDie = false;
+            myplayer.GetComponent<PhotonView>().RPC("PlayerIsAlive", RpcTarget.All);
             myplayer.GetComponent<Player>().life = Life;
             UpdateLifeIcon(myplayer.GetComponent<Player>().life);
             retryPanel.SetActive(false);
-            pv.RPC("AlivePlayerSet", RpcTarget.All);
-        }
 
-            
+        }
+        pv.RPC("AlivePlayerSet", RpcTarget.All);
+
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
@@ -557,7 +550,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         float B = Random.Range(0, 1f);
         //Color dd = new Color(R, G, B, 1);
         //myplayer.GetComponent<SpriteRenderer>().color = dd;
-        myplayer.GetComponent<PhotonView>().RPC("ChangeRPC", RpcTarget.All,R,G,B);
+        playerColors[0] = R;
+        playerColors[1] = G;
+        playerColors[2] = B;
+
+        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
     }
 
     public void FinalStageClear()
@@ -602,18 +599,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
 
-        for (int i = 0; i < 3; i++)
+        for (int i = 0; i < 4; i++)
         {
             alivePlayers[i] = null;
         }
 
 
+        int a;
+        a = 0;
+
         for (int i = 0; i < players.Length; i++)
         {
+
             if (!players[i].GetComponent<Player>().isDie)
             {
-                Debug.Log(players[0].name);
-                alivePlayers[i] = players[i].GetComponent<Player>();
+                alivePlayers[a] = players[i].GetComponent<Player>();
+                a++;
             }
         }
     }
@@ -622,6 +623,23 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(0);
     }
+
+
+    public void CodyOnClick(int index)
+    {
+        codyBodyCode = index;
+
+        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index);
+
+    }
+
+    
+
+    public void CodyOpenOrClose(bool a)
+    {
+        codyPanel.SetActive(a);
+    }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

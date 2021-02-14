@@ -86,7 +86,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
         {
             if (other.tag == "BulletBorder" || other.tag == "Enemy")
             {
-                Debug.Log("111111");
                 OP.PoolDestroy(gameObject);
             }
         }

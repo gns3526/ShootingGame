@@ -76,6 +76,11 @@ MonoBehaviour:
   - AlivePlayersReset
   - PlayerIsDie
   - AlivePlayerSet
+  - ChangeColorRPC
+  - SendColorInfoRPC
+  - PlayerIsAlive
+  - num
+  - CodyRework
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

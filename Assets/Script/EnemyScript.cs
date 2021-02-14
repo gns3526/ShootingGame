@@ -12,7 +12,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int enemyScore;
     public float speed;
     [SerializeField] float health;
-    [SerializeField] float healthpv;
     [SerializeField] float maxHealth;
     [SerializeField] Sprite[] sprites;
     [SerializeField] Image healthImage;
@@ -66,8 +65,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         curPosPv = new Vector3(16, 16, 0);
 
-
-        Debug.Log("켜짐");
         health = maxHealth;
         healthImage.fillAmount = 1;
 
@@ -107,7 +104,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             a = 1;
         }
 
-        Debug.Log(a);
         if (PhotonNetwork.IsMasterClient)
         {
             targetRandomNum = Random.Range(0, a);
@@ -290,7 +286,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Fire();
             Reload();
         }
-
+        healthImage.fillAmount = health / maxHealth;
         if (!pv.IsMine)
         {
             if ((transform.position - curPosPv).sqrMagnitude >= 3) transform.position = curPosPv;
@@ -423,99 +419,79 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     public void Hit(int Dmg)
     {
-        //if (!myPlayerScript.pv.IsMine) return;
-
         if (health <= 0)
             return;
 
-        int randomNum;
-        randomNum = Random.Range(0, 101);
-
-        if (myPlayerScript.criticalPer > randomNum)
-            health -= Mathf.Round(Dmg * (myPlayerScript.criticalDamagePer / 100));
-
-        else
-            health -= Mathf.Round(Dmg);
-
-        healthImage.fillAmount = health / maxHealth;
-
-        if (enemyType == "Boss1")
+        if (GM.pv.IsMine)
         {
-            ani.SetTrigger("Hit");
-        }
-        else
-        {
-            spriteRendererEnemy.sprite = sprites[1];
-            Invoke("ReturnSprite", 0.1f);
-        }
+            int randomNum;
+            randomNum = Random.Range(0, 101);
 
+            if (myPlayerScript.criticalPer > randomNum)
+                health -= Mathf.Round(Dmg * (myPlayerScript.criticalDamagePer / 100));
 
-        if (health <= 0)
-        {
-            myPlayerScript.score += enemyScore;
+            else
+                health -= Mathf.Round(Dmg);
 
-            if (myPlayerScript.isAttackSpeedStack)
-            {
-                myPlayerScript.attackSpeedStackint++;
-
-                if (myPlayerScript.attackSpeedStackint == 10)
-                {
-                    myPlayerScript.attackSpeedStackint = 0;
-                    myPlayerScript.attackSpeedStack++;
-                }
-            }
-            if (myPlayerScript.isDamageStack)
-            {
-                myPlayerScript.damageStackint++;
-
-                if (myPlayerScript.damageStackint == 10)
-                {
-                    myPlayerScript.damageStackint = 0;
-                    myPlayerScript.damageStack++;
-                }
-            }
-            /*
-            int random = enemyType == "Boss1" ? 0 : Random.Range(0, 10);
-            if(random < 4)
-            {
-                //없으
-            }
-            else if (random < 6)//코인
-            {
-                GameObject ItemCoin = OM.MakeObj("ItemCoin");
-                ItemCoin.transform.position = transform.position;
-            }
-            else if (random < 8)//파워
-            {
-                //GameObject ItemPow = OM.MakeObj("ItemPow");
-                //ItemPow.transform.position = transform.position;
-            }
-            else if (random < 10)//폭
-            {
-                GameObject ItemBoom = OM.MakeObj("ItemBoom");
-                ItemBoom.transform.position = transform.position;
-            }*/
-            patternIndex = -1;
-            curPatternCount = 0;
-            isSpawn = false;
-
-            if (PhotonNetwork.IsMasterClient)
-                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
-
-            OP.PoolDestroy(gameObject);
-
-            transform.rotation = Quaternion.identity;
-            //GM.MakeExplosionEffect(transform.position, enemyType);
+            Debug.Log("dddddddfdfdfdfd");
 
             if (enemyType == "Boss1")
             {
-                //gmPv.RPC("StageEnd", RpcTarget.All);
-                GM.StageEnd();
+                ani.SetTrigger("Hit");
+            }
+            else
+            {
+                spriteRendererEnemy.sprite = sprites[1];
+                Invoke("ReturnSprite", 0.1f);
+            }
+
+            if (health <= 0)
+            {
+                Debug.Log("dddddddfdfdfdfd111");
+                myPlayerScript.score += enemyScore;
+
+                if (myPlayerScript.isAttackSpeedStack)
+                {
+                    myPlayerScript.attackSpeedStackint++;
+
+                    if (myPlayerScript.attackSpeedStackint == 10)
+                    {
+                        myPlayerScript.attackSpeedStackint = 0;
+                        myPlayerScript.attackSpeedStack++;
+                    }
+                }
+                if (myPlayerScript.isDamageStack)
+                {
+                    myPlayerScript.damageStackint++;
+
+                    if (myPlayerScript.damageStackint == 10)
+                    {
+                        myPlayerScript.damageStackint = 0;
+                        myPlayerScript.damageStack++;
+                    }
+                }
+                Debug.Log("dddddddfdfdfdfd222");
+
+
+                if (enemyType == "Boss1")
+                {
+                    //gmPv.RPC("StageEnd", RpcTarget.All);
+                    Debug.Log("dddddddfdfdfdfd333");
+                    GM.StageEnd();
+                }
+                if (PhotonNetwork.IsMasterClient)
+                    OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
+
+
+                patternIndex = -1;
+                curPatternCount = 0;
+                isSpawn = false;
+
+                transform.rotation = Quaternion.identity;
+                OP.PoolDestroy(gameObject);
+
             }
         }
-
-
-
 
 
 
