@@ -56,6 +56,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int damageStackint;
     public int damageStack;
 
+    [Header("PlayerCody")]
+    [SerializeField] PhotonView codyPv;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -85,7 +87,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool specialShot;
 
-    public float[] playerColor;
+    //public float[] playerColor;
+
     //Photon Panel
 
     NetworkManager NM;
@@ -127,6 +130,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (pv.IsMine)
         {
             playerPoint.SetActive(true);
+
+            pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode);
         }
         /*
         maxLife = 5;
@@ -238,7 +244,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             }
             if (Input.GetKeyDown(KeyCode.C))
             {
-                pv.RPC("ChangeColorRPC", RpcTarget.All, playerColor[0], playerColor[1], playerColor[2]);
+                //pv.RPC("ChangeColorRPC", RpcTarget.All, playerColor[0], playerColor[1], playerColor[2]);
 
             }
             if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
@@ -615,18 +621,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void ChangeColorRPC(float r,float g, float b)
     {
-        //curPlayerColor = new Color(r, g, b, 1);
-        playerColor[0] = r;
-        playerColor[1] = g;
-        playerColor[2] = b;
-        GetComponent<SpriteRenderer>().color = new Color(playerColor[0], playerColor[1], playerColor[2], 1);
+        GetComponent<SpriteRenderer>().color = new Color(r, g, b, 1);
     }
 
-    [PunRPC]
-    void SendColorInfoRPC()
-    {
-        
-    }
+
 
     void BoomFalse()
     {
@@ -674,12 +672,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(transform.position);
-            stream.SendNext(playerColor);
+            //stream.SendNext(playerColor);
         }
         else
         {
             curPosPv = (Vector3)stream.ReceiveNext();
-            playerColor = (float[])stream.ReceiveNext();
+            //playerColor = (float[])stream.ReceiveNext();
         }
     }
 }

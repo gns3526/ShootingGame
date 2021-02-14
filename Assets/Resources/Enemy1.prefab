@@ -141,7 +141,6 @@ MonoBehaviour:
   enemyScore: 100
   speed: 0.05
   health: 0
-  healthpv: 0
   maxHealth: 4
   sprites:
   - {fileID: 5444818707947512093, guid: b248307cd7b403b41bde96737e7d6b2f, type: 3}

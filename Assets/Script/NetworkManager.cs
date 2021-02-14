@@ -41,7 +41,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public int playerInfoGroupInt;
     [SerializeField] GameObject[] playerLIst;
     [SerializeField] Button startButton;
-    [SerializeField] Player_Icon[] playerIconScript;
+
 
     [SerializeField] bool isReady;
     [SerializeField] BoxCollider2D readyArea;
@@ -50,6 +50,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     bool canStart;
     [SerializeField] Text[] chatTextT;
     [SerializeField] InputField chatInput;
+
+    public Sprite[] imagess;
+    public Image img;
 
     [Header("ETC")]
     [SerializeField] Text curInfoText;
@@ -69,7 +72,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
-        img.sprite = imagess[sss];
+        img.sprite = imagess[playerIconCode];
         Screen.SetResolution(540, 960, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
@@ -89,8 +92,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnConnectedToMaster()//2
     {
-        RoomOptions roomOption = new RoomOptions();
-        roomOption.CustomRoomProperties = new Hashtable() { { "Name", "문자열" }, { "Lv", 2 } };//형식{"여긴무조건 String값",여긴변수 아무거나}
+        
 
         PhotonNetwork.JoinLobby();
 
@@ -212,7 +214,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //pv.RPC("readyReset", RpcTarget.All); // hoon
         //readyReset(); // hoon
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
-        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, player.playerColor[0], player.playerColor[1], player.playerColor[2]);
+        
+        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
@@ -229,9 +232,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         }
 
     }
-    public Sprite[] imagess;
-    public int sss;
-    public Image img;
+
 
     [PunRPC]
     void num(int index , int ssss)
@@ -252,7 +253,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
 
-
+        if (pv.IsMine)
+            myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
 
         listText.text = "";//player list text reset
 
@@ -302,7 +304,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
                 {
                     playerInfoGroupInt = i;
-                    pv.RPC("num", RpcTarget.All, playerInfoGroupInt , sss);
+                    pv.RPC("num", RpcTarget.All, playerInfoGroupInt , playerIconCode);
                 }
             }
             else
@@ -310,15 +312,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 playerInfoGroup[i].SetActive(false);
                 playerInfoGroup[i].transform.GetChild(1).GetComponent<Text>().text = "";
             }
-
-         //   playerIconScript[i].bbb();
-
         }
-        for (int i = 0; i < 4; i++)
-        {
-         //   playerIconScript[i].aaa();
-        }
-
     }
 
     public void StartButton()
@@ -377,7 +371,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         respawnPanel.SetActive(false);
 
-
+        
         //GM.AlivePlayerSet();
     }
 

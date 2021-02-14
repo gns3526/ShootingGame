@@ -45,6 +45,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
+    [SerializeField] GameObject codyPanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -83,7 +84,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public Player[] alivePlayers;
 
-
+    public float[] playerColors;
+    public int codyBodyCode;
     
 
     [Header("Other")]
@@ -548,8 +550,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         float B = Random.Range(0, 1f);
         //Color dd = new Color(R, G, B, 1);
         //myplayer.GetComponent<SpriteRenderer>().color = dd;
-        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,R,G,B);
-        myplayer.GetComponent<PhotonView>().RPC("SendColorInfoRPC", RpcTarget.All);
+        playerColors[0] = R;
+        playerColors[1] = G;
+        playerColors[2] = B;
+
+        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
     }
 
     public void FinalStageClear()
@@ -618,6 +623,23 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         SceneManager.LoadScene(0);
     }
+
+
+    public void CodyOnClick(int index)
+    {
+        codyBodyCode = index;
+
+        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index);
+
+    }
+
+    
+
+    public void CodyOpenOrClose(bool a)
+    {
+        codyPanel.SetActive(a);
+    }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
