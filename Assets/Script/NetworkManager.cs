@@ -14,7 +14,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameManager GM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
-
+    [SerializeField] Animator StartButtonAni;
 
     [SerializeField] InputField nickNameInput;
     [SerializeField] GameObject connectPanel;
@@ -266,7 +266,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             readyArea.enabled = true;
-            startButton.gameObject.SetActive(true);
+            startButton.gameObject.SetActive(true); //내가반장
 
             pv.RPC("IncreaseReadyAmount", RpcTarget.All, true, true);
             temp = GameObject.FindGameObjectsWithTag("Player");
@@ -281,7 +281,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         else
         {
             readyArea.enabled = false;
-            startButton.gameObject.SetActive(false);
+            startButton.gameObject.SetActive(false); // 딴사람 일경우 레디버튼 없음 
         }
 
 
@@ -291,8 +291,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 
 
-                listText.text += PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-                roomInfoText.text = PhotonNetwork.CurrentRoom.Name + " / " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+                listText.text += "닉네임 : " + PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+                roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name + "   인원 수 :  " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
 
                 //몇번째 있는가  (
                 
@@ -421,10 +421,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         if (PhotonNetwork.IsMasterClient && (playerAmount == readyPlayerAmount))
         {
             startButton.interactable = true;
+            // 애니메이션 트리거 추가
+            StartButtonAni.SetTrigger("GameOn");
         }
         else
         {
             startButton.interactable = false;
+            // 애니메이션 트리거 추가
+            StartButtonAni.SetTrigger("GameOff");
         }
     }
 
