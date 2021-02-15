@@ -216,8 +216,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (pv.IsMine)
         {
-            Move();
-            Fire();
+            if (!NM.isChating)
+            {
+                Move();
+                Fire();
+            }
+            else
+                rigid.velocity = new Vector2(0, 0);
+
             Reload();
             UseBoom();
             if (Input.GetKeyDown(KeyCode.Y))

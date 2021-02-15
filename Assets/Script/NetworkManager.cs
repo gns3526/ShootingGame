@@ -50,6 +50,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     bool canStart;
     [SerializeField] Text[] chatTextT;
     [SerializeField] InputField chatInput;
+    [SerializeField] Animator chatAni;
+    public bool isChating;
 
     public Sprite[] imagess;
     public Image img;
@@ -81,7 +83,33 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         lobbyInforText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비/" + PhotonNetwork.CountOfPlayers + "접속";
 
+        if (Input.GetKeyDown(KeyCode.Return))
+        {
+
+            Send();
+
+            chatInput.ActivateInputField();
+
+            chatInput.Select();
+            Debug.Log("체팅");
+
+        }
+        else if (chatInput.isFocused && !isChating)
+        {
+            chatAni.SetTrigger("On");
+
+            isChating = true;
+        }
+        else if(!chatInput.isFocused && isChating)
+        {
+            chatAni.SetTrigger("Off");
+            chatInput.text = "";
+            isChating = false;
+        }
+
+        Debug.Log(chatInput.isFocused);
         //if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
+        
         //{
         //    connectPanel.SetActive(true);
         //    PhotonNetwork.Disconnect();
@@ -326,11 +354,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
+
+
     public void Send()
     {
+        if (chatInput.text == "") return;
         string msg = PhotonNetwork.NickName + ":" + chatInput.text;
-        pv.RPC("ChatRPC", RpcTarget.All, PhotonNetwork.NickName + ":" + chatInput.text);
+        pv.RPC("ChatRPC", RpcTarget.All, msg);
         chatInput.text = "";
+        
     }
 
     [PunRPC]
@@ -389,13 +421,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-
-
-    private void OnApplicationQuit()
-    {
-        //Debug.Log("나갔다");
-        //pv.RPC("StopSpawning", RpcTarget.All);
-    }
     [PunRPC]
     void KickAll()
     {
