@@ -106,8 +106,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             chatInput.text = "";
             isChating = false;
         }
-
-        Debug.Log(chatInput.isFocused);
         //if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
         
         //{
