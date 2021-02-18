@@ -4,25 +4,28 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
 
+[System.Serializable]
+public class GoogleData
+{
+    public string order, result, msg, value, makeNick;
+}
+
+
+
+
 public class GoogleSheetManager : MonoBehaviour
 {
     // Start is called before the first frame update
     const string URL = "https://script.google.com/macros/s/AKfycbz57OWQfuLTrvT4mvNBEs5WoEQMyFgUZbCJ8QGWQLU-g2XppIeB9f584A/exec";
     [SerializeField] InputField idInput, PassInput;
+    public GoogleData GD;
     string id, pass;
+    [SerializeField] Text debuggingText;
 
-    [SerializeField] int value;
-    IEnumerator Start()
-    {
-        WWWForm form = new WWWForm();//데이터를 가져올때 도와줌
-        form.AddField("value", "값");
 
-        UnityWebRequest www = UnityWebRequest.Post(URL,form);
-        yield return www.SendWebRequest();
+    public int value;
+    public string info;
 
-        string data = www.downloadHandler.text;
-        print(data);
-    }
 
     bool SetIdPass()
     {
@@ -62,6 +65,62 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
+
+    }
+
+    public void CheckNickname()
+    {
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "NicknameCheck");
+        form.AddField("index", 3);
+
+        StartCoroutine(Post(form));
+
+
+    }
+    public void SetValue(int index)//upload info to spread seet
+    {
+        WWWForm form = new WWWForm();
+
+
+        form.AddField("order", "setValue");
+        form.AddField("index", index);
+        form.AddField("value", info);
+               
+
+        StartCoroutine(Post(form));
+    }
+    public void GetValue(int index)//bring info of spread seet
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "getValue");
+        form.AddField("index", index);
+
+        StartCoroutine(Post(form));
+    }
+
+    void Debug(string json)
+    {
+        if (string.IsNullOrEmpty(json)) return;
+
+        GD = JsonUtility.FromJson<GoogleData>(json);
+
+        if(GD.result == "ERROR")
+        {
+            print(GD.order + "을 실행할수 없습니다" + GD.msg);
+            debuggingText.text = (GD.order + "을 실행할수 없습니다" + GD.msg);
+            return;
+        }
+
+        print(GD.order + "을 실행했습니다" + GD.msg);
+        debuggingText.text = (GD.order + "을 실행했습니다" + GD.msg);
+
+        if (GD.order == "getValue")
+        {
+            value = int.Parse(GD.value);
+        }
+
     }
 
     private void OnApplicationQuit()
@@ -71,29 +130,13 @@ public class GoogleSheetManager : MonoBehaviour
 
         StartCoroutine(Post(form));
     }
-
-    public void SetValue()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "setValue");
-        form.AddField("value", value);
-    }
-    public void GetValue()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "getValue");
-
-        StartCoroutine(Post(form));
-    }
-
-    //20분
-    IEnumerator Post(WWWForm form)
+    IEnumerator Post(WWWForm form)//스프레드시트 실행
     {
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
         {
             yield return www.SendWebRequest();//wait for connect
 
-            if (www.isDone) print(www.downloadHandler.text);
+            if (www.isDone) Debug(www.downloadHandler.text);
             else print("웹의 응답이 없습니다");
         }
     }
