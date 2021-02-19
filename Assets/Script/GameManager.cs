@@ -46,6 +46,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
     [SerializeField] GameObject codyPanel;
+    public GameObject loginPanel;
+    public GameObject expPanal;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -86,6 +88,15 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public float[] playerColors;
     public int codyBodyCode;
+
+    [SerializeField] int playerLv;
+    [SerializeField] int exp;
+    [SerializeField] int maxExp;
+    [SerializeField] Text playerLvText;
+    [SerializeField] Text nickNameText;
+    [SerializeField] Text expText;
+    [SerializeField] Image playerIcon;
+    [SerializeField] Image expImage;
     
 
     [Header("Other")]
@@ -110,16 +121,26 @@ public class GameManager : MonoBehaviourPunCallbacks
         //ReadSpawnFile();//적 스폰파일 읽기
     }
 
+    public void SetExpPanel()
+    {
+        playerIcon.sprite = NM.icons[NM.playerIconCode];
+        playerLvText.text = playerLv.ToString();
+        expText.text = exp.ToString() + "/" + maxExp.ToString();
+        expImage.fillAmount = ((exp / maxExp) / 100);
+        nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
+    }
+
     [PunRPC]
     void StageStart()
     {
         if (once)
         {
             OP.PrePoolInstantiate();
+            expPanal.SetActive(false);
             once = false;
         }
         isPlaying = true;
-
+        
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
@@ -565,8 +586,25 @@ public class GameManager : MonoBehaviourPunCallbacks
         clearScoreText.text = myplayerScript.score.ToString();
         clearLifeText.text = (myplayerScript.life * 1000).ToString();
         clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
+
+        expPanal.SetActive(true);
+        StartCoroutine(GiveExp());
     }
 
+    IEnumerator GiveExp()
+    {
+        yield return new WaitForSeconds(1f);
+        exp += 30;
+        if(exp >= maxExp)
+        {
+            playerLv++;
+            int overExp = exp - maxExp;
+            exp = 0;
+            exp = overExp;
+            maxExp *= 110;
+        }
+        SetExpPanel();
+    }
     public void GoToLobby()
     {
         stage = 1;

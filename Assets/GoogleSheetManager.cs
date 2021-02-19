@@ -7,7 +7,7 @@ using UnityEngine.Networking;
 [System.Serializable]
 public class GoogleData
 {
-    public string order, result, msg, value, makeNick;
+    public string order, result, msg, value, makeNick, numOfPlayer, type;
 }
 
 
@@ -21,10 +21,17 @@ public class GoogleSheetManager : MonoBehaviour
     public GoogleData GD;
     string id, pass;
     [SerializeField] Text debuggingText;
+    [Header("Managers")]
+    [SerializeField] GameManager GM;
+    [SerializeField] NetworkManager NM;
 
+    [Header("Panel")]
+    public GameObject loadingPanel;
 
-    public int value;
-    public string info;
+    public bool canMakeNick;
+    [SerializeField] int playernum;
+    public string playerNickName;
+    [SerializeField] string playercolor;
 
 
     bool SetIdPass()
@@ -58,33 +65,43 @@ public class GoogleSheetManager : MonoBehaviour
             print("비어있다");
             return;
         }
-
+        
+        loadingPanel.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
+        form.AddField("playerNum", playernum);
         form.AddField("id", id);
         form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
-
     }
-
     public void CheckNickname()
     {
 
         WWWForm form = new WWWForm();
         form.AddField("order", "NicknameCheck");
+        form.AddField("playerNum", playernum);
         form.AddField("index", 3);
 
         StartCoroutine(Post(form));
-
-
     }
-    public void SetValue(int index)//upload info to spread seet
+    public void CheckNicknameSame()
+    {
+
+        WWWForm form = new WWWForm();
+        form.AddField("order", "NicknameSameCheck");
+        form.AddField("playerNum", playernum);
+        form.AddField("playerNickName", NM.nickNameInput.text);
+
+        StartCoroutine(Post(form));
+    }
+    public void SetValue(int index, string info)//upload info to spread seet
     {
         WWWForm form = new WWWForm();
 
 
         form.AddField("order", "setValue");
+        form.AddField("playerNum", playernum);
         form.AddField("index", index);
         form.AddField("value", info);
                
@@ -95,9 +112,16 @@ public class GoogleSheetManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "getValue");
+        form.AddField("playerNum", playernum);
         form.AddField("index", index);
 
         StartCoroutine(Post(form));
+    }
+
+    public void MakeNickOnClick()
+    {
+        loadingPanel.SetActive(true);
+        CheckNicknameSame();
     }
 
     void Debug(string json)
@@ -110,6 +134,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             print(GD.order + "을 실행할수 없습니다" + GD.msg);
             debuggingText.text = (GD.order + "을 실행할수 없습니다" + GD.msg);
+            loadingPanel.SetActive(false);
             return;
         }
 
@@ -118,7 +143,47 @@ public class GoogleSheetManager : MonoBehaviour
 
         if (GD.order == "getValue")
         {
-            value = int.Parse(GD.value);
+            if(GD.type == "3")
+            {
+                playerNickName = GD.value;
+                NM.nickNameInput.text = playerNickName;
+                NM.Connect();
+            }
+            else if(GD.type == "5")
+            {
+                playercolor = GD.value;
+                string[] result = playercolor.Split(new string[] { "," }, System.StringSplitOptions.None);
+                for (int i = 0; i < result.Length; i++)
+                {
+                    GM.playerColors[i] = float.Parse(result[i]);
+                }
+            }
+        }
+        if(GD.order == "NicknameCheck")
+        {
+            if (GD.makeNick == "yes") canMakeNick = true;
+            else canMakeNick = false;
+
+            if (!canMakeNick)//이미닉이있다
+            {
+                GetValue(3);
+                return;
+            }
+            //없다면 닉네임창에 놔둠;
+            loadingPanel.SetActive(false);
+        }
+        if(GD.order == "login")
+        {
+
+            playernum = int.Parse(GD.numOfPlayer);
+            GM.loginPanel.SetActive(false);
+            CheckNickname();
+            GetValue(5);
+        }
+        if (GD.order == "NicknameSameCheck")
+        {
+            if (GD.result == "OK") NM.Connect();
+            else print("닉네임 중복됨");
         }
 
     }
@@ -127,6 +192,8 @@ public class GoogleSheetManager : MonoBehaviour
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "logout");
+        form.AddField("playerNum", playernum);
+        form.AddField("playerColor", GM.playerColors[0] + "," + GM.playerColors[1] + "," + GM.playerColors[2]);
 
         StartCoroutine(Post(form));
     }
@@ -134,6 +201,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         using (UnityWebRequest www = UnityWebRequest.Post(URL, form))
         {
+
             yield return www.SendWebRequest();//wait for connect
 
             if (www.isDone) Debug(www.downloadHandler.text);

@@ -14,9 +14,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameManager GM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
+    [SerializeField] GoogleSheetManager GSM;
     [SerializeField] Animator StartButtonAni;
 
-    [SerializeField] InputField nickNameInput;
+    public InputField nickNameInput;
     [SerializeField] GameObject connectPanel;
     [SerializeField] GameObject respawnPanel;
 
@@ -53,7 +54,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Animator chatAni;
     public bool isChating;
 
-    public Sprite[] imagess;
+    public Sprite[] icons;
     public Image img;
 
     [Header("ETC")]
@@ -72,9 +73,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     float stopTime;
     public GameObject reconnectPanel;
 
+    public bool isNickNameSame;
+
     private void Awake()
     {
-        img.sprite = imagess[playerIconCode];
+        img.sprite = icons[playerIconCode];
         Screen.SetResolution(540, 960, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
@@ -116,12 +119,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
+
     public override void OnConnectedToMaster()//2
     {
-        
-
         PhotonNetwork.JoinLobby();
-
+        GSM.loadingPanel.SetActive(false);
         //PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null);//Make Room
     }
 
@@ -133,6 +135,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.controlPanel.SetActive(false);
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
+        GM.expPanal.SetActive(true);
+        GM.SetExpPanel();
         myList.Clear();
         MyListRenewal();
     }
@@ -265,13 +269,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     void num(int index , int ssss)
     {
         if (0 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
         else if (1 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
         else if (2 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
         else if (3 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = imagess[ssss];
+            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
     }
     
 
