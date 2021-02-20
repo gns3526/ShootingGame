@@ -90,8 +90,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int codyBodyCode;
 
     [SerializeField] int playerLv;
-    [SerializeField] int exp;
-    [SerializeField] int maxExp;
+    [SerializeField] float exp;
+    [SerializeField] float maxExp;
     [SerializeField] Text playerLvText;
     [SerializeField] Text nickNameText;
     [SerializeField] Text expText;
@@ -105,6 +105,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public bool stop;
     public float stopTime;
+
+    public bool isGameEnd;
+    [SerializeField] bool setExpBarLerp;
+    bool isLvUp;
+    bool expGIveOnce;
+    float overExp;
 
     [SerializeField] bool once;
 
@@ -123,10 +129,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void SetExpPanel()
     {
+        ExpPanelUpdate();
+        setExpBarLerp = true;
+    }
+    void ExpPanelUpdate()
+    {
+        float expp = Mathf.Round(exp);
+        float maxExpp = Mathf.Round(maxExp);
         playerIcon.sprite = NM.icons[NM.playerIconCode];
-        playerLvText.text = playerLv.ToString();
+        playerLvText.text = playerLv.ToString() + ".Lv";
         expText.text = exp.ToString() + "/" + maxExp.ToString();
-        expImage.fillAmount = ((exp / maxExp) / 100);
         nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
     }
 
@@ -138,6 +150,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             OP.PrePoolInstantiate();
             expPanal.SetActive(false);
             once = false;
+            isGameEnd = false;
         }
         isPlaying = true;
         
@@ -401,7 +414,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 NM.reconnectPanel.SetActive(false);
             }
         }
-
+        if (Input.GetKeyDown(KeyCode.Alpha4)) SetExpPanel();
 
         if(!stop && isPlaying)
         curSpawnDelay += Time.deltaTime;
@@ -416,6 +429,33 @@ public class GameManager : MonoBehaviourPunCallbacks
         //Player playerScript = player.GetComponent<Player>();
         if(isGameStart)
         scoreText.text = string.Format("{0:n0}",myplayer.GetComponent<Player>().score);
+
+        if (setExpBarLerp)
+        {
+
+            //if(expImage.fillAmount > exp / maxExp)
+            //{
+            //    expImage.fillAmount = 0;
+            //}
+            expImage.fillAmount = Mathf.Lerp(expImage.fillAmount, exp / maxExp, Time.deltaTime * 5);
+            if (expImage.fillAmount >= (exp / maxExp) -0.01f)//다찼다면
+            {
+                expImage.fillAmount = exp / maxExp;
+                if (isLvUp)
+                {
+                    playerLv++;
+                    maxExp *= 1.1f;
+                    maxExp = Mathf.Round(maxExp);
+                    expImage.fillAmount = 0;
+                    exp = overExp;
+                    isLvUp = false;
+                    ExpPanelUpdate();
+                    GiveExp();
+                }
+                else
+                setExpBarLerp = false;
+            }
+        }
     }
 
     void SpawnEnemy()
@@ -580,6 +620,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void FinalStageClear()
     {
+        isGameEnd = true;
         finalStageClearPanel.SetActive(true);
         Player myplayerScript = myplayer.GetComponent<Player>();
 
@@ -588,21 +629,29 @@ public class GameManager : MonoBehaviourPunCallbacks
         clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
 
         expPanal.SetActive(true);
-        StartCoroutine(GiveExp());
+        expGIveOnce = true;
+        Invoke("GiveExp", 2);
     }
 
-    IEnumerator GiveExp()
+    void GiveExp()
     {
-        yield return new WaitForSeconds(1f);
-        exp += 30;
+        if(expGIveOnce)
+        {
+            expGIveOnce = false;
+            exp += 400;
+        }
+
         if(exp >= maxExp)
         {
-            playerLv++;
-            int overExp = exp - maxExp;
-            exp = 0;
-            exp = overExp;
-            maxExp *= 110;
+
+            overExp = exp - maxExp;
+            exp = maxExp;
+
+            isLvUp = true;
+            setExpBarLerp = true;
+            return;
         }
+
         SetExpPanel();
     }
     public void GoToLobby()

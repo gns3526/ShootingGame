@@ -7487,7 +7487,7 @@ MonoBehaviour:
   - 1
   codyBodyCode: 0
   playerLv: 0
-  exp: 0
+  exp: 90
   maxExp: 100
   playerLvText: {fileID: 451544967}
   nickNameText: {fileID: 1065393035}
@@ -7497,6 +7497,8 @@ MonoBehaviour:
   pv: {fileID: 601972272}
   stop: 0
   stopTime: -1
+  isGameEnd: 0
+  setExpBarLerp: 0
   once: 1
 --- !u!4 &601972271
 Transform:
@@ -15919,7 +15921,7 @@ MonoBehaviour:
   m_PreserveAspect: 0
   m_FillCenter: 1
   m_FillMethod: 0
-  m_FillAmount: 1
+  m_FillAmount: 0
   m_FillClockwise: 1
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
