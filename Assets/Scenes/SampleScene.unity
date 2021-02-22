@@ -7563,7 +7563,7 @@ MonoBehaviour:
   - 1
   codyBodyCode: 0
   playerLv: 0
-  exp: 90
+  exp: 0
   maxExp: 100
   playerLvText: {fileID: 451544967}
   nickNameText: {fileID: 1065393035}
@@ -18491,6 +18491,8 @@ MonoBehaviour:
   playernum: 0
   playerNickName: 
   playercolor: 
+  movePlayerinfoComplete: 0
+  makeNickComplete: 0
 --- !u!4 &1418567088
 Transform:
   m_ObjectHideFlags: 0

@@ -33,6 +33,19 @@ public class GoogleSheetManager : MonoBehaviour
     public string playerNickName;
     [SerializeField] string playercolor;
 
+    [SerializeField] bool movePlayerinfoComplete;
+    [SerializeField] bool makeNickComplete;
+
+    private void Update()
+    {
+        if(movePlayerinfoComplete && makeNickComplete)
+        {
+            movePlayerinfoComplete = false;
+            makeNickComplete = false;
+
+            NM.Connect();
+        }
+    }
 
     bool SetIdPass()
     {
@@ -69,7 +82,7 @@ public class GoogleSheetManager : MonoBehaviour
         loadingPanel.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
-        form.AddField("playerNum", playernum);
+        //form.AddField("playerNum", playernum);
         form.AddField("id", id);
         form.AddField("pass", pass);
 
@@ -124,6 +137,17 @@ public class GoogleSheetManager : MonoBehaviour
         CheckNicknameSame();
     }
 
+    public void SaveLvInfo()
+    {
+        WWWForm form = new WWWForm();
+
+        form.AddField("order", "setLv");
+        form.AddField("playerNum", playernum);
+        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp);
+
+        StartCoroutine(Post(form));
+    }
+
     void Debug(string json)
     {
         if (string.IsNullOrEmpty(json)) return;
@@ -147,7 +171,7 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 playerNickName = GD.value;
                 NM.nickNameInput.text = playerNickName;
-                NM.Connect();
+
             }
             else if(GD.type == "5")
             {
@@ -157,6 +181,15 @@ public class GoogleSheetManager : MonoBehaviour
                 {
                     GM.playerColors[i] = float.Parse(result[i]);
                 }
+                GetValue(6);
+            }
+            else if(GD.type == "6")
+            {
+                string[] result = GD.value.Split(new string[] { "." }, System.StringSplitOptions.None);
+                GM.playerLv = int.Parse(result[0]);
+                GM.exp = float.Parse(result[1]);
+                GM.maxExp = float.Parse(result[2]);
+                movePlayerinfoComplete = true;
             }
         }
         if(GD.order == "NicknameCheck")
@@ -167,6 +200,8 @@ public class GoogleSheetManager : MonoBehaviour
             if (!canMakeNick)//이미닉이있다
             {
                 GetValue(3);
+                makeNickComplete = true;
+                print("dkslslslqqqqqq");
                 return;
             }
             //없다면 닉네임창에 놔둠;
@@ -179,16 +214,32 @@ public class GoogleSheetManager : MonoBehaviour
             GM.loginPanel.SetActive(false);
             CheckNickname();
             GetValue(5);
+
         }
         if (GD.order == "NicknameSameCheck")
         {
-            if (GD.result == "OK") NM.Connect();
+            if (GD.result == "OK") makeNickComplete = true;
             else print("닉네임 중복됨");
         }
+        
 
     }
 
     private void OnApplicationQuit()
+    {
+        //ColorSave();
+        //SaveLvInfo();
+    }
+    private void OnApplicationPause(bool pause)
+    {
+        if (pause)
+        {
+            //ColorSave();
+           // SaveLvInfo();
+        }
+
+    }
+    public void ColorSave()
     {
         WWWForm form = new WWWForm();
         form.AddField("order", "logout");

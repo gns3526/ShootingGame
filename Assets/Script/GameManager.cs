@@ -89,9 +89,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float[] playerColors;
     public int codyBodyCode;
 
-    [SerializeField] int playerLv;
-    [SerializeField] float exp;
-    [SerializeField] float maxExp;
+    public int playerLv;
+    public float exp;
+    public float maxExp;
     [SerializeField] Text playerLvText;
     [SerializeField] Text nickNameText;
     [SerializeField] Text expText;

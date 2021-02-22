@@ -414,7 +414,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-
+        GSM.ColorSave();
+        GSM.SaveLvInfo();
 
         GM.controlPanel.SetActive(false);
         roomPanel.SetActive(false);
