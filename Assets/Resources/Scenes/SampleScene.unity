@@ -491,7 +491,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &46071329
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1137,7 +1137,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &97293153
 RectTransform:
   m_ObjectHideFlags: 0
@@ -1620,7 +1620,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &137664867
 RectTransform:
   m_ObjectHideFlags: 0
@@ -6720,7 +6720,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &464137011
 RectTransform:
   m_ObjectHideFlags: 0
@@ -8833,48 +8833,48 @@ MonoBehaviour:
   expPanal: {fileID: 1031728552}
   cards:
   - {fileID: 771663470}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1630329566}
+  - {fileID: 785169081}
+  - {fileID: 982115412}
+  - {fileID: 46071328}
+  - {fileID: 1153850401}
+  - {fileID: 1099935472}
+  - {fileID: 1767773293}
+  - {fileID: 1962605633}
+  - {fileID: 1309185176}
+  - {fileID: 1020095361}
+  - {fileID: 137664866}
+  - {fileID: 2090543343}
+  - {fileID: 97293152}
+  - {fileID: 1075448296}
+  - {fileID: 711040613}
+  - {fileID: 464137010}
+  - {fileID: 826282875}
+  - {fileID: 1005199140}
   cardsSave: []
   rare:
-  - {fileID: 771663470}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1630329566}
+  - {fileID: 785169081}
+  - {fileID: 46071328}
+  - {fileID: 1962605633}
+  - {fileID: 711040613}
   epic:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 771663470}
+  - {fileID: 1153850401}
+  - {fileID: 137664866}
+  - {fileID: 2090543343}
+  - {fileID: 97293152}
   unique:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 982115412}
+  - {fileID: 1309185176}
+  - {fileID: 1075448296}
+  - {fileID: 464137010}
+  - {fileID: 826282875}
   legendary:
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
-  - {fileID: 0}
+  - {fileID: 1099935472}
+  - {fileID: 1767773293}
+  - {fileID: 1020095361}
+  - {fileID: 1005199140}
   cardPanel: {fileID: 1740077250}
   gacha: 
   rarePer: 40
@@ -10339,7 +10339,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &711040614
 RectTransform:
   m_ObjectHideFlags: 0
@@ -11732,7 +11732,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &771663471
 RectTransform:
   m_ObjectHideFlags: 0
@@ -12099,7 +12099,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &785169082
 RectTransform:
   m_ObjectHideFlags: 0
@@ -13438,7 +13438,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &826282876
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16116,7 +16116,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &982115413
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16577,7 +16577,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1005199141
 RectTransform:
   m_ObjectHideFlags: 0
@@ -16897,7 +16897,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1020095362
 RectTransform:
   m_ObjectHideFlags: 0
@@ -17851,7 +17851,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1075448297
 RectTransform:
   m_ObjectHideFlags: 0
@@ -18398,7 +18398,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1099935473
 RectTransform:
   m_ObjectHideFlags: 0
@@ -19098,7 +19098,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1153850402
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21136,7 +21136,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1309185177
 RectTransform:
   m_ObjectHideFlags: 0
@@ -21268,7 +21268,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1313320448
 RectTransform:
   m_ObjectHideFlags: 0
@@ -26800,7 +26800,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1630329567
 RectTransform:
   m_ObjectHideFlags: 0
@@ -29081,7 +29081,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1767773294
 RectTransform:
   m_ObjectHideFlags: 0
@@ -32093,7 +32093,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1962605634
 RectTransform:
   m_ObjectHideFlags: 0
@@ -34746,7 +34746,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &2090543344
 RectTransform:
   m_ObjectHideFlags: 0
