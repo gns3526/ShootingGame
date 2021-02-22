@@ -65,7 +65,7 @@ TextureImporter:
   spritePivot: {x: 0.5, y: 0.5}
   spritePixelsToUnits: 24
   spriteBorder: {x: 0, y: 0, z: 0, w: 0}
-  spriteGenerateFallbackPhysicsShape: 1
+  spriteGenerateFallbackPhysicsShape: 0
   alphaUsage: 1
   alphaIsTransparency: 1
   spriteTessellationDetail: -1
@@ -118,7 +118,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 28
-        width: 32
+        width: 31
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -137,20 +137,20 @@ TextureImporter:
       name: Enemy_1
       rect:
         serializedVersion: 2
-        x: 33
+        x: 32
         y: 31
-        width: 24
+        width: 25
         height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -12, y: 12}
-        - {x: -12, y: 6}
-        - {x: -1, y: -12}
-        - {x: 1, y: -12}
-        - {x: 12, y: 6}
-        - {x: 12, y: 12}
+      - - {x: -12.5, y: 12}
+        - {x: -12.5, y: 12}
+        - {x: -12.5, y: -12}
+        - {x: 12.5, y: -12}
+        - {x: 12.5, y: 12}
+        - {x: 12.5, y: 12}
       physicsShape:
       - - {x: -12, y: 12}
         - {x: -12, y: 6}
@@ -170,9 +170,9 @@ TextureImporter:
       name: Enemy_2
       rect:
         serializedVersion: 2
-        x: 58
+        x: 57
         y: 44
-        width: 12
+        width: 13
         height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -193,7 +193,7 @@ TextureImporter:
         serializedVersion: 2
         x: 0
         y: 0
-        width: 32
+        width: 31
         height: 27
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
@@ -212,20 +212,20 @@ TextureImporter:
       name: Enemy_4
       rect:
         serializedVersion: 2
-        x: 33
+        x: 32
         y: 3
-        width: 24
+        width: 25
         height: 24
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
       border: {x: 0, y: 0, z: 0, w: 0}
       outline:
-      - - {x: -12, y: 12}
-        - {x: -12, y: 6}
-        - {x: -1, y: -12}
-        - {x: 1, y: -12}
-        - {x: 12, y: 6}
-        - {x: 12, y: 12}
+      - - {x: -12.5, y: 12}
+        - {x: -12.5, y: 12}
+        - {x: -12.5, y: -12}
+        - {x: 12.5, y: -12}
+        - {x: 12.5, y: 12}
+        - {x: 12.5, y: 12}
       physicsShape:
       - - {x: -12, y: 12}
         - {x: -12, y: 6}
@@ -245,9 +245,9 @@ TextureImporter:
       name: Enemy_5
       rect:
         serializedVersion: 2
-        x: 58
+        x: 57
         y: 16
-        width: 12
+        width: 13
         height: 11
       alignment: 0
       pivot: {x: 0.5, y: 0.5}
