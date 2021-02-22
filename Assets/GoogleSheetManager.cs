@@ -27,7 +27,32 @@ public class GoogleSheetManager : MonoBehaviour
 
     [Header("Panel")]
     public GameObject loadingPanel;
+    [SerializeField] GameObject registerPanel;
 
+    [Header("Register")]
+    bool once;
+
+    [SerializeField] bool idCheck;
+    [SerializeField] bool passwordCheck;
+    [SerializeField] bool passwordReCheck;
+
+    [SerializeField] InputField regIdInput;
+    [SerializeField] InputField regPassInput;
+    [SerializeField] InputField regPassReInput;
+
+    [SerializeField] int cantIdReason;
+
+    [SerializeField] Text idText;
+    [SerializeField] Text passwordText;
+    [SerializeField] Text passwordReText;
+
+    [SerializeField] Button registerCompleteBtn;
+    [SerializeField] Button idCheckBtn;
+
+    [SerializeField] Image isCurrentPass;
+    [SerializeField] Sprite[] currentSprites;
+    
+    [Header("Other")]
     public bool canMakeNick;
     [SerializeField] int playernum;
     public string playerNickName;
@@ -44,6 +69,80 @@ public class GoogleSheetManager : MonoBehaviour
             makeNickComplete = false;
 
             NM.Connect();
+        }
+    }
+    public bool CheckingSpecialText(string txt)
+    {
+        string str = @"[~!@\#$%^&*\(,.)\=+|\\/:;?""<>']";
+        System.Text.RegularExpressions.Regex rex = new System.Text.RegularExpressions.Regex(str);
+        return rex.IsMatch(txt);
+    }
+    public void CheckSpecialText()
+    {
+        if (!CheckingSpecialText(regIdInput.text))
+        {
+            idCheckBtn.interactable = true;
+            idText.text = "";
+        }
+
+        else
+        {
+            idCheckBtn.interactable = false;
+            idText.text = "특수문자가 포함되어 있습니다.";
+        }
+
+    }
+
+    public void RegisterPanelOn(bool On)
+    {
+        if(On)
+        registerPanel.SetActive(true);
+        else
+        {
+            regIdInput.text = "";
+            regPassInput.text = "";
+            regPassReInput.text = "";
+            registerPanel.SetActive(false);
+        }
+    }
+    
+    public void CanUseIdClick()
+    {
+        WWWForm form = new WWWForm();
+        form.AddField("order", "register");
+        form.AddField("id", id);
+        form.AddField("pass", pass);
+
+        StartCoroutine(Post(form));
+    }
+
+    public void CanRegist()
+    {
+        if (idCheck && passwordCheck && passwordReCheck) registerCompleteBtn.interactable = true;
+        else registerCompleteBtn.interactable = false;
+    }
+
+    public void RegisterTextsUpdate()
+    {
+        if (idCheck)
+        {
+            idText.text = "사용할 수 있는 아이디 입니다.";
+        }
+        else
+            idText.text = "중복된 아이디입니다.";
+
+        if (passwordCheck) passwordText.text = "사용 가능한 비밀번호 입니다.";
+        else passwordText.text = "특수문자가 포함되어 있습니다";
+
+        if (passwordReCheck)
+        {
+            passwordReText.text = "올바른 비밀번호입니다.";
+            isCurrentPass.sprite = currentSprites[0];
+        }
+        else
+        {
+            passwordReText.text = "틀린 비밀번호 입니다.";
+            isCurrentPass.sprite = currentSprites[1];
         }
     }
 
@@ -227,15 +326,15 @@ public class GoogleSheetManager : MonoBehaviour
 
     private void OnApplicationQuit()
     {
-        //ColorSave();
-        //SaveLvInfo();
+        ColorSave();
+        SaveLvInfo();
     }
     private void OnApplicationPause(bool pause)
     {
         if (pause)
         {
-            //ColorSave();
-           // SaveLvInfo();
+            ColorSave();
+            SaveLvInfo();
         }
 
     }
