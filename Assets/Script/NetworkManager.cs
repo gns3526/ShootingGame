@@ -133,10 +133,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         roomPanel.SetActive(false);
         connectPanel.SetActive(false);
         GM.controlPanel.SetActive(false);
+
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
-        GM.expPanal.SetActive(true);
+
+        GM.roomExpPanal.SetActive(false);
+        GM.lobbyExpPanel.SetActive(true);
         GM.SetExpPanel();
+
         myList.Clear();
         MyListRenewal();
     }
@@ -210,6 +214,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         lobbyPanel.SetActive(false);
         GM.controlPanel.SetActive(true);
         GM.scorePanel.SetActive(false);
+
+        GM.roomExpPanal.SetActive(true);
+        GM.lobbyExpPanel.SetActive(false);
+        GM.SetExpPanel();
+
         chatInput.text = "";
         RoomRenewal();
         for (int i = 0; i < chatTextT.Length; i++)

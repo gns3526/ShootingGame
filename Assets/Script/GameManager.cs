@@ -47,7 +47,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject finalStageClearPanel;
     [SerializeField] GameObject codyPanel;
     public GameObject loginPanel;
-    public GameObject expPanal;
+    public GameObject roomExpPanal;
+    public GameObject lobbyExpPanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -97,7 +98,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text expText;
     [SerializeField] Image playerIcon;
     [SerializeField] Image expImage;
-    
+
+    [SerializeField] Text playerLvText2;
+    [SerializeField] Text nickNameText2;
+    [SerializeField] Text expText2;
+    [SerializeField] Image playerIcon2;
+    [SerializeField] Image expImage2;
 
     [Header("Other")]
 
@@ -134,12 +140,22 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     void ExpPanelUpdate()
     {
-        float expp = Mathf.Round(exp);
-        float maxExpp = Mathf.Round(maxExp);
-        playerIcon.sprite = NM.icons[NM.playerIconCode];
-        playerLvText.text = playerLv.ToString() + ".Lv";
-        expText.text = exp.ToString() + "/" + maxExp.ToString();
-        nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
+        if (lobbyExpPanel.activeSelf)
+        {
+            expImage.fillAmount = 0;
+            playerIcon.sprite = NM.icons[NM.playerIconCode];
+            playerLvText.text = playerLv.ToString() + ".Lv";
+            expText.text = exp.ToString() + "/" + maxExp.ToString();
+            nickNameText.text = PhotonNetwork.LocalPlayer.NickName;
+        }
+        if(roomExpPanal.activeSelf)
+        {
+            expImage2.fillAmount = 0;
+            playerIcon2.sprite = NM.icons[NM.playerIconCode];
+            playerLvText2.text = playerLv.ToString() + ".Lv";
+            expText2.text = exp.ToString() + "/" + maxExp.ToString();
+            nickNameText2.text = PhotonNetwork.LocalPlayer.NickName;
+        }
     }
 
     [PunRPC]
@@ -148,7 +164,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (once)
         {
             OP.PrePoolInstantiate();
-            expPanal.SetActive(false);
+            lobbyExpPanel.SetActive(false);
             once = false;
             isGameEnd = false;
         }
@@ -437,23 +453,49 @@ public class GameManager : MonoBehaviourPunCallbacks
             //{
             //    expImage.fillAmount = 0;
             //}
-            expImage.fillAmount = Mathf.Lerp(expImage.fillAmount, exp / maxExp, Time.deltaTime * 5);
-            if (expImage.fillAmount >= (exp / maxExp) -0.01f)//다찼다면
+            if(lobbyExpPanel.activeSelf)
             {
-                expImage.fillAmount = exp / maxExp;
-                if (isLvUp)
+                expImage.fillAmount = Mathf.Lerp(expImage.fillAmount, exp / maxExp, Time.deltaTime * 5);
+
+                if (expImage.fillAmount >= (exp / maxExp) - 0.01f)//다찼다면
                 {
-                    playerLv++;
-                    maxExp *= 1.1f;
-                    maxExp = Mathf.Round(maxExp);
-                    expImage.fillAmount = 0;
-                    exp = overExp;
-                    isLvUp = false;
-                    ExpPanelUpdate();
-                    GiveExp();
+                    expImage.fillAmount = exp / maxExp;
+                    if (isLvUp)
+                    {
+                        playerLv++;
+                        maxExp *= 1.1f;
+                        maxExp = Mathf.Round(maxExp);
+                        expImage.fillAmount = 0;
+                        exp = overExp;
+                        isLvUp = false;
+                        ExpPanelUpdate();
+                        GiveExp();
+                    }
+                    else
+                        setExpBarLerp = false;
                 }
-                else
-                setExpBarLerp = false;
+            }
+            if (roomExpPanal.activeSelf)
+            {
+                expImage2.fillAmount = Mathf.Lerp(expImage2.fillAmount, exp / maxExp, Time.deltaTime * 5);
+
+                if (expImage2.fillAmount >= (exp / maxExp) - 0.01f)//다찼다면
+                {
+                    expImage2.fillAmount = exp / maxExp;
+                    if (isLvUp)
+                    {
+                        playerLv++;
+                        maxExp *= 1.1f;
+                        maxExp = Mathf.Round(maxExp);
+                        expImage2.fillAmount = 0;
+                        exp = overExp;
+                        isLvUp = false;
+                        ExpPanelUpdate();
+                        GiveExp();
+                    }
+                    else
+                        setExpBarLerp = false;
+                }
             }
         }
     }
@@ -628,7 +670,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         clearLifeText.text = (myplayerScript.life * 1000).ToString();
         clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
 
-        expPanal.SetActive(true);
+        lobbyExpPanel.SetActive(true);
         expGIveOnce = true;
         Invoke("GiveExp", 2);
     }
