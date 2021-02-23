@@ -40,8 +40,6 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] InputField regPassInput;
     [SerializeField] InputField regPassReInput;
 
-    [SerializeField] int cantIdReason;
-
     [SerializeField] Text idText;
     [SerializeField] Text passwordText;
     [SerializeField] Text passwordReText;
@@ -49,7 +47,9 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] Button registerCompleteBtn;
     [SerializeField] Button idCheckBtn;
 
+    [SerializeField] Image isCurrentId;
     [SerializeField] Image isCurrentPass;
+    [SerializeField] Image isCurrentPassRe;
     [SerializeField] Sprite[] currentSprites;
     
     [Header("Other")]
@@ -77,25 +77,61 @@ public class GoogleSheetManager : MonoBehaviour
         System.Text.RegularExpressions.Regex rex = new System.Text.RegularExpressions.Regex(str);
         return rex.IsMatch(txt);
     }
-    public void CheckSpecialText()
+    public void CheckWrongIdText()
     {
+        idCheck = false;
+        isCurrentId.sprite = currentSprites[1];
         if (!CheckingSpecialText(regIdInput.text))
         {
             idCheckBtn.interactable = true;
-            idText.text = "";
+            idText.text = "알맞은 아이디";
         }
-
         else
         {
             idCheckBtn.interactable = false;
             idText.text = "특수문자가 포함되어 있습니다.";
         }
-
+    }
+    public void CheckWrongPassText()
+    {
+        if (!CheckingSpecialText(regPassInput.text))
+        {
+            passwordCheck = true;
+            isCurrentPass.sprite = currentSprites[0];
+            passwordText.text = "알맞은 비빔번호";
+        }
+        else
+        {
+            passwordCheck = false;
+            isCurrentPass.sprite = currentSprites[1];
+            passwordText.text = "특수문자가 포함되어 있습니다.";
+        }
+    }
+    public void CheckSamePassReText()
+    {
+        if(regPassReInput.text == regPassInput.text)
+        {
+            passwordReCheck = true;
+            passwordReText.text = "X";
+            isCurrentPassRe.sprite = currentSprites[0];
+        }
+        else
+        {
+            passwordReCheck = false;
+            passwordReText.text = "O";
+            isCurrentPassRe.sprite = currentSprites[1];
+        }
     }
 
     public void RegisterPanelOn(bool On)
     {
-        if(On)
+        idCheck = false;
+        passwordCheck = false;
+        passwordReCheck = false;
+        isCurrentId.sprite = currentSprites[1];
+        isCurrentPass.sprite = currentSprites[1];
+        isCurrentPassRe.sprite = currentSprites[1];
+        if (On)
         registerPanel.SetActive(true);
         else
         {
@@ -105,16 +141,6 @@ public class GoogleSheetManager : MonoBehaviour
             registerPanel.SetActive(false);
         }
     }
-    
-    public void CanUseIdClick()
-    {
-        WWWForm form = new WWWForm();
-        form.AddField("order", "register");
-        form.AddField("id", id);
-        form.AddField("pass", pass);
-
-        StartCoroutine(Post(form));
-    }
 
     public void CanRegist()
     {
@@ -122,28 +148,15 @@ public class GoogleSheetManager : MonoBehaviour
         else registerCompleteBtn.interactable = false;
     }
 
-    public void RegisterTextsUpdate()
+
+    public void CheckSameId()
     {
-        if (idCheck)
-        {
-            idText.text = "사용할 수 있는 아이디 입니다.";
-        }
-        else
-            idText.text = "중복된 아이디입니다.";
+        WWWForm form = new WWWForm();
+        form.AddField("order", "checkSameId");
+        form.AddField("id", regIdInput.text);
+        regIdInput.interactable = false;
 
-        if (passwordCheck) passwordText.text = "사용 가능한 비밀번호 입니다.";
-        else passwordText.text = "특수문자가 포함되어 있습니다";
-
-        if (passwordReCheck)
-        {
-            passwordReText.text = "올바른 비밀번호입니다.";
-            isCurrentPass.sprite = currentSprites[0];
-        }
-        else
-        {
-            passwordReText.text = "틀린 비밀번호 입니다.";
-            isCurrentPass.sprite = currentSprites[1];
-        }
+        StartCoroutine(Post(form));
     }
 
     bool SetIdPass()
@@ -156,18 +169,20 @@ public class GoogleSheetManager : MonoBehaviour
     }
     public void Register()
     {
-        if (!SetIdPass())
+        if (idCheck && passwordCheck && passwordReCheck)
         {
-            print("비어있다");
-            return;
+            WWWForm form = new WWWForm();
+            form.AddField("order", "register");
+            form.AddField("id", regIdInput.text);
+            form.AddField("pass", regPassInput.text);
+
+            StartCoroutine(Post(form));
+        }
+        else
+        {
+
         }
 
-        WWWForm form = new WWWForm();
-        form.AddField("order", "register");
-        form.AddField("id", id);
-        form.AddField("pass", pass);
-
-        StartCoroutine(Post(form));
     }
 
     public void Login()
@@ -264,6 +279,11 @@ public class GoogleSheetManager : MonoBehaviour
         print(GD.order + "을 실행했습니다" + GD.msg);
         debuggingText.text = (GD.order + "을 실행했습니다" + GD.msg);
 
+        if(GD.order == "register")
+        {
+            registerPanel.SetActive(false);
+        }
+
         if (GD.order == "getValue")
         {
             if(GD.type == "3")
@@ -320,7 +340,22 @@ public class GoogleSheetManager : MonoBehaviour
             if (GD.result == "OK") makeNickComplete = true;
             else print("닉네임 중복됨");
         }
-        
+        if(GD.order == "checkSameId")
+        {
+            regIdInput.interactable = true;
+            if (GD.result == "OK")
+            {
+                idCheck = true;
+                isCurrentId.sprite = currentSprites[0];
+                idText.text = "사용가능한 아이디 입니다";
+            }
+            else
+            {
+                idCheck = false;
+                isCurrentId.sprite = currentSprites[1];
+                idText.text = "중복된 아이디 입니다";
+            }
+        }
 
     }
 
