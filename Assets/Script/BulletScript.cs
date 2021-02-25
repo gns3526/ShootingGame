@@ -12,6 +12,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     [SerializeField] bool isRotate;
     [SerializeField] bool isPassThrough;
     [SerializeField] PhotonView pv;
+    public GameObject parentOb;
 
     [SerializeField] ObjectPooler OP;
     GameManager GM;
@@ -67,7 +68,10 @@ public class BulletScript : MonoBehaviour, IPunObservable
             transform.Translate(new Vector3(0, -0.1f));
         }
 
-
+        if (parentOb != null)
+        {
+            transform.position = parentOb.transform.position;
+        }
 
 
 
@@ -82,6 +86,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     }
     private void OnTriggerEnter2D(Collider2D other)
     {
+
         if (isPlayerAttack)
         {
             if (other.tag == "BulletBorder" || other.tag == "Enemy")
@@ -91,6 +96,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         }
         else
         {
+            if (isPassThrough) return;
             if (other.tag == "BulletBorder")
             {
                 OP.PoolDestroy(gameObject);

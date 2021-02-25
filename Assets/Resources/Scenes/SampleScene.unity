@@ -4228,6 +4228,16 @@ MonoBehaviour:
       type: 3}
     size: 20
     isMyBullet: 0
+  - tag: LaserS
+    prefab: {fileID: 5728943140913656555, guid: bb1e30a7a1c69e048a017480f592a531,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: Enemy7
+    prefab: {fileID: 2566655035291444886, guid: 99c957f6cda5be34093189ea623e3f0b,
+      type: 3}
+    size: 10
+    isMyBullet: 0
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
@@ -9561,7 +9571,7 @@ MonoBehaviour:
   NM: {fileID: 1905378082}
   OP: {fileID: 264256441}
   CM: {fileID: 1229472097}
-  stage: 10
+  stage: 1
   MaxStage: 10
   isGameStart: 0
   isPlaying: 0

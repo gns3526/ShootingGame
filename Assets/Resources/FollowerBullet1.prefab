@@ -151,6 +151,7 @@ MonoBehaviour:
   isRotate: 0
   isPassThrough: 0
   pv: {fileID: -985507974280066361}
+  parentOb: {fileID: 0}
   OP: {fileID: 0}
   boxCol: {fileID: 6428041374053074998}
 --- !u!114 &-985507974280066361

@@ -150,6 +150,7 @@ MonoBehaviour:
   maxShotCoolTime: 0.5
   curShotCoolTime: -100
   stopTImeMonster: 100
+  goTimeMonster: 0
   dashWaitTIme: 0
   dashToPlayerPower: 0
   isDashing: 0

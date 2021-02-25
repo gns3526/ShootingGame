@@ -21,6 +21,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] float curShotCoolTime;
 
     [SerializeField] float stopTImeMonster;
+    [SerializeField] float goTimeMonster;
     [SerializeField] float dashWaitTIme;
     [SerializeField] float dashToPlayerPower;
     [SerializeField] bool isDashing;
@@ -350,11 +351,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             }
             else if (enemyType == "Monster3")
             {
-                GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.right * 0.3f, Quaternion.identity);
                 //GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.left * 0.3f, Quaternion.identity);
 
                 Vector3 dirR = target.transform.position - (transform.position + Vector3.right * 0.3f);
                 Vector3 dirL = target.transform.position - (transform.position + Vector3.left * 0.3f);
@@ -386,7 +385,19 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                     StartCoroutine(ShotTypePlus());
                 curShotCoolTime = -100;
             }
+            else if(enemyType == "Monster7")
+            {
+                GameObject bulletR = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                bulletR.GetComponent<BulletScript>().parentOb = gameObject;
+                curShotCoolTime = -100;
+                StartCoroutine(GoMonster());
+            }
         }
+    }
+    IEnumerator GoMonster()
+    {
+        yield return new WaitForSeconds(goTimeMonster);
+        canMoveMonster = true;
     }
     IEnumerator LookAtPlayer()
     {

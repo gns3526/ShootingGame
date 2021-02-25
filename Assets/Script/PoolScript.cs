@@ -21,6 +21,11 @@ public class PoolScript : MonoBehaviourPun
     }
 
 
+    public void DestroyOb()
+    {
+        GetComponent<PhotonView>().RPC("SetActiveRPC",RpcTarget.All,false);
+    }
+
     [PunRPC]
     void SetActiveRPC(bool a)
     {

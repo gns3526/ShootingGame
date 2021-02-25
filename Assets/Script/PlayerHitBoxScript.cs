@@ -23,6 +23,7 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
+        Debug.Log("뭔가 닿음");
         if (other.tag == "Enemy" || other.tag == "EnemyBullet")
         {
             if (player == null) return;
