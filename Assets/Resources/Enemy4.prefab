@@ -155,6 +155,8 @@ MonoBehaviour:
   dashToPlayerPower: 0.15
   isDashing: 0
   canMoveMonster: 0
+  monster5ShotCool: 0
+  monster6bool: 0
   spriteRendererEnemy: {fileID: 2566655035291444882}
   rigid: {fileID: 2566655035291444880}
   target: {fileID: 0}

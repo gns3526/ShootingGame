@@ -524,6 +524,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 case "4":
                     enemyIndex = "Enemy4";
                     break;
+                case "5":
+                    enemyIndex = "Enemy5";
+                    break;
+                case "6":
+                    enemyIndex = "Enemy6";
+                    break;
                 case "Boss0":
                     enemyIndex = "Boss1";
                     break;

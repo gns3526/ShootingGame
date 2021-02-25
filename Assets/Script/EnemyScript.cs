@@ -26,6 +26,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isDashing;
     [SerializeField] bool canMoveMonster;
 
+    [SerializeField] float monster5ShotCool;
+    [SerializeField] bool monster6bool;
+
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     [SerializeField] Rigidbody2D rigid;
 
@@ -75,6 +78,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         canMoveMonster = true;
         curShotCoolTime = 0;
         isDashing = false;
+        if (enemyType == "Monster6")
+            monster6bool = true;
 
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
@@ -282,7 +287,18 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 pv.RPC("Hit", RpcTarget.All, 10000f);
                 //Hit(10000);
             }
-            
+
+            if (transform.position.y < target.transform.position.y && monster6bool)
+            {
+                monster6bool = false;
+                int random = Random.Range(0, 2);
+                if (random == 0)
+                    StartCoroutine(ShotTypeX());
+                else
+                    StartCoroutine(ShotTypePlus());
+            }
+
+
             Move();
             if (enemyType == "Boss1")
                 return;
@@ -322,66 +338,53 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             }
             if (enemyType == "Monster1")
             {
+                GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                Debug.Log("qwdqwd");
 
-                if (PhotonNetwork.IsMasterClient)
-                {
-                    GameObject bullet = OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.identity);
-                    Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                    Debug.Log("qwdqwd");
 
-                    
-                    float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
-                    curShotCoolTime = 0;
-                }
+                float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                bullet.transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
+                curShotCoolTime = 0;
 
             }
             else if (enemyType == "Monster3")
             {
-                if (target.activeSelf)
-                {
+                GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+                bulletR.transform.position = transform.position + Vector3.right * 0.3f;
+                //GameObject bulletL = OM.MakeObj("BulletEnemy2");
+                GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+                bulletL.transform.position = transform.position + Vector3.left * 0.3f;
 
-                    //GameObject bulletR = OM.MakeObj("BulletEnemy2");
-                    if (PhotonNetwork.IsMasterClient)
-                    {
-                        GameObject bulletR = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                        bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                        //GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                        GameObject bulletL = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
-                        bulletL.transform.position = transform.position + Vector3.left * 0.3f;
+                Vector3 dirR = target.transform.position - (transform.position + Vector3.right * 0.3f);
+                Vector3 dirL = target.transform.position - (transform.position + Vector3.left * 0.3f);
 
-                        Vector3 dirR = target.transform.position - (transform.position + Vector3.right * 0.3f);
-                        Vector3 dirL = target.transform.position - (transform.position + Vector3.left * 0.3f);
+                Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
+                Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
 
-                        Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                        Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
+                rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
+                rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
 
-                        rigidR.AddForce(dirR.normalized * 5, ForceMode2D.Impulse);
-                        rigidL.AddForce(dirL.normalized * 5, ForceMode2D.Impulse);
-                        curShotCoolTime = 0;
-                    }
-                    
-                }
-                else
-                {
-                    //GameObject bulletR = OM.MakeObj("BulletEnemy2");
-                    //bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-                    //Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                    //GameObject bulletL = OM.MakeObj("BulletEnemy2");
-                    //bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-                    //Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
-                    //rigidR.AddForce(Vector2.down, ForceMode2D.Impulse);
-                    //rigidL.AddForce(Vector2.down, ForceMode2D.Impulse);
-                    curShotCoolTime = 0;
-                }
+                curShotCoolTime = 0;
+
             }
             else if (enemyType == "Monster4")
             {
-                    canMoveMonster = false;
-                    StartCoroutine(LookAtPlayer());
-                    isDashing = true;
-                    curShotCoolTime = -100;
-                
+                canMoveMonster = false;
+                StartCoroutine(LookAtPlayer());
+                isDashing = true;
+                curShotCoolTime = -100;
+
+            }
+            else if(enemyType == "Monster5")
+            {
+                int random = Random.Range(0, 2);
+                canMoveMonster = false;
+                if (random == 0)
+                    StartCoroutine(ShotTypeX());
+                else
+                    StartCoroutine(ShotTypePlus());
+                curShotCoolTime = -100;
             }
         }
     }
@@ -402,6 +405,50 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             yield return new WaitForSeconds(dashWaitTIme);
             canMoveMonster = true;
         }
+    }
+    IEnumerator ShotTypeX()
+    {
+        yield return new WaitForSeconds(monster5ShotCool);
+        GameObject bulletRUp = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletRDown = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletLUp = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletLDown = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+
+        Rigidbody2D rigidRUp = bulletRUp.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidRDown = bulletRDown.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidLUpown = bulletLUp.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidLDown = bulletLDown.GetComponent<Rigidbody2D>();
+
+        rigidRUp.AddForce(new Vector2(4,4), ForceMode2D.Impulse);
+        rigidRDown.AddForce(new Vector2(4,-4), ForceMode2D.Impulse);
+        rigidLUpown.AddForce(new Vector2(-4,4), ForceMode2D.Impulse);
+        rigidLDown.AddForce(new Vector2(-4,-4), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(0.1f);
+
+        canMoveMonster = true;
+    }
+    IEnumerator ShotTypePlus()
+    {
+        yield return new WaitForSeconds(monster5ShotCool);
+        GameObject bulletRight = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletLeft = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletUp = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+        GameObject bulletDown = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+
+        Rigidbody2D rigidRight = bulletRight.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidLeft = bulletLeft.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidUp = bulletUp.GetComponent<Rigidbody2D>();
+        Rigidbody2D rigidDown = bulletDown.GetComponent<Rigidbody2D>();
+
+        rigidRight.AddForce(new Vector2(4, 0), ForceMode2D.Impulse);
+        rigidLeft.AddForce(new Vector2(-4, 0), ForceMode2D.Impulse);
+        rigidUp.AddForce(new Vector2(0, 4), ForceMode2D.Impulse);
+        rigidDown.AddForce(new Vector2(0, -4), ForceMode2D.Impulse);
+
+        yield return new WaitForSeconds(0.1f);
+
+        canMoveMonster = true;
     }
 
     void Reload()
