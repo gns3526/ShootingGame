@@ -310,7 +310,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         //transform.position = curPos + nextPos;
 
         //transform.Translate(Vector3.right * 7 * Time.deltaTime * h);
-        rigid.velocity = new Vector2(4 * h, 4 * v);
+        rigid.velocity = new Vector2((moveSpeed / 100) * 4 * h, (moveSpeed / 100) * 4 * v);
 
         if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
         {
@@ -363,7 +363,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        if(isSpecialBulletAbility1 && (30 > randomNum))
+        if(isSpecialBulletAbility1 && (20 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity);
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
@@ -371,7 +371,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             curShotCoolTime = 0;
             return;
         }
-        if (isSpecialBulletAbility2 && (30 > randomNum))
+        if (isSpecialBulletAbility2 && (60 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity);
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
@@ -432,7 +432,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     void Reload()
     {
-        curShotCoolTime += Time.deltaTime * ((shotCoolTimeReduce / 100) + ((attackSpeedStack * 10) / 100) + 1);
+        curShotCoolTime += Time.deltaTime * ((shotCoolTimeReduce + attackSpeedStack) / 100);
     }
     void UseBoom()//폭탄사용
     {

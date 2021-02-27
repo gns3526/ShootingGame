@@ -498,7 +498,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     myPlayerScript.attackSpeedStackint++;
 
-                    if (myPlayerScript.attackSpeedStackint == 10)
+                    if (myPlayerScript.attackSpeedStackint == 1)
                     {
                         myPlayerScript.attackSpeedStackint = 0;
                         myPlayerScript.attackSpeedStack++;
@@ -508,7 +508,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     myPlayerScript.damageStackint++;
 
-                    if (myPlayerScript.damageStackint == 10)
+                    if (myPlayerScript.damageStackint == 1)
                     {
                         myPlayerScript.damageStackint = 0;
                         myPlayerScript.damageStack++;
@@ -559,8 +559,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             int randomNum;
             randomNum = Random.Range(0, 101);
 
-            normalBulletDmg = (bullet.dmg * (myPlayerScript.increaseDamage / 100))
-                     * (((myPlayerScript.damageStack * 10) / 100) + 1);
+            normalBulletDmg = bullet.dmg * (myPlayerScript.increaseDamage / 100)
+                     * (myPlayerScript.damageStack / 100);
 
 
             if (myPlayerScript.criticalPer > randomNum)

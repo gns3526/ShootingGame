@@ -30,14 +30,11 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         switch (num)
         {
             case 1:
-                if (player.shotCoolTimeReduce != 10)
-                {
-                    player.shotCoolTimeReduce -= 10;
-                }
+                player.shotCoolTimeReduce += 50;
 
                 break;
             case 2:
-                player.moveSpeed += 1;
+                player.moveSpeed += 20;
                 break;
             case 3:
                 player.increaseDamage += 50;
@@ -82,20 +79,19 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.isAttackSpeedStack = true;
                 break;
             case 14:
-                player.bossDamagePer += 100;
+                player.bossDamagePer += 60;
                 break;
             case 15:
-                player.criticalPer += 20;
+                player.criticalPer += 10;
                 break;
             case 16:
-                player.criticalDamagePer += 100;
+                player.criticalDamagePer += 50;
                 break;
             case 17:
                 player.isSpecialBulletAbility1 = true;
                 player.isSpecialBulletAbility2 = false;
                 break;
             case 18:
-                player.criticalDamagePer += 100;
                 player.isSpecialBulletAbility1 = false;
                 player.isSpecialBulletAbility2 = true;
                 break;
