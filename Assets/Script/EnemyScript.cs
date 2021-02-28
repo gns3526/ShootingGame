@@ -392,6 +392,32 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 curShotCoolTime = -100;
                 StartCoroutine(GoMonster());
             }
+            else if (enemyType == "Monster8")
+            {
+                GameObject bulletR = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletL = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletU = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletD = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                bulletR.transform.rotation = Quaternion.Euler(0, 0, 90);
+                bulletL.transform.rotation = Quaternion.Euler(0, 0, -90);
+                bulletU.transform.rotation = Quaternion.Euler(0, 0, 180);
+                bulletD.transform.rotation = Quaternion.Euler(0, 0, 0);
+                curShotCoolTime = -100;
+                StartCoroutine(GoMonster());
+            }
+            else if (enemyType == "Monster9")
+            {
+                GameObject bulletRU = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletRD = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletLU = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                GameObject bulletLD = OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity);
+                bulletRU.transform.rotation = Quaternion.Euler(0, 0, 135);
+                bulletRD.transform.rotation = Quaternion.Euler(0, 0, 45);
+                bulletLU.transform.rotation = Quaternion.Euler(0, 0, -135);
+                bulletLD.transform.rotation = Quaternion.Euler(0, 0, -45);
+                curShotCoolTime = -100;
+                StartCoroutine(GoMonster());
+            }
         }
     }
     IEnumerator GoMonster()

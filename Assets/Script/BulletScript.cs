@@ -48,6 +48,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     private void OnDisable()
     {
         curPosPv = new Vector3(16, 16, 0);
+        parentOb = null;
     }
 
     private void Update()
