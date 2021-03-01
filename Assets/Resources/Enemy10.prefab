@@ -13,12 +13,12 @@ GameObject:
   - component: {fileID: 2566655035291444883}
   - component: {fileID: 2566655035291444880}
   - component: {fileID: 2566655035291444881}
-  - component: {fileID: -7203365746657814437}
-  - component: {fileID: 550859573660221962}
-  - component: {fileID: -1493464367188040331}
-  - component: {fileID: 1736813713971462271}
+  - component: {fileID: 1405196066104455288}
+  - component: {fileID: 5245478864493976949}
+  - component: {fileID: -8148483522704293848}
+  - component: {fileID: 2690017944439975979}
   m_Layer: 0
-  m_Name: Enemy1
+  m_Name: Enemy10
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -76,8 +76,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 5444818707947512093, guid: b248307cd7b403b41bde96737e7d6b2f,
-    type: 3}
+  m_Sprite: {fileID: 21300000, guid: b2ada93c799daac4c96d8459ba89b5fb, type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
@@ -137,21 +136,21 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 9e1ecb30204d08b4a852e618f3342361, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyType: Monster1
+  enemyType: Monster10
   isBoss: 0
   enemyScore: 100
-  speed: 0.05
+  speed: 0.07
   health: 0
   maxHealth: 4
   sprites:
-  - {fileID: 5444818707947512093, guid: b248307cd7b403b41bde96737e7d6b2f, type: 3}
-  - {fileID: 8648355717292792857, guid: b248307cd7b403b41bde96737e7d6b2f, type: 3}
+  - {fileID: -1103879521004011996, guid: 4ed1ecc6444111a4989cb908bfddc20f, type: 3}
+  - {fileID: -5103896900785431115, guid: 4ed1ecc6444111a4989cb908bfddc20f, type: 3}
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
-  maxShotCoolTime: 1
+  maxShotCoolTime: 0.3
   curShotCoolTime: 0
-  stopTImeMonster: 100
-  goTimeMonster: 0
+  stopTImeMonster: 0.3
+  goTimeMonster: 1.5
   dashWaitTIme: 0
   dashToPlayerPower: 0
   isDashing: 0
@@ -159,7 +158,7 @@ MonoBehaviour:
   monster5ShotCool: 0
   monster6bool: 0
   spriteRendererEnemy: {fileID: 2566655035291444882}
-  rigid: {fileID: 0}
+  rigid: {fileID: 2566655035291444880}
   target: {fileID: 0}
   players: []
   myPlayerScript: {fileID: 0}
@@ -170,11 +169,11 @@ MonoBehaviour:
   curPatternCount: 0
   MaxPatternCount: 
   fireCoolTime: []
-  pv: {fileID: -7203365746657814437}
+  pv: {fileID: 1405196066104455288}
   gmPv: {fileID: 0}
   isSpawn: 0
   targetRandomNum: 0
---- !u!114 &-7203365746657814437
+--- !u!114 &1405196066104455288
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -194,11 +193,12 @@ MonoBehaviour:
   OwnershipTransfer: 0
   ObservedComponents:
   - {fileID: 2566655035291444881}
-  - {fileID: -1493464367188040331}
+  - {fileID: -8148483522704293848}
+  - {fileID: 2690017944439975979}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
---- !u!114 &550859573660221962
+--- !u!114 &5245478864493976949
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -210,7 +210,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
---- !u!114 &-1493464367188040331
+--- !u!114 &-8148483522704293848
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -243,7 +243,7 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
---- !u!114 &1736813713971462271
+--- !u!114 &2690017944439975979
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -252,9 +252,12 @@ MonoBehaviour:
   m_GameObject: {fileID: 2566655035291444886}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff8db6c2db13cc847a939a4d9601e7e2, type: 3}
+  m_Script: {fileID: 11500000, guid: 627855c7f81362d41938ffe0b1475957, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  m_SynchronizePosition: 0
+  m_SynchronizeRotation: 1
+  m_SynchronizeScale: 0
 --- !u!1 &5026966738304181840
 GameObject:
   m_ObjectHideFlags: 0
@@ -290,7 +293,7 @@ RectTransform:
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
   m_AnchoredPosition: {x: 0, y: 0.505}
-  m_SizeDelta: {x: 1.02, y: 0.11}
+  m_SizeDelta: {x: 1.02, y: 0.114}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!222 &5079749319113321006
 CanvasRenderer:
@@ -415,6 +418,7 @@ GameObject:
   - component: {fileID: 8784827804918822631}
   - component: {fileID: 5375683928264427142}
   - component: {fileID: 3348220696333763036}
+  - component: {fileID: 3037042902397112317}
   m_Layer: 5
   m_Name: Canvas
   m_TagString: Untagged
@@ -503,3 +507,15 @@ MonoBehaviour:
   m_BlockingMask:
     serializedVersion: 2
     m_Bits: 4294967295
+--- !u!114 &3037042902397112317
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8450699055817176925}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 10ea22968b7a7ec45844e0eab48cd3b8, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

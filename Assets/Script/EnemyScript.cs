@@ -29,6 +29,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] float monster5ShotCool;
     [SerializeField] bool monster6bool;
+    Vector3 playerBeforePos;
 
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     [SerializeField] Rigidbody2D rigid;
@@ -298,6 +299,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 else
                     StartCoroutine(ShotTypePlus());
             }
+            if(transform.position == playerBeforePos)
+            {
+                OP.PoolInstantiate("ExplosionM", transform.position, Quaternion.identity);
+                pv.RPC("Hit", RpcTarget.All, 10000f);
+            }
 
 
             Move();
@@ -418,6 +424,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
                 curShotCoolTime = -100;
                 StartCoroutine(GoMonster());
             }
+            else if(enemyType == "Monster10")
+            {
+                playerBeforePos = target.transform.position;
+                LookAtPlayer();
+            }
         }
     }
     IEnumerator GoMonster()
@@ -443,6 +454,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             canMoveMonster = true;
         }
     }
+
     IEnumerator ShotTypeX()
     {
         yield return new WaitForSeconds(monster5ShotCool);
