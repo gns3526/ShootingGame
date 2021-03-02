@@ -169,7 +169,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             isGameEnd = false;
         }
         isPlaying = true;
-        
+
+        pv.RPC("AlivePlayerSet", RpcTarget.All);
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);

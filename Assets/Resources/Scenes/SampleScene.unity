@@ -4231,7 +4231,7 @@ MonoBehaviour:
   - tag: LaserS
     prefab: {fileID: 5728943140913656555, guid: bb1e30a7a1c69e048a017480f592a531,
       type: 3}
-    size: 10
+    size: 20
     isMyBullet: 0
   - tag: Enemy7
     prefab: {fileID: 2566655035291444886, guid: 99c957f6cda5be34093189ea623e3f0b,
@@ -4245,6 +4245,11 @@ MonoBehaviour:
     isMyBullet: 0
   - tag: Enemy9
     prefab: {fileID: 2566655035291444886, guid: bffbdf8c78c558e448ee197655a56365,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: Enemy10
+    prefab: {fileID: 2566655035291444886, guid: 151a725bc3ba4eb4e82a150c7d6ff68d,
       type: 3}
     size: 10
     isMyBullet: 0

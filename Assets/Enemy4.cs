@@ -1,29 +1,31 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Enemy1Script : MonoBehaviour
+public class Enemy4 : MonoBehaviour
 {
-    
     public GameObject target;
 
     [SerializeField] EnemyBasicScript EB;
     [SerializeField] GameManager GM;
 
-    [SerializeField] float maxAttackCool;
+    [SerializeField] float stopCool;
+    [SerializeField] float dashCool;
 
+    [SerializeField] bool canMove;
     [SerializeField] float moveSpeed;
-
     int a;
     int targetRandomNum;
     private void OnEnable()
     {
-        GM = FindObjectOfType<GameManager>();
+        canMove = true;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
+        GM = FindObjectOfType<GameManager>();
         creat();
-        StartCoroutine(ShotAtPlayer());
+        StartCoroutine(DashToPlayer());
     }
 
     public void creat()
@@ -55,15 +57,19 @@ public class Enemy1Script : MonoBehaviour
     }
     private void Update()
     {
+        if(canMove)
         transform.Translate(new Vector2(0, -moveSpeed));
     }
 
-    IEnumerator ShotAtPlayer()
+    IEnumerator DashToPlayer()
     {
-        yield return new WaitForSeconds(maxAttackCool);
+        yield return new WaitForSeconds(stopCool);
+        canMove = false;
+
+        yield return new WaitForSeconds(dashCool);
+        canMove = true;
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        transform.rotation = Quaternion.AngleAxis(angle + 90, Vector3.forward);
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
-        StartCoroutine(ShotAtPlayer());
     }
 }

@@ -1541,10 +1541,10 @@ MonoBehaviour:
   missPercentage: 0
   isAttackSpeedStack: 0
   attackSpeedStackint: 0
-  attackSpeedStack: 0
+  attackSpeedStack: 100
   isDamageStack: 0
   damageStackint: 0
-  damageStack: 0
+  damageStack: 100
   codyPv: {fileID: 216727624181193990}
   playerPoint: {fileID: 987814901808949605}
   boomEffect: {fileID: 0}

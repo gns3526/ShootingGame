@@ -1,12 +1,12 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Enemy1Script : MonoBehaviour
+public class Enemy3 : MonoBehaviour
 {
-    
     public GameObject target;
 
     [SerializeField] EnemyBasicScript EB;
@@ -62,7 +62,8 @@ public class Enemy1Script : MonoBehaviour
     {
         yield return new WaitForSeconds(maxAttackCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.right * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.left * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward));
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
     }

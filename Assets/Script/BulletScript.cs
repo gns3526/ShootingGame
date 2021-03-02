@@ -66,7 +66,12 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (PhotonNetwork.IsMasterClient)
         {
             if(bulletCode == 1)
-            transform.Translate(new Vector3(0, -0.1f));
+                transform.Translate(new Vector3(0, -0.1f));
+            else if (bulletCode == 2)
+                transform.Translate(new Vector3(0, -0.15f));
+            else if (bulletCode == 3)
+                transform.Translate(new Vector3(0, -0.1f));
+
         }
 
         if (parentOb != null)

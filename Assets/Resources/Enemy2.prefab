@@ -86,10 +86,11 @@ GameObject:
   - component: {fileID: 2476502312648618133}
   - component: {fileID: 2476502312648618132}
   - component: {fileID: 2476502312648618135}
-  - component: {fileID: 2476502312648618134}
   - component: {fileID: 5966246444998689558}
   - component: {fileID: -8694124505645375467}
   - component: {fileID: -3331244527686188577}
+  - component: {fileID: 3101975446224468293}
+  - component: {fileID: 4990642159387910656}
   m_Layer: 0
   m_Name: Enemy2
   m_TagString: Enemy
@@ -213,55 +214,6 @@ Rigidbody2D:
   m_SleepingMode: 1
   m_CollisionDetection: 0
   m_Constraints: 0
---- !u!114 &2476502312648618134
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2476502312648618137}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 9e1ecb30204d08b4a852e618f3342361, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  enemyType: Monster2
-  isBoss: 0
-  enemyScore: 300
-  speed: 0.15
-  health: 0
-  maxHealth: 10
-  sprites:
-  - {fileID: -7642239419928554605, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
-  - {fileID: -7911572535675539837, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
-  healthImage: {fileID: 4135950199126368115}
-  healthBarGameObject: {fileID: 4899678657330169777}
-  maxShotCoolTime: 0
-  curShotCoolTime: 0
-  stopTImeMonster: 100
-  goTimeMonster: 0
-  dashWaitTIme: 0
-  dashToPlayerPower: 0
-  isDashing: 0
-  canMoveMonster: 0
-  monster5ShotCool: 0
-  monster6bool: 0
-  spriteRendererEnemy: {fileID: 2476502312648618133}
-  rigid: {fileID: 0}
-  target: {fileID: 0}
-  players: []
-  myPlayerScript: {fileID: 0}
-  GM: {fileID: 0}
-  OM: {fileID: 0}
-  OP: {fileID: 0}
-  patternIndex: 0
-  curPatternCount: 0
-  MaxPatternCount: 
-  fireCoolTime: []
-  pv: {fileID: 5966246444998689558}
-  gmPv: {fileID: 0}
-  isSpawn: 0
-  targetRandomNum: 0
 --- !u!114 &5966246444998689558
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -281,8 +233,8 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
-  - {fileID: 2476502312648618134}
   - {fileID: -3331244527686188577}
+  - {fileID: 3101975446224468293}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -331,6 +283,49 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &3101975446224468293
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476502312648618137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  enemyScore: 100
+  isBoss: 0
+  health: 4
+  maxHealth: 4
+  sprites:
+  - {fileID: -7911572535675539837, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
+  - {fileID: -7642239419928554605, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
+  healthImage: {fileID: 4135950199126368115}
+  healthBarGameObject: {fileID: 4899678657330169777}
+  spriteRendererEnemy: {fileID: 2476502312648618133}
+  pv: {fileID: 5966246444998689558}
+  myPlayerScript: {fileID: 0}
+  GM: {fileID: 0}
+  OM: {fileID: 0}
+  OP: {fileID: 0}
+  targetRandomNum: 0
+--- !u!114 &4990642159387910656
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2476502312648618137}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: b1ed5fa6c9c706241be41d823070033c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  EB: {fileID: 3101975446224468293}
+  GM: {fileID: 0}
+  moveSpeed: 0.1
 --- !u!1 &4899678657330169777
 GameObject:
   m_ObjectHideFlags: 0

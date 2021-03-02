@@ -303,7 +303,7 @@ public class ObjectManager : MonoBehaviour
             {
                 if (Code == 0)
                 {
-                    targetPool[i].GetComponent<EnemyScript>().isSpawn = true;
+                    //targetPool[i].GetComponent<EnemyScript>().isSpawn = true;
                 }
                 if (Code == 4)
                 {
