@@ -1,6 +1,9 @@
-﻿using System.Collections;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
+using System.Collections;
 using UnityEngine;
+using UnityEngine.UI;
+using Photon.Pun;
+using Photon.Realtime;
 
 public class Enemy2 : MonoBehaviour
 {
@@ -15,6 +18,7 @@ public class Enemy2 : MonoBehaviour
     }
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         transform.Translate(new Vector2(0, -moveSpeed));
     }
 }

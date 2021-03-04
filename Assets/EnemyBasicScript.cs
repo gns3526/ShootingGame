@@ -18,7 +18,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public GameObject healthBarGameObject;
 
     [SerializeField] SpriteRenderer spriteRendererEnemy;
-    [SerializeField] PhotonView pv;
+    public PhotonView pv;
 
     public Player myPlayerScript;
     public GameManager GM;
@@ -52,8 +52,11 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         healthBarGameObject.transform.rotation = Quaternion.identity;
     }
 
+    private void OnDisable()
+    {
+        curPosPv = new Vector3(16, 16, 0);
+    }
 
-    
 
     private void Update()
     {
@@ -168,6 +171,11 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    [PunRPC]
+    public void DistroyOb()
+    {
+        OP.PoolDestroy(gameObject);
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

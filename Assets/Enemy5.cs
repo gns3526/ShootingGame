@@ -21,12 +21,16 @@ public class Enemy5 : MonoBehaviour
     {
         canMove = true;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
+
+        if (!PhotonNetwork.IsMasterClient) return;
         StartCoroutine(ShotAtPlayer());
     }
 
     private void Update()
     {
-        if(canMove)
+        if (!PhotonNetwork.IsMasterClient) return;
+
+        if (canMove)
         transform.Translate(new Vector2(0, -moveSpeed));
     }
 

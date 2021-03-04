@@ -20,18 +20,23 @@ public class BulletScript : MonoBehaviour, IPunObservable
     Vector3 curPosPv;
 
     public BoxCollider2D boxCol;
+    public Animator animator;
 
     bool once;
 
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>();
+        OP = FindObjectOfType<ObjectPooler>();
     }
 
     private void OnEnable()
     {
-        OP = FindObjectOfType<ObjectPooler>();
-        curPosPv = new Vector3(16, 16, 0);
+        if(animator != null)
+           animator.SetBool("Start",true);
+
+        gameObject.transform.position = new Vector3(16, 16, 0);
+
         if (isPlayerAttack && once)
         {
             if (pv.IsMine)
@@ -48,6 +53,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
     private void OnDisable()
     {
         curPosPv = new Vector3(16, 16, 0);
+
+        if (animator != null)
+            animator.SetBool("Start", false);
         parentOb = null;
     }
 

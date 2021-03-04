@@ -4253,6 +4253,11 @@ MonoBehaviour:
       type: 3}
     size: 10
     isMyBullet: 0
+  - tag: ExplosionM
+    prefab: {fileID: 6963644102337454369, guid: f622a98498a65a84aa1390c8c8cd9459,
+      type: 3}
+    size: 10
+    isMyBullet: 0
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0

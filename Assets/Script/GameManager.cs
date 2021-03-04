@@ -119,6 +119,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     float overExp;
 
     [SerializeField] bool once;
+    bool stageEndOnce;
 
     private void Awake()
     {
@@ -167,7 +168,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             lobbyExpPanel.SetActive(false);
             once = false;
             isGameEnd = false;
+            
         }
+        stageEndOnce = true;
+
         isPlaying = true;
 
         pv.RPC("AlivePlayerSet", RpcTarget.All);
@@ -195,9 +199,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
     }
-    //[PunRPC]
+    [PunRPC]
     public void StageEnd()
     {
+        if (!stageEndOnce) return;
+        stageEndOnce = false;
+
         isPlaying = false;
         //ClearEnemys();
 

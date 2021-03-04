@@ -72,7 +72,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnEnable()
     {
-        curPosPv = new Vector3(16, 16, 0);
 
         health = maxHealth;
         healthImage.fillAmount = 1;
@@ -559,9 +558,9 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (enemyType == "Boss1")
             {
-                //gmPv.RPC("StageEnd", RpcTarget.All);
+                gmPv.RPC("StageEnd", RpcTarget.All);
                 Debug.Log("dddddddfdfdfdfd333");
-                GM.StageEnd();
+                //GM.StageEnd();
             }
 
 

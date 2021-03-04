@@ -155,6 +155,7 @@ MonoBehaviour:
   parentOb: {fileID: 0}
   OP: {fileID: 0}
   boxCol: {fileID: 2332362531343683147}
+  animator: {fileID: 0}
 --- !u!114 &668855957982877930
 MonoBehaviour:
   m_ObjectHideFlags: 0

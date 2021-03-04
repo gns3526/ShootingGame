@@ -30,8 +30,10 @@ public class Enemy6 : MonoBehaviour
         canMove = true;
         once = true;
         GM = FindObjectOfType<GameManager>();
-        creat();
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
+
+        if (!PhotonNetwork.IsMasterClient) return;
+        creat();
     }
     public void creat()
     {
@@ -62,6 +64,8 @@ public class Enemy6 : MonoBehaviour
     }
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         if (canMove)
             transform.Translate(new Vector2(0, -moveSpeed));
 

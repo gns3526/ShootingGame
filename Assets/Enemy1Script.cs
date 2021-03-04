@@ -22,6 +22,7 @@ public class Enemy1Script : MonoBehaviour
     {
         GM = FindObjectOfType<GameManager>();
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
+        if (!PhotonNetwork.IsMasterClient) return;
         creat();
         StartCoroutine(ShotAtPlayer());
     }
@@ -55,6 +56,7 @@ public class Enemy1Script : MonoBehaviour
     }
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
         transform.Translate(new Vector2(0, -moveSpeed));
     }
 

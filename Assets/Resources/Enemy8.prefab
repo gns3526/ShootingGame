@@ -222,7 +222,6 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 81fc3da47d1a9bd46a982f1013dbca47, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  target: {fileID: 0}
   EB: {fileID: 6941915421786867261}
   stopCool: 1
   maxAttackCool: 0.2

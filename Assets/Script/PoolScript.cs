@@ -5,22 +5,6 @@ using Photon.Pun;
 using Photon.Realtime;
 public class PoolScript : MonoBehaviourPun
 {
-
-    private void Awake()
-    {
-
-        gameObject.transform.position = new Vector3(4, 4, 0);
-    }
-    private void OnEnable()
-    {
-        gameObject.transform.position = new Vector3(4, 4, 0);
-    }
-    private void OnDisable()
-    {
-        gameObject.transform.position = new Vector3(4, 4, 0);
-    }
-
-
     public void DestroyOb()
     {
         GetComponent<PhotonView>().RPC("SetActiveRPC",RpcTarget.All,false);
@@ -29,8 +13,8 @@ public class PoolScript : MonoBehaviourPun
     [PunRPC]
     void SetActiveRPC(bool a)
     {
-        //gameObject.transform.position = new Vector3(4, 4, 0);
+        if(!a)
+        gameObject.transform.position = new Vector3(16, 16, 0);
         gameObject.SetActive(a);
-        //gameObject.SetActive(a);
     }
 }

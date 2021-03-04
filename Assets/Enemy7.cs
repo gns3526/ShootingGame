@@ -25,11 +25,15 @@ public class Enemy7 : MonoBehaviour
         //moveSpeed = moveSpeedOri;
         canMove = true;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
+
+        if (!PhotonNetwork.IsMasterClient) return;
         StartCoroutine(ShotAtPlayer());
     }
 
     private void Update()
     {
+        if (!PhotonNetwork.IsMasterClient) return;
+
         if (canMove)
             transform.Translate(new Vector2(0, -moveSpeed));
     }
