@@ -4258,6 +4258,16 @@ MonoBehaviour:
       type: 3}
     size: 10
     isMyBullet: 0
+  - tag: Enemy11
+    prefab: {fileID: 2566655035291444886, guid: 22df78b452be97b42ab5efe76c713e83,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: LaserM
+    prefab: {fileID: 1967314885840684160, guid: 3687e1eda173985429f2922ebf1def59,
+      type: 3}
+    size: 10
+    isMyBullet: 0
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
