@@ -225,6 +225,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: 
   enemyScore: 100
+  isLast: 0
   isBoss: 0
   health: 0
   maxHealth: 4

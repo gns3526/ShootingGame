@@ -30,6 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] List<Spawn> spawnList;
     [SerializeField] int spawnIndex;
     [SerializeField] bool spawnEnd;
+    GameObject curSpawnEnemy;
 
     [Header("Score")]
     [SerializeField] Text scoreText;
@@ -440,10 +441,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         if (Input.GetKeyDown(KeyCode.Alpha4)) SetExpPanel();
 
-        if(!stop && isPlaying)
+        if(!stop && isPlaying && !spawnEnd)
         curSpawnDelay += Time.deltaTime;
 
-        if (curSpawnDelay > nextSpawnDelay && !spawnEnd && isGameStart)
+        if (curSpawnDelay > nextSpawnDelay)
         {
 
             SpawnEnemy();
@@ -559,22 +560,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             int spawnPoint = spawnList[spawnIndex].point;
-            GameObject enemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
+            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
             //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
-            Debug.Log(enemy.name);
-            Rigidbody2D rigid = enemy.GetComponent<Rigidbody2D>();
-            EnemyScript enemyScript = enemy.GetComponent<EnemyScript>();
-            //enemyScript.GM = this;
-            //enemyScript.myPlayerScript = myplayer.GetComponent<Player>();
-            //enemyScript.gmPv = pv;
 
             if (spawnPoint == 5 || spawnPoint == 8)
             {
-                enemy.transform.Rotate(Vector3.back * 90);
+                curSpawnEnemy.transform.Rotate(Vector3.back * 90);
             }
             else if (spawnPoint == 6 || spawnPoint == 7)
             {
-                enemy.transform.Rotate(Vector3.forward * 90);
+                curSpawnEnemy.transform.Rotate(Vector3.forward * 90);
             }
             else
             {
@@ -586,6 +581,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (spawnIndex == spawnList.Count)
         {
             spawnEnd = true;//스폰다됨
+            curSpawnEnemy.GetComponent<EnemyBasicScript>().isLast = true;
             return;
         }
 

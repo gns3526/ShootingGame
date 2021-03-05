@@ -81,7 +81,7 @@ public class GoogleSheetManager : MonoBehaviour
     {
         idCheck = false;
         isCurrentId.sprite = currentSprites[1];
-        if (!CheckingSpecialText(regIdInput.text))
+        if (!CheckingSpecialText(regIdInput.text) && regIdInput.text != "")
         {
             idCheckBtn.interactable = true;
             idText.text = "알맞은 아이디";
@@ -94,7 +94,7 @@ public class GoogleSheetManager : MonoBehaviour
     }
     public void CheckWrongPassText()
     {
-        if (!CheckingSpecialText(regPassInput.text))
+        if (!CheckingSpecialText(regPassInput.text) && regPassInput.text != "")
         {
             passwordCheck = true;
             isCurrentPass.sprite = currentSprites[0];
@@ -109,17 +109,28 @@ public class GoogleSheetManager : MonoBehaviour
     }
     public void CheckSamePassReText()
     {
-        if(regPassReInput.text == regPassInput.text)
+        if(regPassReInput.text == regPassInput.text && regPassReInput.text != "")
         {
             passwordReCheck = true;
-            passwordReText.text = "X";
+            passwordReText.text = "O";
             isCurrentPassRe.sprite = currentSprites[0];
         }
         else
         {
             passwordReCheck = false;
-            passwordReText.text = "O";
+            passwordReText.text = "X";
             isCurrentPassRe.sprite = currentSprites[1];
+        }
+    }
+
+    bool isShow;
+    public void LoginPasswordShow()
+    {
+        isShow = !isShow;
+
+        if (isShow)
+        {
+
         }
     }
 
@@ -371,7 +382,6 @@ public class GoogleSheetManager : MonoBehaviour
             ColorSave();
             SaveLvInfo();
         }
-
     }
     public void ColorSave()
     {

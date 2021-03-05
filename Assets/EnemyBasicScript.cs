@@ -9,7 +9,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] string enemyInfo;
     [SerializeField] int enemyScore;
-    [SerializeField] bool isBoss;
+    public bool isLast;
+    public bool isBoss;
 
     [SerializeField] float health;
     [SerializeField] float maxHealth;
@@ -55,6 +56,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     private void OnDisable()
     {
         curPosPv = new Vector3(16, 16, 0);
+        isLast = false;
     }
 
 
@@ -79,9 +81,16 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "BulletBorder" && !isBoss)
+        if (other.tag == "BulletBorder" && !isBoss)//보스는 해당안됌
         {
+            //일반 몬스터 해당
+            if(!isLast)
             OP.PoolDestroy(gameObject);
+            else
+            {
+                GM.pv.RPC("StageEnd", RpcTarget.All);
+                OP.PoolDestroy(gameObject);
+            }
         }
         else if (other.tag == "PlayerBullet")
         {
@@ -158,7 +167,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 }
             }
 
-            if (isBoss)
+            if (isLast)
             {
                 GM.StageEnd();
             }

@@ -250,8 +250,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         RoomRenewal();
 
         Player player = myPlayer.GetComponent<Player>();
-        //pv.RPC("readyReset", RpcTarget.All); // hoon
-        //readyReset(); // hoon
+
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         
         player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
@@ -291,7 +290,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public void RoomRenewal()
     {
-        Hashtable CP = PhotonNetwork.CurrentRoom.CustomProperties;
+
 
         if (pv.IsMine)
             myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
@@ -328,13 +327,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(i < PhotonNetwork.PlayerList.Length)
             {
-                
 
-                listText.text += "닉네임 : " + PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-                roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name + "   인원 수 :  " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
 
+                //listText.text += "닉네임 : " + PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
+                //roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name + "   인원 수 :  " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
+                roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name;
                 //몇번째 있는가  (
-                
+
 
 
                 //playerInfoGroup[i].  = 게임메니저 초상화가져옴
@@ -423,9 +422,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        GSM.ColorSave();
-        GSM.SaveLvInfo();
-
         GM.controlPanel.SetActive(false);
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(false);
