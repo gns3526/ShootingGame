@@ -226,10 +226,10 @@ MonoBehaviour:
   target: {fileID: 0}
   EB: {fileID: -908712958210550795}
   GM: {fileID: 0}
-  stopCool: 0.5
+  stopCool: 0.2
   dashCool: 0.5
   canMove: 0
-  moveSpeed: 0.1
+  moveSpeed: 0.15
 --- !u!114 &-908712958210550795
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -242,6 +242,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInfo: 
   enemyScore: 100
   isBoss: 0
   health: 0

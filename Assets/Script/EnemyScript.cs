@@ -177,6 +177,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         GameObject bulletLL = OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
         bulletLL.transform.position = transform.position + Vector3.left * 0.45f;
 
+        bulletR.GetComponent<BulletScript>().isBossBullet = true;
+        bulletRR.GetComponent<BulletScript>().isBossBullet = true;
+        bulletL.GetComponent<BulletScript>().isBossBullet = true;
+        bulletLL.GetComponent<BulletScript>().isBossBullet = true;
+
         Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
         Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
         Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
@@ -206,6 +211,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             bullet.transform.position = transform.position;
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
+            bullet.GetComponent<BulletScript>().isBossBullet = true;
+
             //Vector2 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
             Vector2 dir = target.transform.position - transform.position;
             Vector2 randomVector = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0, 2));
@@ -230,6 +237,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         GameObject bullet = OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
         bullet.transform.position = transform.position;//초기화
         bullet.transform.rotation = Quaternion.identity;//초기화
+
+        bullet.GetComponent<BulletScript>().isBossBullet = true;
 
         Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
@@ -257,6 +266,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             GameObject bullet = OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
             bullet.transform.position = transform.position;//초기화
             bullet.transform.rotation = Quaternion.identity;//초기화
+
+            bullet.GetComponent<BulletScript>().isBossBullet = true;
 
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
@@ -462,6 +473,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         GameObject bulletLUp = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
         GameObject bulletLDown = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
 
+
+
         Rigidbody2D rigidRUp = bulletRUp.GetComponent<Rigidbody2D>();
         Rigidbody2D rigidRDown = bulletRDown.GetComponent<Rigidbody2D>();
         Rigidbody2D rigidLUpown = bulletLUp.GetComponent<Rigidbody2D>();
@@ -483,6 +496,8 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
         GameObject bulletLeft = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
         GameObject bulletUp = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
         GameObject bulletDown = OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.identity);
+
+
 
         Rigidbody2D rigidRight = bulletRight.GetComponent<Rigidbody2D>();
         Rigidbody2D rigidLeft = bulletLeft.GetComponent<Rigidbody2D>();

@@ -307,6 +307,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  enemyInfo: 
   enemyScore: 200
   isBoss: 0
   health: 0
@@ -338,7 +339,7 @@ MonoBehaviour:
   target: {fileID: 0}
   EB: {fileID: -735259948057730502}
   GM: {fileID: 0}
-  maxAttackCool: 4
+  maxAttackCool: 2
   moveSpeed: 0.03
 --- !u!1 &7529607913075604165
 GameObject:

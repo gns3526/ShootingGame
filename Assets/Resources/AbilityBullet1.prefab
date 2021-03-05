@@ -153,6 +153,7 @@ MonoBehaviour:
   isPassThrough: 0
   pv: {fileID: 668855957982877930}
   parentOb: {fileID: 0}
+  isBossBullet: 0
   OP: {fileID: 0}
   boxCol: {fileID: 2332362531343683147}
   animator: {fileID: 0}

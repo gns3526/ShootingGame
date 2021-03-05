@@ -14,6 +14,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
     [SerializeField] PhotonView pv;
     public GameObject parentOb;
 
+    public bool isBossBullet;
+
     [SerializeField] ObjectPooler OP;
     GameManager GM;
 
@@ -54,6 +56,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         curPosPv = new Vector3(16, 16, 0);
 
+        isBossBullet = false;
+
         if (animator != null)
             animator.SetBool("Start", false);
         parentOb = null;
@@ -71,12 +75,12 @@ public class BulletScript : MonoBehaviour, IPunObservable
             OP.PoolDestroy(gameObject);
         }
 
-        if (PhotonNetwork.IsMasterClient)
+        if (PhotonNetwork.IsMasterClient && !isBossBullet)
         {
             if(bulletCode == 1)
                 transform.Translate(new Vector3(0, -0.1f));
             else if (bulletCode == 2)
-                transform.Translate(new Vector3(0, -0.15f));
+                transform.Translate(new Vector3(0, -0.1f));
             else if (bulletCode == 3)
                 transform.Translate(new Vector3(0, -0.1f));
 

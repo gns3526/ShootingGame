@@ -7,7 +7,7 @@ using Photon.Realtime;
 
 public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 {
-
+    [SerializeField] string enemyInfo;
     [SerializeField] int enemyScore;
     [SerializeField] bool isBoss;
 
