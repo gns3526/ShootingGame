@@ -8,3 +8,5 @@ ShootingGame.sln
 Temp/UnityLockfile
 
 Temp/
+
+Packages/packages-lock.json
