@@ -9,6 +9,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 {
     [SerializeField] string enemyInfo;
     [SerializeField] int enemyScore;
+    public bool isPassingNodamage;
     public bool isLast;
     public bool isBoss;
 

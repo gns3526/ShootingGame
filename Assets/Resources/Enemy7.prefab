@@ -242,6 +242,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: stop and shot small size lager infront
   enemyScore: 200
+  isPassingNodamage: 0
   isLast: 0
   isBoss: 0
   health: 0

@@ -243,10 +243,11 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: boom self at player pos
   enemyScore: 40
+  isPassingNodamage: 1
   isLast: 0
   isBoss: 0
   health: 0
-  maxHealth: 1
+  maxHealth: 3
   sprites:
   - {fileID: 21300000, guid: e9e51d66c96317443a8e6cf9e6c199bf, type: 3}
   - {fileID: 5398807837072792716, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}

@@ -130,8 +130,15 @@ public class GoogleSheetManager : MonoBehaviour
 
         if (isShow)
         {
-
+            PassInput.contentType = InputField.ContentType.Standard;
+            PassInput.enabled = false;
         }
+        else
+        {
+            PassInput.contentType = InputField.ContentType.Password;
+            PassInput.enabled = false;
+        }
+        PassInput.enabled = true;
     }
 
     public void RegisterPanelOn(bool On)

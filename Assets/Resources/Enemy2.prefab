@@ -297,6 +297,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: 
   enemyScore: 100
+  isPassingNodamage: 0
   isLast: 0
   isBoss: 0
   health: 4

@@ -146,9 +146,13 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   bulletCode: 0
   dmg: 20
+  bulletSpeed: 0
+  maxBulletDestroyTime: 0
   isPlayerAttack: 1
   isRotate: 0
   isPassThrough: 0
+  target: {fileID: 0}
+  isFollowTarget: 0
   pv: {fileID: -5103508010015265109}
   parentOb: {fileID: 0}
   isBossBullet: 0

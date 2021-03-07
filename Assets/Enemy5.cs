@@ -42,17 +42,17 @@ public class Enemy5 : MonoBehaviour
         randomNum = Random.Range(0, 2);
         if(randomNum == 0)
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward));
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
         }
         else
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward));
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward));
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
         }
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 

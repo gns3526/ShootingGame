@@ -243,6 +243,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   enemyInfo: X or + at player Y same
   enemyScore: 150
+  isPassingNodamage: 0
   isLast: 0
   isBoss: 0
   health: 0

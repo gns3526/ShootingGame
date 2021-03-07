@@ -8,9 +8,16 @@ public class BulletScript : MonoBehaviour, IPunObservable
 {
     [SerializeField] int bulletCode;
     public int dmg;
+    public float bulletSpeed;
+    [SerializeField] float maxBulletDestroyTime;
+    float bulletDestroyTime;
     [SerializeField] bool isPlayerAttack;
     [SerializeField] bool isRotate;
     [SerializeField] bool isPassThrough;
+    public GameObject target;
+    public bool isFollowTarget;
+
+
     [SerializeField] PhotonView pv;
     public GameObject parentOb;
 
@@ -54,8 +61,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
     }
     private void OnDisable()
     {
+        bulletDestroyTime = maxBulletDestroyTime;
         curPosPv = new Vector3(16, 16, 0);
-
+        bulletSpeed = 0;
         isBossBullet = false;
 
         if (animator != null)
@@ -77,13 +85,14 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         if (PhotonNetwork.IsMasterClient && !isBossBullet)
         {
-            if(bulletCode == 1)
-                transform.Translate(new Vector3(0, -0.1f));
-            else if (bulletCode == 2)
-                transform.Translate(new Vector3(0, -0.1f));
-            else if (bulletCode == 3)
-                transform.Translate(new Vector3(0, -0.1f));
-
+            transform.Translate(new Vector3(0, -bulletSpeed));
+            bulletDestroyTime -= Time.deltaTime;
+            if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);
+            if (isFollowTarget && target != null)
+            {
+                float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+            }
         }
 
         if (parentOb != null)

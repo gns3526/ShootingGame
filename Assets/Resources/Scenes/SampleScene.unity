@@ -4330,7 +4330,7 @@ MonoBehaviour:
   - tag: Enemy10
     prefab: {fileID: 2566655035291444886, guid: 151a725bc3ba4eb4e82a150c7d6ff68d,
       type: 3}
-    size: 10
+    size: 30
     isMyBullet: 0
   - tag: ExplosionM
     prefab: {fileID: 6963644102337454369, guid: f622a98498a65a84aa1390c8c8cd9459,
@@ -4344,6 +4344,26 @@ MonoBehaviour:
     isMyBullet: 0
   - tag: LaserM
     prefab: {fileID: 1967314885840684160, guid: 3687e1eda173985429f2922ebf1def59,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: Enemy12
+    prefab: {fileID: 2566655035291444886, guid: f9fa41ff6ff2d264c8a24766cae63ca0,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: Enemy13
+    prefab: {fileID: 2566655035291444886, guid: 78dd6f621f3a4fc4d99b39bac9cf2269,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: Enemy14
+    prefab: {fileID: 2566655035291444886, guid: 78868802c3521d3409b58774a7766092,
+      type: 3}
+    size: 10
+    isMyBullet: 0
+  - tag: EnemyBullet5
+    prefab: {fileID: 8868447664253793746, guid: 7a0e97e8540aa2546b84916b6100bf54,
       type: 3}
     size: 10
     isMyBullet: 0
@@ -18150,7 +18170,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 1
+  m_IsActive: 0
 --- !u!224 &1031728553
 RectTransform:
   m_ObjectHideFlags: 0
@@ -27572,7 +27592,7 @@ GameObject:
   - component: {fileID: 1603350661}
   - component: {fileID: 1603350660}
   m_Layer: 5
-  m_Name: Button
+  m_Name: Show
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -27640,7 +27660,18 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1603350661}
   m_OnClick:
     m_PersistentCalls:
-      m_Calls: []
+      m_Calls:
+      - m_Target: {fileID: 1418567087}
+        m_MethodName: LoginPasswordShow
+        m_Mode: 1
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 0
+        m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
 --- !u!114 &1603350661
@@ -36906,8 +36937,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343639182}
   m_HandleRect: {fileID: 1343639181}
   m_Direction: 2
-  m_Value: 0
-  m_Size: 0.36181006
+  m_Value: 0.00000022865774
+  m_Size: 0.35378537
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:

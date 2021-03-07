@@ -16,10 +16,10 @@ GameObject:
   - component: {fileID: 5245478864493976949}
   - component: {fileID: -8148483522704293848}
   - component: {fileID: 2690017944439975979}
-  - component: {fileID: 3912801905341271383}
-  - component: {fileID: 6507730814146821326}
+  - component: {fileID: 4661037525564923090}
+  - component: {fileID: -698421756933233621}
   m_Layer: 0
-  m_Name: Enemy9
+  m_Name: Enemy14
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -78,7 +78,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: b2ada93c799daac4c96d8459ba89b5fb, type: 3}
-  m_Color: {r: 0.7302008, g: 0.10849059, b: 1, a: 1}
+  m_Color: {r: 1, g: 0, b: 0, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -146,7 +146,7 @@ MonoBehaviour:
   ObservedComponents:
   - {fileID: -8148483522704293848}
   - {fileID: 2690017944439975979}
-  - {fileID: 6507730814146821326}
+  - {fileID: 4661037525564923090}
   viewIdField: 0
   InstantiationId: 0
   isRuntimeInstantiated: 0
@@ -210,26 +210,7 @@ MonoBehaviour:
   m_SynchronizePosition: 0
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!114 &3912801905341271383
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: ff64905a87895a04f9682d019352949f, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  EB: {fileID: 6507730814146821326}
-  stopCool: 1
-  maxAttackCool: 0.2
-  goCool: 1
-  canMove: 0
-  moveSpeed: 0.08
---- !u!114 &6507730814146821326
+--- !u!114 &4661037525564923090
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -241,16 +222,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: shot laser X
-  enemyScore: 200
+  enemyInfo: shot Big spear
+  enemyScore: 40
   isPassingNodamage: 0
   isLast: 0
   isBoss: 0
   health: 0
-  maxHealth: 4
+  maxHealth: 6
   sprites:
-  - {fileID: 5398807837072792716, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
   - {fileID: 21300000, guid: e9e51d66c96317443a8e6cf9e6c199bf, type: 3}
+  - {fileID: 5398807837072792716, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
   spriteRendererEnemy: {fileID: 2566655035291444882}
@@ -260,6 +241,28 @@ MonoBehaviour:
   OM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
+--- !u!114 &-698421756933233621
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566655035291444886}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1c3f6898e31c3d5468b9e7c5cabb7aa3, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  EB: {fileID: 4661037525564923090}
+  GM: {fileID: 0}
+  stopCool: 0.4
+  maxAttackCool: 0.1
+  goCool: 3
+  canMove: 0
+  moveToSide: 0
+  moveSpeed: 0.1
+  sideSpeed: 0.02
 --- !u!1 &5026966738304181840
 GameObject:
   m_ObjectHideFlags: 0

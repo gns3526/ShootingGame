@@ -63,8 +63,11 @@ public class Enemy1Script : MonoBehaviour
     IEnumerator ShotAtPlayer()
     {
         yield return new WaitForSeconds(maxAttackCool);
+
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));
+        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.1f;
+
+
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
     }
