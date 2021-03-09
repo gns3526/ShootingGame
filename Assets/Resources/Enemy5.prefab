@@ -240,7 +240,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: X or +
+  enemyInfo: "\uB79C\uB364\uC73C\uB85C X\uC790 \uB610\uB294 + \uC790\uB85C \uCD1D\uC54C
+    \uBC1C\uC0AC"
   enemyScore: 100
   isPassingNodamage: 0
   isLast: 0

@@ -240,7 +240,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: stop and shot small size lager infront
+  enemyInfo: "\uC55E\uC73C\uB85C \uB808\uC774\uC800 1\uBC1C \uBC1C\uC0AC"
   enemyScore: 200
   isPassingNodamage: 0
   isLast: 0

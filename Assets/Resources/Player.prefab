@@ -1571,9 +1571,8 @@ MonoBehaviour:
   isRespawned: 0
   joyControl: 000000000000000000
   isControl: 0
-  isButtenA: 0
-  isButtenB: 0
   isFire: 0
+  weaponFire: 0
   specialShot: 0
   nickNameText: {fileID: 9020922032865828001}
   pv: {fileID: -8026742147984905641}

@@ -222,7 +222,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: shot Middle size lager
+  enemyInfo: "\uD070 \uB808\uC774\uC800 \uC55E\uC73C\uB85C \uBC1C\uC0AC"
   enemyScore: 40
   isPassingNodamage: 0
   isLast: 0

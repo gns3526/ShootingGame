@@ -105,7 +105,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.weaponTotalShotCoolTime = 0.5f;
                 player.curWeaponShotCoolTime = -1;
 
-                GM.weaponBulletText.gameObject.SetActive(true);
+                GM.WeaponButtonUpdate();
                 break;
         }
         Debug.Log("카드 고르기1");

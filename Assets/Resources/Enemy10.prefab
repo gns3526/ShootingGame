@@ -225,10 +225,11 @@ MonoBehaviour:
   target: {fileID: 0}
   EB: {fileID: 4661037525564923090}
   GM: {fileID: 0}
-  stopCool: 0.1
-  dashCool: 0.5
+  stopCool: 0.4
+  shotCool: 0.5
+  goCool: 2
   canMove: 0
-  moveSpeed: 0.2
+  moveSpeed: 0.1
 --- !u!114 &4661037525564923090
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -241,13 +242,13 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: boom self at player pos
+  enemyInfo: "\uD50C\uB798\uC774\uC5B4\uCABD\uC73C\uB85C \uCD1D\uC54C3\uBC1C \uBC1C\uC0AC"
   enemyScore: 40
   isPassingNodamage: 1
   isLast: 0
   isBoss: 0
   health: 0
-  maxHealth: 3
+  maxHealth: 5
   sprites:
   - {fileID: 21300000, guid: e9e51d66c96317443a8e6cf9e6c199bf, type: 3}
   - {fileID: 5398807837072792716, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}

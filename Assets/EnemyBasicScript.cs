@@ -170,7 +170,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (isLast)
             {
-                GM.StageEnd();
+                GM.pv.RPC("StageEnd",RpcTarget.All);
             }
 
             if (PhotonNetwork.IsMasterClient)

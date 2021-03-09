@@ -222,7 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: shot Big spear
+  enemyInfo: "\uD50C\uB798\uC774\uC5B4\uCABD\uC73C\uB85C \uBE60\uB978\uCD1D\uC54C\uB4A4\uC5D0
+    \uB290\uB9B0 \uCD1D\uC54C\uB4E4 \uC774 \uB4A4\uB530\uB77C\uC634"
   enemyScore: 40
   isPassingNodamage: 0
   isLast: 0

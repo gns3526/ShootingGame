@@ -47,7 +47,7 @@ public class PlayerHitBoxScript : MonoBehaviour
             if (player.life == 0)
             {
                 pv.RPC("PlayerIsDie", RpcTarget.All);
-                player.GM.GameOver();
+                GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
             }
             else
             {

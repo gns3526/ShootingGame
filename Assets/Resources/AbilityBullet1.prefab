@@ -149,7 +149,7 @@ MonoBehaviour:
   bulletCode: 0
   dmg: 3
   bulletSpeed: 0
-  maxBulletDestroyTime: 0
+  maxBulletDestroyTime: 5
   isPlayerAttack: 1
   isRotate: 0
   isPassThrough: 0

@@ -137,8 +137,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
 
-        GM.roomExpPanal.SetActive(false);
-        GM.lobbyExpPanel.SetActive(true);
         GM.SetExpPanel();
 
         myList.Clear();
@@ -208,15 +206,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "CT", "1" } });
         }
 
-        //pv.RPC("readyReset", RpcTarget.All); // hoon
-        //readyReset();
+        if(GM.isAndroid)
+            GM.controlPanel.SetActive(true);
+
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
-        GM.controlPanel.SetActive(true);
         GM.scorePanel.SetActive(false);
 
-        GM.roomExpPanal.SetActive(true);
-        GM.lobbyExpPanel.SetActive(false);
         GM.SetExpPanel();
 
         chatInput.text = "";
@@ -408,6 +404,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
         GM.myplayer = myPlayer;
         CM.player = myPlayer.GetComponent<Player>();
+
+        GM.WeaponButtonUpdate();
+        GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
+        GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
 
         //OP.PrePoolInstantiate();
 

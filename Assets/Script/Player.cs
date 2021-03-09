@@ -81,9 +81,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool[] joyControl;
     public bool isControl;
-    [SerializeField] bool isButtenA;
-    [SerializeField] bool isButtenB;
+
     public bool isFire;
+    public bool weaponFire;
 
     public bool specialShot;
 
@@ -115,17 +115,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             followers[i].SetActive(false);
         }
 
-        if (gotSpecialWeaponAbility)
-        {
-            GM.weaponBulletText.gameObject.SetActive(true);
-            GM.weaponBulletText.text = "0";
-        }
-
-        else
-        {
-            GM.weaponBulletText.gameObject.SetActive(false);
-            GM.weaponBulletText.text = "0";
-        }
 
         if (pv.IsMine)
         {
@@ -134,6 +123,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
             codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode);
         }
+
+
         /*
         maxLife = 5;
         life = maxLife;
@@ -182,34 +173,17 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         Unbeatable();
-        GM.UpdateLifeIcon(life);
-        Invoke("Unbeatable", 3);//무적시간
 
-        GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
+        if(pv.IsMine)
+        Invoke("Unbeatable", 0.1f);//무적시간
+
+
     }
     
 
     void Unbeatable()
     {
-        isRespawned = !isRespawned;
-        if (isRespawned)
-        {
-            isRespawned = true;
-            //sprite.color = new Color(1, 1, 1, 0.5f);//투명도
-            for (int i = 0; i < followers.Length; i++)
-            {
-                followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 0.5f);
-            }
-        }
-        else
-        {
-            isRespawned = false;
-            //sprite.color = new Color(1, 1, 1, 1);//투명도
-            for (int i = 0; i < followers.Length; i++)
-            {
-                followers[i].GetComponent<SpriteRenderer>().color = new Color(1, 1, 1, 1);
-            }
-        }
+
     }
 
     private void Update()
@@ -219,6 +193,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (!NM.isChating)
             {
                 Move();
+                WeaponFire();
                 Fire();
             }
             else
@@ -241,18 +216,38 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
                 //AddFollower(2);
             }
-            if(Input.GetKeyDown(KeyCode.Z))
+            if(Input.GetKeyDown(KeyCode.P))
             {
                 life = 0;
                 GM.UpdateLifeIcon(life);
                 pv.RPC("PlayerIsDie", RpcTarget.All);
-                GM.GameOver();
+                GM.PlayerDie();
             }
-            if (Input.GetKeyDown(KeyCode.C))
+            if (Input.GetKeyDown(KeyCode.W))
             {
-                //pv.RPC("ChangeColorRPC", RpcTarget.All, playerColor[0], playerColor[1], playerColor[2]);
-
+                Cards card = FindObjectOfType<Cards>();
+                card.CardS(19);
             }
+
+            if (!GM.isAndroid)
+            {
+                if (Input.GetKey(KeyCode.A))
+                {
+                    weaponFire = false;
+                    isFire = true;
+                }
+                else if (Input.GetKey(KeyCode.Z))
+                {
+                    isFire = false;
+                    weaponFire = true;
+                }
+                else
+                {
+                    isFire = false;
+                    weaponFire = false;
+                }
+            }
+
             if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
             {
                 curChargeTime -= Time.deltaTime;
@@ -276,9 +271,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         else//Moving Softly
         {
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
-        }
-
-       
+        }       
     }
 
     public void JoyPanel(int type)
@@ -310,7 +303,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         //transform.position = curPos + nextPos;
 
         //transform.Translate(Vector3.right * 7 * Time.deltaTime * h);
-        rigid.velocity = new Vector2((moveSpeed / 100) * 4 * h, (moveSpeed / 100) * 4 * v);
+        if (Input.GetKey(KeyCode.Space))
+            rigid.velocity = new Vector2(h * 1.5f, v * 1.5f);
+        else
+            rigid.velocity = new Vector2((moveSpeed / 100) * 4 * h, (moveSpeed / 100) * 4 * v);
 
         if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
         {
@@ -318,27 +314,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    public void ButtonADown()
-    {
-        isButtenA = true;
-    }
-    public void ButtonAUp()
-    {
-        isButtenA = false;
-    }
-    public void ButtonBDown()
-    {
-        isButtenB = true;
-    }
-    public void BottonBUp()
-    {
-        isButtenB = false;
-    }
 
  
     void Fire()
     {
-        //if (!Input.GetButton("Fire1")) return;
         if (!isFire) return;
 
         if (!GM.isPlaying) return;
@@ -348,20 +327,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (curShotCoolTime < maxShotCoolTime) return;
 
         int randomNum = Random.Range(0,101);
-
-        if ((gotSpecialWeaponAbility && specialShot))
-        {
-            if(weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
-            {
-                GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity);
-                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                curBulletAmount--;
-                curWeaponShotCoolTime = 0;
-            }
-            GM.weaponBulletText.text = curBulletAmount.ToString();
-            return;
-        }
 
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
@@ -428,7 +393,22 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         curShotCoolTime = 0;
     }
-
+    void WeaponFire()
+    {
+        if (gotSpecialWeaponAbility && weaponFire)
+        {
+            if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
+            {
+                GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity);
+                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                curBulletAmount--;
+                curWeaponShotCoolTime = 0;
+            }
+            GM.weaponBulletText.text = curBulletAmount.ToString();
+            return;
+        }
+    }
 
     void Reload()
     {
@@ -438,8 +418,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         //if (!Input.GetButton("Fire2"))
         //    return;
-        if (!isButtenB)
-            return;
+
 
         if (isBoomActive)
             return;

@@ -222,7 +222,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: shot Big O
+  enemyInfo: "\uD06C\uAC8C \uB465\uADF8\uB7F0\uBAA8\uC591\uC73C\uB85C \uCD1D\uC54C\uC774
+    \uD37C\uC9D0"
   enemyScore: 40
   isPassingNodamage: 0
   isLast: 0

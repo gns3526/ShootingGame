@@ -9,6 +9,8 @@ using Photon.Realtime;
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
+    public bool isAndroid;
+
     [Header("Managers")]
     [SerializeField] NetworkManager NM;
     [SerializeField] ObjectPooler OP;
@@ -50,6 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject loginPanel;
     public GameObject roomExpPanal;
     public GameObject lobbyExpPanel;
+    [SerializeField] GameObject gameOverPanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -166,7 +169,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (once)
         {
             OP.PrePoolInstantiate();
-            lobbyExpPanel.SetActive(false);
+
             once = false;
             isGameEnd = false;
             
@@ -590,6 +593,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (spawnIndex == spawnList.Count)
         {
             spawnEnd = true;//스폰다됨
+            if(PhotonNetwork.IsMasterClient)
             curSpawnEnemy.GetComponent<EnemyBasicScript>().isLast = true;
             return;
         }
@@ -624,29 +628,31 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
-    public void ChangeShotType()
-    {
-        Player myplayerScript = myplayer.GetComponent<Player>();
-        if (myplayerScript.gotSpecialWeaponAbility)
-        {
-            myplayerScript.specialShot = !myplayerScript.specialShot;
-
-            if (myplayerScript.specialShot)
-            {
-                normalShotBotton.SetActive(false);
-                specialShotBotton.SetActive(true);
-            }
-            else
-            {
-                specialShotBotton.SetActive(false);
-                normalShotBotton.SetActive(true);
-            }
-        }
-    }
-
+    //모바일
     public void Shot(bool a)
     {
+        if(isAndroid && !myplayer.GetComponent<Player>().weaponFire)
         myplayer.GetComponent<Player>().isFire = a;
+    }
+    //모바일
+    public void WeaponShot(bool a)
+    {
+        if (isAndroid && !myplayer.GetComponent<Player>().isFire)
+            myplayer.GetComponent<Player>().weaponFire = a;
+    }
+
+    public void WeaponButtonUpdate()
+    {
+        if (myplayer.GetComponent<Player>().gotSpecialWeaponAbility)
+        {
+            specialShotBotton.SetActive(true);
+            weaponBulletText.text = "0";
+        }
+        else
+        {
+            specialShotBotton.SetActive(false);
+            weaponBulletText.text = "0";
+        }
     }
 
     public IEnumerator ReSpawnM()
@@ -741,7 +747,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         once = true;
 
-
+        retryPanel.SetActive(false);
+        gameOverPanel.SetActive(false);
         scorePanel.SetActive(false);
         controlPanel.SetActive(false);
         finalStageClearPanel.SetActive(false);
@@ -750,13 +757,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         
     }
 
-    public void GameOver()
+    public void PlayerDie()
     {
         retryPanel.SetActive(true);
-        pv.RPC("AlivePlayerSet", RpcTarget.All);
-        //AlivePlayerSet();
     }
-
+    public void GameOver()
+    {
+        retryPanel.SetActive(false);
+        gameOverPanel.SetActive(true);
+        isPlaying = false;
+    }
     [PunRPC]
     public void AlivePlayerSet()
     {
@@ -779,6 +789,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 alivePlayers[a] = players[i].GetComponent<Player>();
                 a++;
             }
+        }
+        if (alivePlayers[0] == null)
+        {
+            GameOver();
+        }
+        else if(alivePlayers[0] && myplayer.GetComponent<Player>().isDie)
+        {
+            PlayerDie();
         }
     }
 

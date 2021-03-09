@@ -241,7 +241,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: X or + at player Y same
+  enemyInfo: "\uD50C\uB798\uC774\uC5B4\uC758 Y \uAC12\uC774 \uAC19\uC73C\uBA74 \uB79C\uB364\uC73C\uB85C
+    X\uB610\uB294+ \uCD1D\uC54C \uBC1C\uC0AC"
   enemyScore: 150
   isPassingNodamage: 0
   isLast: 0
