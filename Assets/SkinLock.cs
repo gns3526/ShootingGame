@@ -6,6 +6,7 @@ public class SkinLock : MonoBehaviour
 {
     GameManager gm;
     [SerializeField] int unLockLv;
+    [SerializeField] int kind;
 
     private void Awake()
     {
@@ -19,9 +20,19 @@ public class SkinLock : MonoBehaviour
 
     public void UnLock()
     {
-        if(gm.playerLv >= unLockLv)
-            transform.GetChild(1).gameObject.SetActive(false);
-        else
-            transform.GetChild(1).gameObject.SetActive(true);
+        if(kind == 0)
+        {
+            if (gm.playerLv >= unLockLv)
+                transform.GetChild(1).gameObject.SetActive(false);
+            else
+                transform.GetChild(1).gameObject.SetActive(true);
+        }
+        if(kind == 1)
+        {
+            if (gm.playerLv >= unLockLv)
+                transform.GetChild(1).gameObject.SetActive(false);
+            else
+                transform.GetChild(1).gameObject.SetActive(true);
+        }
     }
 }

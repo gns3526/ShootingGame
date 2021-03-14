@@ -120,8 +120,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerPoint.SetActive(true);
 
+            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
+
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
-            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode);
         }
 
 
@@ -271,8 +272,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         else//Moving Softly
         {
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
-        }       
+        }
     }
+
 
     public void JoyPanel(int type)
     {

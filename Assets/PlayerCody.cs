@@ -8,6 +8,7 @@ public class PlayerCody : MonoBehaviourPun
 {
     [SerializeField] int bodyCode;
     [SerializeField] Sprite[] bodyCodys;
+    [SerializeField] ParticleSystem[] particles;
 
     [SerializeField] SpriteRenderer spriteRenderer;
 
@@ -16,9 +17,14 @@ public class PlayerCody : MonoBehaviourPun
 
 
     [PunRPC]
-    void CodyRework(int body)
+    void CodyRework(int body, int particle)
     {
+        for (int i = 0; i < particles.Length; i++)
+            particles[i].Stop();
+
         spriteRenderer.sprite = bodyCodys[body];
+        if(particle > -1)
+        particles[particle].Play();
     }
 
 }

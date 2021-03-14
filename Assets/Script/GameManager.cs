@@ -48,7 +48,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
+
     [SerializeField] GameObject codyPanel;
+    [SerializeField] GameObject codyBodyPanel;
+    [SerializeField] GameObject codyParticlePanel;
+
     public GameObject loginPanel;
     public GameObject roomExpPanal;
     public GameObject lobbyExpPanel;
@@ -94,6 +98,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float[] playerColors;
     public int codyBodyCode;
 
+    public int codyParticleCode;
+
     public int playerLv;
     public float exp;
     public float maxExp;
@@ -108,6 +114,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text expText2;
     [SerializeField] Image playerIcon2;
     [SerializeField] Image expImage2;
+
+
 
     [Header("Other")]
 
@@ -805,20 +813,40 @@ public class GameManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(0);
     }
 
+    public void CodyBodyPanelClick(int a)
+    {
+        if(a == 0)
+        {
+            codyParticlePanel.SetActive(false);
+            codyBodyPanel.SetActive(true);
+        }
 
+        else if (a == 1)
+        {
+            codyBodyPanel.SetActive(false);
+            codyParticlePanel.SetActive(true);
+        }
+    }
     public void CodyOnClick(int index)
     {
         codyBodyCode = index;
 
-        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index);
+        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index, codyParticleCode);
+    }
+    public void ParticleOnClick(int index)
+    {
+        codyParticleCode = index;
 
+        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, codyBodyCode, index);
     }
 
-    
 
     public void CodyOpenOrClose(bool a)
     {
         codyPanel.SetActive(a);
+        if (!a) return;
+        codyParticlePanel.SetActive(false);
+        codyBodyPanel.SetActive(true);
     }
 
 

@@ -250,7 +250,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         
         player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
-        myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode);
+        myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)

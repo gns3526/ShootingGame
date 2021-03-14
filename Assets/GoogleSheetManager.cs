@@ -274,7 +274,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode);
+        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode + "." + GM.codyParticleCode);
 
         StartCoroutine(Post(form));
     }
@@ -326,6 +326,7 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.exp = float.Parse(result[1]);
                 GM.maxExp = float.Parse(result[2]);
                 GM.codyBodyCode = int.Parse(result[3]);
+                GM.codyParticleCode = int.Parse(result[4]);
                 movePlayerinfoComplete = true;
             }
         }
