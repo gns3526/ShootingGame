@@ -214,7 +214,6 @@ public class GoogleSheetManager : MonoBehaviour
         loadingPanel.SetActive(true);
         WWWForm form = new WWWForm();
         form.AddField("order", "login");
-        //form.AddField("playerNum", playernum);
         form.AddField("id", id);
         form.AddField("pass", pass);
 
@@ -275,7 +274,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp);
+        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode);
 
         StartCoroutine(Post(form));
     }
@@ -326,6 +325,7 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.playerLv = int.Parse(result[0]);
                 GM.exp = float.Parse(result[1]);
                 GM.maxExp = float.Parse(result[2]);
+                GM.codyBodyCode = int.Parse(result[3]);
                 movePlayerinfoComplete = true;
             }
         }
