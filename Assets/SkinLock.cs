@@ -5,12 +5,18 @@ using UnityEngine;
 public class SkinLock : MonoBehaviour
 {
     GameManager gm;
+    SpecialSkinManager sm;
     [SerializeField] int unLockLv;
-    [SerializeField] int kind;
+
+    [Header("Challenge")]
+    [SerializeField] bool isChallenge;
+    [SerializeField] int challengeNum;
+    
 
     private void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+        sm = FindObjectOfType<SpecialSkinManager>();
     }
 
     private void OnEnable()
@@ -20,14 +26,14 @@ public class SkinLock : MonoBehaviour
 
     public void UnLock()
     {
-        if(kind == 0)
+        if (isChallenge) //challenge
         {
-            if (gm.playerLv >= unLockLv)
+            if (sm.challenge[challengeNum] == true)
                 transform.GetChild(1).gameObject.SetActive(false);
             else
                 transform.GetChild(1).gameObject.SetActive(true);
         }
-        if(kind == 1)
+        else //Level
         {
             if (gm.playerLv >= unLockLv)
                 transform.GetChild(1).gameObject.SetActive(false);

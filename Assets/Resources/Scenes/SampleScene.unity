@@ -425,7 +425,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 2
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &29699317
 GameObject:
   m_ObjectHideFlags: 0
@@ -4940,7 +4941,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 5
+  m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &264654191
 GameObject:
@@ -5002,7 +5003,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 5
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &268075908
 GameObject:
   m_ObjectHideFlags: 0
@@ -5765,7 +5767,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 9
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &316814049
 GameObject:
   m_ObjectHideFlags: 0
@@ -7726,7 +7729,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 4
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &448397698
 GameObject:
   m_ObjectHideFlags: 0
@@ -8056,7 +8060,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 17
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &458911032
 GameObject:
   m_ObjectHideFlags: 0
@@ -9039,7 +9044,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 15
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &509592998
 GameObject:
   m_ObjectHideFlags: 0
@@ -9802,7 +9808,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 5
-  kind: 1
+  isChallenge: 0
+  challengeNum: 0
 --- !u!222 &524692184
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -10888,7 +10895,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 13
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &579458472
 GameObject:
   m_ObjectHideFlags: 0
@@ -10932,7 +10940,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 13
+  m_RootOrder: 14
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &587638087
 GameObject:
@@ -12214,7 +12222,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 18
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &663492180
 GameObject:
   m_ObjectHideFlags: 0
@@ -13895,7 +13904,7 @@ Transform:
   - {fileID: 1837091709}
   - {fileID: 1859251192}
   m_Father: {fileID: 0}
-  m_RootOrder: 12
+  m_RootOrder: 13
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &732754397
 GameObject:
@@ -14405,7 +14414,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 1
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &757614204
 GameObject:
   m_ObjectHideFlags: 0
@@ -15142,7 +15152,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 12
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &776044392
 GameObject:
   m_ObjectHideFlags: 0
@@ -15353,7 +15364,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 10
-  kind: 1
+  isChallenge: 0
+  challengeNum: 0
 --- !u!222 &782379643
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -16345,7 +16357,7 @@ Transform:
   - {fileID: 1515546366}
   - {fileID: 355419852}
   m_Father: {fileID: 0}
-  m_RootOrder: 8
+  m_RootOrder: 9
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &809688243
 GameObject:
@@ -16581,7 +16593,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 7
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &816063632
 GameObject:
   m_ObjectHideFlags: 0
@@ -20034,7 +20047,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 6
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &973882413
 GameObject:
   m_ObjectHideFlags: 0
@@ -21241,7 +21255,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 11
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &1020095361
 GameObject:
   m_ObjectHideFlags: 0
@@ -29472,7 +29487,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 19
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &1422313459
 GameObject:
   m_ObjectHideFlags: 0
@@ -29533,7 +29549,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 14
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &1436159848
 GameObject:
   m_ObjectHideFlags: 0
@@ -29724,7 +29741,7 @@ Transform:
   - {fileID: 1760552116}
   - {fileID: 304434563}
   m_Father: {fileID: 0}
-  m_RootOrder: 7
+  m_RootOrder: 8
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1444954430
 GameObject:
@@ -31497,7 +31514,7 @@ RectTransform:
   - {fileID: 429415564}
   - {fileID: 1418408155}
   m_Father: {fileID: 0}
-  m_RootOrder: 9
+  m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
@@ -32047,7 +32064,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 10
+  m_RootOrder: 11
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1531517225
 GameObject:
@@ -35512,7 +35529,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 16
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &1686635547
 GameObject:
   m_ObjectHideFlags: 0
@@ -37693,7 +37711,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 15
-  kind: 1
+  isChallenge: 0
+  challengeNum: 0
 --- !u!222 &1825722355
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -38741,6 +38760,50 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1860210857}
   m_CullTransparentMesh: 0
+--- !u!1 &1860361862
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 1860361864}
+  - component: {fileID: 1860361863}
+  m_Layer: 0
+  m_Name: SpecialSkinManager
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!114 &1860361863
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860361862}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 39bbaccdb361e9a4ab8d8b3ae5049825, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  challenge: 00000000
+--- !u!4 &1860361864
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1860361862}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 0}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1861466328
 GameObject:
   m_ObjectHideFlags: 0
@@ -39620,7 +39683,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 8
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &1920809258
 GameObject:
   m_ObjectHideFlags: 0
@@ -43278,7 +43342,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 10
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &2078177601
 GameObject:
   m_ObjectHideFlags: 0
@@ -44415,7 +44480,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 3
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!1 &2114492628
 GameObject:
   m_ObjectHideFlags: 0
@@ -44600,7 +44666,8 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   unLockLv: 0
-  kind: 0
+  isChallenge: 0
+  challengeNum: 0
 --- !u!222 &2123371936
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -44707,7 +44774,7 @@ Transform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
-  m_RootOrder: 11
+  m_RootOrder: 12
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2129193222
 GameObject:
@@ -44820,7 +44887,7 @@ Transform:
   - {fileID: 170204272}
   - {fileID: 564219505}
   m_Father: {fileID: 0}
-  m_RootOrder: 6
+  m_RootOrder: 7
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &2142000341
 GameObject:

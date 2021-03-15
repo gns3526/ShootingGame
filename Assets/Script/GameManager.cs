@@ -115,8 +115,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Image playerIcon2;
     [SerializeField] Image expImage2;
 
-
-
     [Header("Other")]
 
     public PhotonView pv;
