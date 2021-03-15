@@ -608,7 +608,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void ChangeColorRPC(float r,float g, float b)
     {
-        GetComponent<SpriteRenderer>().color = new Color(r, g, b, 1);
+        GetComponent<SpriteRenderer>().color = new Color(r/255f, g/255f, b/255f, 1);
     }
 
 

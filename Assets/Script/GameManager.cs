@@ -52,6 +52,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject codyPanel;
     [SerializeField] GameObject codyBodyPanel;
     [SerializeField] GameObject codyParticlePanel;
+    [SerializeField] GameObject premiumColorPanel;
 
     public GameObject loginPanel;
     public GameObject roomExpPanal;
@@ -87,6 +88,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public Text weaponBulletText;
     public Image weaponShotButtonImage;
+
+    [Header("ColorPanel")]
+    [SerializeField] Slider colorRSlider;
+    [SerializeField] Slider colorGSlider;
+    [SerializeField] Slider colorBSlider;
+    [SerializeField] Text[] colorRGBTexts;
+    [SerializeField] Image playerColorTest;
 
     [Header("Player")]
     [SerializeField] Transform playerPos;
@@ -243,78 +251,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     void ClearEnemys()
     {
-        /*
-        GameObject[] enemy1 = OM.GetPool("1");
-        GameObject[] enemy2 = OM.GetPool("2");
-        GameObject[] enemy3 = OM.GetPool("3");
-        GameObject[] enemy4 = OM.GetPool("4");
 
-        for (int i = 0; i < enemy1.Length; i++)//모든적데미지주기
-        {
-            if (enemy1[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy1[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy2.Length; i++)//모든적데미지주기
-        {
-            if (enemy2[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy2[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy3.Length; i++)//모든적데미지주기
-        {
-            if (enemy3[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy3[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy4.Length; i++)//모든적데미지주기
-        {
-            if (enemy4[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy4[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-
-        GameObject[] BulletEnemy0 = OM.GetPool("BulletEnemy0");
-        GameObject[] BulletEnemy1 = OM.GetPool("BulletEnemy1");
-        GameObject[] BulletEnemy2 = OM.GetPool("BulletEnemy2");
-        GameObject[] BulletEnemy3 = OM.GetPool("BulletEnemy3");
-
-        for (int i = 0; i < BulletEnemy0.Length; i++)
-        {
-            if (BulletEnemy0[i].activeSelf)
-            {
-                BulletEnemy0[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy1.Length; i++)
-        {
-            if (BulletEnemy1[i].activeSelf)
-            {
-                BulletEnemy1[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy2.Length; i++)
-        {
-            if (BulletEnemy2[i].activeSelf)
-            {
-                BulletEnemy2[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy3.Length; i++)
-        {
-            if (BulletEnemy3[i].activeSelf)
-            {
-                BulletEnemy3[i].SetActive(false);
-            }
-        }*/
     }
     
     public void SelectCard()
@@ -448,7 +385,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 NM.reconnectPanel.SetActive(false);
             }
         }
-        if (Input.GetKeyDown(KeyCode.Alpha4)) SetExpPanel();
 
         if(!stop && isPlaying && !spawnEnd)
         curSpawnDelay += Time.deltaTime;
@@ -466,11 +402,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (setExpBarLerp)
         {
-
-            //if(expImage.fillAmount > exp / maxExp)
-            //{
-            //    expImage.fillAmount = 0;
-            //}
             if(lobbyExpPanel.activeSelf)
             {
                 expImage.fillAmount = Mathf.Lerp(expImage.fillAmount, exp / maxExp, Time.deltaTime * 5);
@@ -516,6 +447,8 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
+        if(premiumColorPanel.activeSelf)
+        PlayerColorTest();
     }
 
     void SpawnEnemy()
@@ -694,16 +627,45 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void RandomChangePlayerColor()
     {
-        float R = Random.Range(0, 1f);
-        float G = Random.Range(0, 1f);
-        float B = Random.Range(0, 1f);
+        R = Random.Range(0, 256);
+        G = Random.Range(0, 256);
+        B = Random.Range(0, 256);
         //Color dd = new Color(R, G, B, 1);
         //myplayer.GetComponent<SpriteRenderer>().color = dd;
-        playerColors[0] = R;
-        playerColors[1] = G;
-        playerColors[2] = B;
+        playerColors[0] = Mathf.Round(R);
+        playerColors[1] = Mathf.Round(G);
+        playerColors[2] = Mathf.Round(B);
 
         myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
+    }
+
+    void PlayerColorTest()
+    {
+        R = colorRSlider.value * 255;
+        G = colorGSlider.value * 255;
+        B = colorBSlider.value * 255;
+        colorRGBTexts[0].text = Mathf.Round(R).ToString();
+        colorRGBTexts[1].text = Mathf.Round(G).ToString();
+        colorRGBTexts[2].text = Mathf.Round(B).ToString();
+        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
+    }
+
+    float R;
+    float G;
+    float B;
+    public void PremiumColorChange()
+    {
+        R = colorRSlider.value * 255;
+        G = colorGSlider.value * 255;
+        B = colorBSlider.value * 255;
+
+        playerColors[0] = Mathf.Round(R);
+        playerColors[1] = Mathf.Round(G);
+        playerColors[2] = Mathf.Round(B);
+
+        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, playerColors[0], playerColors[1], playerColors[2]);
+
+        premiumColorPanel.SetActive(false);
     }
 
     public void FinalStageClear()
@@ -845,6 +807,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (!a) return;
         codyParticlePanel.SetActive(false);
         codyBodyPanel.SetActive(true);
+    }
+    public void PremiumColorOpenOrClose(bool a)
+    {
+        premiumColorPanel.SetActive(a);
+
+        if (!a) return;
+        colorRSlider.value = playerColors[0] / 255f;
+        colorGSlider.value = playerColors[1] / 255f;
+        colorBSlider.value = playerColors[2] / 255f;
     }
 
 

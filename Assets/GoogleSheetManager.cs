@@ -312,10 +312,10 @@ public class GoogleSheetManager : MonoBehaviour
             else if(GD.type == "5")
             {
                 playercolor = GD.value;
-                string[] result = playercolor.Split(new string[] { "," }, System.StringSplitOptions.None);
+                string[] result = playercolor.Split(new string[] { "." }, System.StringSplitOptions.None);
                 for (int i = 0; i < result.Length; i++)
                 {
-                    GM.playerColors[i] = float.Parse(result[i]);
+                    GM.playerColors[i] = int.Parse(result[i]);
                 }
                 GetValue(6);
             }
@@ -396,7 +396,7 @@ public class GoogleSheetManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "logout");
         form.AddField("playerNum", playernum);
-        form.AddField("playerColor", GM.playerColors[0] + "," + GM.playerColors[1] + "," + GM.playerColors[2]);
+        form.AddField("playerColor", GM.playerColors[0] + "." + GM.playerColors[1] + "." + GM.playerColors[2]);
 
         StartCoroutine(Post(form));
     }
