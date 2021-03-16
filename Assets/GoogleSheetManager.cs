@@ -84,7 +84,7 @@ public class GoogleSheetManager : MonoBehaviour
         if (!CheckingSpecialText(regIdInput.text) && regIdInput.text != "")
         {
             idCheckBtn.interactable = true;
-            idText.text = "알맞은 아이디";
+            idText.text = "올바른 아이디입니다.";
         }
         else
         {
@@ -98,7 +98,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             passwordCheck = true;
             isCurrentPass.sprite = currentSprites[0];
-            passwordText.text = "알맞은 비빔번호";
+            passwordText.text = "올바른 비밀번호";
         }
         else
         {
@@ -112,13 +112,13 @@ public class GoogleSheetManager : MonoBehaviour
         if(regPassReInput.text == regPassInput.text && regPassReInput.text != "")
         {
             passwordReCheck = true;
-            passwordReText.text = "O";
+            passwordReText.text = "비밀번호 확인";
             isCurrentPassRe.sprite = currentSprites[0];
         }
         else
         {
             passwordReCheck = false;
-            passwordReText.text = "X";
+            passwordReText.text = "비밀번호 불일치";
             isCurrentPassRe.sprite = currentSprites[1];
         }
     }
