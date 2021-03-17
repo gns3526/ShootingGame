@@ -6282,7 +6282,6 @@ MonoBehaviour:
   isTouchBottom: 0
   life: 5
   maxLife: 5
-  maximumLife: 10
   score: 0
   moveSpeed: 100
   power: 1

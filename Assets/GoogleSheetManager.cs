@@ -124,6 +124,7 @@ public class GoogleSheetManager : MonoBehaviour
     }
 
     bool isShow;
+    [SerializeField] GameObject showImage;
     public void LoginPasswordShow()
     {
         isShow = !isShow;
@@ -132,11 +133,13 @@ public class GoogleSheetManager : MonoBehaviour
         {
             PassInput.contentType = InputField.ContentType.Standard;
             PassInput.enabled = false;
+            showImage.SetActive(true);
         }
         else
         {
             PassInput.contentType = InputField.ContentType.Password;
             PassInput.enabled = false;
+            showImage.SetActive(false);
         }
         PassInput.enabled = true;
     }
@@ -274,7 +277,8 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode + "." + GM.codyParticleCode);
+        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+            GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + GM.abilityGrade[0] + "." + GM.abilityGrade[1] + "." + GM.abilityGrade[2]);
 
         StartCoroutine(Post(form));
     }
@@ -325,8 +329,21 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.playerLv = int.Parse(result[0]);
                 GM.exp = float.Parse(result[1]);
                 GM.maxExp = float.Parse(result[2]);
+
                 GM.codyBodyCode = int.Parse(result[3]);
                 GM.codyParticleCode = int.Parse(result[4]);
+
+                GM.abilityCode[0] = int.Parse(result[5]);
+                GM.abilityCode[1] = int.Parse(result[6]);
+                GM.abilityCode[2] = int.Parse(result[7]);
+
+                GM.abilityValue[0] = int.Parse(result[8]);
+                GM.abilityValue[1] = int.Parse(result[9]);
+                GM.abilityValue[2] = int.Parse(result[10]);
+
+                GM.abilityGrade[0] = int.Parse(result[11]);
+                GM.abilityGrade[1] = int.Parse(result[12]);
+                GM.abilityGrade[2] = int.Parse(result[13]);
                 movePlayerinfoComplete = true;
             }
         }

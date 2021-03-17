@@ -72,7 +72,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
 
     void Fire()
     {
-        if (!Input.GetButton("Fire1")) return;
+        if (!player.isFire) return;
 
         if (player.isDie) return;
 

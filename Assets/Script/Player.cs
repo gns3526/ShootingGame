@@ -18,7 +18,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [Header("Player Stats")]
     public int life;
     public int maxLife;
-    [SerializeField] int maximumLife;
     public int score;
 
     public float moveSpeed;
@@ -123,13 +122,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+
+            Ability();
         }
 
 
         /*
         maxLife = 5;
         life = maxLife;
-        maximumLife = 10;
         score = 0;
         moveSpeed = 3;
         power = 1;
@@ -180,7 +180,32 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     }
-    
+    private void Ability()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            switch (GM.abilityCode[i])
+            {
+                case 0://MoveSpeed;
+                    float a = moveSpeed;
+                    moveSpeed += GM.abilityValue[i];
+                    Debug.Log("움직임속도가" + a + "에서" + moveSpeed + "로 증가");
+                    break;
+                case 1://AttackDamage;
+                    int b = increaseDamage;
+                    increaseDamage += GM.abilityValue[i];
+                    Debug.Log("공격력이" + b + "에서" + increaseDamage + "로 증가");
+                    break;
+                case 2://MaxHp;
+                    int c = maxLife;
+                    maxLife += GM.abilityValue[i];
+                    life = maxLife;
+                    Debug.Log("체력이" + c + "에서" + maxLife + "로 증가");
+                    GM.UpdateLifeIcon(life);
+                    break;
+            }
+        }
+    }
 
     void Unbeatable()
     {
