@@ -6,6 +6,11 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
+[System.Serializable]
+public class Ability
+{
+    public int[] abilitySpeedValue, abilityDamageValue, abilityMaxHpValue;
+}
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -54,6 +59,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject codyParticlePanel;
     [SerializeField] GameObject premiumColorPanel;
 
+    [SerializeField] GameObject abilityPanel;
+
     public GameObject loginPanel;
     public GameObject roomExpPanal;
     public GameObject lobbyExpPanel;
@@ -96,6 +103,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text[] colorRGBTexts;
     [SerializeField] Image playerColorTest;
 
+    [Header("AbilityPanel")]
+
+    [SerializeField] Image[] abilityBack;
+    [SerializeField] Sprite[] abilityBackGrade;
+    [SerializeField] Text[] abilityText;
+    [SerializeField] Ability ability;
+
     [Header("Player")]
     [SerializeField] Transform playerPos;
     public GameObject myplayer;
@@ -122,6 +136,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text expText2;
     [SerializeField] Image playerIcon2;
     [SerializeField] Image expImage2;
+
+    [Header("PlayerStateInfo")]
+    [SerializeField] int money;
+    public int[] abilityCode;
+    public int[] abilityValue;
 
     [Header("Other")]
 
@@ -818,6 +837,41 @@ public class GameManager : MonoBehaviourPunCallbacks
         colorBSlider.value = playerColors[2] / 255f;
     }
 
+    public void AbilityChange()
+    {
+        for (int i = 0; i < 3; i++)
+        {
+            int randomNum = Random.Range(0, 2);//테스트
+            if(randomNum == 0)//MoveSpeed;
+            {
+                abilityCode[i] = 0;
+                int randomValue = Random.Range(ability.abilitySpeedValue[0], ability.abilitySpeedValue[1] + 1);
+                abilityValue[i] = randomValue;
+                abilityText[i].text = "움직임 속도" + randomValue + "증가";
+                int a = ability.abilitySpeedValue[1] - ability.abilitySpeedValue[0];
+                float b = Mathf.Ceil(a / 3);
+                if (randomValue <= ability.abilitySpeedValue[0] + b)
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                else if(randomValue <= ability.abilitySpeedValue[0] + b * 2)
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                else abilityBack[i].sprite = abilityBackGrade[2];
+            }
+            else if (randomNum == 1)//AttackDamage;
+            {
+                abilityCode[i] = 1;
+                int randomValue = Random.Range(ability.abilitySpeedValue[0], ability.abilitySpeedValue[1] + 1);
+                abilityValue[i] = randomValue;
+                abilityText[i].text = "공격력" + randomValue + "% 증가";
+                int a = ability.abilitySpeedValue[1] - ability.abilitySpeedValue[0];
+                float b = Mathf.Ceil(a / 3);
+                if (randomValue <= ability.abilitySpeedValue[0] + b)
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                else if (randomValue <= ability.abilitySpeedValue[0] + b * 2)
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                else abilityBack[i].sprite = abilityBackGrade[2];
+            }
+        }
+    }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
