@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Ability
 {
-    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue;
+    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer;
 }
 public class AbilityManager : MonoBehaviour
 {
@@ -78,7 +78,7 @@ public class AbilityManager : MonoBehaviour
         GM.money -= needCoinForAbility;
         for (int i = 0; i < 3; i++)
         {
-            int randomNum = Random.Range(0, 5);//테스트
+            int randomNum = Random.Range(0, 9);//테스트
             if (randomNum == 0)//MoveSpeed;
             {
 
@@ -222,6 +222,78 @@ public class AbilityManager : MonoBehaviour
                     abilityGrade[i] = 1;
                 }
             }
+            else if (randomNum == 6)//FinalDamage;
+            {
+
+                int randomValue = Random.Range(abilityPer.FinalDamagePerValue[0], abilityPer.FinalDamagePerValue[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "최종데미지" + randomValue + "% 증가";
+                int a = abilityPer.FinalDamagePerValue[1] - abilityPer.FinalDamagePerValue[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.FinalDamagePerValue[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.FinalDamagePerValue[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 7)//NormalMonsterDamage;
+            {
+
+                int randomValue = Random.Range(abilityPer.NormalMonsterDamagePer[0], abilityPer.NormalMonsterDamagePer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "일반몬스터 공격력" + randomValue + "% 증가";
+                int a = abilityPer.NormalMonsterDamagePer[1] - abilityPer.NormalMonsterDamagePer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.NormalMonsterDamagePer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.NormalMonsterDamagePer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 8)//BossMonsterDamage;
+            {
+
+                int randomValue = Random.Range(abilityPer.bossMonsterDamagePer[0], abilityPer.bossMonsterDamagePer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "보스몬스터 공격력" + randomValue + "% 증가";
+                int a = abilityPer.bossMonsterDamagePer[1] - abilityPer.bossMonsterDamagePer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.bossMonsterDamagePer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.bossMonsterDamagePer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
             GM.abilityCode[i] = randomNum;
         }
         CanResetAbility();
@@ -253,7 +325,7 @@ public class AbilityManager : MonoBehaviour
                     myPlayerScript.moveSpeed += GM.abilityValue[i];
                     Debug.Log("움직임속도가" + a + "에서" + myPlayerScript.moveSpeed + "로 증가");
                     break;
-                case 1://AttackDamage;
+                case 1://AttackDamagePer;
                     int b = myPlayerScript.increaseDamagePer;
                     myPlayerScript.increaseDamagePer += GM.abilityValue[i];
                     Debug.Log("공격력이" + b + "에서" + myPlayerScript.increaseDamagePer + "로 증가");
@@ -274,6 +346,26 @@ public class AbilityManager : MonoBehaviour
                     float e = myPlayerScript.shotCoolTimeReduce;
                     myPlayerScript.shotCoolTimeReduce += GM.abilityValue[i];
                     Debug.Log("공격속도가" + e + "에서" + myPlayerScript.shotCoolTimeReduce + "로 증가");
+                    break;
+                case 5://AttackDamage;
+                    float f = myPlayerScript.damage;
+                    myPlayerScript.damage += GM.abilityValue[i];
+                    Debug.Log("공격력이" + f + "에서" + myPlayerScript.damage + "로 증가");
+                    break;
+                case 6://FinalDamagePer;
+                    float g = myPlayerScript.finalDamagePer;
+                    myPlayerScript.finalDamagePer += GM.abilityValue[i];
+                    Debug.Log("최종데미지가" + g + "에서" + myPlayerScript.finalDamagePer + "로 증가");
+                    break;
+                case 7://NormalMonsterDamagePer;
+                    float h = myPlayerScript.normalMonsterDamagePer;
+                    myPlayerScript.normalMonsterDamagePer += GM.abilityValue[i];
+                    Debug.Log("일반몬스터 공격력 이" + h + "에서" + myPlayerScript.normalMonsterDamagePer + "로 증가");
+                    break;
+                case 8://BossMonsterDamagePer;
+                    float j = myPlayerScript.bossDamagePer;
+                    myPlayerScript.bossDamagePer += GM.abilityValue[i];
+                    Debug.Log("보스몬스터 공격력 이" + j + "에서" + myPlayerScript.bossDamagePer + "로 증가");
                     break;
             }
         }

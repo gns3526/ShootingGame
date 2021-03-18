@@ -33846,11 +33846,14 @@ MonoBehaviour:
   abilityResetBtn: {fileID: 836703517}
   abilityPer:
     SpeedValue: 0a0000001e000000
-    DamagePerValue: 
+    DamagePerValue: 0a00000032000000
     MaxHpValue: 0100000003000000
     GodTime: 0100000003000000
     AttackSpeed: 1400000028000000
-    DamageValue: 
+    DamageValue: 050000000a000000
+    FinalDamagePerValue: 0a00000014000000
+    NormalMonsterDamagePer: 0a00000032000000
+    bossMonsterDamagePer: 0a00000032000000
   abilityGrade: 030000000300000003000000
   myPlayerScript: {fileID: 0}
 --- !u!4 &1452435083

@@ -16,7 +16,8 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
     // Start is called before the first frame update
-    const string URL = "https://script.google.com/macros/s/AKfycbz57OWQfuLTrvT4mvNBEs5WoEQMyFgUZbCJ8QGWQLU-g2XppIeB9f584A/exec";
+    //const string URL = "https://script.google.com/macros/s/AKfycbz57OWQfuLTrvT4mvNBEs5WoEQMyFgUZbCJ8QGWQLU-g2XppIeB9f584A/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxb9A5zOuAAg8-8n_9B9g6zfWMBxWnjiZvAs7KtjMhcYezjiqF8ZdIiCI9GSzYW8vI/exec";
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
     string id, pass;
