@@ -24,6 +24,7 @@ public class GoogleSheetManager : MonoBehaviour
     [Header("Managers")]
     [SerializeField] GameManager GM;
     [SerializeField] NetworkManager NM;
+    [SerializeField] AbilityManager AM;
 
     [Header("Panel")]
     public GameObject loadingPanel;
@@ -278,7 +279,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
         form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
-            GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + GM.abilityGrade[0] + "." + GM.abilityGrade[1] + "." + GM.abilityGrade[2]);
+            GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2]);
 
         StartCoroutine(Post(form));
     }
@@ -341,9 +342,9 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.abilityValue[1] = int.Parse(result[9]);
                 GM.abilityValue[2] = int.Parse(result[10]);
 
-                GM.abilityGrade[0] = int.Parse(result[11]);
-                GM.abilityGrade[1] = int.Parse(result[12]);
-                GM.abilityGrade[2] = int.Parse(result[13]);
+                AM.abilityGrade[0] = int.Parse(result[11]);
+                AM.abilityGrade[1] = int.Parse(result[12]);
+                AM.abilityGrade[2] = int.Parse(result[13]);
                 movePlayerinfoComplete = true;
             }
         }
@@ -356,7 +357,6 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 GetValue(3);
                 makeNickComplete = true;
-                print("dkslslslqqqqqq");
                 return;
             }
             //없다면 닉네임창에 놔둠;

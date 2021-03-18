@@ -101,7 +101,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             int randomNum;
             randomNum = Random.Range(0, 101);
 
-            normalBulletDmg = bullet.dmg * (myPlayerScript.increaseDamage / 100)
+            normalBulletDmg = (bullet.dmg + myPlayerScript.damage) * (myPlayerScript.increaseDamagePer / 100)
                      * (myPlayerScript.damageStack / 100);
 
 
@@ -115,8 +115,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 finalDamage = criticalPlusDamage * (myPlayerScript.bossDamagePer / 100);
             else
                 finalDamage = criticalPlusDamage;
-
-
+            Debug.Log(finalDamage);
+            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100);
+            Debug.Log(finalDamage);
             pv.RPC("Hit", RpcTarget.All, finalDamage);
         }
     }

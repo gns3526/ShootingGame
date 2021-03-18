@@ -37,7 +37,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 player.moveSpeed += 20;
                 break;
             case 3:
-                player.increaseDamage += 50;
+                player.increaseDamagePer += 50;
                 break;
             case 4:
                 if (player.power != player.maxPower)

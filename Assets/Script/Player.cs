@@ -23,10 +23,13 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public float moveSpeed;
     public int power;
     public int maxPower;
-    public int increaseDamage;
+    public int damage;
+    public int increaseDamagePer;
     public int bossDamagePer;
+    public int normalMonsterDamagePer;
     public int criticalPer;
     public int criticalDamagePer;
+    public int finalDamagePer;
 
     public bool gotSpecialWeaponAbility;
     public int weaponCode;
@@ -69,6 +72,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public GameManager GM;
     [SerializeField] ObjectPooler OP;
+    [SerializeField] AbilityManager AM;
 
     [SerializeField] bool isBoomActive;
 
@@ -103,6 +107,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         GM = FindObjectOfType<GameManager>();
         NM = FindObjectOfType<NetworkManager>();
         OP = FindObjectOfType<ObjectPooler>();
+        AM = FindObjectOfType<AbilityManager>();
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
@@ -123,7 +128,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
 
-            Ability();
+            StartCoroutine(StartDelay());
         }
 
 
@@ -170,6 +175,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         //pv.ViewID = 1000 + NM.playerInfoGroupInt;
         
     }
+
+
     private void OnEnable()
     {
 
@@ -180,31 +187,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     }
-    private void Ability()
+    IEnumerator StartDelay()
     {
-        for (int i = 0; i < 3; i++)
-        {
-            switch (GM.abilityCode[i])
-            {
-                case 0://MoveSpeed;
-                    float a = moveSpeed;
-                    moveSpeed += GM.abilityValue[i];
-                    Debug.Log("움직임속도가" + a + "에서" + moveSpeed + "로 증가");
-                    break;
-                case 1://AttackDamage;
-                    int b = increaseDamage;
-                    increaseDamage += GM.abilityValue[i];
-                    Debug.Log("공격력이" + b + "에서" + increaseDamage + "로 증가");
-                    break;
-                case 2://MaxHp;
-                    int c = maxLife;
-                    maxLife += GM.abilityValue[i];
-                    life = maxLife;
-                    Debug.Log("체력이" + c + "에서" + maxLife + "로 증가");
-                    GM.UpdateLifeIcon(life);
-                    break;
-            }
-        }
+        yield return new WaitForSeconds(0.5f);
+        AM.AbilityApply();
     }
 
     void Unbeatable()

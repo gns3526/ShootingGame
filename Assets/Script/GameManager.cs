@@ -6,11 +6,7 @@ using UnityEngine.SceneManagement;
 using System.IO;
 using Photon.Pun;
 using Photon.Realtime;
-[System.Serializable]
-public class Ability
-{
-    public int[] abilitySpeedValue, abilityDamageValue, abilityMaxHpValue;
-}
+
 
 public class GameManager : MonoBehaviourPunCallbacks
 {
@@ -82,8 +78,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject cardPanel;
 
-    [SerializeField] int[] gacha;
-
     [SerializeField] int rarePer;
     [SerializeField] int epicPer;
     [SerializeField] int uniquePer;
@@ -102,14 +96,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Slider colorBSlider;
     [SerializeField] Text[] colorRGBTexts;
     [SerializeField] Image playerColorTest;
-
-    [Header("AbilityPanel")]
-
-    [SerializeField] Image[] abilityBack;
-    [SerializeField] Sprite[] abilityBackGrade;
-    [SerializeField] Text[] abilityText;
-    [SerializeField] Ability ability;
-    public int[] abilityGrade;
 
     [Header("Player")]
     [SerializeField] Transform playerPos;
@@ -139,7 +125,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Image expImage2;
 
     [Header("PlayerStateInfo")]
-    [SerializeField] int money;
+    public int money;
     public int[] abilityCode;
     public int[] abilityValue;
 
@@ -837,119 +823,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         colorGSlider.value = playerColors[1] / 255f;
         colorBSlider.value = playerColors[2] / 255f;
     }
-    public void AbilityOpenOrClose(bool a)
-    {
-        abilityPanel.SetActive(a);
-
-        if (!a) return;
-        for (int i = 0; i < 3; i++)
-        {
-            switch (abilityCode[i])
-            {
-                case 0:
-                    abilityText[i].text = "움직임 속도" + abilityValue[i] + "증가";
-                    break;
-                case 1:
-                    abilityText[i].text = "공격력" + abilityValue[i] + "% 증가";
-                    break;
-                case 2:
-                    abilityText[i].text = "최대 체력" + abilityValue[i] + "증가";
-                    break;
-            }
-            switch (abilityGrade[i])
-            {
-                case 1:
-                    abilityBack[i].sprite = abilityBackGrade[2];
-                    break;
-                case 2:
-                    abilityBack[i].sprite = abilityBackGrade[1];
-                    break;
-                case 3:
-                    abilityBack[i].sprite = abilityBackGrade[0];
-                    break;
-            }
-        }
-    }
-
-    public void AbilityChange()
-    {
-        for (int i = 0; i < 3; i++)
-        {
-            int randomNum = Random.Range(0, 3);//테스트
-            if(randomNum == 0)//MoveSpeed;
-            {
-                abilityCode[i] = 0;
-                int randomValue = Random.Range(ability.abilitySpeedValue[0], ability.abilitySpeedValue[1] + 1);
-                abilityValue[i] = randomValue;
-                abilityText[i].text = "움직임 속도" + randomValue + "증가";
-                int a = ability.abilitySpeedValue[1] - ability.abilitySpeedValue[0];
-                float b = Mathf.Ceil(a / 3);
-                if (randomValue <= ability.abilitySpeedValue[0] + b)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[0];
-                    abilityGrade[i] = 3;
-                } 
-                else if(randomValue <= ability.abilitySpeedValue[0] + b * 2)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[1];
-                    abilityGrade[i] = 2;
-                }
-                else
-                {
-                    abilityBack[i].sprite = abilityBackGrade[2];
-                    abilityGrade[i] = 1;
-                }
-            }
-            else if (randomNum == 1)//AttackDamage;
-            {
-                abilityCode[i] = 1;
-                int randomValue = Random.Range(ability.abilityDamageValue[0], ability.abilityDamageValue[1] + 1);
-                abilityValue[i] = randomValue;
-                abilityText[i].text = "공격력" + randomValue + "% 증가";
-                int a = ability.abilityDamageValue[1] - ability.abilityDamageValue[0];
-                float b = Mathf.Ceil(a / 3);
-                if (randomValue <= ability.abilityDamageValue[0] + b)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[0];
-                    abilityGrade[i] = 3;
-                }
-                else if (randomValue <= ability.abilityDamageValue[0] + b * 2)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[1];
-                    abilityGrade[i] = 2;
-                }
-                else
-                {
-                    abilityBack[i].sprite = abilityBackGrade[2];
-                    abilityGrade[i] = 1;
-                }
-            }
-            else if (randomNum == 2)//MaxHp;
-            {
-                abilityCode[i] = 2;
-                int randomValue = Random.Range(ability.abilityMaxHpValue[0], ability.abilityMaxHpValue[1] + 1);
-                abilityValue[i] = randomValue;
-                abilityText[i].text = "최대 체력" + randomValue + "증가";
-                int a = ability.abilityMaxHpValue[1] - ability.abilityMaxHpValue[0];
-
-                if (randomValue == 1)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[0];
-                    abilityGrade[i] = 3;
-                }
-                else if (randomValue == 2)
-                {
-                    abilityBack[i].sprite = abilityBackGrade[1];
-                    abilityGrade[i] = 2;
-                }
-                else
-                {
-                    abilityBack[i].sprite = abilityBackGrade[2];
-                    abilityGrade[i] = 1;
-                }
-            }
-        }
-    }
+    
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {

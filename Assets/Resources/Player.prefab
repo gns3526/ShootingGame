@@ -6286,10 +6286,13 @@ MonoBehaviour:
   moveSpeed: 100
   power: 1
   maxPower: 3
-  increaseDamage: 100
+  damage: 3
+  increaseDamagePer: 100
   bossDamagePer: 100
+  normalMonsterDamagePer: 100
   criticalPer: 25
   criticalDamagePer: 200
+  finalDamagePer: 100
   gotSpecialWeaponAbility: 0
   weaponCode: 1
   toTalChargeTime: 2
@@ -6321,6 +6324,7 @@ MonoBehaviour:
   rigid: {fileID: 3941946227140826625}
   GM: {fileID: 0}
   OP: {fileID: 0}
+  AM: {fileID: 0}
   isBoomActive: 0
   followers:
   - {fileID: 3941946225890586680}
