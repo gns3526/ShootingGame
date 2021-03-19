@@ -103,6 +103,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] float respawnCoolTIme;
 
     public Player[] alivePlayers;
+    public Player[] allPlayers;
 
     public float[] playerColors;
     public int codyBodyCode;
@@ -199,6 +200,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         isPlaying = true;
 
         pv.RPC("AlivePlayerSet", RpcTarget.All);
+        pv.RPC("AllPlayerSet", RpcTarget.All);
 
         NM.roomPanel.SetActive(false);
         scorePanel.SetActive(true);
@@ -394,6 +396,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if(!stop && isPlaying && !spawnEnd)
         curSpawnDelay += Time.deltaTime;
+
+
 
         if (curSpawnDelay > nextSpawnDelay)
         {
@@ -740,6 +744,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(true);
         isPlaying = false;
+    }
+    [PunRPC]
+    void AllPlayerSet()
+    {
+        GameObject[] players = GameObject.FindGameObjectsWithTag("Player");
+
+        for (int i = 0; i < players.Length; i++)
+        {
+            if (!players[i].GetComponent<Player>().isDie && players[i] != null)
+            {
+                allPlayers[i] = players[i].GetComponent<Player>();
+            }
+        }
     }
     [PunRPC]
     public void AlivePlayerSet()

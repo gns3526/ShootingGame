@@ -44,6 +44,7 @@ public class PlayerHitBoxScript : MonoBehaviour
             player.GM.UpdateLifeIcon(player.life);
             player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
 
+
             if (player.life == 0)
             {
                 pv.RPC("PlayerIsDie", RpcTarget.All);
@@ -51,7 +52,6 @@ public class PlayerHitBoxScript : MonoBehaviour
             }
             else
             {
-
                 player.GM.StartCoroutine("ReSpawnM");
             }
             StartCoroutine(GodTime());

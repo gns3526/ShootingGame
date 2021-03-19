@@ -17,6 +17,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("Player Stats")]
     public int life;
+    [SerializeField] Text lifeText;
     public int maxLife;
     public int score;
 
@@ -200,6 +201,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
+        lifeText.text = life.ToString();
         if (pv.IsMine)
         {
             if (!NM.isChating)
@@ -662,20 +664,20 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     break;
             }
         }
-
     }
+
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(transform.position);
-            //stream.SendNext(playerColor);
+            stream.SendNext(life);
         }
         else
         {
             curPosPv = (Vector3)stream.ReceiveNext();
-            //playerColor = (float[])stream.ReceiveNext();
+            life = (int)stream.ReceiveNext();
         }
     }
 }

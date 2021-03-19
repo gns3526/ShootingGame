@@ -458,13 +458,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             startButton.interactable = true;
             // 애니메이션 트리거 추가
-            StartButtonAni.SetTrigger("GameOn");
+            //StartButtonAni.SetTrigger("GameOn");
+            StartButtonAni.SetBool("GameOn", true);
         }
         else
         {
             startButton.interactable = false;
             // 애니메이션 트리거 추가
-            StartButtonAni.SetTrigger("GameOff");
+            //StartButtonAni.SetTrigger("GameOff");
+            StartButtonAni.SetBool("GameOn", false);
         }
     }
 

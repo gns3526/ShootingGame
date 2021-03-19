@@ -6,7 +6,7 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Ability
 {
-    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer;
+    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer, CriticalPer, CriticalDmgPer, MissPer;
 }
 public class AbilityManager : MonoBehaviour
 {
@@ -57,6 +57,27 @@ public class AbilityManager : MonoBehaviour
                 case 4:
                     abilityText[i].text = "공격속도" + GM.abilityValue[i] + "% 증가";
                     break;
+                case 5:
+                    abilityText[i].text = "공격력" + GM.abilityValue[i] + "증가";
+                    break;
+                case 6:
+                    abilityText[i].text = "최종데미지" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 7:
+                    abilityText[i].text = "일반몬스터 공격력" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 8:
+                    abilityText[i].text = "보스몬스터 공격력" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 9:
+                    abilityText[i].text = "크리티컬 확률" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 10:
+                    abilityText[i].text = "크리티컬 데미지" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 11:
+                    abilityText[i].text = "회피확률" + GM.abilityValue[i] + "% 증가";
+                    break;
             }
             switch (abilityGrade[i])
             {
@@ -78,7 +99,7 @@ public class AbilityManager : MonoBehaviour
         GM.money -= needCoinForAbility;
         for (int i = 0; i < 3; i++)
         {
-            int randomNum = Random.Range(0, 9);//테스트
+            int randomNum = Random.Range(0, 12);
             if (randomNum == 0)//MoveSpeed;
             {
 
@@ -294,6 +315,78 @@ public class AbilityManager : MonoBehaviour
                     abilityGrade[i] = 1;
                 }
             }
+            else if (randomNum == 9)//CriticalPerIncrease;
+            {
+
+                int randomValue = Random.Range(abilityPer.CriticalPer[0], abilityPer.CriticalPer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "크리티컬 확률" + randomValue + "% 증가";
+                int a = abilityPer.CriticalPer[1] - abilityPer.CriticalPer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.CriticalPer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.CriticalPer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 10)//CriticalDamagePer;
+            {
+
+                int randomValue = Random.Range(abilityPer.CriticalDmgPer[0], abilityPer.CriticalDmgPer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "크리티컬 데미지" + randomValue + "% 증가";
+                int a = abilityPer.CriticalDmgPer[1] - abilityPer.CriticalDmgPer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.CriticalDmgPer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.CriticalDmgPer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 11)//MissPer;
+            {
+
+                int randomValue = Random.Range(abilityPer.MissPer[0], abilityPer.MissPer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "회피확률" + randomValue + "% 증가";
+                int a = abilityPer.MissPer[1] - abilityPer.MissPer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.MissPer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.MissPer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
             GM.abilityCode[i] = randomNum;
         }
         CanResetAbility();
@@ -360,12 +453,27 @@ public class AbilityManager : MonoBehaviour
                 case 7://NormalMonsterDamagePer;
                     float h = myPlayerScript.normalMonsterDamagePer;
                     myPlayerScript.normalMonsterDamagePer += GM.abilityValue[i];
-                    Debug.Log("일반몬스터 공격력 이" + h + "에서" + myPlayerScript.normalMonsterDamagePer + "로 증가");
+                    Debug.Log("일반몬스터 공격력이" + h + "에서" + myPlayerScript.normalMonsterDamagePer + "로 증가");
                     break;
                 case 8://BossMonsterDamagePer;
                     float j = myPlayerScript.bossDamagePer;
                     myPlayerScript.bossDamagePer += GM.abilityValue[i];
-                    Debug.Log("보스몬스터 공격력 이" + j + "에서" + myPlayerScript.bossDamagePer + "로 증가");
+                    Debug.Log("보스몬스터 공격력이" + j + "에서" + myPlayerScript.bossDamagePer + "로 증가");
+                    break;
+                case 9://CriticalPer;
+                    float k = myPlayerScript.criticalPer;
+                    myPlayerScript.criticalPer += GM.abilityValue[i];
+                    Debug.Log("크리티컬 확률이" + k + "에서" + myPlayerScript.criticalPer + "로 증가");
+                    break;
+                case 10://CriticalDamage;
+                    float l = myPlayerScript.criticalDamagePer;
+                    myPlayerScript.criticalDamagePer += GM.abilityValue[i];
+                    Debug.Log("크리티컬 데미지가" + l + "에서" + myPlayerScript.criticalDamagePer + "로 증가");
+                    break;
+                case 11://MissPer;
+                    float aa = myPlayerScript.missPercentage;
+                    myPlayerScript.missPercentage += GM.abilityValue[i];
+                    Debug.Log("회피확률이" + aa + "에서" + myPlayerScript.criticalDamagePer + "로 증가");
                     break;
             }
         }
