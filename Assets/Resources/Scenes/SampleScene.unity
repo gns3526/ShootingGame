@@ -12714,7 +12714,7 @@ MonoBehaviour:
   NM: {fileID: 1905378082}
   OP: {fileID: 264256441}
   CM: {fileID: 1229472097}
-  stage: 1
+  stage: 7
   MaxStage: 10
   isGameStart: 0
   isPlaying: 0
@@ -31234,7 +31234,8 @@ MonoBehaviour:
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
   m_Text: "\u2605 2021-03-17\n\n1. \uC0C9\uC0C1\uBCC0\uACBD\uC2DC\uC2A4\uD15C \uCD94\uAC00\n2.
-    \uC5B4\uBE4C\uB9AC\uD2F0 \uC2DC\uC2A4\uD15C \uCD94\uAC00\n"
+    \uC5B4\uBE4C\uB9AC\uD2F0 \uC2DC\uC2A4\uD15C \uCD94\uAC00\n3. \uC5B4\uBE4C\uB9AC\uD2F0
+    \uB2A5\uB825 \uCD94\uAC00\n"
 --- !u!222 &1336684597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -34400,6 +34401,9 @@ MonoBehaviour:
     CriticalPer: 1400000028000000
     CriticalDmgPer: 1400000032000000
     MissPer: 0500000019000000
+    PetDamagePer: 1e00000032000000
+    PetAttackSpeed: 1400000028000000
+    BulletPenetratePer: 0f0000002d000000
   abilityGrade: 030000000300000003000000
   myPlayerScript: {fileID: 0}
 --- !u!4 &1452435083

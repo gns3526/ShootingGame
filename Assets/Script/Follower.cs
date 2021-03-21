@@ -37,7 +37,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
             Watch();
             Follow();
             Fire();
-            curShotCoolTime += Time.deltaTime;
+            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100);
 
         }
         else

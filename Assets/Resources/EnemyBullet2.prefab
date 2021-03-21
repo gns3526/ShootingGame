@@ -125,10 +125,12 @@ MonoBehaviour:
   bulletSpeed: 0
   maxBulletDestroyTime: 10
   isPlayerAttack: 0
+  isFollowerAttack: 0
   isRotate: 0
   isPassThrough: 0
   target: {fileID: 0}
   isFollowTarget: 0
+  attackAmount: 0
   pv: {fileID: -3227760876138570861}
   parentOb: {fileID: 0}
   isBossBullet: 0

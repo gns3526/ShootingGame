@@ -628,22 +628,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
 
             pv.RPC("Hit", RpcTarget.All, finalDamage);
-            // normalBulletDmg = (bullet.dmg * (myPlayerScript.increaseDamage / 100))
-            //* (myPlayerScript.bossDamagePer / 100)
-            //* (((myPlayerScript.damageStack * 10) / 100) + 1);
-
-                    //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100))
-                    //    * (player.GetComponent<Player>().bossDamagePer / 100));
-
-                
-                //Hit((bullet.dmg * (player.GetComponent<Player>().increaseDamage / 100)));
-
-                //Hit(bullet.dmg + player.GetComponent<Player>().increaseDamage);
-
             isSpawn = false;
-            //other.gameObject.SetActive(false);
-
-
         }
     }
 

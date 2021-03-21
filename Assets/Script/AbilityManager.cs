@@ -6,7 +6,8 @@ using UnityEngine.UI;
 [System.Serializable]
 public class Ability
 {
-    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer, CriticalPer, CriticalDmgPer, MissPer;
+    public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer, CriticalPer
+        , CriticalDmgPer, MissPer, PetDamagePer, PetAttackSpeed, BulletPenetratePer;
 }
 public class AbilityManager : MonoBehaviour
 {
@@ -78,6 +79,15 @@ public class AbilityManager : MonoBehaviour
                 case 11:
                     abilityText[i].text = "회피확률" + GM.abilityValue[i] + "% 증가";
                     break;
+                case 12:
+                    abilityText[i].text = "펫 데미지" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 13:
+                    abilityText[i].text = "펫 공격속도" + GM.abilityValue[i] + "% 증가";
+                    break;
+                case 14:
+                    abilityText[i].text = "총알관통 확률" + GM.abilityValue[i] + "% 증가";
+                    break;
             }
             switch (abilityGrade[i])
             {
@@ -99,7 +109,7 @@ public class AbilityManager : MonoBehaviour
         GM.money -= needCoinForAbility;
         for (int i = 0; i < 3; i++)
         {
-            int randomNum = Random.Range(0, 12);
+            int randomNum = Random.Range(0, 15);
             if (randomNum == 0)//MoveSpeed;
             {
 
@@ -387,8 +397,81 @@ public class AbilityManager : MonoBehaviour
                     abilityGrade[i] = 1;
                 }
             }
+            else if (randomNum == 12)//PetDamage;
+            {
+
+                int randomValue = Random.Range(abilityPer.PetDamagePer[0], abilityPer.PetDamagePer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "펫 데미지" + randomValue + "% 증가";
+                int a = abilityPer.PetDamagePer[1] - abilityPer.PetDamagePer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.PetDamagePer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.PetDamagePer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 13)//PetAttackSpeed;
+            {
+
+                int randomValue = Random.Range(abilityPer.PetAttackSpeed[0], abilityPer.PetAttackSpeed[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "펫 공격속도" + randomValue + "% 증가";
+                int a = abilityPer.PetAttackSpeed[1] - abilityPer.PetAttackSpeed[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.PetAttackSpeed[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.PetAttackSpeed[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
+            else if (randomNum == 14)//Penetrate;
+            {
+
+                int randomValue = Random.Range(abilityPer.BulletPenetratePer[0], abilityPer.BulletPenetratePer[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "총알관통 확률" + randomValue + "% 증가";
+                int a = abilityPer.BulletPenetratePer[1] - abilityPer.BulletPenetratePer[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.BulletPenetratePer[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.BulletPenetratePer[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
             GM.abilityCode[i] = randomNum;
         }
+
         CanResetAbility();
     }
 
@@ -473,7 +556,22 @@ public class AbilityManager : MonoBehaviour
                 case 11://MissPer;
                     float aa = myPlayerScript.missPercentage;
                     myPlayerScript.missPercentage += GM.abilityValue[i];
-                    Debug.Log("회피확률이" + aa + "에서" + myPlayerScript.criticalDamagePer + "로 증가");
+                    Debug.Log("회피확률이" + aa + "에서" + myPlayerScript.missPercentage + "로 증가");
+                    break;
+                case 12://PetDamage;
+                    float bb = myPlayerScript.followerDamagePer;
+                    myPlayerScript.followerDamagePer += GM.abilityValue[i];
+                    Debug.Log("펫 데미지가" + bb + "에서" + myPlayerScript.missPercentage + "로 증가");
+                    break;
+                case 13://PetAttackSpeedr;
+                    float cc = myPlayerScript.followerShotCoolReduce;
+                    myPlayerScript.followerShotCoolReduce += GM.abilityValue[i];
+                    Debug.Log("펫 공격속도가" + cc + "에서" + myPlayerScript.missPercentage + "로 증가");
+                    break;
+                case 14://PenetratePer;
+                    float dd = myPlayerScript.penetratePer;
+                    myPlayerScript.penetratePer += GM.abilityValue[i];
+                    Debug.Log("총알 관통확률이" + dd + "에서" + myPlayerScript.missPercentage + "로 증가");
                     break;
             }
         }

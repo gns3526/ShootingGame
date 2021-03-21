@@ -6293,6 +6293,9 @@ MonoBehaviour:
   normalMonsterDamagePer: 100
   criticalPer: 25
   criticalDamagePer: 200
+  followerDamagePer: 100
+  followerShotCoolReduce: 100
+  penetratePer: 30
   finalDamagePer: 100
   gotSpecialWeaponAbility: 0
   weaponCode: 1

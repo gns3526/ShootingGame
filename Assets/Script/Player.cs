@@ -30,6 +30,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int normalMonsterDamagePer;
     public int criticalPer;
     public int criticalDamagePer;
+    public int followerDamagePer;
+    public int followerShotCoolReduce;
+    public int penetratePer;
     public int finalDamagePer;
 
     public bool gotSpecialWeaponAbility;

@@ -11,12 +11,13 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public float bulletSpeed;
     [SerializeField] float maxBulletDestroyTime;
     float bulletDestroyTime;
-    [SerializeField] bool isPlayerAttack;
+    public bool isPlayerAttack;
+    public bool isFollowerAttack;
     [SerializeField] bool isRotate;
     [SerializeField] bool isPassThrough;
     public GameObject target;
     public bool isFollowTarget;
-
+    public int attackAmount;
 
     [SerializeField] PhotonView pv;
     public GameObject parentOb;
@@ -116,8 +117,19 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         if (isPlayerAttack)
         {
-            if (other.tag == "BulletBorder" || other.tag == "Enemy")
+            if (other.tag == "BulletBorder")
             {
+                OP.PoolDestroy(gameObject);
+            }
+            else if(other.tag == "Enemy")
+            {
+                attackAmount--;
+
+                int penetrate = Random.Range(0, 101);
+                if (penetrate <= GM.myplayer.GetComponent<Player>().penetratePer)
+                    attackAmount++;
+
+                if(attackAmount < 1)
                 OP.PoolDestroy(gameObject);
             }
         }

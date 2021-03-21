@@ -28,6 +28,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public ObjectPooler OP;
     Animator ani;
 
+    BulletScript bulletScript;
+
     [SerializeField] int targetRandomNum;
     int a;
 
@@ -95,14 +97,26 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (other.tag == "PlayerBullet")
         {
-            BulletScript bullet = other.GetComponent<BulletScript>();
+            bulletScript = other.GetComponent<BulletScript>();
             Player myPlayerScript = GM.myplayer.GetComponent<Player>();
+
+            bool isFollowerAttack = bulletScript.isFollowerAttack;
+            float followerPenalty = 1;
+            int followerDamagePer = 100;
 
             int randomNum;
             randomNum = Random.Range(0, 101);
 
-            normalBulletDmg = (bullet.dmg + myPlayerScript.damage) * (myPlayerScript.increaseDamagePer / 100)
-                     * (myPlayerScript.damageStack / 100);
+            if (isFollowerAttack)
+            {
+                followerPenalty = 0.5f;
+                followerDamagePer = myPlayerScript.followerDamagePer;
+            }
+
+
+
+            normalBulletDmg = (bulletScript.dmg + myPlayerScript.damage) * (myPlayerScript.increaseDamagePer / 100)
+                     * (myPlayerScript.damageStack / 100) * (followerDamagePer / 100);
 
 
             if (myPlayerScript.criticalPer > randomNum)
@@ -115,9 +129,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 finalDamage = criticalPlusDamage * (myPlayerScript.bossDamagePer / 100);
             else
                 finalDamage = criticalPlusDamage;
-            Debug.Log(finalDamage);
-            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100);
-            Debug.Log(finalDamage);
+
+            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100) * followerPenalty;
+
             pv.RPC("Hit", RpcTarget.All, finalDamage);
         }
     }
@@ -133,6 +147,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (health <= 0)
             return;
+
+        
 
         spriteRendererEnemy.sprite = sprites[1];
         Invoke("ReturnSprite", 0.1f);
@@ -178,14 +194,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
 
             transform.rotation = Quaternion.identity;
+
             OP.PoolDestroy(gameObject);
         }
-    }
-
-    [PunRPC]
-    public void DistroyOb()
-    {
-        OP.PoolDestroy(gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
