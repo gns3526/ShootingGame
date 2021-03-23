@@ -45,7 +45,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text clearTotalScore;
 
     [Header("Panels")]
-    public GameObject scorePanel;
+    public GameObject gamePlayPanel;
+    [SerializeField] GameObject gamePlayExpPanel;
+    [SerializeField] Text getExpAmountText;
+    [SerializeField] Text getGoldAmountText;
+    
+
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
     [SerializeField] GameObject finalStageClearPanel;
@@ -118,6 +123,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text expText;
     [SerializeField] Image playerIcon;
     [SerializeField] Image expImage;
+    public Text goldAmountText;
 
     [SerializeField] Text playerLvText2;
     [SerializeField] Text nickNameText2;
@@ -125,10 +131,39 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Image playerIcon2;
     [SerializeField] Image expImage2;
 
+    [SerializeField] Text playerLvText3;
+    [SerializeField] Text nickNameText3;
+    [SerializeField] Text expText3;
+    [SerializeField] Image playerIcon3;
+    [SerializeField] Image expImage3;
+    [SerializeField] Text goldAmountText3;
+
     [Header("PlayerStateInfo")]
     public int money;
     public int[] abilityCode;
     public int[] abilityValue;
+
+    [Header("Map")]
+    public int mapCode;
+    public Button selectMapButton;
+
+    [SerializeField] GameObject mapPanel;
+    [SerializeField] Animator mapInfoPanel;
+    [SerializeField] Image mapThumnail;
+    [SerializeField] Text mapNameText;
+    [SerializeField] GameObject[] difficultStars;
+    [SerializeField] Text mapCoinAmountinfoText;
+    [SerializeField] Text mapExpAmountinfoText;
+
+    [SerializeField]bool mapFocus;
+    [SerializeField] RectTransform wordMap;
+    [SerializeField] Vector3[] mapPos;
+
+    [SerializeField] Sprite[] mapThumnails;
+    [SerializeField] string[] mapNames;
+    [SerializeField] int[] mapDifficulty;
+    [SerializeField] int[] mapCoinAmount;
+    [SerializeField] int[] mapExpAmount;
 
     [Header("Other")]
 
@@ -182,6 +217,14 @@ public class GameManager : MonoBehaviourPunCallbacks
             expText2.text = exp.ToString() + "/" + maxExp.ToString();
             nickNameText2.text = PhotonNetwork.LocalPlayer.NickName;
         }
+        if (gamePlayPanel.activeSelf)
+        {
+            expImage3.fillAmount = 0;
+            playerIcon3.sprite = NM.icons[NM.playerIconCode];
+            playerLvText3.text = playerLv.ToString() + ".Lv";
+            expText3.text = exp.ToString() + "/" + maxExp.ToString();
+            nickNameText3.text = PhotonNetwork.LocalPlayer.NickName;
+        }
     }
 
     [PunRPC]
@@ -203,7 +246,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         pv.RPC("AllPlayerSet", RpcTarget.All);
 
         NM.roomPanel.SetActive(false);
-        scorePanel.SetActive(true);
+        gamePlayPanel.SetActive(true);
+        gamePlayExpPanel.SetActive(false);
 
         startAni.SetTrigger("Active");//스테이지Ui
         
@@ -271,11 +315,16 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         Player myplayerScript = myplayer.GetComponent<Player>();
 
-        //rare40
-        //epic70
-        //unique90
-        //legen101
-        if(myplayerScript.followers.Length == myplayerScript.followerAmount)
+        getExpAmountText.text = "";
+        getGoldAmountText.text = "";
+        goldAmountText3.text = money.ToString();
+
+        gamePlayExpPanel.SetActive(true);
+        expGIveOnce = true;
+        StartCoroutine(ExpGiveDelay(200));
+        StartCoroutine(GiveGold(10));
+
+        if (myplayerScript.followers.Length == myplayerScript.followerAmount)
         {
             epic.RemoveAt(1);
             epic.RemoveAt(2);
@@ -318,18 +367,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 legendary.RemoveAt(randomR);
                 Debug.Log("레전");
             }
-
-
-
-            //int random = Random.Range(0, cards.Count);
-            //cards[random].SetActive(true);
-            //cards.RemoveAt(random);
         }
         cardPanel.SetActive(true);
     }
     public void SelectComplete()
     {
-
+        gamePlayExpPanel.SetActive(false);
         pv.RPC("StageStart", RpcTarget.All);
     }
     public void ClearCards()
@@ -397,7 +440,18 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(!stop && isPlaying && !spawnEnd)
         curSpawnDelay += Time.deltaTime;
 
-
+        if (mapFocus)
+        {
+            if(mapCode == 0)
+            {
+                wordMap.transform.localPosition = Vector3.Lerp(wordMap.transform.localPosition, mapPos[mapCode], Time.deltaTime * 5);
+                if(Mathf.Abs(wordMap.transform.localPosition.x - mapPos[mapCode].x) < 0.8f && Mathf.Abs(wordMap.transform.localPosition.y - mapPos[mapCode].y) < 0.8f)
+                {
+                    wordMap.transform.localPosition = mapPos[mapCode];
+                    mapFocus = false;
+                }
+            }
+        }
 
         if (curSpawnDelay > nextSpawnDelay)
         {
@@ -428,7 +482,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp();
+                        GiveExp(0);
                     }
                     else
                         setExpBarLerp = false;
@@ -450,7 +504,29 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp();
+                        GiveExp(0);
+                    }
+                    else
+                        setExpBarLerp = false;
+                }
+            }
+            if (gamePlayPanel.activeSelf)
+            {
+                expImage3.fillAmount = Mathf.Lerp(expImage3.fillAmount, exp / maxExp, Time.deltaTime * 5);
+
+                if (expImage3.fillAmount >= (exp / maxExp) - 0.01f)//다찼다면
+                {
+                    expImage3.fillAmount = exp / maxExp;
+                    if (isLvUp)
+                    {
+                        playerLv++;
+                        maxExp *= 1.1f;
+                        maxExp = Mathf.Round(maxExp);
+                        expImage3.fillAmount = 0;
+                        exp = overExp;
+                        isLvUp = false;
+                        ExpPanelUpdate();
+                        GiveExp(0);
                     }
                     else
                         setExpBarLerp = false;
@@ -688,17 +764,25 @@ public class GameManager : MonoBehaviourPunCallbacks
         clearLifeText.text = (myplayerScript.life * 1000).ToString();
         clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
 
-        lobbyExpPanel.SetActive(true);
+        gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        Invoke("GiveExp", 2);
+        StartCoroutine(ExpGiveDelay(400));
     }
 
-    void GiveExp()
+    IEnumerator ExpGiveDelay(int ExpAmount)
+    {
+        yield return new WaitForSeconds(2);
+
+        GiveExp(ExpAmount);
+    }
+
+    void GiveExp(int ExpAmount)
     {
         if(expGIveOnce)
         {
+            getExpAmountText.text = "+" + ExpAmount.ToString();
             expGIveOnce = false;
-            exp += 400;
+            exp += ExpAmount;
         }
 
         if(exp >= maxExp)
@@ -714,6 +798,14 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         SetExpPanel();
     }
+
+    IEnumerator GiveGold(int GoldAmount)
+    {
+        yield return new WaitForSeconds(2);
+        money += GoldAmount;
+        getGoldAmountText.text = "+" + GoldAmount.ToString();
+        goldAmountText3.text = money.ToString();
+    }
     public void GoToLobby()
     {
         stage = 1;
@@ -727,7 +819,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
-        scorePanel.SetActive(false);
+        gamePlayPanel.SetActive(false);
         controlPanel.SetActive(false);
         finalStageClearPanel.SetActive(false);
         NM.lobbyPanel.SetActive(true);
@@ -767,8 +859,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             alivePlayers[i] = null;
         }
-
-
         int a;
         a = 0;
 
@@ -839,6 +929,38 @@ public class GameManager : MonoBehaviourPunCallbacks
         colorRSlider.value = playerColors[0] / 255f;
         colorGSlider.value = playerColors[1] / 255f;
         colorBSlider.value = playerColors[2] / 255f;
+    }
+
+    public void OpenMap(bool a)
+    {
+        wordMap.transform.localPosition = new Vector3(0, 0, 0);
+        mapPanel.SetActive(a);
+        mapInfoPanel.SetBool("On", false);
+    }
+
+    public void ClickMapPoint(int code)
+    {
+        mapCode = code;
+        mapFocus = true;
+        mapNameText.text = mapNames[code];
+        mapCoinAmountinfoText.text = "라운드당 코인:" + mapCoinAmount[code].ToString();
+        mapExpAmountinfoText.text = "라운드당 경험치:" + mapExpAmount[code].ToString();
+        for (int i = 0; i < difficultStars.Length; i++)
+        {
+            difficultStars[i].SetActive(false);
+            if (mapDifficulty[code] >= i)
+                difficultStars[i].SetActive(true);
+        }
+        mapInfoPanel.SetBool("On",true);
+    }
+    public void MapInfoClose()
+    {
+        mapInfoPanel.SetBool("On", false);
+    }
+    public void SelectMapComplete()
+    {
+        mapInfoPanel.SetBool("On", false);
+        mapPanel.SetActive(false);
     }
     
 

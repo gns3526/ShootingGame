@@ -240,11 +240,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 pv.RPC("PlayerIsDie", RpcTarget.All);
                 GM.PlayerDie();
             }
-            if (Input.GetKeyDown(KeyCode.W))
-            {
-                Cards card = FindObjectOfType<Cards>();
-                card.CardS(19);
-            }
 
             if (!GM.isAndroid)
             {

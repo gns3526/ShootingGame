@@ -388,7 +388,7 @@ MonoBehaviour:
   isLast: 0
   isBoss: 1
   health: 0
-  maxHealth: 2000
+  maxHealth: 1
   sprites:
   - {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}
   - {fileID: 1455800853001472315, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}

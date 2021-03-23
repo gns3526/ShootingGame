@@ -45,8 +45,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject[] playerLIst;
     [SerializeField] Button startButton;
 
-
-    [SerializeField] bool isReady;
     [SerializeField] BoxCollider2D readyArea;
     GameObject[] temp;
 
@@ -61,6 +59,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("ETC")]
     [SerializeField] Text curInfoText;
+    [SerializeField] InputField lobbymapinput;
+    [SerializeField] InputField roommapinput;
+    [SerializeField] string roomOption;
+    [SerializeField] bool isFilter;
 
     [Header("PlayerInfo")]
     public int playerIconCode;
@@ -111,13 +113,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             chatInput.text = "";
             isChating = false;
         }
-        //if (Input.GetKeyDown(KeyCode.Escape) && PhotonNetwork.IsConnected)
-        
-        //{
-        //    connectPanel.SetActive(true);
-        //    PhotonNetwork.Disconnect();
-        //}
-
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
@@ -141,6 +136,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         GM.SetExpPanel();
 
+        GM.goldAmountText.text = GM.money.ToString();
+
         myList.Clear();
         MyListRenewal();
     }
@@ -155,6 +152,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     void MyListRenewal()
     {
+
         //최대 페이지 조정
         maxPage = (myList.Count % roomCelBtn.Length == 0) ? myList.Count / roomCelBtn.Length : myList.Count / roomCelBtn.Length + 1;
 
@@ -170,7 +168,24 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             roomCelBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";//방제목텍스트 변경
             roomCelBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
         }
+        Debug.Log(myList);
     }
+
+    public void JoinPeilterRoom()
+    {
+        Hashtable proPer = new Hashtable() { { roomOption, lobbymapinput.text } };
+        PhotonNetwork.JoinRandomRoom(proPer, 4);
+        
+    }
+
+    public void ChangeMap()
+    {
+        Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
+
+        cp[roomOption] = roommapinput.text;
+        print(cp[roomOption]);
+    }
+
 
     public override void OnRoomListUpdate(List<RoomInfo> roomList)
     {
@@ -184,11 +199,27 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             }
             else if (myList.IndexOf(roomList[i]) != -1) myList.RemoveAt(myList.IndexOf(roomList[i]));
         }
+        Hashtable cc = myList[0].CustomProperties;
+        print(cc[roomOption]);
         MyListRenewal();
     }
 
 
-    public void CreateRoom() => PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, new RoomOptions { MaxPlayers = 4 });
+    public void CreateRoom()
+    {
+        string[] LobbyOptions = new string[1];
+        LobbyOptions[0] = roomOption;
+        Hashtable customProperties = new Hashtable() {
+        { roomOption, lobbymapinput.text }
+    };
+        RoomOptions roomOptions = new RoomOptions();
+        roomOptions.IsVisible = true;
+        roomOptions.IsOpen = true;
+        roomOptions.MaxPlayers = 4;
+        roomOptions.CustomRoomPropertiesForLobby = LobbyOptions;
+        roomOptions.CustomRoomProperties = customProperties;
+        PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, roomOptions, TypedLobby.Default);
+    }
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
 
@@ -205,15 +236,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (PhotonNetwork.IsMasterClient)
         {
-            PhotonNetwork.LocalPlayer.SetCustomProperties(new Hashtable { { "CT", "1" } });
+            GM.selectMapButton.interactable = true;
         }
+        else
+            GM.selectMapButton.interactable = false;
 
         if(GM.isAndroid)
             GM.controlPanel.SetActive(true);
 
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
-        GM.scorePanel.SetActive(false);
+        GM.gamePlayPanel.SetActive(false);
 
         GM.SetExpPanel();
 
@@ -241,10 +274,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnPlayerEnteredRoom(Photon.Realtime.Player newPlayer)//notice everyone about joined new player
     {
-        if (PhotonNetwork.LocalPlayer == newPlayer)
-        {
-            isReady = false;
-        }
         RoomRenewal();
 
         Player player = myPlayer.GetComponent<Player>();
@@ -325,14 +354,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(i < PhotonNetwork.PlayerList.Length)
             {
-
-
-                //listText.text += "닉네임 : " + PhotonNetwork.PlayerList[i].NickName + ((i + 1 == PhotonNetwork.PlayerList.Length) ? "" : ", ");
-                //roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name + "   인원 수 :  " + PhotonNetwork.CurrentRoom.PlayerCount + "명 /" + PhotonNetwork.CurrentRoom.MaxPlayers + "최대";
                 roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name;
-                //몇번째 있는가  (
-
-
 
                 //playerInfoGroup[i].  = 게임메니저 초상화가져옴
                 playerInfoGroup[i].SetActive(true);

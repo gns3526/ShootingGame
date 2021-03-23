@@ -36,7 +36,7 @@ public class AbilityManager : MonoBehaviour
     public void AbilityOpenOrClose(bool a)
     {
         abilityPanel.SetActive(a);
-        CanResetAbility();
+        CanResetAbilityCheck();
         needCoinText.text = needCoinForAbility.ToString();
         if (!a) return;
         for (int i = 0; i < 3; i++)
@@ -472,11 +472,12 @@ public class AbilityManager : MonoBehaviour
             GM.abilityCode[i] = randomNum;
         }
 
-        CanResetAbility();
+        CanResetAbilityCheck();
     }
 
-    void CanResetAbility()
+    void CanResetAbilityCheck()
     {
+        GM.goldAmountText.text = GM.money.ToString();
         myCoinAmountInAbility.text = "X" + GM.money.ToString();
         if (GM.money >= needCoinForAbility)
         {
