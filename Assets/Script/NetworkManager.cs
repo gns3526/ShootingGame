@@ -63,6 +63,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] InputField roommapinput;
     [SerializeField] string roomOption;
     [SerializeField] bool isFilter;
+    Hashtable cc;
 
     [Header("PlayerInfo")]
     public int playerIconCode;
@@ -131,6 +132,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         connectPanel.SetActive(false);
         GM.controlPanel.SetActive(false);
 
+
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
 
@@ -164,9 +166,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         multiple = (currentPage - 1) * roomCelBtn.Length;
         for (int i = 0; i < roomCelBtn.Length; i++)
         {
+            Debug.Log("00");
             roomCelBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
             roomCelBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";//방제목텍스트 변경
             roomCelBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
+            if (roomCelBtn[i].transform.GetChild(1).GetComponent<Text>().text == "")
+            {
+                Debug.Log("11");
+                roomCelBtn[i].transform.GetChild(2).GetComponent<Image>().sprite = null;
+            }
+            else
+            {
+                Debug.Log("22");
+                cc = myList[i + multiple].CustomProperties;
+                roomCelBtn[i].transform.GetChild(2).GetComponent<Image>().sprite = GM.mapThumnails[(int)cc[roomOption]];
+            }
         }
         Debug.Log(myList);
     }
@@ -182,8 +196,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         Hashtable cp = PhotonNetwork.CurrentRoom.CustomProperties;
 
-        cp[roomOption] = roommapinput.text;
-        print(cp[roomOption]);
+        //cp[roomOption] = roommapinput.text;
+        //print(cp[roomOption]);
     }
 
 
@@ -199,18 +213,21 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             }
             else if (myList.IndexOf(roomList[i]) != -1) myList.RemoveAt(myList.IndexOf(roomList[i]));
         }
-        Hashtable cc = myList[0].CustomProperties;
-        print(cc[roomOption]);
+
         MyListRenewal();
     }
 
+    public void RoomMakePanelOpenOrClose(bool a)
+    {
+        GM.makeRoomPanel.SetActive(a);
+    }
 
     public void CreateRoom()
     {
         string[] LobbyOptions = new string[1];
         LobbyOptions[0] = roomOption;
         Hashtable customProperties = new Hashtable() {
-        { roomOption, lobbymapinput.text }
+        { roomOption, GM.mapCode}
     };
         RoomOptions roomOptions = new RoomOptions();
         roomOptions.IsVisible = true;
@@ -219,6 +236,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         roomOptions.CustomRoomPropertiesForLobby = LobbyOptions;
         roomOptions.CustomRoomProperties = customProperties;
         PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, roomOptions, TypedLobby.Default);
+        GM.makeRoomPanel.SetActive(false);
     }
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
@@ -233,15 +251,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         Spawn();
+        Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
 
-        if (PhotonNetwork.IsMasterClient)
-        {
-            GM.selectMapButton.interactable = true;
-        }
-        else
-            GM.selectMapButton.interactable = false;
+        Debug.Log(map[roomOption]);
+        GM.curMapCode = (int)map[roomOption];
+        GM.roomMapThumnail.sprite = GM.mapThumnails[GM.curMapCode];
+        GM.roomMapName.text = GM.mapNames[GM.curMapCode];
 
-        if(GM.isAndroid)
+        if (GM.isAndroid)
             GM.controlPanel.SetActive(true);
 
         roomPanel.SetActive(true);

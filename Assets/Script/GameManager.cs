@@ -49,7 +49,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject gamePlayExpPanel;
     [SerializeField] Text getExpAmountText;
     [SerializeField] Text getGoldAmountText;
-    
 
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
@@ -65,6 +64,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject loginPanel;
     public GameObject roomExpPanal;
     public GameObject lobbyExpPanel;
+    public GameObject makeRoomPanel;
     [SerializeField] GameObject gameOverPanel;
 
     [Header("Cards")]
@@ -152,18 +152,24 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Image mapThumnail;
     [SerializeField] Text mapNameText;
     [SerializeField] GameObject[] difficultStars;
+    [SerializeField] Text mapNameinfoText;
     [SerializeField] Text mapCoinAmountinfoText;
     [SerializeField] Text mapExpAmountinfoText;
 
-    [SerializeField]bool mapFocus;
+    [SerializeField] Text[] mapPointsText;
+    [SerializeField] bool mapFocus;
     [SerializeField] RectTransform wordMap;
     [SerializeField] Vector3[] mapPos;
 
-    [SerializeField] Sprite[] mapThumnails;
-    [SerializeField] string[] mapNames;
+    public Sprite[] mapThumnails;
+    public string[] mapNames;
     [SerializeField] int[] mapDifficulty;
     [SerializeField] int[] mapCoinAmount;
     [SerializeField] int[] mapExpAmount;
+
+    public int curMapCode;
+    public Image roomMapThumnail;
+    public Text roomMapName;
 
     [Header("Other")]
 
@@ -192,6 +198,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         uniqueSave = new List<GameObject>(unique);
         legendarySave = new List<GameObject>(legendary);
         //ReadSpawnFile();//적 스폰파일 읽기
+
+        for (int i = 0; i < mapPointsText.Length; i++)
+            mapPointsText[i].text = mapNames[i];
     }
 
     public void SetExpPanel()
@@ -442,14 +451,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (mapFocus)
         {
-            if(mapCode == 0)
+            wordMap.transform.localPosition = Vector3.Lerp(wordMap.transform.localPosition, mapPos[mapCode], Time.deltaTime * 20);
+            if (Mathf.Abs(wordMap.transform.localPosition.x - mapPos[mapCode].x) < 1 && Mathf.Abs(wordMap.transform.localPosition.y - mapPos[mapCode].y) < 1)
             {
-                wordMap.transform.localPosition = Vector3.Lerp(wordMap.transform.localPosition, mapPos[mapCode], Time.deltaTime * 5);
-                if(Mathf.Abs(wordMap.transform.localPosition.x - mapPos[mapCode].x) < 0.8f && Mathf.Abs(wordMap.transform.localPosition.y - mapPos[mapCode].y) < 0.8f)
-                {
-                    wordMap.transform.localPosition = mapPos[mapCode];
-                    mapFocus = false;
-                }
+                wordMap.transform.localPosition = mapPos[mapCode];
+                mapFocus = false;
             }
         }
 
@@ -942,7 +948,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         mapCode = code;
         mapFocus = true;
-        mapNameText.text = mapNames[code];
+
+        mapNameinfoText.text = mapNames[code];
         mapCoinAmountinfoText.text = "라운드당 코인:" + mapCoinAmount[code].ToString();
         mapExpAmountinfoText.text = "라운드당 경험치:" + mapExpAmount[code].ToString();
         for (int i = 0; i < difficultStars.Length; i++)
@@ -960,6 +967,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void SelectMapComplete()
     {
         mapInfoPanel.SetBool("On", false);
+        mapThumnail.sprite = mapThumnails[mapCode];
+        mapNameText.text = mapNames[mapCode];
         mapPanel.SetActive(false);
     }
     
