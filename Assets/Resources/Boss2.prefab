@@ -164,10 +164,10 @@ GameObject:
   - component: {fileID: 3168336670733261172}
   - component: {fileID: 2710595544883460330}
   - component: {fileID: -4657602158681436728}
-  - component: {fileID: -6228000665437555292}
+  - component: {fileID: -4071329200740251322}
   - component: {fileID: 3783629525877620195}
   m_Layer: 0
-  m_Name: Boss1
+  m_Name: Boss2
   m_TagString: Enemy
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -227,7 +227,7 @@ SpriteRenderer:
   m_SortingOrder: 0
   m_Sprite: {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7,
     type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 0, g: 0.6028013, b: 1, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -344,7 +344,7 @@ MonoBehaviour:
   m_SynchronizePosition: 1
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
---- !u!114 &-6228000665437555292
+--- !u!114 &-4071329200740251322
 MonoBehaviour:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -353,20 +353,17 @@ MonoBehaviour:
   m_GameObject: {fileID: 3646381594106627784}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 3d04c933981bb014e8103b9e8363bb99, type: 3}
+  m_Script: {fileID: 11500000, guid: 9f52b57606a78594889689bd109d18ac, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   EB: {fileID: 3783629525877620195}
   GM: {fileID: 0}
-  patternIndex: -1
+  patternIndex: 0
   curPatternCount: 0
-  MaxPatternCount: 04000000040000005b0000000a000000
+  MaxPatternCount: 14000000
   fireCoolTime:
-  - 1
-  - 0.5
-  - 0.05
-  - 4
+  - 0.08
   stopCool: 2.5
   canMove: 0
   moveSpeed: 0.02
@@ -387,8 +384,8 @@ MonoBehaviour:
   isPassingNodamage: 0
   isLast: 0
   isBoss: 1
-  health: 0
-  maxHealth: 1
+  health: 1000
+  maxHealth: 1000
   sprites:
   - {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}
   - {fileID: 1455800853001472315, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}

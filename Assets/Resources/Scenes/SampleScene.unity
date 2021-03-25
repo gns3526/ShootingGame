@@ -6151,6 +6151,11 @@ MonoBehaviour:
       type: 3}
     size: 10
     isMyBullet: 0
+  - tag: Boss2
+    prefab: {fileID: 3646381594106627784, guid: 1d73358ee98166141a6932b2395fa16b,
+      type: 3}
+    size: 1
+    isMyBullet: 0
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
