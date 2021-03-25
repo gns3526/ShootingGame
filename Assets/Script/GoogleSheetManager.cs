@@ -16,6 +16,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
     const string URL = "https://script.google.com/macros/s/AKfycbxb9A5zOuAAg8-8n_9B9g6zfWMBxWnjiZvAs7KtjMhcYezjiqF8ZdIiCI9GSzYW8vI/exec";
+    //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
     string id, pass;
@@ -159,6 +160,9 @@ public class GoogleSheetManager : MonoBehaviour
             regIdInput.text = "";
             regPassInput.text = "";
             regPassReInput.text = "";
+            idText.text = "";
+            passwordText.text = "";
+            passwordReText.text = "";
             registerPanel.SetActive(false);
         }
     }

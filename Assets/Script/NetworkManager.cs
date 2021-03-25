@@ -60,7 +60,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [Header("ETC")]
     [SerializeField] Text curInfoText;
     [SerializeField] InputField lobbymapinput;
-    [SerializeField] InputField roommapinput;
     [SerializeField] string roomOption;
     [SerializeField] bool isFilter;
     Hashtable cc;
@@ -72,6 +71,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [Header("Others")]
     List<RoomInfo> myList = new List<RoomInfo>();
     int currentPage = 1, maxPage, multiple;
+    [SerializeField] Text curPage;
 
     public GameObject myPlayer;
 
@@ -148,13 +148,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (num == -2) --currentPage;
         else if (num == -1) ++currentPage;
+        else
         PhotonNetwork.JoinRoom(myList[multiple + num].Name);
         MyListRenewal();
     }
 
     void MyListRenewal()
     {
-
+        curPage.text = currentPage.ToString();
         //최대 페이지 조정
         maxPage = (myList.Count % roomCelBtn.Length == 0) ? myList.Count / roomCelBtn.Length : myList.Count / roomCelBtn.Length + 1;
 
@@ -174,12 +175,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             {
                 Debug.Log("11");
                 roomCelBtn[i].transform.GetChild(2).GetComponent<Image>().sprite = null;
+                roomCelBtn[i].transform.GetChild(3).GetComponent<Text>().text = null;
             }
             else
             {
                 Debug.Log("22");
                 cc = myList[i + multiple].CustomProperties;
                 roomCelBtn[i].transform.GetChild(2).GetComponent<Image>().sprite = GM.mapThumnails[(int)cc[roomOption]];
+                roomCelBtn[i].transform.GetChild(3).GetComponent<Text>().text = GM.mapNames[(int)cc[roomOption]];
             }
         }
         Debug.Log(myList);

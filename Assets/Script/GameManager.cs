@@ -330,8 +330,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(200));
-        StartCoroutine(GiveGold(10));
+        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
+        StartCoroutine(GiveGold(mapCoinAmount[mapCode]));
 
         if (myplayerScript.followers.Length == myplayerScript.followerAmount)
         {
@@ -408,7 +408,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         spawnEnd = false;
 
         //리스폰 파일 읽기
-        TextAsset textFile = Resources.Load("Stage" + stage) as TextAsset;
+        TextAsset textFile = Resources.Load("EnemySpawnInfo" + "/" + "Map" + mapCode + "/" + "Stage" + stage) as TextAsset;
         StringReader stringReader = new StringReader(textFile.text);
 
         while (stringReader != null)
@@ -488,7 +488,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(0);
+                        GiveExp(mapExpAmount[mapCode]);
                     }
                     else
                         setExpBarLerp = false;
@@ -510,7 +510,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(0);
+                        GiveExp(mapExpAmount[mapCode]);
                     }
                     else
                         setExpBarLerp = false;
@@ -532,7 +532,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(0);
+                        GiveExp(mapExpAmount[mapCode]);
                     }
                     else
                         setExpBarLerp = false;
@@ -772,7 +772,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(400));
+        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
     }
 
     IEnumerator ExpGiveDelay(int ExpAmount)
@@ -786,7 +786,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if(expGIveOnce)
         {
-            getExpAmountText.text = "+" + ExpAmount.ToString();
+            getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
             expGIveOnce = false;
             exp += ExpAmount;
         }
@@ -809,7 +809,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2);
         money += GoldAmount;
-        getGoldAmountText.text = "+" + GoldAmount.ToString();
+        getGoldAmountText.text = "+" + GoldAmount.ToString() + "Coin";
         goldAmountText3.text = money.ToString();
     }
     public void GoToLobby()
@@ -823,6 +823,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         once = true;
 
+        cardPanel.SetActive(false);
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gamePlayPanel.SetActive(false);
