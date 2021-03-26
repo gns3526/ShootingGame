@@ -20,8 +20,10 @@ public class ObjectPooler : MonoBehaviourPun
 
     public List<Pool> pools;
     public Dictionary<string, Queue<GameObject>> poolDictionary;
-    
 
+    public GameObject[] allOfPools;
+ 
+    public int a;
 
     public void PrePoolInstantiate()
     {
@@ -33,8 +35,15 @@ public class ObjectPooler : MonoBehaviourPun
             {
                 GameObject obj = PhotonNetwork.Instantiate(pool.tag, new Vector3(4, 4, 0), Quaternion.identity);
 
+
                 obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
                 objectPool.Enqueue(obj);
+
+                if(obj.tag == "EnemyBullet")
+                {
+                    allOfPools[a] = obj;
+                    a++;
+                }
             }
             poolDictionary.Add(pool.tag, objectPool);
         }

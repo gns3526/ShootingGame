@@ -359,11 +359,11 @@ MonoBehaviour:
   target: {fileID: 0}
   EB: {fileID: 3783629525877620195}
   GM: {fileID: 0}
-  patternIndex: 0
   curPatternCount: 0
-  MaxPatternCount: 14000000
+  MaxPatternCount: 1400000064000000
   fireCoolTime:
   - 0.08
+  - 1
   stopCool: 2.5
   canMove: 0
   moveSpeed: 0.02
@@ -383,7 +383,12 @@ MonoBehaviour:
   enemyScore: 10000
   isPassingNodamage: 0
   isLast: 0
+  godMode: 0
   isBoss: 1
+  canFire: 0
+  patternIndex: 0
+  maxPattern: 3
+  reVive: 0
   health: 1000
   maxHealth: 1000
   sprites:

@@ -179,6 +179,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public float stopTime;
 
     public bool isGameEnd;
+    public bool allBulletDelete;
     [SerializeField] bool setExpBarLerp;
     bool isLvUp;
     bool expGIveOnce;
@@ -434,6 +435,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
+
         if (stopTime > 0)
         {
             stopTime -= Time.deltaTime;
@@ -825,6 +827,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         spawnEnd = false;
 
         once = true;
+        OP.a = 0;
 
         cardPanel.SetActive(false);
         retryPanel.SetActive(false);

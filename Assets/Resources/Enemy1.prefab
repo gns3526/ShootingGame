@@ -227,7 +227,12 @@ MonoBehaviour:
   enemyScore: 100
   isPassingNodamage: 0
   isLast: 0
+  godMode: 0
   isBoss: 0
+  canFire: 0
+  patternIndex: 0
+  maxPattern: 0
+  reVive: 0
   health: 0
   maxHealth: 4
   sprites:

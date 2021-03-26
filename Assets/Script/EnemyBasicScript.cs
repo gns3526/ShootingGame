@@ -11,7 +11,12 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int enemyScore;
     public bool isPassingNodamage;
     public bool isLast;
+    public bool godMode;
     public bool isBoss;
+    public bool canFire;
+    public int patternIndex;
+    public int maxPattern;
+    public bool reVive;
 
     [SerializeField] float health;
     [SerializeField] float maxHealth;
@@ -51,6 +56,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     private void OnEnable()
     {
         health = maxHealth;
+        canFire = true;
         healthImage.fillAmount = 1;
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
@@ -71,6 +77,19 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             {
                 pv.RPC("Hit", RpcTarget.All, 10000f);
                 //Hit(10000);
+            }
+        }
+
+        if (reVive)
+        {
+            healthImage.fillAmount += 0.01f;
+            if(healthImage.fillAmount == 1)
+            {
+                GM.allBulletDelete = false;
+                canFire = true;
+                health = maxHealth;
+                reVive = false;
+                godMode = false;
             }
         }
 
@@ -97,6 +116,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         }
         else if (other.tag == "PlayerBullet")
         {
+            if (godMode)
+                return;
+
             bulletScript = other.GetComponent<BulletScript>();
             Player myPlayerScript = GM.myplayer.GetComponent<Player>();
 
@@ -159,8 +181,18 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         Debug.Log(Dmg);
         if (health <= 0)
         {
-
             myPlayerScript.score += enemyScore;
+            if (isBoss && patternIndex < maxPattern)
+            {
+                if (PhotonNetwork.IsMasterClient)
+                    GM.allBulletDelete = true;
+                godMode = true;
+                canFire = false;
+                reVive = true;
+                patternIndex += 1;
+                return;
+            }
+            
             if (GM.pv.IsMine)
             {
                 if (myPlayerScript.isAttackSpeedStack)
@@ -195,8 +227,15 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             transform.rotation = Quaternion.identity;
 
+            if(PhotonNetwork.IsMasterClient)
             OP.PoolDestroy(gameObject);
         }
+    }
+
+    [PunRPC]
+    void GodModeRPC()
+    {
+        godMode = true;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

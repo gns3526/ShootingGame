@@ -79,7 +79,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
             transform.Rotate(Vector3.forward * 10);
         }
 
-        if (!GM.isPlaying)
+        if (!GM.isPlaying || GM.allBulletDelete && tag == "EnemyBullet")
         {
             OP.PoolDestroy(gameObject);
         }

@@ -12,7 +12,7 @@ public class Boss2 : MonoBehaviour
     [SerializeField] EnemyBasicScript EB;
     [SerializeField] GameManager GM;
 
-    [SerializeField] int patternIndex;
+
     [SerializeField] int curPatternCount;
     [SerializeField] int[] MaxPatternCount;
     [SerializeField] float[] fireCoolTime;
@@ -21,12 +21,14 @@ public class Boss2 : MonoBehaviour
 
     [SerializeField] bool canMove;
     [SerializeField] float moveSpeed;
+    
     int a;
     int targetRandomNum;
 
     private void OnEnable()
     {
         canMove = true;
+        EB.godMode = true;
         GM = FindObjectOfType<GameManager>();
 
         if (!PhotonNetwork.IsMasterClient) return;
@@ -72,54 +74,35 @@ public class Boss2 : MonoBehaviour
         {
             Debug.Log("멈춤");
 
+            EB.godMode = false;
             canMove = false;
 
-            StartCoroutine(Think(2));
+            StartCoroutine(Rest(2));
+            StartCoroutine(Attack1());
         }
     }
 
-    IEnumerator Rest(float restTime)
-    {
-        yield return new WaitForSeconds(restTime);
-        switch (patternIndex)
-        {
-            case 0:
-                StartCoroutine(Pattern1());
-                break;
-            case 1:
-                StartCoroutine(FireShot());
-                break;
-            case 2:
-                StartCoroutine(FireArc());
-                break;
-            case 3:
-                StartCoroutine(FireAround());
-                break;
-        }
-    }
 
-    IEnumerator Think(float waitTime)
+    IEnumerator Rest(float waitTime)
     {
-        //if (!gameObject.activeSelf)//활성화 되어있지 않다면
-        //    return;//되돌림
         yield return new WaitForSeconds(waitTime);
         Debug.Log("생각");
-        
+
         curPatternCount = 0;
         creat();
-        switch (patternIndex)
+        switch (EB.patternIndex)
         {
             case 0:
                 StartCoroutine(Pattern1());
                 break;
             case 1:
-                StartCoroutine(FireShot());
+                StartCoroutine(Pattern2());
                 break;
             case 2:
-                StartCoroutine(FireArc());
+                StartCoroutine(Pattern1());
                 break;
             case 3:
-                StartCoroutine(FireAround());
+                StartCoroutine(Pattern1());
                 break;
         }
     }
@@ -129,9 +112,11 @@ public class Boss2 : MonoBehaviour
         int randomAngle = Random.Range(-10, 11);
         int randomFire = Random.Range(1, 5);//0.3 0.45
 
-        if(randomFire == 1)
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90)).GetComponent<BulletScript>().bulletSpeed = 0.14f;
-        else if(randomFire == 2)
+
+
+        if (randomFire == 1)
+            EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90)).GetComponent<BulletScript>().bulletSpeed = 0.14f;
+        else if (randomFire == 2)
             EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle + 90)).GetComponent<BulletScript>().bulletSpeed = 0.14f;
         else if (randomFire == 3)
             EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90)).GetComponent<BulletScript>().bulletSpeed = 0.14f;
@@ -140,7 +125,7 @@ public class Boss2 : MonoBehaviour
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[0]);
-        if (curPatternCount < MaxPatternCount[patternIndex])
+        if (curPatternCount < MaxPatternCount[EB.patternIndex] && EB.canFire)
         {
             StartCoroutine(Pattern1());
         }
@@ -150,89 +135,106 @@ public class Boss2 : MonoBehaviour
             StartCoroutine(Rest(4f));
         }
     }
-    IEnumerator FireShot()//플래이어방향으로 샷건
+
+    
+
+    IEnumerator Pattern2()//플래이어에게 연속발사
     {
-        for (int i = 0; i < 5; i++)
-        {
-            GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
-            bullet.transform.position = transform.position;
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+        int randomAngle1 = Random.Range(-5, 6);
+        int randomAngle2 = Random.Range(-5, 6);
+        int randomAngle3 = Random.Range(-5, 6);
+        int randomAngle4 = Random.Range(-5, 6);
+        int randomAngle5 = Random.Range(-5, 6);
+        int randomAngle6 = Random.Range(-5, 6);
+        int randomAngle7 = Random.Range(-5, 6);
+        int randomAngle8 = Random.Range(-5, 6);
 
-            bullet.GetComponent<BulletScript>().isBossBullet = true;
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle1 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
 
-            //Vector2 dir = player[Random.Range(0,player.Length)].transform.position - transform.position;
-            Vector2 dir = target.transform.position - transform.position;
-            Vector2 randomVector = new Vector2(Random.Range(-0.5f, 0.5f), Random.Range(0, 2));
-            dir += randomVector;
-            rigid.AddForce(dir.normalized * 4, ForceMode2D.Impulse);
-        }
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle2 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle3 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle4 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle5 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle6 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle7 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle8 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[1]);
-        if (curPatternCount < MaxPatternCount[patternIndex])
+        if (curPatternCount < MaxPatternCount[EB.patternIndex] && EB.canFire)
         {
-            StartCoroutine(FireShot());
+            StartCoroutine(Pattern2());
         }
         else
         {
-            StartCoroutine(Think(1));
+            curPatternCount = 0;
+            StartCoroutine(Rest(0));
         }
     }
-    IEnumerator FireArc()//부체모양
+
+    IEnumerator Pattern3()
     {
-        GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
-        bullet.transform.position = transform.position;//초기화
-        bullet.transform.rotation = Quaternion.identity;//초기화
+        float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+        int randomAngle1 = Random.Range(-5, 6);
+        int randomAngle2 = Random.Range(-5, 6);
+        int randomAngle3 = Random.Range(-5, 6);
+        int randomAngle4 = Random.Range(-5, 6);
+        int randomAngle5 = Random.Range(-5, 6);
+        int randomAngle6 = Random.Range(-5, 6);
+        int randomAngle7 = Random.Range(-5, 6);
+        int randomAngle8 = Random.Range(-5, 6);
 
-        bullet.GetComponent<BulletScript>().isBossBullet = true;
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle1 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
 
-        Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle2 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
 
-        Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 10 * curPatternCount / MaxPatternCount[patternIndex]), -1);//Cos도 가능
-        rigid.AddForce(dir.normalized * 5, ForceMode2D.Impulse);
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle3 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle4 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle5 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle6 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle7 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+
+        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle8 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
 
         curPatternCount++;
-        yield return new WaitForSeconds(fireCoolTime[2]);
-        if (curPatternCount < MaxPatternCount[patternIndex])
+        yield return new WaitForSeconds(fireCoolTime[1]);
+        if (curPatternCount < MaxPatternCount[EB.patternIndex] && EB.canFire)
         {
-            StartCoroutine(FireArc());
+            StartCoroutine(Pattern2());
         }
         else
         {
-            StartCoroutine(Think(1));
+            curPatternCount = 0;
+            StartCoroutine(Rest(0));
         }
     }
-    IEnumerator FireAround()//원형태로 뿌림
+
+    IEnumerator Attack1()
     {
-        int roundNumA = 50;
-        int roundNumB = 40;
-        int roundNum = curPatternCount % 2 == 0 ? roundNumA : roundNumB;//roundNumA와roundNumB의 수를 교차
-        for (int i = 0; i < roundNum; i++)
+        yield return new WaitForSeconds(5);
+
+        if(EB.canFire)
+        for (int i = 0; i < 40; i++)
         {
-            GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.identity);
-            bullet.transform.position = transform.position;//초기화
-            bullet.transform.rotation = Quaternion.identity;//초기화
-
-            bullet.GetComponent<BulletScript>().isBossBullet = true;
-
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-
-            Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNum), Mathf.Sin(Mathf.PI * 2 * i / roundNum));//Cos도 가능
-            rigid.AddForce(dir.normalized * 2/*속도*/, ForceMode2D.Impulse);
-
-            Vector3 roVec = Vector3.forward * 360 * i / roundNum + Vector3.forward * 90;
-            bullet.transform.Rotate(roVec);
-
+            EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(i * 9, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.08f;
         }
 
-        curPatternCount++;
-        yield return new WaitForSeconds(fireCoolTime[3]);
-        if (curPatternCount < MaxPatternCount[patternIndex])
-        {
-            StartCoroutine(FireAround());
-        }
-        else
-        {
-            StartCoroutine(Think(1));
-        }
+        StartCoroutine(Attack1());
     }
 }
+
+
+
+    
+
