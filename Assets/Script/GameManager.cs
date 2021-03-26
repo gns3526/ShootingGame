@@ -57,7 +57,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject codyPanel;
     [SerializeField] GameObject codyBodyPanel;
     [SerializeField] GameObject codyParticlePanel;
-    [SerializeField] GameObject premiumColorPanel;
+    [SerializeField] GameObject colorChangePanel;
+    [SerializeField] GameObject colorNormalPanel;
+    [SerializeField] GameObject colorPremiumPanel;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -96,6 +98,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Image weaponShotButtonImage;
 
     [Header("ColorPanel")]
+    [SerializeField] Image lobbyPlayer;
     [SerializeField] Slider colorRSlider;
     [SerializeField] Slider colorGSlider;
     [SerializeField] Slider colorBSlider;
@@ -541,7 +544,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if(premiumColorPanel.activeSelf)
+        if(colorPremiumPanel.activeSelf)
         PlayerColorTest();
     }
 
@@ -722,18 +725,42 @@ public class GameManager : MonoBehaviourPunCallbacks
         explosionScript.StartExplosion(targetType);
     }
 
-    public void RandomChangePlayerColor()
+    public void ColorChangePanelOpenOrClose(bool a)
+    {
+        colorChangePanel.SetActive(a);
+
+        if (!a) return;
+        R = 255;
+        G = 255;
+        B = 255;
+        NormalColorOpenOrClose(true);
+        PremiumColorOpenOrClose(false);
+    }
+
+    public void NormalColorOpenOrClose(bool a)
+    {
+        colorNormalPanel.SetActive(a);
+
+        if (!a) return;
+        playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+    }
+    public void PremiumColorOpenOrClose(bool a)
+    {
+        colorPremiumPanel.SetActive(a);
+
+        if (!a) return;
+        colorRSlider.value = playerColors[0] / 255f;
+        colorGSlider.value = playerColors[1] / 255f;
+        colorBSlider.value = playerColors[2] / 255f;
+    }
+    public void NormalColorChange()
     {
         R = Random.Range(0, 256);
         G = Random.Range(0, 256);
         B = Random.Range(0, 256);
-        //Color dd = new Color(R, G, B, 1);
-        //myplayer.GetComponent<SpriteRenderer>().color = dd;
-        playerColors[0] = Mathf.Round(R);
-        playerColors[1] = Mathf.Round(G);
-        playerColors[2] = Mathf.Round(B);
 
-        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
+        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
+        //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
     }
 
     void PlayerColorTest()
@@ -750,7 +777,17 @@ public class GameManager : MonoBehaviourPunCallbacks
     float R;
     float G;
     float B;
-    public void PremiumColorChange()
+    public void NormalColorChangeComplete()
+    {
+        playerColors[0] = Mathf.Round(R);
+        playerColors[1] = Mathf.Round(G);
+        playerColors[2] = Mathf.Round(B);
+
+        lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+
+        colorChangePanel.SetActive(false);
+    }
+    public void PremiumColorChangeComplete()
     {
         R = colorRSlider.value * 255;
         G = colorGSlider.value * 255;
@@ -760,10 +797,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerColors[1] = Mathf.Round(G);
         playerColors[2] = Mathf.Round(B);
 
-        myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, playerColors[0], playerColors[1], playerColors[2]);
+        lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+        //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, playerColors[0], playerColors[1], playerColors[2]);
 
-        premiumColorPanel.SetActive(false);
+        colorChangePanel.SetActive(false);
     }
+
 
     public void FinalStageClear()
     {
@@ -934,15 +973,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         codyParticlePanel.SetActive(false);
         codyBodyPanel.SetActive(true);
     }
-    public void PremiumColorOpenOrClose(bool a)
-    {
-        premiumColorPanel.SetActive(a);
 
-        if (!a) return;
-        colorRSlider.value = playerColors[0] / 255f;
-        colorGSlider.value = playerColors[1] / 255f;
-        colorBSlider.value = playerColors[2] / 255f;
-    }
+
+
 
     public void OpenMap(bool a)
     {
