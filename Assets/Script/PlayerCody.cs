@@ -6,8 +6,7 @@ using Photon.Realtime;
 
 public class PlayerCody : MonoBehaviourPun
 {
-    [SerializeField] int bodyCode;
-    [SerializeField] Sprite[] bodyCodys;
+    [SerializeField] Player playerScript;
     [SerializeField] ParticleSystem[] particles;
 
     [SerializeField] SpriteRenderer spriteRenderer;
@@ -17,12 +16,14 @@ public class PlayerCody : MonoBehaviourPun
 
 
     [PunRPC]
-    void CodyRework(int body, int particle)
+    void CodyRework(int main,int body, int particle)
     {
         for (int i = 0; i < particles.Length; i++)
             particles[i].Stop();
 
-        spriteRenderer.sprite = bodyCodys[body];
+        spriteRenderer.sprite = playerScript.GM.lobbyCodyDummy[body];
+        playerScript.gameObject.GetComponent<SpriteRenderer>().sprite = playerScript.GM.lobbyCodyMainDummy[main];
+
         if(particle > -1)
         particles[particle].Play();
     }

@@ -254,6 +254,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         Spawn();
+        
         Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
 
         Debug.Log(map[roomOption]);
@@ -298,15 +299,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         Player player = myPlayer.GetComponent<Player>();
 
+        //if(PhotonNetwork.IsMasterClient)
+        //player.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
+
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
         
         player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
-        myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
+        //myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
     {
-        Invoke("RoomRenewal", 0.1f);
         RoomRenewal();
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
@@ -341,6 +344,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (pv.IsMine)
             myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+
+        if(myPlayer != null)
+        myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
         listText.text = "";//player list text reset
 
@@ -454,7 +460,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
         GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
 
-        //OP.PrePoolInstantiate();
+
 
 
         respawnPanel.SetActive(false);

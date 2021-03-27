@@ -63,7 +63,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int damageStack;
 
     [Header("PlayerCody")]
-    [SerializeField] PhotonView codyPv;
+    public PhotonView codyPv;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -128,7 +128,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerPoint.SetActive(true);
 
-            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
+            //codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
 

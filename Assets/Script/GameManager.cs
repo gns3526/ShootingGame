@@ -55,6 +55,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject finalStageClearPanel;
 
     [SerializeField] GameObject codyPanel;
+    [SerializeField] GameObject codyMainPanel;
     [SerializeField] GameObject codyBodyPanel;
     [SerializeField] GameObject codyParticlePanel;
     [SerializeField] GameObject colorChangePanel;
@@ -97,8 +98,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text weaponBulletText;
     public Image weaponShotButtonImage;
 
-    [Header("ColorPanel")]
+    [Header("CodyPanel")]
     [SerializeField] Image lobbyPlayer;
+    public Sprite[] lobbyCodyDummy;
+    public Sprite[] lobbyCodyMainDummy;
+    [SerializeField] ParticleSystem[] lobbyParticleDummy;
+
     [SerializeField] Slider colorRSlider;
     [SerializeField] Slider colorGSlider;
     [SerializeField] Slider colorBSlider;
@@ -114,8 +119,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Player[] allPlayers;
 
     public float[] playerColors;
+    public int codyMainCode;
     public int codyBodyCode;
-
     public int codyParticleCode;
 
     public int playerLv;
@@ -753,6 +758,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         colorGSlider.value = playerColors[1] / 255f;
         colorBSlider.value = playerColors[2] / 255f;
     }
+
+    public void CodyOpenOrClose(bool a)
+    {
+        codyPanel.SetActive(a);
+        if (!a) return;
+        codyParticlePanel.SetActive(false);
+        codyBodyPanel.SetActive(true);
+    }
+
+    public void CodyMainOpenOrClose(bool a)
+    {
+        codyMainPanel.SetActive(a);
+    }
+
     public void NormalColorChange()
     {
         R = Random.Range(0, 256);
@@ -801,6 +820,29 @@ public class GameManager : MonoBehaviourPunCallbacks
         //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, playerColors[0], playerColors[1], playerColors[2]);
 
         colorChangePanel.SetActive(false);
+    }
+
+    public void CodyOnClick(int index)
+    {
+        codyBodyCode = index;
+        lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[index];
+        //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index, codyParticleCode);
+    }
+
+    public void ParticleOnClick(int index)
+    {
+        codyParticleCode = index;
+        for (int i = 0; i < lobbyParticleDummy.Length; i++)
+            lobbyParticleDummy[i].Stop();
+        lobbyParticleDummy[index].Play();
+
+        //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, codyBodyCode, index);
+    }
+
+    public void CodyMainOnClick(int index)
+    {
+        codyMainCode = index;
+        lobbyPlayer.sprite = lobbyCodyMainDummy[index];
     }
 
 
@@ -952,27 +994,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             codyParticlePanel.SetActive(true);
         }
     }
-    public void CodyOnClick(int index)
-    {
-        codyBodyCode = index;
 
-        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index, codyParticleCode);
-    }
-    public void ParticleOnClick(int index)
-    {
-        codyParticleCode = index;
-
-        myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, codyBodyCode, index);
-    }
-
-
-    public void CodyOpenOrClose(bool a)
-    {
-        codyPanel.SetActive(a);
-        if (!a) return;
-        codyParticlePanel.SetActive(false);
-        codyBodyPanel.SetActive(true);
-    }
 
 
 
