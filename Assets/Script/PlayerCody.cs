@@ -9,8 +9,8 @@ public class PlayerCody : MonoBehaviourPun
     [SerializeField] Player playerScript;
     [SerializeField] ParticleSystem[] particles;
 
-    [SerializeField] SpriteRenderer spriteRenderer;
-
+    [SerializeField] SpriteRenderer bodySpriteRenderer;
+    [SerializeField] SpriteRenderer mainSpriteRenderer;
 
     [SerializeField] PhotonView pv;
 
@@ -21,8 +21,8 @@ public class PlayerCody : MonoBehaviourPun
         for (int i = 0; i < particles.Length; i++)
             particles[i].Stop();
 
-        spriteRenderer.sprite = playerScript.GM.lobbyCodyDummy[body];
-        playerScript.gameObject.GetComponent<SpriteRenderer>().sprite = playerScript.GM.lobbyCodyMainDummy[main];
+        bodySpriteRenderer.sprite = playerScript.GM.lobbyCodyDummy[body];
+        mainSpriteRenderer.sprite = playerScript.GM.lobbyCodyMainDummy[main];
 
         if(particle > -1)
         particles[particle].Play();

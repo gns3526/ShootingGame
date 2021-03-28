@@ -71,7 +71,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] GameObject boomEffect;
 
     [SerializeField] Animator ani;
-    [SerializeField] SpriteRenderer sprite;
+    [SerializeField] SpriteRenderer mainSprite;
     [SerializeField] Rigidbody2D rigid;
 
     public GameManager GM;
@@ -128,7 +128,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerPoint.SetActive(true);
 
-            //codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
+            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
 
@@ -619,7 +619,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [PunRPC]
     void ChangeColorRPC(float r,float g, float b)
     {
-        GetComponent<SpriteRenderer>().color = new Color(r/255f, g/255f, b/255f, 1);
+        mainSprite.color = new Color(r/255f, g/255f, b/255f, 1);
     }
 
 

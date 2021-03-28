@@ -36,6 +36,12 @@ public class AbilityManager : MonoBehaviour
     public void AbilityOpenOrClose(bool a)
     {
         abilityPanel.SetActive(a);
+        if (a)
+        {
+            GM.codyPanel.SetActive(false);
+            GM.codyMainPanel.SetActive(false);
+            GM.colorChangePanel.SetActive(false);
+        }
         CanResetAbilityCheck();
         needCoinText.text = needCoinForAbility.ToString();
         if (!a) return;

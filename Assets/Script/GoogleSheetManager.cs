@@ -15,7 +15,8 @@ public class GoogleData
 
 public class GoogleSheetManager : MonoBehaviour
 {
-    const string URL = "https://script.google.com/macros/s/AKfycbxb9A5zOuAAg8-8n_9B9g6zfWMBxWnjiZvAs7KtjMhcYezjiqF8ZdIiCI9GSzYW8vI/exec";
+                        
+    const string URL = "https://script.google.com/macros/s/AKfycbxmh_fjXNntkx3oDZTLYCBmCEy_QUgc2KH8pEOfFB42o9dgANsDvxV9hg1CyLpTYF8L/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -70,6 +71,7 @@ public class GoogleSheetManager : MonoBehaviour
             makeNickComplete = false;
 
             NM.Connect();
+            GM.LobbyPlayerRework();
         }
     }
     public bool CheckingSpecialText(string txt)
@@ -281,7 +283,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+        form.AddField("playerLv", GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2]);
 
         StartCoroutine(Post(form));
@@ -334,20 +336,21 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.exp = float.Parse(result[1]);
                 GM.maxExp = float.Parse(result[2]);
 
-                GM.codyBodyCode = int.Parse(result[3]);
-                GM.codyParticleCode = int.Parse(result[4]);
+                GM.codyMainCode = int.Parse(result[3]);
+                GM.codyBodyCode = int.Parse(result[4]);
+                GM.codyParticleCode = int.Parse(result[5]);
 
-                GM.abilityCode[0] = int.Parse(result[5]);
-                GM.abilityCode[1] = int.Parse(result[6]);
-                GM.abilityCode[2] = int.Parse(result[7]);
+                GM.abilityCode[0] = int.Parse(result[6]);
+                GM.abilityCode[1] = int.Parse(result[7]);
+                GM.abilityCode[2] = int.Parse(result[8]);
 
-                GM.abilityValue[0] = int.Parse(result[8]);
-                GM.abilityValue[1] = int.Parse(result[9]);
-                GM.abilityValue[2] = int.Parse(result[10]);
+                GM.abilityValue[0] = int.Parse(result[9]);
+                GM.abilityValue[1] = int.Parse(result[10]);
+                GM.abilityValue[2] = int.Parse(result[11]);
 
-                AM.abilityGrade[0] = int.Parse(result[11]);
-                AM.abilityGrade[1] = int.Parse(result[12]);
-                AM.abilityGrade[2] = int.Parse(result[13]);
+                AM.abilityGrade[0] = int.Parse(result[12]);
+                AM.abilityGrade[1] = int.Parse(result[13]);
+                AM.abilityGrade[2] = int.Parse(result[14]);
                 movePlayerinfoComplete = true;
             }
         }
