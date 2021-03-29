@@ -113,6 +113,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Player")]
     [SerializeField] Transform playerPos;
     public GameObject myplayer;
+    public Player myplayerScript;
     [SerializeField] float respawnCoolTIme;
 
     public Player[] alivePlayers;
@@ -737,9 +738,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (a)
         {
-            R = 255;
-            G = 255;
-            B = 255;
+            playerColorTest.sprite = lobbyCodyMainDummy[codyMainCode];
+            playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
             colorNormalPanel.SetActive(true);
             colorPremiumPanel.SetActive(false);
 
@@ -753,8 +753,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         colorNormalPanel.SetActive(a);
 
-        if (!a) return;
-        playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
     }
     public void PremiumColorOpenOrClose(bool a)
     {
@@ -895,13 +893,21 @@ public class GameManager : MonoBehaviourPunCallbacks
         GiveExp(ExpAmount);
     }
 
-    void GiveExp(int ExpAmount)
+    void GiveExp(float ExpAmount)
     {
         if(expGIveOnce)
         {
-            getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
+            
+            if(myplayerScript.expAmountPer == 100)
+                getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
+            else
+            {
+                float finalExpAmount = Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
+                float bonusExpAmount = finalExpAmount - ExpAmount;
+                getExpAmountText.text = "|능력 적용중|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
+            }
             expGIveOnce = false;
-            exp += ExpAmount;
+            exp += Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
         }
 
         if(exp >= maxExp)
@@ -921,8 +927,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator GiveGold(int GoldAmount)
     {
         yield return new WaitForSeconds(2);
-        money += GoldAmount;
-        getGoldAmountText.text = "+" + GoldAmount.ToString() + "Coin";
+        if (myplayerScript.goldAmountPer == 100)
+            getGoldAmountText.text = "+" + GoldAmount.ToString() + "Exp";
+        else
+        {
+            float finalGoleAmount = Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
+            float bonusGoldAmount = finalGoleAmount - GoldAmount;
+            getGoldAmountText.text = "|능력 적용중|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Exp";
+        }
+        money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();
     }
     public void GoToLobby()

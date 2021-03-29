@@ -34,6 +34,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int followerShotCoolReduce;
     public int penetratePer;
     public int finalDamagePer;
+    public int goldAmountPer;
+    public int expAmountPer;
 
     public bool gotSpecialWeaponAbility;
     public int weaponCode;

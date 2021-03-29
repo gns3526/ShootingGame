@@ -6308,6 +6308,8 @@ MonoBehaviour:
   followerShotCoolReduce: 100
   penetratePer: 30
   finalDamagePer: 100
+  goldAmountPer: 100
+  expAmountPer: 100
   gotSpecialWeaponAbility: 0
   weaponCode: 1
   toTalChargeTime: 2

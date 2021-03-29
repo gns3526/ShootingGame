@@ -389,7 +389,7 @@ MonoBehaviour:
   patternIndex: 0
   maxPattern: 3
   reVive: 0
-  health: 1000
+  health: 1
   maxHealth: 1000
   sprites:
   - {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}
