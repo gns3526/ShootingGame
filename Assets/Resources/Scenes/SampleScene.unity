@@ -6563,7 +6563,7 @@ MonoBehaviour:
   - tag: EnemyBullet3
     prefab: {fileID: 5808032221045866145, guid: 0e9ccb86a8c8c064b89cc599b970ecb7,
       type: 3}
-    size: 100
+    size: 200
     isMyBullet: 0
   - tag: EnemyBullet4
     prefab: {fileID: 5808032221045866145, guid: 96268978d742ba040bc14aaf0e38bed0,
@@ -6692,6 +6692,11 @@ MonoBehaviour:
     prefab: {fileID: 3646381594106627784, guid: 1d73358ee98166141a6932b2395fa16b,
       type: 3}
     size: 1
+    isMyBullet: 0
+  - tag: LaserMiddle
+    prefab: {fileID: 5728943140913656555, guid: 5f50f81692b7d7148be0d06b0a8c9c39,
+      type: 3}
+    size: 5
     isMyBullet: 0
   allOfPools:
   - {fileID: 0}

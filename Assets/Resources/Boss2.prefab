@@ -360,10 +360,12 @@ MonoBehaviour:
   EB: {fileID: 3783629525877620195}
   GM: {fileID: 0}
   curPatternCount: 0
-  MaxPatternCount: 1400000064000000
+  MaxPatternCount: 14000000640000000a0000000a000000
   fireCoolTime:
   - 0.08
   - 1
+  - 0.6
+  - 0.5
   stopCool: 2.5
   canMove: 0
   moveSpeed: 0.02

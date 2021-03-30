@@ -29,6 +29,8 @@ public class Boss2 : MonoBehaviour
     {
         canMove = true;
         EB.godMode = true;
+        curPatternCount = 0;
+        EB.patternIndex = 0;
         GM = FindObjectOfType<GameManager>();
 
         if (!PhotonNetwork.IsMasterClient) return;
@@ -99,10 +101,10 @@ public class Boss2 : MonoBehaviour
                 StartCoroutine(Pattern2());
                 break;
             case 2:
-                StartCoroutine(Pattern1());
+                StartCoroutine(Pattern3());
                 break;
             case 3:
-                StartCoroutine(Pattern1());
+                StartCoroutine(Pattern4());
                 break;
         }
     }
@@ -181,37 +183,40 @@ public class Boss2 : MonoBehaviour
 
     IEnumerator Pattern3()
     {
-        float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        int randomAngle1 = Random.Range(-5, 6);
-        int randomAngle2 = Random.Range(-5, 6);
-        int randomAngle3 = Random.Range(-5, 6);
-        int randomAngle4 = Random.Range(-5, 6);
-        int randomAngle5 = Random.Range(-5, 6);
-        int randomAngle6 = Random.Range(-5, 6);
-        int randomAngle7 = Random.Range(-5, 6);
-        int randomAngle8 = Random.Range(-5, 6);
+        
+        int randomAngle = Random.Range(0, 361);
 
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle1 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle2 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle3 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle4 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle5 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle6 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle7 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
-
-        EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle8 + 90)).GetComponent<BulletScript>().bulletSpeed = 0.2f;
+        for (int i = 0; i < 40; i++)
+        {
+            EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(i * 9 + randomAngle, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.08f;
+        }
 
         curPatternCount++;
-        yield return new WaitForSeconds(fireCoolTime[1]);
+        yield return new WaitForSeconds(fireCoolTime[2]);
         if (curPatternCount < MaxPatternCount[EB.patternIndex] && EB.canFire)
         {
-            StartCoroutine(Pattern2());
+            StartCoroutine(Pattern3());
+        }
+        else
+        {
+            curPatternCount = 0;
+            StartCoroutine(Rest(2));
+        }
+    }
+    IEnumerator Pattern4()
+    {
+        
+        int randomAngle = Random.Range(0, 361);
+
+        EB.OP.PoolInstantiate("LaserMiddle", target.transform.position, Quaternion.Euler(0, 0, randomAngle));
+
+
+
+        curPatternCount++;
+        yield return new WaitForSeconds(fireCoolTime[3]);
+        if (curPatternCount < MaxPatternCount[EB.patternIndex] && EB.canFire)
+        {
+            StartCoroutine(Pattern4());
         }
         else
         {
@@ -229,7 +234,7 @@ public class Boss2 : MonoBehaviour
         {
             EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(i * 9, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.08f;
         }
-
+        if(EB.patternIndex <= 2)
         StartCoroutine(Attack1());
     }
 }

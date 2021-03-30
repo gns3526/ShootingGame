@@ -969,6 +969,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(true);
+        spawnEnd = true;
         isPlaying = false;
     }
     [PunRPC]

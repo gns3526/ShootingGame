@@ -75,8 +75,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (!GM.isPlaying)
             {
-                pv.RPC("Hit", RpcTarget.All, 10000f);
+                //pv.RPC("Hit", RpcTarget.All, 10000f);
                 //Hit(10000);
+                OP.PoolDestroy(gameObject);
             }
         }
 
