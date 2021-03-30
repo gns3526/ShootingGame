@@ -64,9 +64,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isFilter;
     Hashtable cc;
 
-    [Header("PlayerInfo")]
+    [Header("PlayerIcon")]
     public int playerIconCode;
 
+    [SerializeField] int iconCycleNum;
+    public Image loginPlayerIconImage;
 
     [Header("Others")]
     List<RoomInfo> myList = new List<RoomInfo>();
@@ -117,6 +119,18 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
+
+    public void PlayerIconChangeOnLogin(int num)//-1 ? 1
+    {
+        if (iconCycleNum + num == -1)
+            iconCycleNum = icons.Length - 1;
+        else if (iconCycleNum + num == icons.Length)
+            iconCycleNum = 0;
+        else
+            iconCycleNum = iconCycleNum + num;
+        loginPlayerIconImage.sprite = icons[iconCycleNum];
+        playerIconCode = iconCycleNum;
+    }
 
     public override void OnConnectedToMaster()//2
     {

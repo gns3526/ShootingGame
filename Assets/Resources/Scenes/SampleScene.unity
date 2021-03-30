@@ -39113,13 +39113,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418567087}
-        m_MethodName: MakeNickOnClick
-        m_Mode: 1
+      - m_Target: {fileID: 1905378082}
+        m_MethodName: PlayerIconChangeOnLogin
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: 1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -58880,13 +58880,13 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1418567087}
-        m_MethodName: MakeNickOnClick
-        m_Mode: 1
+      - m_Target: {fileID: 1905378082}
+        m_MethodName: PlayerIconChangeOnLogin
+        m_Mode: 3
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
           m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
+          m_IntArgument: -1
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
@@ -69890,16 +69890,42 @@ MonoBehaviour:
   chatAni: {fileID: 612521988}
   isChating: 0
   icons:
-  - {fileID: 21300000, guid: 59e029e644bfd9d468eb73472f8cc4a8, type: 3}
-  - {fileID: 21300000, guid: 181f11c7917a1db48b6b33f33b98c37f, type: 3}
-  - {fileID: 21300000, guid: 80aaa94ca0eccbb4ea5ca8ebf2bf8656, type: 3}
-  - {fileID: 21300000, guid: 7a7c7023f6574344d8b5f89184e1caeb, type: 3}
+  - {fileID: 21300000, guid: 90f04fb5d3660fc48a3e5a42c05d3335, type: 3}
+  - {fileID: 21300000, guid: bb33ea97b72936d46a7dc0f44f57ef13, type: 3}
+  - {fileID: 21300000, guid: fd3ce7811d6dddc43bdd3207d164f8d1, type: 3}
+  - {fileID: 21300000, guid: 125d59e8b5e3c734d9fe85a07fb3b8ed, type: 3}
+  - {fileID: 21300000, guid: 8e95e01ee94a3214c92698bafee758cf, type: 3}
+  - {fileID: 21300000, guid: 1edb8bbc9fed9da439714f6506f1c866, type: 3}
+  - {fileID: 21300000, guid: 328a5caef98f4544fbda1ffef9840e1a, type: 3}
+  - {fileID: 21300000, guid: 5e49d35729f7ea844bc607ec5365f626, type: 3}
+  - {fileID: 21300000, guid: 7ef6daff48b26ee4588234484614152d, type: 3}
+  - {fileID: 21300000, guid: 8ee4a7b0d18aa1947b47ba3aae86343a, type: 3}
+  - {fileID: 21300000, guid: 44fa5a7c00d3f4d4ab15d2120c5faf3b, type: 3}
+  - {fileID: 21300000, guid: b78ab427957190b48a38aff3931a36f0, type: 3}
+  - {fileID: 21300000, guid: 63f9bd970b0c1b6488468ee27eb2432a, type: 3}
+  - {fileID: 21300000, guid: 5c18832c709af374b951bc181535a659, type: 3}
+  - {fileID: 21300000, guid: e76fa6e53c0c86b4a92763748a31a8c0, type: 3}
+  - {fileID: 21300000, guid: 6f40ed12a4cce1d4f88eb6b04ba72c6b, type: 3}
+  - {fileID: 21300000, guid: 6ed01e98ac39f49438ae65ef2c736a4c, type: 3}
+  - {fileID: 21300000, guid: 19eb67187c130ee42959769c70f6e5dd, type: 3}
+  - {fileID: 21300000, guid: f6b7fb16aa13a7b418156874838c3735, type: 3}
+  - {fileID: 21300000, guid: 97f5fcb524ba1164fb4b7ae6946571ae, type: 3}
+  - {fileID: 21300000, guid: 30964cee066d330488142d514644ac19, type: 3}
+  - {fileID: 21300000, guid: 14dd899afa498da4c84c75adf5e97dfe, type: 3}
+  - {fileID: 21300000, guid: 2407fae9874812d4991658d63483f317, type: 3}
+  - {fileID: 21300000, guid: 3e192c4fcc5856544813aaf94a0e93be, type: 3}
+  - {fileID: 21300000, guid: f1d985e7d30bc3746a6bc6355b784451, type: 3}
+  - {fileID: 21300000, guid: f76fcb94ef65341478ede2c6893a01bd, type: 3}
+  - {fileID: 21300000, guid: 33da2ec77fa575241b6a672e45d1dc4c, type: 3}
+  - {fileID: 21300000, guid: ee28e252923e720428041ee8a83a132a, type: 3}
   img: {fileID: 1401485383}
   curInfoText: {fileID: 0}
   lobbymapinput: {fileID: 41941407}
   roomOption: m
   isFilter: 0
-  playerIconCode: 2
+  playerIconCode: 0
+  iconCycleNum: 0
+  loginPlayerIconImage: {fileID: 1401485383}
   curPage: {fileID: 1303350349}
   myPlayer: {fileID: 0}
   reconnectPanel: {fileID: 1504509766}
