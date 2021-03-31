@@ -16,7 +16,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbwJoq0EWAQ4N3nxE5ue1X1KAwV16ICLzeUOOJMmRc9_u9GGtk90f5GIeNIh2tWe85vw/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxt0AJ0FaSOFLfjfxeBdJKMdRMTx_RPJUmUEGdRmDw4pQ1evCn5O1GWC2Mr4Nzwezjj/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -30,6 +30,7 @@ public class GoogleSheetManager : MonoBehaviour
     [Header("Panel")]
     public GameObject loadingPanel;
     [SerializeField] GameObject registerPanel;
+    [SerializeField] GameObject logOutAskPanel;
 
     [Header("Register")]
     bool once;
@@ -283,7 +284,7 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money +"." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2]);
 
         StartCoroutine(Post(form));
@@ -338,21 +339,23 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.exp = float.Parse(result[2]);
                 GM.maxExp = float.Parse(result[3]);
 
-                GM.codyMainCode = int.Parse(result[4]);
-                GM.codyBodyCode = int.Parse(result[5]);
-                GM.codyParticleCode = int.Parse(result[6]);
+                GM.money = int.Parse(result[4]);
 
-                GM.abilityCode[0] = int.Parse(result[7]);
-                GM.abilityCode[1] = int.Parse(result[8]);
-                GM.abilityCode[2] = int.Parse(result[9]);
+                GM.codyMainCode = int.Parse(result[5]);
+                GM.codyBodyCode = int.Parse(result[6]);
+                GM.codyParticleCode = int.Parse(result[7]);
 
-                GM.abilityValue[0] = int.Parse(result[10]);
-                GM.abilityValue[1] = int.Parse(result[11]);
-                GM.abilityValue[2] = int.Parse(result[12]);
+                GM.abilityCode[0] = int.Parse(result[8]);
+                GM.abilityCode[1] = int.Parse(result[9]);
+                GM.abilityCode[2] = int.Parse(result[10]);
 
-                AM.abilityGrade[0] = int.Parse(result[13]);
-                AM.abilityGrade[1] = int.Parse(result[14]);
-                AM.abilityGrade[2] = int.Parse(result[15]);
+                GM.abilityValue[0] = int.Parse(result[11]);
+                GM.abilityValue[1] = int.Parse(result[12]);
+                GM.abilityValue[2] = int.Parse(result[13]);
+
+                AM.abilityGrade[0] = int.Parse(result[14]);
+                AM.abilityGrade[1] = int.Parse(result[15]);
+                AM.abilityGrade[2] = int.Parse(result[16]);
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;
             }
@@ -402,6 +405,25 @@ public class GoogleSheetManager : MonoBehaviour
             }
         }
 
+    }
+
+    public void LogOutOpenOrClose(bool a)
+    {
+        logOutAskPanel.SetActive(a);
+    }
+
+    public void LogOut()
+    {
+        NM.connectPanel.SetActive(true);
+        GM.loginPanel.SetActive(true);
+
+        loadingPanel.SetActive(true);
+        idInput.text = "";
+        PassInput.text = "";
+        ColorSave();
+        SaveLvInfo();
+        debuggingText.text = "로그아웃 완료";
+        loadingPanel.SetActive(false);
     }
 
     private void OnApplicationQuit()

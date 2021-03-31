@@ -20,7 +20,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Animator StartButtonAni;
 
     public InputField nickNameInput;
-    [SerializeField] GameObject connectPanel;
+    public GameObject connectPanel;
     [SerializeField] GameObject respawnPanel;
 
     [SerializeField] Text playerAmountText;
@@ -182,7 +182,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         for (int i = 0; i < roomCelBtn.Length; i++)
         {
             Debug.Log("00");
-            roomCelBtn[i].interactable = (multiple + i < myList.Count) ? true : false;
+            roomCelBtn[i].gameObject.SetActive((multiple + i < myList.Count) ? true : false);
             roomCelBtn[i].transform.GetChild(0).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].Name : "";//방제목텍스트 변경
             roomCelBtn[i].transform.GetChild(1).GetComponent<Text>().text = (multiple + i < myList.Count) ? myList[multiple + i].PlayerCount + "/" + myList[multiple + i].MaxPlayers : "";
             if (roomCelBtn[i].transform.GetChild(1).GetComponent<Text>().text == "")

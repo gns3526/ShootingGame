@@ -169,6 +169,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] bool mapFocus;
     [SerializeField] RectTransform wordMap;
     [SerializeField] Vector3[] mapPos;
+    [SerializeField] GameObject mapTouchBarrier;
 
     public Sprite[] mapThumnails;
     public string[] mapNames;
@@ -462,11 +463,12 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (mapFocus)
         {
-            wordMap.transform.localPosition = Vector3.Lerp(wordMap.transform.localPosition, mapPos[mapCode], Time.deltaTime * 20);
+            wordMap.transform.localPosition = Vector3.Lerp(wordMap.transform.localPosition, mapPos[mapCode], Time.deltaTime * 10);
             if (Mathf.Abs(wordMap.transform.localPosition.x - mapPos[mapCode].x) < 1 && Mathf.Abs(wordMap.transform.localPosition.y - mapPos[mapCode].y) < 1)
             {
                 wordMap.transform.localPosition = mapPos[mapCode];
                 mapFocus = false;
+                mapTouchBarrier.SetActive(false);
             }
         }
 
@@ -1050,6 +1052,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ClickMapPoint(int code)
     {
         mapCode = code;
+        mapTouchBarrier.SetActive(true);
         mapFocus = true;
 
         mapNameinfoText.text = mapNames[code];
