@@ -50,55 +50,55 @@ public class AbilityManager : MonoBehaviour
             switch (GM.abilityCode[i])
             {
                 case 0:
-                    abilityText[i].text = "움직임 속도" + GM.abilityValue[i] + "증가";
+                    abilityText[i].text = "Movement speed" + GM.abilityValue[i];
                     break;
                 case 1:
-                    abilityText[i].text = "공격력" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Atk" + GM.abilityValue[i] + "%";
                     break;
                 case 2:
-                    abilityText[i].text = "최대 체력" + GM.abilityValue[i] + "증가";
+                    abilityText[i].text = "Maximum health" + GM.abilityValue[i];
                     break;
                 case 3:
-                    abilityText[i].text = "피격시 무적시간" + GM.abilityValue[i] + "초 증가";
+                    abilityText[i].text = "Invincible time when hit" + GM.abilityValue[i] + "Second";
                     break;
                 case 4:
-                    abilityText[i].text = "공격속도" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Speed of attack" + GM.abilityValue[i] + "%";
                     break;
                 case 5:
-                    abilityText[i].text = "공격력" + GM.abilityValue[i] + "증가";
+                    abilityText[i].text = "Atk" + GM.abilityValue[i];
                     break;
                 case 6:
-                    abilityText[i].text = "최종데미지" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Final damage" + GM.abilityValue[i] + "%";
                     break;
                 case 7:
-                    abilityText[i].text = "일반몬스터 공격력" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "NormalMonster Atk" + GM.abilityValue[i] + "%";
                     break;
                 case 8:
-                    abilityText[i].text = "보스몬스터 공격력" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "BossMonster Atk" + GM.abilityValue[i] + "%";
                     break;
                 case 9:
-                    abilityText[i].text = "크리티컬 확률" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Critical probability" + GM.abilityValue[i] + "%";
                     break;
                 case 10:
-                    abilityText[i].text = "크리티컬 데미지" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Critical damage" + GM.abilityValue[i] + "%";
                     break;
                 case 11:
-                    abilityText[i].text = "회피확률" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Avoidance probability" + GM.abilityValue[i] + "%";
                     break;
                 case 12:
-                    abilityText[i].text = "펫 데미지" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Pet Damage" + GM.abilityValue[i] + "%";
                     break;
                 case 13:
-                    abilityText[i].text = "펫 공격속도" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Pet Speed of attack" + GM.abilityValue[i] + "%";
                     break;
                 case 14:
-                    abilityText[i].text = "총알관통 확률" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Bullet penetration probability" + GM.abilityValue[i] + "%";
                     break;
                 case 15:
-                    abilityText[i].text = "골드 획등량" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Gold earned Amount" + GM.abilityValue[i] + "%";
                     break;
                 case 16:
-                    abilityText[i].text = "경험치 획득량" + GM.abilityValue[i] + "% 증가";
+                    abilityText[i].text = "Exp earned Amount" + GM.abilityValue[i] + "%";
                     break;
             }
             switch (abilityGrade[i])
@@ -127,7 +127,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.SpeedValue[0], abilityPer.SpeedValue[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "움직임 속도" + randomValue + "증가";
+                abilityText[i].text = "Movement speed" + randomValue;
                 int a = abilityPer.SpeedValue[1] - abilityPer.SpeedValue[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.SpeedValue[0] + b)
@@ -151,7 +151,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.DamagePerValue[0], abilityPer.DamagePerValue[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "공격력" + randomValue + "% 증가";
+                abilityText[i].text = "Atk" + randomValue + "%";
                 int a = abilityPer.DamagePerValue[1] - abilityPer.DamagePerValue[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.DamagePerValue[0] + b)
@@ -175,7 +175,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.MaxHpValue[0], abilityPer.MaxHpValue[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "최대 체력" + randomValue + "증가";
+                abilityText[i].text = "Maximum health" + randomValue;
 
                 if (randomValue == 1)
                 {
@@ -198,7 +198,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.GodTime[0], abilityPer.GodTime[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "피격시 무적시간" + randomValue + "초 증가";
+                abilityText[i].text = "Invincible time when hit" + randomValue + "Second";
                 int a = abilityPer.GodTime[1] - abilityPer.GodTime[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue == 1)
@@ -222,7 +222,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.AttackSpeed[0], abilityPer.AttackSpeed[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "공격속도" + randomValue + "% 증가";
+                abilityText[i].text = "Speed of attack" + randomValue + "%";
                 int a = abilityPer.AttackSpeed[1] - abilityPer.AttackSpeed[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.AttackSpeed[0] + b)
@@ -246,7 +246,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.DamageValue[0], abilityPer.DamageValue[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "공격력" + randomValue + "증가";
+                abilityText[i].text = "Atk" + randomValue;
                 int a = abilityPer.DamageValue[1] - abilityPer.DamageValue[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.DamageValue[0] + b)
@@ -270,7 +270,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.FinalDamagePerValue[0], abilityPer.FinalDamagePerValue[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "최종데미지" + randomValue + "% 증가";
+                abilityText[i].text = "Final damage" + randomValue + "%";
                 int a = abilityPer.FinalDamagePerValue[1] - abilityPer.FinalDamagePerValue[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.FinalDamagePerValue[0] + b)
@@ -294,7 +294,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.NormalMonsterDamagePer[0], abilityPer.NormalMonsterDamagePer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "일반몬스터 공격력" + randomValue + "% 증가";
+                abilityText[i].text = "NormalMonster Atk" + randomValue + "%";
                 int a = abilityPer.NormalMonsterDamagePer[1] - abilityPer.NormalMonsterDamagePer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.NormalMonsterDamagePer[0] + b)
@@ -318,7 +318,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.bossMonsterDamagePer[0], abilityPer.bossMonsterDamagePer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "보스몬스터 공격력" + randomValue + "% 증가";
+                abilityText[i].text = "BossMonster Atk" + randomValue + "%";
                 int a = abilityPer.bossMonsterDamagePer[1] - abilityPer.bossMonsterDamagePer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.bossMonsterDamagePer[0] + b)
@@ -342,7 +342,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.CriticalPer[0], abilityPer.CriticalPer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "크리티컬 확률" + randomValue + "% 증가";
+                abilityText[i].text = "Critical probability" + randomValue + "%";
                 int a = abilityPer.CriticalPer[1] - abilityPer.CriticalPer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.CriticalPer[0] + b)
@@ -366,7 +366,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.CriticalDmgPer[0], abilityPer.CriticalDmgPer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "크리티컬 데미지" + randomValue + "% 증가";
+                abilityText[i].text = "Critical damage" + randomValue + "%";
                 int a = abilityPer.CriticalDmgPer[1] - abilityPer.CriticalDmgPer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.CriticalDmgPer[0] + b)
@@ -390,7 +390,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.MissPer[0], abilityPer.MissPer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "회피확률" + randomValue + "% 증가";
+                abilityText[i].text = "Avoidance probability" + randomValue + "%";
                 int a = abilityPer.MissPer[1] - abilityPer.MissPer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.MissPer[0] + b)
@@ -414,7 +414,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.PetDamagePer[0], abilityPer.PetDamagePer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "펫 데미지" + randomValue + "% 증가";
+                abilityText[i].text = "Pet Damage" + randomValue + "%";
                 int a = abilityPer.PetDamagePer[1] - abilityPer.PetDamagePer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.PetDamagePer[0] + b)
@@ -438,7 +438,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.PetAttackSpeed[0], abilityPer.PetAttackSpeed[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "펫 공격속도" + randomValue + "% 증가";
+                abilityText[i].text = "Pet Speed of attack" + randomValue + "%";
                 int a = abilityPer.PetAttackSpeed[1] - abilityPer.PetAttackSpeed[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.PetAttackSpeed[0] + b)
@@ -462,7 +462,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.BulletPenetratePer[0], abilityPer.BulletPenetratePer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "총알관통 확률" + randomValue + "% 증가";
+                abilityText[i].text = "Bullet penetration probability" + randomValue + "%";
                 int a = abilityPer.BulletPenetratePer[1] - abilityPer.BulletPenetratePer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.BulletPenetratePer[0] + b)
@@ -486,7 +486,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.GoldAmountPer[0], abilityPer.GoldAmountPer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "골드 획등량" + randomValue + "% 증가";
+                abilityText[i].text = "Gold earned Amount" + randomValue + "%";
                 int a = abilityPer.GoldAmountPer[1] - abilityPer.GoldAmountPer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.GoldAmountPer[0] + b)
@@ -510,7 +510,7 @@ public class AbilityManager : MonoBehaviour
 
                 int randomValue = Random.Range(abilityPer.ExpAmountPer[0], abilityPer.ExpAmountPer[1] + 1);
                 GM.abilityValue[i] = randomValue;
-                abilityText[i].text = "경험치 획득량" + randomValue + "% 증가";
+                abilityText[i].text = "Gold earned Amount" + randomValue + "%";
                 int a = abilityPer.ExpAmountPer[1] - abilityPer.ExpAmountPer[0];
                 float b = Mathf.Round(a / 3);
                 if (randomValue < abilityPer.ExpAmountPer[0] + b)

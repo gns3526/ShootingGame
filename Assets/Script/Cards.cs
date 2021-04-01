@@ -171,17 +171,17 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                     cTTime = 0.3f;
                     if(cTInt == 0)
                     {
-                        curConditionText.text = "다른플래이어 대기중.";
+                        curConditionText.text = "Waiting for another player.";
                         cTInt = 1;
                     }
                     else if (cTInt == 1)
                     {
-                        curConditionText.text = "다른플래이어 대기중..";
+                        curConditionText.text = "Waiting for another player..";
                         cTInt = 2;
                     }
                     else if (cTInt == 2)
                     {
-                        curConditionText.text = "다른플래이어 대기중...";
+                        curConditionText.text = "Waiting for another player...";
                         cTInt = 0;
                     }
                 }

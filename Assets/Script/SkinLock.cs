@@ -5,7 +5,7 @@ using UnityEngine;
 public class SkinLock : MonoBehaviour
 {
     GameManager gm;
-    SpecialSkinManager sm;
+    SpecialSkinManager specialManager;
     [SerializeField] int unLockLv;
 
     [Header("Challenge")]
@@ -16,7 +16,7 @@ public class SkinLock : MonoBehaviour
     private void Awake()
     {
         gm = FindObjectOfType<GameManager>();
-        sm = FindObjectOfType<SpecialSkinManager>();
+        specialManager = FindObjectOfType<SpecialSkinManager>();
     }
 
     private void OnEnable()
@@ -24,11 +24,13 @@ public class SkinLock : MonoBehaviour
         UnLock();
     }
 
+
+
     public void UnLock()
     {
         if (isChallenge) //challenge
         {
-            if (sm.challenge[challengeNum] == true)
+            if (specialManager.challenge[challengeNum] == true)
                 transform.GetChild(1).gameObject.SetActive(false);
             else
                 transform.GetChild(1).gameObject.SetActive(true);

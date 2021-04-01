@@ -88,12 +88,12 @@ public class GoogleSheetManager : MonoBehaviour
         if (!CheckingSpecialText(regIdInput.text) && regIdInput.text != "")
         {
             idCheckBtn.interactable = true;
-            idText.text = "올바른 아이디입니다.";
+            idText.text = "Corrent ID.";
         }
         else
         {
             idCheckBtn.interactable = false;
-            idText.text = "특수문자가 포함되어 있습니다.";
+            idText.text = "Contains special characters.";
         }
     }
     public void CheckWrongPassText()
@@ -102,13 +102,13 @@ public class GoogleSheetManager : MonoBehaviour
         {
             passwordCheck = true;
             isCurrentPass.sprite = currentSprites[0];
-            passwordText.text = "올바른 비밀번호";
+            passwordText.text = "Corrent Password";
         }
         else
         {
             passwordCheck = false;
             isCurrentPass.sprite = currentSprites[1];
-            passwordText.text = "특수문자가 포함되어 있습니다.";
+            passwordText.text = "Contains special characters.";
         }
     }
     public void CheckSamePassReText()
@@ -116,13 +116,13 @@ public class GoogleSheetManager : MonoBehaviour
         if(regPassReInput.text == regPassInput.text && regPassReInput.text != "")
         {
             passwordReCheck = true;
-            passwordReText.text = "비밀번호 확인";
+            passwordReText.text = "Password match.";
             isCurrentPassRe.sprite = currentSprites[0];
         }
         else
         {
             passwordReCheck = false;
-            passwordReText.text = "비밀번호 불일치";
+            passwordReText.text = "Password mismatch.";
             isCurrentPassRe.sprite = currentSprites[1];
         }
     }
@@ -395,13 +395,13 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 idCheck = true;
                 isCurrentId.sprite = currentSprites[0];
-                idText.text = "사용가능한 아이디 입니다";
+                idText.text = "Username is available.";
             }
             else
             {
                 idCheck = false;
                 isCurrentId.sprite = currentSprites[1];
-                idText.text = "중복된 아이디 입니다";
+                idText.text = "This is a duplicate ID.";
             }
         }
 
@@ -414,6 +414,7 @@ public class GoogleSheetManager : MonoBehaviour
 
     public void LogOut()
     {
+        logOutAskPanel.SetActive(false);
         NM.connectPanel.SetActive(true);
         GM.loginPanel.SetActive(true);
 
@@ -422,7 +423,7 @@ public class GoogleSheetManager : MonoBehaviour
         PassInput.text = "";
         ColorSave();
         SaveLvInfo();
-        debuggingText.text = "로그아웃 완료";
+        debuggingText.text = "Logout complete";
         loadingPanel.SetActive(false);
     }
 

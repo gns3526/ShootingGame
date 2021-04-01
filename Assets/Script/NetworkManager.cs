@@ -91,7 +91,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
     private void Update()
     {
-        lobbyInforText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "로비/" + PhotonNetwork.CountOfPlayers + "접속";
+        lobbyInforText.text = (PhotonNetwork.CountOfPlayers - PhotonNetwork.CountOfPlayersInRooms) + "Lobby/" + PhotonNetwork.CountOfPlayers + "Connect";
 
         if (Input.GetKeyDown(KeyCode.Return))
         {
@@ -148,7 +148,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
-        welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다";
+        welcomeText.text = "Welcome, " + PhotonNetwork.LocalPlayer.NickName;
 
         GM.SetExpPanel();
 
@@ -316,7 +316,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         //if(PhotonNetwork.IsMasterClient)
         //player.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
-        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + "님이 참가하셨습니다</color>");
+        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + " joined the game</color>");
         
         player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
         //myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
@@ -326,7 +326,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         RoomRenewal();
 
-        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + "님이 퇴장하셨습니다</color>");
+        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + " left the game</color>");
         if (GM.isGameStart)
         {
             if (otherPlayer.IsMasterClient)
@@ -394,7 +394,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(i < PhotonNetwork.PlayerList.Length)
             {
-                roomInfoText.text = "방제목 : " + PhotonNetwork.CurrentRoom.Name;
+                roomInfoText.text = "Room title : " + PhotonNetwork.CurrentRoom.Name;
 
                 //playerInfoGroup[i].  = 게임메니저 초상화가져옴
                 playerInfoGroup[i].SetActive(true);

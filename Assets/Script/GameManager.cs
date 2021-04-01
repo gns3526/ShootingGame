@@ -99,10 +99,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Image weaponShotButtonImage;
 
     [Header("CodyPanel")]
-    [SerializeField] Image lobbyPlayer;
+    public Image lobbyPlayer;
     public Sprite[] lobbyCodyDummy;
     public Sprite[] lobbyCodyMainDummy;
-    [SerializeField] ParticleSystem[] lobbyParticleDummy;
+    public ParticleSystem[] lobbyParticleDummy;
+
+    [SerializeField] CodySelectUpdate[] codySelectUpdate;
 
     [SerializeField] Slider colorRSlider;
     [SerializeField] Slider colorGSlider;
@@ -253,7 +255,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (once)
         {
             OP.PrePoolInstantiate();
-
+                    nickNameText3.text = PhotonNetwork.NickName;
             once = false;
             isGameEnd = false;
             
@@ -773,6 +775,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         codyPanel.SetActive(a);
         if (a)
         {
+            codySelectUpdate[1].Select();
+
             codyParticlePanel.SetActive(false);
             codyBodyPanel.SetActive(true);
             codyMainPanel.SetActive(false);
@@ -787,11 +791,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         codyMainPanel.SetActive(a);
         if(a)
         {
+            codySelectUpdate[0].Select();
+
             codyPanel.SetActive(false);
             colorChangePanel.SetActive(false);
             abilityPanel.SetActive(false);
         }
     }
+
 
     public void NormalColorChange()
     {
@@ -845,26 +852,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void CodyOnClick(int index)
     {
-        codyBodyCode = index;
-        lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[index];
+        
         //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index, codyParticleCode);
     }
 
     public void ParticleOnClick(int index)
     {
-        codyParticleCode = index;
-        for (int i = 0; i < lobbyParticleDummy.Length; i++)
-            lobbyParticleDummy[i].Stop();
-        lobbyParticleDummy[index].Play();
+        
 
         //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, codyBodyCode, index);
     }
 
-    public void CodyMainOnClick(int index)
-    {
-        codyMainCode = index;
-        lobbyPlayer.sprite = lobbyCodyMainDummy[index];
-    }
 
     public void LobbyPlayerRework()
     {
@@ -906,7 +904,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             {
                 float finalExpAmount = Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
                 float bonusExpAmount = finalExpAmount - ExpAmount;
-                getExpAmountText.text = "|능력 적용중|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
+                getExpAmountText.text = "|Applying Ability|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
             }
             expGIveOnce = false;
             exp += Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
@@ -935,7 +933,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             float finalGoleAmount = Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
             float bonusGoldAmount = finalGoleAmount - GoldAmount;
-            getGoldAmountText.text = "|능력 적용중|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Exp";
+            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Exp";
         }
         money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();
@@ -1029,12 +1027,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             codyParticlePanel.SetActive(false);
             codyBodyPanel.SetActive(true);
+
+            codySelectUpdate[1].Select();
         }
 
         else if (a == 1)
         {
             codyBodyPanel.SetActive(false);
             codyParticlePanel.SetActive(true);
+
+            codySelectUpdate[2].Select();
         }
     }
 
@@ -1056,8 +1058,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapFocus = true;
 
         mapNameinfoText.text = mapNames[code];
-        mapCoinAmountinfoText.text = "라운드당 코인:" + mapCoinAmount[code].ToString();
-        mapExpAmountinfoText.text = "라운드당 경험치:" + mapExpAmount[code].ToString();
+        mapCoinAmountinfoText.text = "Coins per Round:" + mapCoinAmount[code].ToString();
+        mapExpAmountinfoText.text = "Exp per Round:" + mapExpAmount[code].ToString();
         for (int i = 0; i < difficultStars.Length; i++)
         {
             difficultStars[i].SetActive(false);
