@@ -6,12 +6,14 @@ using UnityEngine.UI;
 public class CodySelectUpdate : MonoBehaviour
 {
     GameManager gm;
+    NetworkManager nm;
     [SerializeField] GameObject[] codys;
     [SerializeField] int codyTypeCode;
 
     private void Awake()
     {
         gm = FindObjectOfType<GameManager>();
+        nm = FindObjectOfType<NetworkManager>();
     }
 
 
@@ -32,7 +34,10 @@ public class CodySelectUpdate : MonoBehaviour
                 for (int i = 0; i < gm.lobbyParticleDummy.Length; i++)
                     gm.lobbyParticleDummy[i].Stop();
                 gm.lobbyParticleDummy[index].Play();
-                Debug.Log("bbb");
+                break;
+            case 3:
+                nm.playerIconCode = index;
+                gm.playerIcon.sprite = nm.icons[nm.playerIconCode];
                 break;
         }
         Select();
@@ -57,7 +62,10 @@ public class CodySelectUpdate : MonoBehaviour
             case 2:
                 for (int i = 0; i < codys.Length; i++)
                     codys[i].transform.GetChild(2).gameObject.SetActive(gm.codyParticleCode == i ? true : false);
-                Debug.Log("aaa");
+                break;
+            case 3:
+                for (int i = 0; i < codys.Length; i++)
+                    codys[i].transform.GetChild(2).gameObject.SetActive(nm.playerIconCode == i ? true : false);
                 break;
         }
         

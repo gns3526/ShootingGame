@@ -16,7 +16,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbxt0AJ0FaSOFLfjfxeBdJKMdRMTx_RPJUmUEGdRmDw4pQ1evCn5O1GWC2Mr4Nzwezjj/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzq_aYnqM9FqXiquh261BUmRPbpZZaLOLYiztGcVBFAcwlr5w95P_CnaakKcRw0BqkI/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -72,7 +72,7 @@ public class GoogleSheetManager : MonoBehaviour
             makeNickComplete = false;
 
             NM.Connect();
-            GM.LobbyPlayerRework();
+            
         }
     }
     public bool CheckingSpecialText(string txt)
@@ -417,6 +417,11 @@ public class GoogleSheetManager : MonoBehaviour
         logOutAskPanel.SetActive(false);
         NM.connectPanel.SetActive(true);
         GM.loginPanel.SetActive(true);
+
+        for (int i = 0; i < GM.lobbyParticleDummy.Length; i++)
+            GM.lobbyParticleDummy[i].Stop();
+
+        NM.DisConnect();
 
         loadingPanel.SetActive(true);
         idInput.text = "";

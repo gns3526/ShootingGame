@@ -61,6 +61,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject colorChangePanel;
     [SerializeField] GameObject colorNormalPanel;
     [SerializeField] GameObject colorPremiumPanel;
+    public GameObject codyIconPanel;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -132,7 +133,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text playerLvText;
     [SerializeField] Text nickNameText;
     [SerializeField] Text expText;
-    [SerializeField] Image playerIcon;
+    public Image playerIcon;
     [SerializeField] Image expImage;
     public Text goldAmountText;
 
@@ -735,6 +736,22 @@ public class GameManager : MonoBehaviourPunCallbacks
         explosionScript.StartExplosion(targetType);
     }
 
+    public void IconPanelOpenOrClose(bool a)
+    {
+        codyIconPanel.SetActive(a);
+
+        if (a)
+        {
+            codySelectUpdate[3].Select();
+
+            codyParticlePanel.SetActive(false);
+            codyPanel.SetActive(false);
+            colorChangePanel.SetActive(false);
+            abilityPanel.SetActive(false);
+        }
+
+    }
+
     public void ColorChangePanelOpenOrClose(bool a)
     {
         colorChangePanel.SetActive(a);
@@ -746,7 +763,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
             colorNormalPanel.SetActive(true);
             colorPremiumPanel.SetActive(false);
-
+            codyIconPanel.SetActive(false);
             codyMainPanel.SetActive(false);
             codyPanel.SetActive(false);
             abilityPanel.SetActive(false);
@@ -777,6 +794,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             codySelectUpdate[1].Select();
 
+            codyIconPanel.SetActive(false);
             codyParticlePanel.SetActive(false);
             codyBodyPanel.SetActive(true);
             codyMainPanel.SetActive(false);
@@ -793,6 +811,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             codySelectUpdate[0].Select();
 
+            codyIconPanel.SetActive(false);
             codyPanel.SetActive(false);
             colorChangePanel.SetActive(false);
             abilityPanel.SetActive(false);
@@ -869,6 +888,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         lobbyPlayer.sprite = lobbyCodyMainDummy[codyMainCode];
         lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[codyBodyCode];
         lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+
+        lobbyParticleDummy[codyParticleCode].Play();
     }
 
     public void FinalStageClear()
@@ -956,9 +977,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         gamePlayPanel.SetActive(false);
         controlPanel.SetActive(false);
         finalStageClearPanel.SetActive(false);
+
         NM.lobbyPanel.SetActive(true);
         PhotonNetwork.LeaveRoom();
-        
     }
 
     public void PlayerDie()

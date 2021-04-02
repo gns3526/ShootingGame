@@ -41,6 +41,7 @@ public class AbilityManager : MonoBehaviour
             GM.codyPanel.SetActive(false);
             GM.codyMainPanel.SetActive(false);
             GM.colorChangePanel.SetActive(false);
+            GM.codyIconPanel.SetActive(false);
         }
         CanResetAbilityCheck();
         needCoinText.text = needCoinForAbility.ToString();

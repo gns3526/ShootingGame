@@ -136,16 +136,17 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         PhotonNetwork.JoinLobby();
         GSM.loadingPanel.SetActive(false);
+        //GM.LobbyPlayerRework();
         //PhotonNetwork.JoinOrCreateRoom("Room", new RoomOptions { MaxPlayers = 6 }, null);//Make Room
     }
 
     public override void OnJoinedLobby()//3
     {
-        lobbyPanel.SetActive(true);
         roomPanel.SetActive(false);
+        lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
         GM.controlPanel.SetActive(false);
-
+        
 
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = "Welcome, " + PhotonNetwork.LocalPlayer.NickName;
@@ -156,6 +157,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         myList.Clear();
         MyListRenewal();
+
+        GM.LobbyPlayerRework();
     }
 
     public void MyListClick(int num)//방 클릭했을때
@@ -278,7 +281,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (GM.isAndroid)
             GM.controlPanel.SetActive(true);
-
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         GM.gamePlayPanel.SetActive(false);
