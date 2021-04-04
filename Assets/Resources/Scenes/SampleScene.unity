@@ -8969,6 +8969,7 @@ GameObject:
   m_Component:
   - component: {fileID: 264256442}
   - component: {fileID: 264256441}
+  - component: {fileID: 264256443}
   m_Layer: 0
   m_Name: ObjectPooler
   m_TagString: Untagged
@@ -9026,7 +9027,7 @@ MonoBehaviour:
     size: 5
   - tag: Explosion
     prefab: {fileID: 51470172286498343, guid: ec1c5cc200054c3499f98d95d0ac55c5, type: 3}
-    size: 20
+    size: 0
   - tag: AbilityBullet1
     prefab: {fileID: 999732467917345114, guid: 18c4a496732e6674fafba8dd917ada6c, type: 3}
     size: 20
@@ -9100,7 +9101,7 @@ MonoBehaviour:
     size: 5
   - tag: BulletBasic
     prefab: {fileID: 999732467917345114, guid: 28ec9d3a278528b4f892c06a46b68f6f, type: 3}
-    size: 100
+    size: 300
   - tag: EnemyBullet2
     prefab: {fileID: 5808032221045866145, guid: 3ac438e757774534fb3ff3b6b1c0313d,
       type: 3}
@@ -9832,7 +9833,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  a: 0
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
@@ -9847,6 +9847,28 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 6
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!114 &264256443
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 264256440}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 9
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &265730934
 GameObject:
   m_ObjectHideFlags: 0

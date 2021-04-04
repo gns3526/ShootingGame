@@ -46,11 +46,11 @@ public class Enemy8 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(90, Vector3.forward));
-        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(180, Vector3.forward));
-        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(-90, Vector3.forward));
-
+     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(0, Vector3.forward));
+     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(90, Vector3.forward));
+     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(180, Vector3.forward));
+     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(-90, Vector3.forward));
+     //
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         //moveSpeed = 0.04f;

@@ -41,12 +41,6 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     float criticalPlusDamage;
     float finalDamage;
 
-    public float[] bulletSpeed;
-    public Vector2[] bulletSize;
-    public Vector2[] bulletBoxOffset;
-    public Sprite[] bulletShape;
-    public Vector2[] bulletBoxSize;
-
     Vector3 curPosPv;
 
     private void Awake()
@@ -231,7 +225,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             }
 
             if (PhotonNetwork.IsMasterClient)
-                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
+              //  OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
 
             transform.rotation = Quaternion.identity;
 

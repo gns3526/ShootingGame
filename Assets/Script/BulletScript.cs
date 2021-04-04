@@ -18,9 +18,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public GameObject target;
     public bool isFollowTarget;
     public int attackAmount;
-    public Sprite bulletShape;
-    public Vector2 bulletBoxShape;
-    public Vector2 bulletBoxOffset;
 
     [SerializeField] PhotonView pv;
     public GameObject parentOb;
@@ -50,13 +47,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         if (animator != null)
            animator.SetBool("Start",true);
-
-        if (!isSpecialBullet)
-        {
-            //GetComponent<SpriteRenderer>().sprite = bulletShape;
-            //boxCol.size = bulletBoxShape;
-            //boxCol.offset = bulletBoxOffset;
-        }
 
         if (isPlayerAttack)
         {
@@ -114,9 +104,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
             OP.PoolDestroy(gameObject);
         }
 
-        if (PhotonNetwork.IsMasterClient)
+        if (pv.IsMine)
         {
-            if(!isPlayerAttack)
             transform.Translate(new Vector3(0, -bulletSpeed));
             bulletDestroyTime -= Time.deltaTime;
             if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);

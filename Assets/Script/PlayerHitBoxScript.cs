@@ -23,44 +23,55 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" || other.tag == "Bullet")
+        if (other.tag == "Enemy")
         {
-            if (other.GetComponent<BulletScript>().isPlayerAttack && other.tag != "Enemy") return;
-
             if (player == null) return;
 
             if (!player.canHit) return;
 
-            if (other.tag == "Enemy" && other.GetComponent<EnemyBasicScript>().isPassingNodamage) return;
+            if (other.GetComponent<EnemyBasicScript>().isPassingNodamage) return;
 
-            int randomNum = Random.Range(0, 101);
-            if(player.missPercentage > randomNum)
-            {
-                StartCoroutine(GodTime());
-                player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
-                return;
-            }
+            Hit();
+        }
+        else if(other.tag == "Bullet")
+        {
+            if (player == null) return;
 
-            player.life--;
-            player.canHit = false;
-            player.GM.UpdateLifeIcon(player.life);
-            player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+            if (!player.canHit) return;
 
+            if (other.GetComponent<BulletScript>().isPlayerAttack) return;
 
-            if (player.life == 0)
-            {
-                pv.RPC("PlayerIsDie", RpcTarget.All);
-                GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
-            }
-            else
-            {
-                player.GM.StartCoroutine("ReSpawnM");
-            }
-            StartCoroutine(GodTime());
+            Hit();
         }
     }
 
-    
+    void Hit()
+    {
+        int randomNum = Random.Range(0, 101);
+        if (player.missPercentage > randomNum)
+        {
+            StartCoroutine(GodTime());
+            player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+            return;
+        }
+
+        player.life--;
+        player.canHit = false;
+        player.GM.UpdateLifeIcon(player.life);
+        player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+
+
+        if (player.life == 0)
+        {
+            pv.RPC("PlayerIsDie", RpcTarget.All);
+            GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
+        }
+        else
+        {
+            player.GM.StartCoroutine("ReSpawnM");
+        }
+        StartCoroutine(GodTime());
+    }
 
 
     IEnumerator GodTime()

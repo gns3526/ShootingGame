@@ -88,11 +88,11 @@ public class Enemy13 : MonoBehaviour
         yield return new WaitForSeconds(maxAttackCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
 
-        EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.15f;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.13f;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.11f;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.09f;
-        EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.07f;
+        //EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.15f;
+       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.13f;
+       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.11f;
+       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.09f;
+       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.07f;
 
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;

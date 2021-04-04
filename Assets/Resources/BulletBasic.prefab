@@ -74,7 +74,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -7976837497307082302, guid: ac729a8f0604123448dcb21a2122f134,
+  m_Sprite: {fileID: -7811210312389729396, guid: 11675c9cea1d9aa418d157a16e71555b,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -103,7 +103,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 0.33333334, y: 0.45833334}
+    oldSize: {x: 0.375, y: 0.45833334}
     newSize: {x: 0.16666667, y: 0.29166666}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -156,9 +156,6 @@ MonoBehaviour:
   target: {fileID: 0}
   isFollowTarget: 0
   attackAmount: 1
-  bulletShape: {fileID: 0}
-  bulletBoxShape: {x: 0, y: 0}
-  bulletBoxOffset: {x: 0, y: 0}
   pv: {fileID: 668855957982877930}
   parentOb: {fileID: 0}
   isBossBullet: 0
@@ -202,6 +199,62 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed:
+  - 0.02
+  - 0.05
+  - 0.08
+  - 0.11
+  - 0.14
+  - 0.17
+  - 0.2
+  - 0.23
+  - 0.26
+  - 0.3
+  bulletDamage: 0100000003000000010000000a000000030000000a000000
+  bulletSpriteP:
+  - {fileID: 874343242196921964, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: -7976837497307082302, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: -7803065417098437583, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: 830317617348258784, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: -7976837497307082302, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: 830317617348258784, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  bulletScaleP:
+  - {x: 1, y: 1}
+  - {x: 1.5, y: 1.4}
+  - {x: 1, y: 1}
+  - {x: 2, y: 2.4}
+  - {x: 1.5, y: 1.4}
+  - {x: 2, y: 2.4}
+  bulletBoxSizeP:
+  - {x: 0.1666667, y: 0.2916667}
+  - {x: 0.31, y: 0.46}
+  - {x: 0.1666667, y: 0.5}
+  - {x: 0.1666667, y: 0.5}
+  - {x: 0.31, y: 0.46}
+  - {x: 0.1666667, y: 0.5}
+  bulletBoxOffsetP:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  bulletSpriteE:
+  - {fileID: 7431529995326980795, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: -7779215486825634471, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: 830317617348258784, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  bulletScaleE:
+  - {x: 1, y: 1}
+  - {x: 1, y: 1}
+  - {x: 1.5, y: 2}
+  bulletBoxSizeE:
+  - {x: 0.25, y: 0.33}
+  - {x: 0.25, y: 0.375}
+  - {x: 0.16, y: 0.49}
+  bulletBoxOffsetE:
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
+  - {x: 0, y: 0}
 --- !u!114 &-6112678195325725980
 MonoBehaviour:
   m_ObjectHideFlags: 0

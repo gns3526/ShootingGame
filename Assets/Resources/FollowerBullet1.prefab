@@ -156,9 +156,6 @@ MonoBehaviour:
   target: {fileID: 0}
   isFollowTarget: 0
   attackAmount: 1
-  bulletShape: {fileID: 0}
-  bulletBoxShape: {x: 0, y: 0}
-  bulletBoxOffset: {x: 0, y: 0}
   pv: {fileID: -985507974280066361}
   parentOb: {fileID: 0}
   isBossBullet: 0
@@ -202,6 +199,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: []
+  bulletDamage: 
+  bulletSpriteP: []
+  bulletScaleP: []
+  bulletBoxSizeP: []
+  bulletBoxOffsetP: []
+  bulletSpriteE: []
+  bulletScaleE: []
+  bulletBoxSizeE: []
+  bulletBoxOffsetE: []
 --- !u!114 &8350847898986561705
 MonoBehaviour:
   m_ObjectHideFlags: 0

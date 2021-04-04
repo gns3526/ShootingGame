@@ -83,18 +83,18 @@ public class Follower : MonoBehaviourPun, IPunObservable
         switch (bulletType)
         {
             case 1:
-                GameObject bullet = OP.PoolInstantiate("FollowerBullet1", transform.position,Quaternion.identity);
+                //GameObject bullet = OP.PoolInstantiate("FollowerBullet1", transform.position,Quaternion.identity);
                 //bullet.transform.position = transform.position;
 
-                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+               // Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
-                GameObject bullet2 = OP.PoolInstantiate("FollowerBullet2", transform.position, Quaternion.identity);
+               // GameObject bullet2 = OP.PoolInstantiate("FollowerBullet2", transform.position, Quaternion.identity);
                 //bullet2.transform.position = transform.position;
 
-                Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
-                rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+            //    Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
+               // rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
         }
 

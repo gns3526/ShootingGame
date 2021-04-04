@@ -65,10 +65,10 @@ public class Enemy3 : MonoBehaviour
     {
         yield return new WaitForSeconds(maxAttackCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.right * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-        GameObject bullet2 = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.left * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward));
-        bullet.GetComponent<BulletScript>().bulletSpeed = 0.1f;
-        bullet2.GetComponent<BulletScript>().bulletSpeed = 0.1f;
+        GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.right * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward), -1, 0, false);
+        GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.left * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward), -1, 0, false);
+        bulletR.GetComponent<BulletScript>().bulletSpeed = 0.1f;
+        bulletL.GetComponent<BulletScript>().bulletSpeed = 0.1f;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
     }

@@ -622,8 +622,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             int spawnPoint = spawnList[spawnIndex].point;
-            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity);
-            //enemy.transform.position = enemySpawnPoint[spawnPoint].transform.position;//위치
+            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity, -1, 0, false);
+            
 
             if (spawnPoint == 5 || spawnPoint == 8)
             {
@@ -729,11 +729,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void MakeExplosionEffect(Vector3 pos, string targetType)
     {
         //GameObject explosion = OM.MakeObj("Explosion");
-        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity);
-        Explosion explosionScript = explosion.GetComponent<Explosion>();
+     //   GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity);
+     //   Explosion explosionScript = explosion.GetComponent<Explosion>();
 
-        explosion.transform.position = pos;
-        explosionScript.StartExplosion(targetType);
+      //  explosion.transform.position = pos;
+       // explosionScript.StartExplosion(targetType);
     }
 
     public void IconPanelOpenOrClose(bool a)
@@ -969,7 +969,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         spawnEnd = false;
 
         once = true;
-        OP.a = 0;
+       // OP.a = 0;
 
         cardPanel.SetActive(false);
         retryPanel.SetActive(false);

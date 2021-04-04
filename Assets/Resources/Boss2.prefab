@@ -329,6 +329,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: []
+  bulletDamage: 
+  bulletSpriteP: []
+  bulletScaleP: []
+  bulletBoxSizeP: []
+  bulletBoxOffsetP: []
+  bulletSpriteE: []
+  bulletScaleE: []
+  bulletBoxSizeE: []
+  bulletBoxOffsetE: []
 --- !u!114 &-4657602158681436728
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -402,11 +412,6 @@ MonoBehaviour:
   pv: {fileID: 3168336670733261172}
   OP: {fileID: 0}
   targetRandomNum: 0
-  bulletSpeed: []
-  bulletSize: []
-  bulletBoxOffset: []
-  bulletShape: []
-  bulletBoxSize: []
 --- !u!1 &5694560200886538556
 GameObject:
   m_ObjectHideFlags: 0

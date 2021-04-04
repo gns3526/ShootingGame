@@ -80,7 +80,7 @@ public class Boss2 : MonoBehaviour
             canMove = false;
 
             StartCoroutine(Rest(2));
-            StartCoroutine(Attack1());
+            //StartCoroutine(Attack1());
         }
     }
 
@@ -95,19 +95,20 @@ public class Boss2 : MonoBehaviour
         switch (EB.patternIndex)
         {
             case 0:
-                StartCoroutine(Pattern1());
+                //StartCoroutine(Pattern1());
                 break;
             case 1:
-                StartCoroutine(Pattern2());
+                //StartCoroutine(Pattern2());
                 break;
             case 2:
-                StartCoroutine(Pattern3());
+               // StartCoroutine(Pattern3());
                 break;
             case 3:
-                StartCoroutine(Pattern4());
+              //  StartCoroutine(Pattern4());
                 break;
         }
     }
+    /*
     IEnumerator Pattern1()//플래이어에게 연속발사
     {
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
@@ -236,7 +237,7 @@ public class Boss2 : MonoBehaviour
         }
         if(EB.patternIndex <= 2)
         StartCoroutine(Attack1());
-    }
+    }*/
 }
 
 

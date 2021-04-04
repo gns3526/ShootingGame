@@ -42,7 +42,7 @@ public class enemy11 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-        EB.OP.PoolInstantiate("LaserM", transform.position, Quaternion.identity);
+        //EB.OP.PoolInstantiate("LaserM", transform.position, Quaternion.identity);
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         //moveSpeed = 0.05f;

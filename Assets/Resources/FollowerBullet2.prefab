@@ -32,7 +32,7 @@ Transform:
   m_GameObject: {fileID: 5808032221045866145}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 2.0029793, y: 2.4518762, z: 1}
+  m_LocalScale: {x: 2, y: 2.4, z: 1}
   m_Children: []
   m_Father: {fileID: 0}
   m_RootOrder: 0
@@ -155,9 +155,6 @@ MonoBehaviour:
   target: {fileID: 0}
   isFollowTarget: 0
   attackAmount: 1
-  bulletShape: {fileID: 0}
-  bulletBoxShape: {x: 0, y: 0}
-  bulletBoxOffset: {x: 0, y: 0}
   pv: {fileID: -5103508010015265109}
   parentOb: {fileID: 0}
   isBossBullet: 0
@@ -201,6 +198,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: []
+  bulletDamage: 
+  bulletSpriteP: []
+  bulletScaleP: []
+  bulletBoxSizeP: []
+  bulletBoxOffsetP: []
+  bulletSpriteE: []
+  bulletScaleE: []
+  bulletBoxSizeE: []
+  bulletBoxOffsetE: []
 --- !u!114 &2956130016900229732
 MonoBehaviour:
   m_ObjectHideFlags: 0

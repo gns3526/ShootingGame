@@ -5,7 +5,7 @@ using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
+public class EnemyScript : MonoBehaviourPunCallbacks//, IPunObservable
 {
     public string enemyType;
     [SerializeField] bool isBoss;
@@ -136,10 +136,11 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if(enemyType == "Boss1")
             {
-                StartCoroutine(Think(0));
+                //StartCoroutine(Think(0));
             }
         }
     }
+    /*
     IEnumerator Think(float waitTime)
     {
         //if (!gameObject.activeSelf)//활성화 되어있지 않다면
@@ -272,7 +273,7 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
 
             Vector2 dir = new Vector2(Mathf.Cos(Mathf.PI * 2 * i / roundNum), Mathf.Sin(Mathf.PI * 2 * i / roundNum));//Cos도 가능
-            rigid.AddForce(dir.normalized * 2/*속도*/, ForceMode2D.Impulse);
+            rigid.AddForce(dir.normalized * 2/, ForceMode2D.Impulse);
 
             Vector3 roVec = Vector3.forward * 360 * i / roundNum + Vector3.forward * 90;
             bullet.transform.Rotate(roVec);
@@ -650,5 +651,5 @@ public class EnemyScript : MonoBehaviourPunCallbacks, IPunObservable
             targetRandomNum = (int)stream.ReceiveNext();
             curPosPv = (Vector3)stream.ReceiveNext();
         }
-    }
+    }*/
 }

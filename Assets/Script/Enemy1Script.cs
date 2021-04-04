@@ -69,25 +69,12 @@ public class Enemy1Script : MonoBehaviour
         yield return new WaitForSeconds(maxAttackCool);
 
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward));//0.1f
+        bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward), 0, 6, false);//0.1f
         bs = bullet.GetComponent<BulletScript>();
-        bs.bulletSpeed = EB.bulletSpeed[0];
-        bullet.transform.localScale = EB.bulletSize[0];
-
-        EB.pv.RPC("BulletRpc", RpcTarget.All);
 
         Debug.Log("발사");
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
-    }
-
-    [PunRPC]
-    void BulletRpc()
-    {
-        bs.isPlayerAttack = false;
-        bullet.GetComponent<SpriteRenderer>().sprite = EB.bulletShape[0];
-        bullet.GetComponent<BoxCollider2D>().size = EB.bulletBoxSize[0];
-        bullet.GetComponent<BoxCollider2D>().offset = EB.bulletBoxOffset[0];
     }
 }

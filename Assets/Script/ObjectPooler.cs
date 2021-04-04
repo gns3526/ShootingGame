@@ -21,9 +21,14 @@ public class ObjectPooler : MonoBehaviourPun
     public Dictionary<string, Queue<GameObject>> poolDictionary;
 
     public GameObject[] allOfPools;
- 
-    public int a;
 
+    //public int a;
+    GameObject spawnedOb;
+    Sprite spriteA;
+    Vector2 scaleA;
+    Vector2 boxSizeA;
+    Vector2 boxOffsetA;
+    bool playerAttack;
     public void PrePoolInstantiate()
     {
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
@@ -35,16 +40,14 @@ public class ObjectPooler : MonoBehaviourPun
                 GameObject obj = PhotonNetwork.Instantiate(pool.tag, new Vector3(4, 4, 0), Quaternion.identity);
 
 
-                obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
+                obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -1, 0, true);
                 objectPool.Enqueue(obj);
-
-
             }
             poolDictionary.Add(pool.tag, objectPool);
         }
     }
 
-    public GameObject PoolInstantiate(string tag, Vector3 position, Quaternion rotation)
+    public GameObject PoolInstantiate(string tag, Vector3 position, Quaternion rotation, int bulletIndex, int bulletSpeedIndex, bool isPlayerAttack)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -52,19 +55,19 @@ public class ObjectPooler : MonoBehaviourPun
             return null;
         }
 
-        GameObject obj = poolDictionary[tag].Dequeue();//Take out First as Num
+        spawnedOb = poolDictionary[tag].Dequeue();//Take out First as Num
 
-        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, true);
-        obj.transform.position = position;
-        obj.transform.rotation = rotation;
+        spawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, true, bulletIndex, bulletSpeedIndex, isPlayerAttack);
+        spawnedOb.transform.position = position;
+        spawnedOb.transform.rotation = rotation;
 
-        poolDictionary[tag].Enqueue(obj);
+        poolDictionary[tag].Enqueue(spawnedOb);
 
-        return obj;
+        return spawnedOb;
     }
 
     public void PoolDestroy(GameObject obj)
     {
-        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
+        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -1, 0, true);
     }
 }
