@@ -64,6 +64,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int damageStackint;
     public int damageStack;
 
+    [SerializeField] Vector2[] bulletSize;
+    [SerializeField] Vector2[] bulletBoxSize;
+    [SerializeField] Vector2[] bulletOffset;
+    [SerializeField] Sprite[] bulletSprite;
+
     [Header("PlayerCody")]
     public PhotonView codyPv;
 
@@ -107,6 +112,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] Vector3 curPosPv;
 
+    GameObject bullet;
+    BulletScript bs;
 
     private void Awake()
     {
@@ -363,8 +370,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         switch (power)
         {
             case 1:
-                GameObject bullet = OP.PoolInstantiate("PlayerBullet1", transform.position, Quaternion.identity);
+                bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity);
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
+                bs = bullet.GetComponent<BulletScript>();
+
+                pv.RPC("BulletRPC", RpcTarget.All);
+
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 break;
             case 2:
@@ -425,6 +436,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
+    [PunRPC]
+    void BulletRPC()
+    {
+        bs.isPlayerAttack = true;
+        bullet.GetComponent<SpriteRenderer>().sprite = bulletSprite[0];
+        bullet.GetComponent<BoxCollider2D>().size = bulletBoxSize[0];
+        bullet.GetComponent<BoxCollider2D>().offset = bulletOffset[0];
+    }
+
     void Reload()
     {
         curShotCoolTime += Time.deltaTime * ((shotCoolTimeReduce + attackSpeedStack) / 100);
@@ -448,78 +468,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         boomEffect.SetActive(true);
         Invoke("BoomFalse", 4);
 
-        /*
-        GameObject[] enemy1 = OM.GetPool("1");
-        GameObject[] enemy2 = OM.GetPool("2");
-        GameObject[] enemy3 = OM.GetPool("3");
-        GameObject[] enemy4 = OM.GetPool("4");
-        for (int i = 0; i < enemy1.Length; i++)//모든적데미지주기
-        {
-            if (enemy1[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy1[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy2.Length; i++)//모든적데미지주기
-        {
-            if (enemy2[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy2[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy3.Length; i++)//모든적데미지주기
-        {
-            if (enemy3[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy3[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-        for (int i = 0; i < enemy4.Length; i++)//모든적데미지주기
-        {
-            if (enemy4[i].activeSelf)
-            {
-                EnemyScript enemyScript = enemy4[i].GetComponent<EnemyScript>();
-                enemyScript.Hit(1000);
-            }
-        }
-
-        GameObject[] BulletEnemy0 = OM.GetPool("BulletEnemy0");
-        GameObject[] BulletEnemy1 = OM.GetPool("BulletEnemy1");
-        GameObject[] BulletEnemy2 = OM.GetPool("BulletEnemy2");
-        GameObject[] BulletEnemy3 = OM.GetPool("BulletEnemy3");
-
-        for (int i = 0; i < BulletEnemy0.Length; i++)
-        {
-            if (BulletEnemy0[i].activeSelf)
-            {
-                BulletEnemy0[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy1.Length; i++)
-        {
-            if (BulletEnemy1[i].activeSelf)
-            {
-                BulletEnemy1[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy2.Length; i++)
-        {
-            if (BulletEnemy2[i].activeSelf)
-            {
-                BulletEnemy2[i].SetActive(false);
-            }
-        }
-        for (int i = 0; i < BulletEnemy3.Length; i++)
-        {
-            if (BulletEnemy3[i].activeSelf)
-            {
-                BulletEnemy3[i].SetActive(false);
-            }
-        }
-        */
+       
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

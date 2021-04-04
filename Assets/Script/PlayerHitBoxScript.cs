@@ -23,8 +23,10 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (other.tag == "Enemy" || other.tag == "EnemyBullet")
+        if (other.tag == "Enemy" || other.tag == "Bullet")
         {
+            if (other.GetComponent<BulletScript>().isPlayerAttack && other.tag != "Enemy") return;
+
             if (player == null) return;
 
             if (!player.canHit) return;

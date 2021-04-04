@@ -27,9 +27,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     public PhotonView pv;
 
-    public Player myPlayerScript;
-    public GameManager GM;
-    public ObjectManager OM;
+    Player myPlayerScript;
+    GameManager GM;
     public ObjectPooler OP;
     Animator ani;
 
@@ -41,6 +40,12 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     float normalBulletDmg;
     float criticalPlusDamage;
     float finalDamage;
+
+    public float[] bulletSpeed;
+    public Vector2[] bulletSize;
+    public Vector2[] bulletBoxOffset;
+    public Sprite[] bulletShape;
+    public Vector2[] bulletBoxSize;
 
     Vector3 curPosPv;
 
@@ -115,8 +120,10 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 OP.PoolDestroy(gameObject);
             }
         }
-        else if (other.tag == "PlayerBullet")
+        else if (other.tag == "Bullet")
         {
+            if (!other.GetComponent<BulletScript>().isPlayerAttack) return;
+
             if (godMode)
                 return;
 

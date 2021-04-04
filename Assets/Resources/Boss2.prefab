@@ -400,11 +400,13 @@ MonoBehaviour:
   healthBarGameObject: {fileID: 5694560200886538556}
   spriteRendererEnemy: {fileID: 3646381594106627789}
   pv: {fileID: 3168336670733261172}
-  myPlayerScript: {fileID: 0}
-  GM: {fileID: 0}
-  OM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
+  bulletSpeed: []
+  bulletSize: []
+  bulletBoxOffset: []
+  bulletShape: []
+  bulletBoxSize: []
 --- !u!1 &5694560200886538556
 GameObject:
   m_ObjectHideFlags: 0

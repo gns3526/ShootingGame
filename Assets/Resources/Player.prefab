@@ -11086,6 +11086,14 @@ MonoBehaviour:
   isDamageStack: 0
   damageStackint: 0
   damageStack: 100
+  bulletSize:
+  - {x: 1, y: 1}
+  bulletBoxSize:
+  - {x: 0.1666667, y: 0.2916667}
+  bulletOffset:
+  - {x: 0, y: 0}
+  bulletSprite:
+  - {fileID: 874343242196921964, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
   codyPv: {fileID: 216727624181193990}
   playerPoint: {fileID: 987814901808949605}
   boomEffect: {fileID: 0}

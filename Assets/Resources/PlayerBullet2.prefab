@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb874595fff2992498f0bf5ae0ad8ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletCode: 1002
+  isSpecialBullet: 0
   dmg: 3
   bulletSpeed: 0
   maxBulletDestroyTime: 10
@@ -157,11 +157,15 @@ MonoBehaviour:
   target: {fileID: 0}
   isFollowTarget: 0
   attackAmount: 1
+  bulletShape: {fileID: 0}
+  bulletBoxShape: {x: 0, y: 0}
+  bulletBoxOffset: {x: 0, y: 0}
   pv: {fileID: 668855957982877930}
   parentOb: {fileID: 0}
   isBossBullet: 0
   OP: {fileID: 0}
   boxCol: {fileID: 2332362531343683147}
+  circleCol: {fileID: 0}
   animator: {fileID: 0}
 --- !u!114 &668855957982877930
 MonoBehaviour:

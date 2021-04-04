@@ -85,6 +85,8 @@ MonoBehaviour:
   - PlayerInfoUpdate
   - AllPlayerSet
   - GodModeRPC
+  - BulletRpc
+  - BulletRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

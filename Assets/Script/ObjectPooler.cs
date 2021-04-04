@@ -12,7 +12,6 @@ public class ObjectPooler : MonoBehaviourPun
         public string tag;
         public GameObject prefab;
         public int size;
-        public bool isMyBullet;
     }
 
     public static ObjectPooler OP;
@@ -39,11 +38,7 @@ public class ObjectPooler : MonoBehaviourPun
                 obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false);
                 objectPool.Enqueue(obj);
 
-                if(obj.tag == "EnemyBullet")
-                {
-                    allOfPools[a] = obj;
-                    a++;
-                }
+
             }
             poolDictionary.Add(pool.tag, objectPool);
         }

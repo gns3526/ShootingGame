@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public class BulletScript : MonoBehaviour, IPunObservable
 {
-    [SerializeField] int bulletCode;
+    public bool isSpecialBullet;
     public int dmg;
     public float bulletSpeed;
     [SerializeField] float maxBulletDestroyTime;
@@ -18,6 +18,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public GameObject target;
     public bool isFollowTarget;
     public int attackAmount;
+    public Sprite bulletShape;
+    public Vector2 bulletBoxShape;
+    public Vector2 bulletBoxOffset;
 
     [SerializeField] PhotonView pv;
     public GameObject parentOb;
@@ -30,6 +33,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     Vector3 curPosPv;
 
     public BoxCollider2D boxCol;
+    public CircleCollider2D circleCol;
     public Animator animator;
 
     bool once;
@@ -42,27 +46,53 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     private void OnEnable()
     {
-        if(animator != null)
+        bulletDestroyTime = maxBulletDestroyTime;
+
+        if (animator != null)
            animator.SetBool("Start",true);
 
-        gameObject.transform.position = new Vector3(16, 16, 0);
+        if (!isSpecialBullet)
+        {
+            //GetComponent<SpriteRenderer>().sprite = bulletShape;
+            //boxCol.size = bulletBoxShape;
+            //boxCol.offset = bulletBoxOffset;
+        }
 
-        if (isPlayerAttack && once)
+        if (isPlayerAttack)
         {
             if (pv.IsMine)
             {
-                boxCol.enabled = true;
+                if (boxCol != null)
+                    boxCol.enabled = true;
+                else if (circleCol != null)
+                    circleCol.enabled = true;
             }
             else
             {
-                boxCol.enabled = false;
+                if (boxCol != null)
+                    boxCol.enabled = false;
+                else if (circleCol != null)
+                    circleCol.enabled = false;
             }
         }
+        else
+        {
+            if (boxCol != null)
+                boxCol.enabled = true;
+            else if (circleCol != null)
+                circleCol.enabled = true;
+        }
+            
         once = true;
     }
     private void OnDisable()
     {
-        bulletDestroyTime = maxBulletDestroyTime;
+        if (!isSpecialBullet)
+        {
+            GetComponent<SpriteRenderer>().sprite = null;
+            boxCol.size = new Vector2(0.01f, 0.01f);
+            boxCol.offset = new Vector2(0.01f, 0.01f);
+        }
         curPosPv = new Vector3(16, 16, 0);
         bulletSpeed = 0;
         isBossBullet = false;
@@ -84,8 +114,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
             OP.PoolDestroy(gameObject);
         }
 
-        if (PhotonNetwork.IsMasterClient && !isBossBullet)
+        if (PhotonNetwork.IsMasterClient)
         {
+            if(!isPlayerAttack)
             transform.Translate(new Vector3(0, -bulletSpeed));
             bulletDestroyTime -= Time.deltaTime;
             if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);
