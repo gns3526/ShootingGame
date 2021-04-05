@@ -18,7 +18,7 @@ GameObject:
   - component: {fileID: 2956130016900229732}
   m_Layer: 0
   m_Name: AbilityBullet2
-  m_TagString: PlayerBullet
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0

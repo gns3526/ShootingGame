@@ -21,18 +21,20 @@ public class PoolScript : MonoBehaviourPun
     [SerializeField] Vector2[] bulletBoxSizeE;
     [SerializeField] Vector2[] bulletBoxOffsetE;
 
-
+    //-2 = Objects
+    //-1 = SpecialBullet
+    //0++ = Bullets
     [PunRPC]
     void SetActiveRPC(bool a, int bulletIndex, int bulletSpeedIndex, bool isPlayerAttack)
     {
         if(bulletIndex > -1)
-        { 
-
+        {
+            BulletScript bs = GetComponent<BulletScript>();
+            bs.isPlayerAttack = isPlayerAttack;
             if (isPlayerAttack)
             {
-                GetComponent<BulletScript>().dmg = bulletDamage[bulletIndex];
-                GetComponent<BulletScript>().bulletSpeed = -bulletSpeed[bulletSpeedIndex];
-                GetComponent<BulletScript>().isPlayerAttack = isPlayerAttack;
+                bs.dmg = bulletDamage[bulletIndex];
+                bs.bulletSpeed = -bulletSpeed[bulletSpeedIndex];
                 GetComponent<SpriteRenderer>().sprite = bulletSpriteP[bulletIndex];
                 transform.localScale = bulletScaleP[bulletIndex];
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeP[bulletIndex];
@@ -40,14 +42,22 @@ public class PoolScript : MonoBehaviourPun
             }
             else
             {
-                GetComponent<BulletScript>().bulletSpeed = bulletSpeed[bulletSpeedIndex];
-                GetComponent<BulletScript>().isPlayerAttack = isPlayerAttack;
+                bs.bulletSpeed = bulletSpeed[bulletSpeedIndex];
                 GetComponent<SpriteRenderer>().sprite = bulletSpriteE[bulletIndex];
                 transform.localScale = bulletScaleE[bulletIndex];
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeE[bulletIndex];
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetE[bulletIndex];
             }
         }
+        else if(bulletIndex == -1)
+        {
+            GetComponent<BulletScript>().isPlayerAttack = isPlayerAttack;
+            if (isPlayerAttack)
+                GetComponent<BulletScript>().bulletSpeed = -bulletSpeed[bulletSpeedIndex];
+            else
+                GetComponent<BulletScript>().bulletSpeed = bulletSpeed[bulletSpeedIndex];
+        }
+
         gameObject.SetActive(a);
     }
 }

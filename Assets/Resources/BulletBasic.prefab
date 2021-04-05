@@ -200,6 +200,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed:
+  - 0
   - 0.02
   - 0.05
   - 0.08

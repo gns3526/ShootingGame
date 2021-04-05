@@ -19,7 +19,7 @@ GameObject:
   - component: {fileID: 6402416593899406290}
   m_Layer: 0
   m_Name: EnemyBullet3
-  m_TagString: EnemyBullet
+  m_TagString: Bullet
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
@@ -120,7 +120,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: eb874595fff2992498f0bf5ae0ad8ec3, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  bulletCode: 3
+  isSpecialBullet: 0
   dmg: 1
   bulletSpeed: 0
   maxBulletDestroyTime: 10
@@ -136,6 +136,7 @@ MonoBehaviour:
   isBossBullet: 0
   OP: {fileID: 0}
   boxCol: {fileID: 0}
+  circleCol: {fileID: 0}
   animator: {fileID: 0}
 --- !u!61 &5431172195592476221
 BoxCollider2D:
@@ -200,6 +201,16 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 83972e6d02c2a8048baee7c05a4a8497, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  bulletSpeed: []
+  bulletDamage: 
+  bulletSpriteP: []
+  bulletScaleP: []
+  bulletBoxSizeP: []
+  bulletBoxOffsetP: []
+  bulletSpriteE: []
+  bulletScaleE: []
+  bulletBoxSizeE: []
+  bulletBoxOffsetE: []
 --- !u!114 &2406731727470106163
 MonoBehaviour:
   m_ObjectHideFlags: 0

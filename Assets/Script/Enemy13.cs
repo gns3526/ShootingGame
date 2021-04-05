@@ -88,12 +88,13 @@ public class Enemy13 : MonoBehaviour
         yield return new WaitForSeconds(maxAttackCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
 
-        //EB.OP.PoolInstantiate("EnemyBullet3", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.15f;
-       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.13f;
-       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.11f;
-       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.09f;
-       // EB.OP.PoolInstantiate("EnemyBullet1", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward)).GetComponent<BulletScript>().bulletSpeed = 0.07f;
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[1], EB.bulletSpeedCode[1], false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[2], EB.bulletSpeedCode[2], false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[3], EB.bulletSpeedCode[3], false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[4], EB.bulletSpeedCode[4], false);
 
+        Debug.Log(EB.bulletCode[0]+","+ EB.bulletCode[1]+ "," + EB.bulletCode[2]+ "," + EB.bulletCode[3]+ "," + EB.bulletCode[4]+ "," + EB.bulletSpeedCode[0]+ "," + EB.bulletSpeedCode[1]+ "," + EB.bulletSpeedCode[2]+ "," + EB.bulletSpeedCode[3]+ "," + EB.bulletSpeedCode[4]);
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 

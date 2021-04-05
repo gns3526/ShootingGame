@@ -23,6 +23,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Sprite[] sprites;
     [SerializeField] Image healthImage;
     public GameObject healthBarGameObject;
+    public int[] bulletCode;
+    public int[] bulletSpeedCode;
 
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     public PhotonView pv;

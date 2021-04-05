@@ -9027,7 +9027,7 @@ MonoBehaviour:
     size: 5
   - tag: Explosion
     prefab: {fileID: 51470172286498343, guid: ec1c5cc200054c3499f98d95d0ac55c5, type: 3}
-    size: 0
+    size: 10
   - tag: AbilityBullet1
     prefab: {fileID: 999732467917345114, guid: 18c4a496732e6674fafba8dd917ada6c, type: 3}
     size: 20

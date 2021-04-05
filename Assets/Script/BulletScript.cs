@@ -163,6 +163,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
         }
     }
 
+    public void DestroyObject()
+    {
+        OP.PoolDestroy(gameObject);
+    }
+
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)
     {
         if (stream.IsWriting)//isMine = true

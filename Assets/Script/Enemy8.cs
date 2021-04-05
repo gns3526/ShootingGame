@@ -15,16 +15,10 @@ public class Enemy8 : MonoBehaviour
 
     [SerializeField] bool canMove;
     [SerializeField] float moveSpeed;
-    //float moveSpeedOri;
 
 
-    private void Start()
-    {
-        //moveSpeedOri = moveSpeed;
-    }
     private void OnEnable()
     {
-        //moveSpeed = moveSpeedOri;
         canMove = true;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
@@ -46,11 +40,11 @@ public class Enemy8 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(0, Vector3.forward));
-     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(90, Vector3.forward));
-     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(180, Vector3.forward));
-     //   EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(-90, Vector3.forward));
-     //
+        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(0, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(90, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(180, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.AngleAxis(-90, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+     
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         //moveSpeed = 0.04f;

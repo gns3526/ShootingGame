@@ -40,7 +40,7 @@ public class ObjectPooler : MonoBehaviourPun
                 GameObject obj = PhotonNetwork.Instantiate(pool.tag, new Vector3(4, 4, 0), Quaternion.identity);
 
 
-                obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -1, 0, true);
+                obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, 0, true);
                 objectPool.Enqueue(obj);
             }
             poolDictionary.Add(pool.tag, objectPool);
@@ -68,6 +68,6 @@ public class ObjectPooler : MonoBehaviourPun
 
     public void PoolDestroy(GameObject obj)
     {
-        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -1, 0, true);
+        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, 0, true);
     }
 }

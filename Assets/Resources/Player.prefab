@@ -11044,9 +11044,9 @@ MonoBehaviour:
   isTouchLeft: 0
   isTouchRight: 0
   isTouchBottom: 0
-  life: 1
+  life: 10
   lifeText: {fileID: 1874954468832490246}
-  maxLife: 5
+  maxLife: 10
   score: 0
   moveSpeed: 100
   power: 1
