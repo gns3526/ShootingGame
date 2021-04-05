@@ -162,6 +162,10 @@ MonoBehaviour:
   boxCol: {fileID: 6428041374053074998}
   circleCol: {fileID: 0}
   animator: {fileID: 0}
+  spriteRender: {fileID: 0}
+  bulletAniSprites:
+  - {fileID: 0}
+  bulletAniDelay: 0
 --- !u!114 &-5103508010015265109
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -138,6 +138,9 @@ MonoBehaviour:
   boxCol: {fileID: 0}
   circleCol: {fileID: 0}
   animator: {fileID: 0}
+  spriteRender: {fileID: 0}
+  bulletAniSprites:
+  - {fileID: 0}
 --- !u!61 &5431172195592476221
 BoxCollider2D:
   m_ObjectHideFlags: 0
@@ -202,6 +205,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: []
+  bulletAni: []
   bulletDamage: 
   bulletSpriteP: []
   bulletScaleP: []

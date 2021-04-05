@@ -70,7 +70,7 @@ public class GoogleSheetManager : MonoBehaviour
         {
             movePlayerinfoComplete = false;
             makeNickComplete = false;
-
+            
             NM.Connect();
             
         }
@@ -317,7 +317,7 @@ public class GoogleSheetManager : MonoBehaviour
             if(GD.type == "3")
             {
                 playerNickName = GD.value;
-                NM.nickNameInput.text = playerNickName;
+                NM.nickNameInput.text = GD.value;
 
             }
             else if(GD.type == "5")
@@ -356,6 +356,7 @@ public class GoogleSheetManager : MonoBehaviour
                 AM.abilityGrade[0] = int.Parse(result[14]);
                 AM.abilityGrade[1] = int.Parse(result[15]);
                 AM.abilityGrade[2] = int.Parse(result[16]);
+                
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;
             }

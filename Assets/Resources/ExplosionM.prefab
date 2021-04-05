@@ -199,6 +199,10 @@ MonoBehaviour:
   boxCol: {fileID: 0}
   circleCol: {fileID: 7647455010297148655}
   animator: {fileID: 6109017599887092952}
+  spriteRender: {fileID: 0}
+  bulletAniSprites:
+  - {fileID: 0}
+  bulletAniDelay: 0
 --- !u!95 &6109017599887092952
 Animator:
   serializedVersion: 3

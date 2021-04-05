@@ -26,6 +26,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public int[] bulletCode;
     public int[] bulletSpeedCode;
 
+
     [SerializeField] SpriteRenderer spriteRendererEnemy;
     public PhotonView pv;
 

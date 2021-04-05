@@ -99,7 +99,7 @@ BoxCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.01}
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
@@ -110,7 +110,7 @@ BoxCollider2D:
     adaptiveTiling: 0
   m_AutoTiling: 0
   serializedVersion: 2
-  m_Size: {x: 0.5, y: 0.5}
+  m_Size: {x: 0.43, y: 0.42}
   m_EdgeRadius: 0
 --- !u!50 &7768235347239702801
 Rigidbody2D:
@@ -148,7 +148,7 @@ MonoBehaviour:
   isSpecialBullet: 0
   dmg: 3
   bulletSpeed: 0
-  maxBulletDestroyTime: 5
+  maxBulletDestroyTime: 15
   isPlayerAttack: 0
   isFollowerAttack: 0
   isRotate: 0
@@ -163,6 +163,13 @@ MonoBehaviour:
   boxCol: {fileID: 2332362531343683147}
   circleCol: {fileID: 0}
   animator: {fileID: 0}
+  spriteRender: {fileID: 7119123763106644442}
+  bulletAniSprites:
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  - {fileID: 0}
+  bulletAniDelay: 0
 --- !u!114 &668855957982877930
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -244,18 +251,30 @@ MonoBehaviour:
   - {fileID: 7431529995326980795, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
   - {fileID: -7779215486825634471, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
   - {fileID: 830317617348258784, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
+  - {fileID: 21300000, guid: 7f854efdcb28cdd46a71b9d74d5c0898, type: 3}
+  - {fileID: 21300000, guid: 2d5df1e012eb4874ea89acaa0dce6f5e, type: 3}
+  - {fileID: 21300000, guid: 453916503057923439220f90ba52d440, type: 3}
   bulletScaleE:
   - {x: 1, y: 1}
   - {x: 1, y: 1}
   - {x: 1.5, y: 2}
+  - {x: 1, y: 1}
+  - {x: 1, y: 1}
+  - {x: 1, y: 1}
   bulletBoxSizeE:
   - {x: 0.25, y: 0.33}
   - {x: 0.25, y: 0.375}
   - {x: 0.16, y: 0.49}
+  - {x: 1.26, y: 0.93}
+  - {x: 0.43, y: 0.42}
+  - {x: 2.94, y: 0.86}
   bulletBoxOffsetE:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   - {x: 0, y: 0}
+  - {x: 0, y: 0.02}
+  - {x: 0, y: -0.01}
+  - {x: 0, y: 0.08}
 --- !u!114 &-6112678195325725980
 MonoBehaviour:
   m_ObjectHideFlags: 0

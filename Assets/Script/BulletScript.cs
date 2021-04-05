@@ -32,6 +32,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public BoxCollider2D boxCol;
     public CircleCollider2D circleCol;
     public Animator animator;
+    [SerializeField] SpriteRenderer spriteRender;
+    public Sprite[] bulletAniSprites;
+    public float bulletAniDelay;
 
     bool once;
 
@@ -74,6 +77,12 @@ public class BulletScript : MonoBehaviour, IPunObservable
         }
             
         once = true;
+        Invoke("Delay", 0.01f);
+    }
+    void Delay()
+    {
+        if (bulletAniSprites[0] != null)
+            StartCoroutine(BulletAni());
     }
     private void OnDisable()
     {
@@ -90,6 +99,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (animator != null)
             animator.SetBool("Start", false);
         parentOb = null;
+
+        if (bulletAniSprites[0] != null)
+            for (int i = 0; i < bulletAniSprites.Length; i++)
+                bulletAniSprites[i] = null;
+        bulletAniDelay = 0;
     }
 
     private void Update()
@@ -162,6 +176,36 @@ public class BulletScript : MonoBehaviour, IPunObservable
             }
         }
     }
+
+    bool stopCor;
+    public IEnumerator BulletAni()
+    {
+        Debug.Log("실행");
+        stopCor = false;
+        yield return new WaitForSeconds(bulletAniDelay);
+        spriteRender.sprite = bulletAniSprites[0]; // 1
+
+        yield return new WaitForSeconds(bulletAniDelay);
+        spriteRender.sprite = bulletAniSprites[1]; // 2
+
+        if (bulletAniSprites[2] != null)
+        {
+            yield return new WaitForSeconds(bulletAniDelay);
+            spriteRender.sprite = bulletAniSprites[2]; // 3
+        }
+        else
+            stopCor = true;
+
+        if (!stopCor)
+        {
+            yield return new WaitForSeconds(bulletAniDelay);
+            if (bulletAniSprites[3] != null)
+                spriteRender.sprite = bulletAniSprites[3]; // 4
+        }
+
+        StartCoroutine(BulletAni());
+    }
+
 
     public void DestroyObject()
     {

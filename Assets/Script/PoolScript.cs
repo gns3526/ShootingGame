@@ -15,6 +15,7 @@ public class PoolScript : MonoBehaviourPun
     [SerializeField] Vector2[] bulletBoxSizeP;
     [SerializeField] Vector2[] bulletBoxOffsetP;
 
+
     [Header("EnemyBullet")]
     [SerializeField] Sprite[] bulletSpriteE;
     [SerializeField] Vector2[] bulletScaleE;

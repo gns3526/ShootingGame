@@ -9106,6 +9106,10 @@ MonoBehaviour:
     prefab: {fileID: 5808032221045866145, guid: 3ac438e757774534fb3ff3b6b1c0313d,
       type: 3}
     size: 30
+  - tag: Boss3
+    prefab: {fileID: 3646381594106627784, guid: b6c068e77f433ba42b5d4ae78c9ce24f,
+      type: 3}
+    size: 1
   allOfPools:
   - {fileID: 0}
   - {fileID: 0}

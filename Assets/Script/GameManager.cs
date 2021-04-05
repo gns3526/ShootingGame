@@ -619,6 +619,9 @@ public class GameManager : MonoBehaviourPunCallbacks
                 case "Boss2":
                     enemyIndex = "Boss2";
                     break;
+                case "Boss3":
+                    enemyIndex = "Boss3";
+                    break;
             }
 
             int spawnPoint = spawnList[spawnIndex].point;
