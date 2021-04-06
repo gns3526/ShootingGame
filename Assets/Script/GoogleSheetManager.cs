@@ -63,18 +63,21 @@ public class GoogleSheetManager : MonoBehaviour
 
     [SerializeField] bool movePlayerinfoComplete;
     [SerializeField] bool makeNickComplete;
+    [SerializeField] bool nickInputComplete;
 
-    private void Update()
+
+    void CompleteAllCheck()
     {
-        if(movePlayerinfoComplete && makeNickComplete)
+        if (movePlayerinfoComplete && makeNickComplete && nickInputComplete)
         {
             movePlayerinfoComplete = false;
             makeNickComplete = false;
-            
+            nickInputComplete = false;
+
             NM.Connect();
-            
         }
     }
+
     public bool CheckingSpecialText(string txt)
     {
         string str = @"[~!@\#$%^&*\(,.)\=+|\\/:;?""<>']";
@@ -318,7 +321,8 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 playerNickName = GD.value;
                 NM.nickNameInput.text = GD.value;
-
+                nickInputComplete = true;
+                CompleteAllCheck();
             }
             else if(GD.type == "5")
             {
@@ -359,6 +363,7 @@ public class GoogleSheetManager : MonoBehaviour
                 
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;
+                CompleteAllCheck();
             }
         }
         if(GD.order == "NicknameCheck")
@@ -370,6 +375,7 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 GetValue(3);
                 makeNickComplete = true;
+                CompleteAllCheck();
                 return;
             }
             //없다면 닉네임창에 놔둠;
@@ -386,7 +392,11 @@ public class GoogleSheetManager : MonoBehaviour
         }
         if (GD.order == "NicknameSameCheck")
         {
-            if (GD.result == "OK") makeNickComplete = true;
+            if (GD.result == "OK")
+            {
+                makeNickComplete = true;
+                CompleteAllCheck();
+            }
             else print("닉네임 중복됨");
         }
         if(GD.order == "checkSameId")

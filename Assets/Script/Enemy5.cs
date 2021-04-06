@@ -42,17 +42,17 @@ public class Enemy5 : MonoBehaviour
         randomNum = Random.Range(0, 2);
         if(randomNum == 0)
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         }
         else
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         }
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 

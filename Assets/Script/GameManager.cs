@@ -625,7 +625,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             int spawnPoint = spawnList[spawnIndex].point;
-            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity, -2, 0, false);
+            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity, -2, -1, 0, false);
             
 
             if (spawnPoint == 5 || spawnPoint == 8)
@@ -731,7 +731,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
     {
-        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity, -2, 0, false);
+        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity, -2, -1, 0, false);
         Explosion explosionScript = explosion.GetComponent<Explosion>();
 
         explosion.transform.position = pos;
@@ -951,12 +951,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         yield return new WaitForSeconds(2);
         if (myplayerScript.goldAmountPer == 100)
-            getGoldAmountText.text = "+" + GoldAmount.ToString() + "Exp";
+            getGoldAmountText.text = "+" + GoldAmount.ToString() + "Gold";
         else
         {
             float finalGoleAmount = Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
             float bonusGoldAmount = finalGoleAmount - GoldAmount;
-            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Exp";
+            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
         }
         money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();

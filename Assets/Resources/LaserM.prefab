@@ -168,7 +168,8 @@ MonoBehaviour:
   spriteRender: {fileID: 0}
   bulletAniSprites:
   - {fileID: 0}
-  bulletAniDelay: 0
+  bulletAniDelayCode: 0
+  bulletAniDelays: []
 --- !u!114 &6870438833738551993
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -193,6 +194,9 @@ MonoBehaviour:
   - 0.23
   - 0.26
   - 0.3
+  ani1: []
+  ani2: []
+  ani3: []
   bulletDamage: 0100000003000000010000000a000000030000000a000000
   bulletSpriteP:
   - {fileID: 874343242196921964, guid: ac729a8f0604123448dcb21a2122f134, type: 3}

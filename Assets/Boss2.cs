@@ -118,13 +118,13 @@ public class Boss2 : MonoBehaviour
 
 
         if (randomFire == 1)
-            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, 6, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, -1, 6, false);
         else if (randomFire == 2)
-            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, 6, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, -1, 6, false);
         else if (randomFire == 3)
-            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, 6, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, -1, 6, false);
         else if (randomFire == 4)
-            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, 6, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle + 90), 2, -1, 6, false);
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[0]);
@@ -153,21 +153,21 @@ public class Boss2 : MonoBehaviour
         int randomAngle7 = Random.Range(-5, 6);
         int randomAngle8 = Random.Range(-5, 6);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle1 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle1 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle2 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle2 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle3 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle3 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle4 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle4 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle5 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle5 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle6 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle6 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle7 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, angle + randomAngle7 + 90), 2, -1, 8, false);
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle8 + 90), 2, 8, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.45f, Quaternion.Euler(0, 0, angle + randomAngle8 + 90), 2, -1, 8, false);
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[1]);
@@ -189,7 +189,7 @@ public class Boss2 : MonoBehaviour
 
         for (int i = 0; i < 40; i++)
         {
-            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 9 + randomAngle, Vector3.forward), 1, 4, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 9 + randomAngle, Vector3.forward), 1, -1, 4, false);
         }
 
         curPatternCount++;
@@ -209,7 +209,7 @@ public class Boss2 : MonoBehaviour
         
         int randomAngle = Random.Range(0, 361);
 
-        EB.OP.PoolInstantiate("LaserMiddle", target.transform.position, Quaternion.Euler(0, 0, randomAngle), -1, 0, false);
+        EB.OP.PoolInstantiate("LaserMiddle", target.transform.position, Quaternion.Euler(0, 0, randomAngle), -1, -1, 0, false);
 
 
 
@@ -233,7 +233,7 @@ public class Boss2 : MonoBehaviour
         if(EB.canFire)
         for (int i = 0; i < 40; i++)
         {
-            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 9, Vector3.forward), 1, 4, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 9, Vector3.forward), 1, -1, 4, false);
         }
         if(EB.patternIndex <= 2)
         StartCoroutine(Attack1());

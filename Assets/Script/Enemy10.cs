@@ -76,9 +76,9 @@ public class Enemy10 : MonoBehaviour
 
         yield return new WaitForSeconds(shotCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 90), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 110), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
-        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 70), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 90), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 110), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+        EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 70), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         //moveSpeed = 0.05f;

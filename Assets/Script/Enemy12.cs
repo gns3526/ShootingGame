@@ -54,7 +54,7 @@ public class Enemy12 : MonoBehaviour
 
         for (int i = 0; i < 72; i++)//72
         {
-            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 5, Vector3.forward), EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 5, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         }
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;

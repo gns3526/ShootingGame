@@ -86,7 +86,7 @@ public class Enemy14 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-        GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet5", transform.position, Quaternion.identity, EB.bulletCode[0], EB.bulletSpeedCode[0], false);
+        GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet5", transform.position, Quaternion.identity, EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         bullet.GetComponent<BulletScript>().bulletSpeed = 0.04f;
         bullet.GetComponent<BulletScript>().target = target;
         

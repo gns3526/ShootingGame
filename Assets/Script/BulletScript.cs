@@ -34,7 +34,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public Animator animator;
     [SerializeField] SpriteRenderer spriteRender;
     public Sprite[] bulletAniSprites;
-    public float bulletAniDelay;
+    public int bulletAniDelayCode;
+    public float[] bulletAniDelays;
 
     bool once;
 
@@ -103,7 +104,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (bulletAniSprites[0] != null)
             for (int i = 0; i < bulletAniSprites.Length; i++)
                 bulletAniSprites[i] = null;
-        bulletAniDelay = 0;
+        bulletAniDelayCode = 0;
     }
 
     private void Update()
@@ -182,15 +183,15 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         Debug.Log("실행");
         stopCor = false;
-        yield return new WaitForSeconds(bulletAniDelay);
+        yield return new WaitForSeconds(bulletAniDelays[bulletAniDelayCode]);
         spriteRender.sprite = bulletAniSprites[0]; // 1
 
-        yield return new WaitForSeconds(bulletAniDelay);
+        yield return new WaitForSeconds(bulletAniDelays[bulletAniDelayCode]);
         spriteRender.sprite = bulletAniSprites[1]; // 2
 
         if (bulletAniSprites[2] != null)
         {
-            yield return new WaitForSeconds(bulletAniDelay);
+            yield return new WaitForSeconds(bulletAniDelays[bulletAniDelayCode]);
             spriteRender.sprite = bulletAniSprites[2]; // 3
         }
         else
@@ -198,7 +199,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         if (!stopCor)
         {
-            yield return new WaitForSeconds(bulletAniDelay);
+            yield return new WaitForSeconds(bulletAniDelays[bulletAniDelayCode]);
             if (bulletAniSprites[3] != null)
                 spriteRender.sprite = bulletAniSprites[3]; // 4
         }

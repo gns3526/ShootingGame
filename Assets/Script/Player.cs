@@ -347,7 +347,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity, 0, 0, true);
+            GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity, 0, -1, 0, true);
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
             rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
             curShotCoolTime = 0;
@@ -355,7 +355,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity, 0, 0, true);
+            GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity, 0, -1, 0, true);
             Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
             rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
             curShotCoolTime = 0;
@@ -366,7 +366,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             case 1:
 
-                bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, 8, true);
+                bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 8, true);
                 //Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 //rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 //pv.RPC("BulletRPC", RpcTarget.All);
@@ -375,8 +375,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 break;
             case 2:
                 
-                GameObject bulletR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, 6, true);
-                GameObject bulletL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, 6, true);
+                GameObject bulletR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
+                GameObject bulletL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
                 bulletR.transform.position = transform.position + Vector3.right * 0.1f;
                 bulletL.transform.position = transform.position + Vector3.left * 0.1f;
 
@@ -389,13 +389,13 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 break;
             case 3:
                 
-                GameObject bulletRR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, 6, true);
+                GameObject bulletRR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
                 bulletRR.transform.position = transform.position + Vector3.right * 0.35f;
 
-                GameObject bulletCC = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, 6, true);
+                GameObject bulletCC = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 6, true);
                 bulletCC.transform.position = transform.position;
 
-                GameObject bulletLL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, 6, true);
+                GameObject bulletLL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
                 bulletLL.transform.position = transform.position + Vector3.left * 0.35f;
 
                 Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
@@ -420,7 +420,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
-                GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 6, 9, true);
+                GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 6, -1, 9, true);
                 Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
                 rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
                 curBulletAmount--;

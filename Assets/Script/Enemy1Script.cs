@@ -69,7 +69,7 @@ public class Enemy1Script : MonoBehaviour
         yield return new WaitForSeconds(maxAttackCool);
 
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-        bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward), 0, EB.bulletSpeedCode[0], false);//0.1f
+        bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward), 0, -1, EB.bulletSpeedCode[0], false);//0.1f
         bs = bullet.GetComponent<BulletScript>();
 
         Debug.Log("발사");

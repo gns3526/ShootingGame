@@ -263,6 +263,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   bulletSpeed: []
+  ani1: []
+  ani2: []
+  ani3: []
   bulletDamage: 
   bulletSpriteP: []
   bulletScaleP: []

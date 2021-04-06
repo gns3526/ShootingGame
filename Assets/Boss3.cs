@@ -28,8 +28,9 @@ public class Boss3 : MonoBehaviour
     int targetRandomNum;
 
     GameObject curShotBullet;
-    GameObject bulletPv;
-    [SerializeField] float[] bulletAniDelay;
+    BulletScript curShotBulletScipt;
+
+    [SerializeField] int[] bulletAniDelay;
     public Sprite[] bulletAni1;
     public Sprite[] bulletAni2;
     public Sprite[] bulletAni3;
@@ -119,8 +120,9 @@ public class Boss3 : MonoBehaviour
 
     IEnumerator Pattern1()//
     {
-        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 3, EB.bulletSpeedCode[0], false);
-        EB.pv.RPC("BulletAniRPC", RpcTarget.All, 0);
+        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 3, 0, EB.bulletSpeedCode[0], false);
+        curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
+        //BulletAniRPC(0);
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[0]);
@@ -145,16 +147,17 @@ public class Boss3 : MonoBehaviour
         switch (pattern2Index)
         {
             case 0:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.4f, Quaternion.Euler(0, 0, 0), 4, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
                 break;
             case 1:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 4, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
                 break;
             case 2:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.4f, Quaternion.Euler(0, 0, 0), 4, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
                 break;
         }
-        EB.pv.RPC("BulletAniRPC", RpcTarget.All, 1);
+        curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
+        //BulletAniRPC(1);
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[1]);
@@ -173,8 +176,9 @@ public class Boss3 : MonoBehaviour
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
 
 
-        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle + 90), 5, EB.bulletSpeedCode[2], false);
-        EB.pv.RPC("BulletAniRPC", RpcTarget.All, 2);
+        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle + 90), 5, 2, EB.bulletSpeedCode[2], false);
+        curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
+        //BulletAniRPC(2);
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[2]);
@@ -189,7 +193,6 @@ public class Boss3 : MonoBehaviour
     }
 
 
-    [PunRPC]
     void BulletAniRPC(int pattern)
     {
         Debug.Log("총알 0");
@@ -197,21 +200,17 @@ public class Boss3 : MonoBehaviour
         {
             case 0:
                 for (int i = 0; i < bulletAni1.Length; i++)
-                    curShotBullet.GetComponent<BulletScript>().bulletAniSprites[i] = bulletAni1[i];
-                Debug.Log("총알 1");
+                    curShotBulletScipt.bulletAniSprites[i] = bulletAni1[i];
                 break;
             case 1:
                 for (int i = 0; i < bulletAni2.Length; i++)
-                    curShotBullet.GetComponent<BulletScript>().bulletAniSprites[i] = bulletAni2[i];
-                Debug.Log("총알 2");
+                    curShotBulletScipt.bulletAniSprites[i] = bulletAni2[i];
                 break;
             case 2:
                 for (int i = 0; i < bulletAni3.Length; i++)
-                    curShotBullet.GetComponent<BulletScript>().bulletAniSprites[i] = bulletAni3[i];
-                Debug.Log("총알 3");
+                    curShotBulletScipt.bulletAniSprites[i] = bulletAni3[i];
                 break;
         }
-        curShotBullet.GetComponent<BulletScript>().bulletAniDelay = bulletAniDelay[pattern];
-        Debug.Log("총알 4");
+        curShotBullet.GetComponent<BulletScript>().bulletAniDelayCode = bulletAniDelay[pattern];
     }
 }
