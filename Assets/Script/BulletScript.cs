@@ -78,7 +78,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         }
             
         once = true;
-        Invoke("Delay", 0.01f);
+        Delay();
     }
     void Delay()
     {

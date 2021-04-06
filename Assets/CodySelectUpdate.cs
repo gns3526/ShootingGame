@@ -7,6 +7,7 @@ public class CodySelectUpdate : MonoBehaviour
 {
     GameManager gm;
     NetworkManager nm;
+    JopManager jm;
     [SerializeField] GameObject[] codys;
     [SerializeField] int codyTypeCode;
 
@@ -14,6 +15,7 @@ public class CodySelectUpdate : MonoBehaviour
     {
         gm = FindObjectOfType<GameManager>();
         nm = FindObjectOfType<NetworkManager>();
+        jm = FindObjectOfType<JopManager>();
     }
 
 
@@ -39,13 +41,17 @@ public class CodySelectUpdate : MonoBehaviour
                 nm.playerIconCode = index;
                 gm.playerIcon.sprite = nm.icons[nm.playerIconCode];
                 break;
+            case 4:
+                jm.jobCode = index;
+                break;
         }
         Select();
     }
     //0 = main
     //1 = body
     //2 = particle
-
+    //3 = icon
+    //4 = jop;
 
     public void Select()
     {
@@ -66,6 +72,10 @@ public class CodySelectUpdate : MonoBehaviour
             case 3:
                 for (int i = 0; i < codys.Length; i++)
                     codys[i].transform.GetChild(2).gameObject.SetActive(nm.playerIconCode == i ? true : false);
+                break;
+            case 4:
+                for (int i = 0; i < codys.Length; i++)
+                    codys[i].transform.GetChild(2).gameObject.SetActive(jm.jobCode == i ? true : false);
                 break;
         }
         

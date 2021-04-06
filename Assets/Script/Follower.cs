@@ -11,20 +11,22 @@ public class Follower : MonoBehaviourPun, IPunObservable
     public int bulletType;
 
     public ObjectPooler OP;
+    [SerializeField] JopManager JM;
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
     [SerializeField] Transform parent;
     [SerializeField] Queue<Vector3> parentPos;
 
+    
+
     public Player player;
     [SerializeField] Rigidbody2D rigid;
-
-    [SerializeField] int iiii;
 
     Vector3 curPosPv;
     private void Awake()
     {
+        JM = FindObjectOfType<JopManager>();
         parentPos = new Queue<Vector3>();
         rigid.Sleep();
     }
@@ -35,15 +37,16 @@ public class Follower : MonoBehaviourPun, IPunObservable
         if (GetComponent<PhotonView>().IsMine)
         {
             Watch();
-            Follow();
+            if (!JM.skillBOn)
+                Follow();
             Fire();
-            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100);
+            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100) * (JM.skillBOn == true ? 2 : 1);
 
         }
         else
         {
+            if(!JM.skillBOn)
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
-            //transform.position = curPosPv;
         }
         rigid.velocity = new Vector2(0, 0);
 
@@ -83,21 +86,24 @@ public class Follower : MonoBehaviourPun, IPunObservable
         switch (bulletType)
         {
             case 1:
-                //GameObject bullet = OP.PoolInstantiate("FollowerBullet1", transform.position,Quaternion.identity);
-                //bullet.transform.position = transform.position;
-
-               // Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                if (JM.skillBOn)
+                {
+                    float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                } 
+                else
+                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
                 break;
             case 2:
-               // GameObject bullet2 = OP.PoolInstantiate("FollowerBullet2", transform.position, Quaternion.identity);
-                //bullet2.transform.position = transform.position;
-
-            //    Rigidbody2D rigid2 = bullet2.GetComponent<Rigidbody2D>();
-               // rigid2.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                if (JM.skillBOn)
+                {
+                    float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                }
+                else
+                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
                 break;
         }
-
         curShotCoolTime = 0;
     }
 

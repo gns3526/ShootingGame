@@ -10036,12 +10036,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227140826626}
   player: {fileID: 0}
   rigid: {fileID: 8242009468384621392}
-  iiii: 0
 --- !u!114 &3229597382091293050
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10184,12 +10184,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227690431952}
   player: {fileID: 0}
   rigid: {fileID: 5286581912542367927}
-  iiii: 0
 --- !u!114 &1392863723199145665
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10332,12 +10332,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226561177524}
   player: {fileID: 0}
   rigid: {fileID: 7417675186443054760}
-  iiii: 0
 --- !u!114 &6334808207860319744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10480,12 +10480,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225981818742}
   player: {fileID: 0}
   rigid: {fileID: 1333552995362690029}
-  iiii: 0
 --- !u!114 &3132938149911840192
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10628,12 +10628,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227259702257}
   player: {fileID: 0}
   rigid: {fileID: 7890349116386129299}
-  iiii: 0
 --- !u!114 &1259396175902000729
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10776,12 +10776,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226894128444}
   player: {fileID: 0}
   rigid: {fileID: 119737740469841147}
-  iiii: 0
 --- !u!114 &2539984814799554278
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -10924,12 +10924,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227448219102}
   player: {fileID: 0}
   rigid: {fileID: 7987381444111652798}
-  iiii: 0
 --- !u!114 &5998207396118162516
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11348,12 +11348,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226629464980}
   player: {fileID: 0}
   rigid: {fileID: 8398975905416010760}
-  iiii: 0
 --- !u!114 &8200164006916119318
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11496,12 +11496,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225890586677}
   player: {fileID: 0}
   rigid: {fileID: 8947601787096767117}
-  iiii: 0
 --- !u!114 &8562319221204444732
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11644,12 +11644,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226391667025}
   player: {fileID: 0}
   rigid: {fileID: 4890734205602142628}
-  iiii: 0
 --- !u!114 &3906439361933426806
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -11792,12 +11792,12 @@ MonoBehaviour:
   curShotCoolTime: 0
   bulletType: 0
   OP: {fileID: 0}
+  JM: {fileID: 0}
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227652808677}
   player: {fileID: 0}
   rigid: {fileID: 2254529163335762336}
-  iiii: 0
 --- !u!114 &1279442445436232798
 MonoBehaviour:
   m_ObjectHideFlags: 0

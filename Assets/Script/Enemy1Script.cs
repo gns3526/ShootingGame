@@ -72,8 +72,6 @@ public class Enemy1Script : MonoBehaviour
         bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward), 0, -1, EB.bulletSpeedCode[0], false);//0.1f
         bs = bullet.GetComponent<BulletScript>();
 
-        Debug.Log("발사");
-
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
     }

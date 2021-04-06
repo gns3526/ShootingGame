@@ -51,7 +51,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
-    [SerializeField] float maxShotCoolTime;
+    public float maxShotCoolTime;
     public float shotCoolTimeReduce;
     [SerializeField] float curShotCoolTime;
     public float godTime;
@@ -79,6 +79,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public GameManager GM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] AbilityManager AM;
+    JopManager JM;
 
     [SerializeField] bool isBoomActive;
 
@@ -116,6 +117,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         NM = FindObjectOfType<NetworkManager>();
         OP = FindObjectOfType<ObjectPooler>();
         AM = FindObjectOfType<AbilityManager>();
+        JM = FindObjectOfType<JopManager>();
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
@@ -138,50 +140,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
             StartCoroutine(StartDelay());
         }
-
-
-        /*
-        maxLife = 5;
-        life = maxLife;
-        score = 0;
-        moveSpeed = 3;
-        power = 1;
-        maxPower = 6;
-        increaseDamage = 100;
-        bossDamagePer = 100;
-
-        criticalPer = 20;
-        criticalDamagePer = 100;
-
-        gotSpecialWeaponAbility = false;
-        weaponCode = 0;
-        toTalChargeTime = 0;
-        curChargeTime = toTalChargeTime;
-        curBulletAmount = 0;
-        maxSpecialBullet = 0;
-        weaponTotalShotCoolTime = 0;
-        curWeaponShotCoolTime = -1;
-
-        isSpecialBulletAbility1 = false;
-        isSpecialBulletAbility2 = false;
-
-        maxShotCoolTime = 0.15f;
-        shotCoolTimeReduce = 100;
-        curShotCoolTime = maxShotCoolTime;
-
-        godTime = 2;
-        missPercentage = 0;
-
-        isAttackSpeedStack = false;
-        attackSpeedStackint = 0;
-        attackSpeedStack = 0;
-        isDamageStack = false;
-        damageStackint = 0;
-        damageStack = 0;
-        */
-
-        //pv.ViewID = 1000 + NM.playerInfoGroupInt;
-        
     }
 
 
@@ -197,7 +155,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
     IEnumerator StartDelay()
     {
-        yield return new WaitForSeconds(0.5f);
+        yield return new WaitForSeconds(0.1f);
+        JM.JobApply();
         AM.AbilityApply();
     }
 
@@ -362,58 +321,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             return;
         }
 
-        switch (power)
-        {
-            case 1:
-
-                bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 8, true);
-                //Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                //rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                //pv.RPC("BulletRPC", RpcTarget.All);
-
-                
-                break;
-            case 2:
-                
-                GameObject bulletR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
-                GameObject bulletL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
-                bulletR.transform.position = transform.position + Vector3.right * 0.1f;
-                bulletL.transform.position = transform.position + Vector3.left * 0.1f;
-
-                Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-                rigidR.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-
-                Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
-                rigidL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                
-                break;
-            case 3:
-                
-                GameObject bulletRR = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
-                bulletRR.transform.position = transform.position + Vector3.right * 0.35f;
-
-                GameObject bulletCC = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 6, true);
-                bulletCC.transform.position = transform.position;
-
-                GameObject bulletLL = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 0, -1, 6, true);
-                bulletLL.transform.position = transform.position + Vector3.left * 0.35f;
-
-                Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
-                rigidRR.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-
-                Rigidbody2D rigidCC = bulletCC.GetComponent<Rigidbody2D>();
-                rigidCC.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-
-                Rigidbody2D rigidLL = bulletLL.GetComponent<Rigidbody2D>();
-                rigidLL.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-                
-                break;
-
-        }
-
-
+        JM.Shot();
         curShotCoolTime = 0;
     }
+
     void WeaponFire()
     {
         if (gotSpecialWeaponAbility && weaponFire)

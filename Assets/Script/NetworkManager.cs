@@ -16,6 +16,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Cards CM;
     [SerializeField] GoogleSheetManager GSM;
     [SerializeField] AbilityManager AM;
+    [SerializeField] JopManager JM;
 
     [SerializeField] Animator StartButtonAni;
 
@@ -472,6 +473,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.myplayerScript = myPlayer.GetComponent<Player>();
         CM.player = myPlayer.GetComponent<Player>();
         AM.myPlayerScript = myPlayer.GetComponent<Player>();
+        JM.myplayerScript = myPlayer.GetComponent<Player>();
 
         GM.WeaponButtonUpdate();
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);

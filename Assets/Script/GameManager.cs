@@ -62,6 +62,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject colorNormalPanel;
     [SerializeField] GameObject colorPremiumPanel;
     public GameObject codyIconPanel;
+    [SerializeField] GameObject jobPanel;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -820,6 +821,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void JobPanelOpenOrClose(bool a)
+    {
+        jobPanel.SetActive(a);
+        if (a)
+        {
+            codySelectUpdate[4].Select();
+
+            codyIconPanel.SetActive(false);
+            codyPanel.SetActive(false);
+            colorChangePanel.SetActive(false);
+            abilityPanel.SetActive(false);
+        }
+    }
 
     public void NormalColorChange()
     {
@@ -866,22 +880,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerColors[2] = Mathf.Round(B);
 
         lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
-        //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, playerColors[0], playerColors[1], playerColors[2]);
 
         colorChangePanel.SetActive(false);
-    }
-
-    public void CodyOnClick(int index)
-    {
-        
-        //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, index, codyParticleCode);
-    }
-
-    public void ParticleOnClick(int index)
-    {
-        
-
-        //myplayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, codyBodyCode, index);
     }
 
 
