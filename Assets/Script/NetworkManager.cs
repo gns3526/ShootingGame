@@ -11,12 +11,14 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] PhotonView pv;
     [SerializeField] PhotonView pvGM;
 
+    [Header("Manager")]
     [SerializeField] GameManager GM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
     [SerializeField] GoogleSheetManager GSM;
     [SerializeField] AbilityManager AM;
     [SerializeField] JopManager JM;
+    [SerializeField] ReinForceManager RM;
 
     [SerializeField] Animator StartButtonAni;
 
@@ -143,6 +145,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     public override void OnJoinedLobby()//3
     {
+        Debug.Log("로비에 접속");
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
@@ -155,6 +158,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.SetExpPanel();
 
         GM.goldAmountText.text = GM.money.ToString();
+        RM.LobbyReinRework();
 
         myList.Clear();
         MyListRenewal();

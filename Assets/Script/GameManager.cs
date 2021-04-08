@@ -16,6 +16,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] NetworkManager NM;
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
+    [SerializeField] ReinForceManager RM;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -63,6 +64,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject colorPremiumPanel;
     public GameObject codyIconPanel;
     [SerializeField] GameObject jobPanel;
+    [SerializeField] GameObject reinForcePanel;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -153,8 +155,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("PlayerStateInfo")]
     public int money;
+    public int reinPoint;
     public int[] abilityCode;
     public int[] abilityValue;
+    public int plainLv;
 
     [Header("Map")]
     public int mapCode;
@@ -827,6 +831,20 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (a)
         {
             codySelectUpdate[4].Select();
+
+            codyIconPanel.SetActive(false);
+            codyPanel.SetActive(false);
+            colorChangePanel.SetActive(false);
+            abilityPanel.SetActive(false);
+        }
+    }
+
+    public void ReinForceOpenOrClose(bool a)
+    {
+        reinForcePanel.SetActive(a);
+        if (a)
+        {
+            RM.ReinForceRework();
 
             codyIconPanel.SetActive(false);
             codyPanel.SetActive(false);
