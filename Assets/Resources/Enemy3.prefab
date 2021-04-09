@@ -151,7 +151,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: 8596640243658272642, guid: 94b49441a479e744d968e4d0e1869eb9,
+  m_Sprite: {fileID: -2531241511545790211, guid: 9c2585dfae1f5de429d470bf6bad4292,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -180,7 +180,7 @@ BoxCollider2D:
   m_SpriteTilingProperty:
     border: {x: 0, y: 0, z: 0, w: 0}
     pivot: {x: 0.5, y: 0.5}
-    oldSize: {x: 1.2916666, y: 1.125}
+    oldSize: {x: 2.6666667, y: 2.6666667}
     newSize: {x: 1.3333334, y: 1.125}
     adaptiveTilingThreshold: 0.5
     drawMode: 0
@@ -334,8 +334,8 @@ MonoBehaviour:
   health: 0
   maxHealth: 10
   sprites:
-  - {fileID: 8596640243658272642, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
-  - {fileID: -5720429097031363069, guid: 94b49441a479e744d968e4d0e1869eb9, type: 3}
+  - {fileID: -2531241511545790211, guid: 9c2585dfae1f5de429d470bf6bad4292, type: 3}
+  - {fileID: -3475447687785860090, guid: 9c2585dfae1f5de429d470bf6bad4292, type: 3}
   healthImage: {fileID: 3470955312078292659}
   healthBarGameObject: {fileID: 8521617868756814303}
   bulletCode: ffffffff

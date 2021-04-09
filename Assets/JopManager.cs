@@ -31,7 +31,12 @@ public class JopManager : MonoBehaviour
     [SerializeField] GameObject skillBPanel;
     public GameObject skillBPoint;
 
-
+    [Header("Class C")]
+    [SerializeField] int dmgC;
+    [SerializeField] int maxLifeC;
+    [SerializeField] int lifeC;
+    [SerializeField] int moveSpeedC;
+    [SerializeField] float fireSpeedC;
 
 
     public void JobApply()

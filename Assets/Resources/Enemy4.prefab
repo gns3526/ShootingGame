@@ -77,7 +77,7 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1103879521004011996, guid: 4ed1ecc6444111a4989cb908bfddc20f,
+  m_Sprite: {fileID: -2951843035778274856, guid: d60c58c0d87fcdc489e01e5329d86f80,
     type: 3}
   m_Color: {r: 1, g: 1, b: 1, a: 1}
   m_FlipX: 0
@@ -268,8 +268,8 @@ MonoBehaviour:
   health: 0
   maxHealth: 5
   sprites:
-  - {fileID: -1103879521004011996, guid: 4ed1ecc6444111a4989cb908bfddc20f, type: 3}
-  - {fileID: -5103896900785431115, guid: 4ed1ecc6444111a4989cb908bfddc20f, type: 3}
+  - {fileID: -2951843035778274856, guid: d60c58c0d87fcdc489e01e5329d86f80, type: 3}
+  - {fileID: 3176876685942713322, guid: d60c58c0d87fcdc489e01e5329d86f80, type: 3}
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
   bulletCode: 

@@ -14269,6 +14269,11 @@ MonoBehaviour:
   skillBOn: 0
   skillBPanel: {fileID: 807584433}
   skillBPoint: {fileID: 911607359}
+  dmgC: 0
+  maxLifeC: 0
+  lifeC: 0
+  moveSpeedC: 0
+  fireSpeedC: 0
 --- !u!1 &347046823
 GameObject:
   m_ObjectHideFlags: 0
@@ -105058,8 +105063,8 @@ MonoBehaviour:
   m_TargetGraphic: {fileID: 1343639182}
   m_HandleRect: {fileID: 1343639181}
   m_Direction: 2
-  m_Value: 0.00000022865774
-  m_Size: 0.35378537
+  m_Value: 0.0000002298633
+  m_Size: 0.3549885
   m_NumberOfSteps: 0
   m_OnValueChanged:
     m_PersistentCalls:
