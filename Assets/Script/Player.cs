@@ -439,7 +439,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 switch (type)
                 {
                     case 1:
-                        followerScript.maxShotCoolTime = 0.2f;
+                        followerScript.maxShotCoolTime = 1f;
                         followerScript.bulletType = 1;
                         break;
                     case 2:

@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2566655035291444886
+--- !u!1 &1853674164309713399
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2566655035291444909}
-  - component: {fileID: 2566655035291444882}
-  - component: {fileID: 2566655035291444883}
-  - component: {fileID: 2566655035291444880}
-  - component: {fileID: 1405196066104455288}
-  - component: {fileID: 5245478864493976949}
-  - component: {fileID: -8148483522704293848}
-  - component: {fileID: 2690017944439975979}
-  - component: {fileID: -698421756933233621}
-  - component: {fileID: 4661037525564923090}
+  - component: {fileID: 7600260653882665789}
+  - component: {fileID: 3384430630555370954}
   m_Layer: 0
-  m_Name: Enemy14
-  m_TagString: Enemy
+  m_Name: New Sprite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2566655035291444909
+--- !u!4 &7600260653882665789
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
+  m_GameObject: {fileID: 1853674164309713399}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children:
-  - {fileID: 2867386651758113249}
-  m_Father: {fileID: 0}
+  m_LocalPosition: {x: 0, y: 0.469, z: 0}
+  m_LocalScale: {x: 1.1706, y: 1.1706, z: 1.1706}
+  m_Children: []
+  m_Father: {fileID: 2566655035291444909}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2566655035291444882
+--- !u!212 &3384430630555370954
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
+  m_GameObject: {fileID: 1853674164309713399}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -89,6 +80,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2566655035291444886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2566655035291444909}
+  - component: {fileID: 2566655035291444883}
+  - component: {fileID: 2566655035291444880}
+  - component: {fileID: 1405196066104455288}
+  - component: {fileID: 5245478864493976949}
+  - component: {fileID: -8148483522704293848}
+  - component: {fileID: 2690017944439975979}
+  - component: {fileID: -698421756933233621}
+  - component: {fileID: 4661037525564923090}
+  m_Layer: 0
+  m_Name: Enemy14
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2566655035291444909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566655035291444886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_Children:
+  - {fileID: 7600260653882665789}
+  - {fileID: 2867386651758113249}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2566655035291444883
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -102,9 +133,9 @@ CircleCollider2D:
   m_IsTrigger: 1
   m_UsedByEffector: 0
   m_UsedByComposite: 0
-  m_Offset: {x: 0, y: 0}
+  m_Offset: {x: 0, y: -0.02}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 1.3
 --- !u!50 &2566655035291444880
 Rigidbody2D:
   serializedVersion: 4
@@ -269,7 +300,7 @@ MonoBehaviour:
   maxPattern: 0
   reVive: 0
   health: 0
-  maxHealth: 6
+  maxHealth: 32
   sprites:
   - {fileID: 7185011583874729513, guid: b5e28736edaafce42bbdbfc647441847, type: 3}
   - {fileID: 6711136596073180503, guid: b5e28736edaafce42bbdbfc647441847, type: 3}
@@ -277,7 +308,7 @@ MonoBehaviour:
   healthBarGameObject: {fileID: 8450699055817176925}
   bulletCode: ffffffff
   bulletSpeedCode: 03000000
-  spriteRendererEnemy: {fileID: 2566655035291444882}
+  spriteRendererEnemy: {fileID: 3384430630555370954}
   pv: {fileID: 1405196066104455288}
   OP: {fileID: 0}
   targetRandomNum: 0
@@ -463,11 +494,11 @@ RectTransform:
   - {fileID: 1510711903667652635}
   - {fileID: 1252551279433907726}
   m_Father: {fileID: 2566655035291444909}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 1.593}
   m_SizeDelta: {x: 2.731, y: 1.106}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!223 &8784827804918822631

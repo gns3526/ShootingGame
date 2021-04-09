@@ -1,6 +1,6 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
---- !u!1 &2566655035291444886
+--- !u!1 &940223908684367660
 GameObject:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
@@ -8,45 +8,36 @@ GameObject:
   m_PrefabAsset: {fileID: 0}
   serializedVersion: 6
   m_Component:
-  - component: {fileID: 2566655035291444909}
-  - component: {fileID: 2566655035291444882}
-  - component: {fileID: 2566655035291444883}
-  - component: {fileID: 2566655035291444880}
-  - component: {fileID: 1405196066104455288}
-  - component: {fileID: 5245478864493976949}
-  - component: {fileID: -8148483522704293848}
-  - component: {fileID: 2690017944439975979}
-  - component: {fileID: -4380264312041300922}
-  - component: {fileID: 6941915421786867261}
+  - component: {fileID: 8048867433437017852}
+  - component: {fileID: 6422108341416680170}
   m_Layer: 0
-  m_Name: Enemy8
-  m_TagString: Enemy
+  m_Name: New Sprite
+  m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
   m_IsActive: 1
---- !u!4 &2566655035291444909
+--- !u!4 &8048867433437017852
 Transform:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
+  m_GameObject: {fileID: 940223908684367660}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
-  m_Children:
-  - {fileID: 2867386651758113249}
-  m_Father: {fileID: 0}
+  m_LocalScale: {x: 0.70693, y: 0.70693, z: 0.70693}
+  m_Children: []
+  m_Father: {fileID: 2566655035291444909}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
---- !u!212 &2566655035291444882
+--- !u!212 &6422108341416680170
 SpriteRenderer:
   m_ObjectHideFlags: 0
   m_CorrespondingSourceObject: {fileID: 0}
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 2566655035291444886}
+  m_GameObject: {fileID: 940223908684367660}
   m_Enabled: 1
   m_CastShadows: 0
   m_ReceiveShadows: 0
@@ -89,6 +80,46 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!1 &2566655035291444886
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 2566655035291444909}
+  - component: {fileID: 2566655035291444883}
+  - component: {fileID: 2566655035291444880}
+  - component: {fileID: 1405196066104455288}
+  - component: {fileID: 5245478864493976949}
+  - component: {fileID: -8148483522704293848}
+  - component: {fileID: 2690017944439975979}
+  - component: {fileID: -4380264312041300922}
+  - component: {fileID: 6941915421786867261}
+  m_Layer: 0
+  m_Name: Enemy8
+  m_TagString: Enemy
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &2566655035291444909
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 2566655035291444886}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: 0, y: 0, z: 0}
+  m_LocalScale: {x: 0.7, y: 0.7, z: 1}
+  m_Children:
+  - {fileID: 8048867433437017852}
+  - {fileID: 2867386651758113249}
+  m_Father: {fileID: 0}
+  m_RootOrder: 0
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!58 &2566655035291444883
 CircleCollider2D:
   m_ObjectHideFlags: 0
@@ -266,7 +297,7 @@ MonoBehaviour:
   maxPattern: 0
   reVive: 0
   health: 0
-  maxHealth: 4
+  maxHealth: 10
   sprites:
   - {fileID: 8393719631255468637, guid: e04a7e8e2e5942845a25374be487e9ab, type: 3}
   - {fileID: 1583991528877556499, guid: e04a7e8e2e5942845a25374be487e9ab, type: 3}
@@ -274,7 +305,7 @@ MonoBehaviour:
   healthBarGameObject: {fileID: 8450699055817176925}
   bulletCode: ffffffff
   bulletSpeedCode: 00000000
-  spriteRendererEnemy: {fileID: 2566655035291444882}
+  spriteRendererEnemy: {fileID: 6422108341416680170}
   pv: {fileID: 1405196066104455288}
   OP: {fileID: 0}
   targetRandomNum: 0
@@ -460,7 +491,7 @@ RectTransform:
   - {fileID: 1510711903667652635}
   - {fileID: 1252551279433907726}
   m_Father: {fileID: 2566655035291444909}
-  m_RootOrder: 0
+  m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
