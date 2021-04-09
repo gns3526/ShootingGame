@@ -236,7 +236,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: 
+  enemyInfo: "\uC0DD\uAE30\uC790\uB9C8\uC790 \uB0B4\uB824\uC634  \uD50C\uB808\uC774\uC5B4
+    \uD55C\uD14C \uD55C\uBC1C\uC529 \uCACC"
   enemyScore: 100
   isPassingNodamage: 0
   isLast: 0

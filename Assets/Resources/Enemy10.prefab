@@ -255,7 +255,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5a8adc905ef8ca7479c19a9965e3a5dd, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  enemyInfo: "\uD50C\uB798\uC774\uC5B4\uCABD\uC73C\uB85C \uCD1D\uC54C3\uBC1C \uBC1C\uC0AC"
+  enemyInfo: "\uD50C\uB798\uC774\uC5B4\uCABD\uC73C\uB85C \uB3D9\uC2DC \uCD1D\uC54C3\uBC1C
+    \uBC1C\uC0AC"
   enemyScore: 40
   isPassingNodamage: 1
   isLast: 0
