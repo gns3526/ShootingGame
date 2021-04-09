@@ -17,6 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
+    [SerializeField] JopManager jm;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -73,6 +74,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject lobbyExpPanel;
     public GameObject makeRoomPanel;
     [SerializeField] GameObject gameOverPanel;
+
+    [SerializeField] GameObject leftGamePanel;
 
     [Header("Cards")]
     [SerializeField] List<GameObject> cards;
@@ -260,6 +263,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (once)
         {
+            if(jm.jobCode == 1)
+            for (int i = 0; i < jm.starterPetAmountB; i++)
+                myplayerScript.pv.RPC("AddFollower", RpcTarget.All, 1);
+
             OP.PrePoolInstantiate();
                     nickNameText3.text = PhotonNetwork.NickName;
             once = false;
@@ -311,7 +318,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
 
         myplayer.GetComponent<Player>().godMode = true;
-        myplayer.transform.position = playerPos.position;//플래이어 위치 초기화
+        //myplayer.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
 
@@ -324,14 +331,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             fadeAni.SetTrigger("In");//어두워 지기
 
-            Debug.Log("1111111111112");
             Invoke("SelectCard", 3);//카드고르기
         }
-
-    }
-    void ClearEnemys()
-    {
-
     }
     
     public void SelectCard()
@@ -351,6 +352,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         expGIveOnce = true;
         StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
         StartCoroutine(GiveGold(mapCoinAmount[mapCode]));
+
+        if (myplayerScript.isDie) return;
 
         if (myplayerScript.followers.Length == myplayerScript.followerAmount)
         {
@@ -853,6 +856,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
     }
 
+    public void LeftGameOpenOrClose(bool a)
+    {
+        leftGamePanel.SetActive(a);
+    }
+    public void LeftGame() => Application.Quit();
     public void NormalColorChange()
     {
         R = Random.Range(0, 256);
@@ -978,7 +986,17 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();
+        if(myplayerScript.isDie)
+        StartCoroutine(DieReadyDelay());
     }
+
+    IEnumerator DieReadyDelay()
+    {
+        yield return new WaitForSeconds(1f);
+        CM.isReady = true;
+        CM.pv.RPC("ReadyAmountReset", RpcTarget.All);
+    }
+
     public void GoToLobby()
     {
         stage = 1;

@@ -45,7 +45,6 @@ public class Follower : MonoBehaviourPun, IPunObservable
         }
         else
         {
-            if(!JM.skillBOn)
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
         }
         rigid.velocity = new Vector2(0, 0);
@@ -75,8 +74,6 @@ public class Follower : MonoBehaviourPun, IPunObservable
 
     void Fire()
     {
-        if (!player.isFire) return;
-
         if (player.isDie) return;
 
         if (!player.GetComponent<PhotonView>().IsMine) return;
@@ -91,7 +88,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
                     float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
                     OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
                 } 
-                else
+                else if(player.isFire)
                     OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
                 break;
             case 2:
@@ -100,7 +97,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
                     float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
                     OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
                 }
-                else
+                else if (player.isFire)
                     OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
                 break;
         }

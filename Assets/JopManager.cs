@@ -1,7 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
-
+using Photon.Pun;
 
 public class JopManager : MonoBehaviour
 {
@@ -26,7 +26,7 @@ public class JopManager : MonoBehaviour
     [SerializeField] int moveSpeedB;
     [SerializeField] float fireSpeedB;
 
-    [SerializeField] int starterPetAmountB;
+    public int starterPetAmountB;
     public bool skillBOn;
     [SerializeField] GameObject skillBPanel;
     public GameObject skillBPoint;
@@ -37,6 +37,10 @@ public class JopManager : MonoBehaviour
     [SerializeField] int lifeC;
     [SerializeField] int moveSpeedC;
     [SerializeField] float fireSpeedC;
+
+    public int missPerC;
+    public int bulletAmountC;
+    public int bulletSpreadC;
 
 
     public void JobApply()
@@ -60,9 +64,13 @@ public class JopManager : MonoBehaviour
                 myplayerScript.life = lifeB;
                 myplayerScript.moveSpeed = moveSpeedB;
                 myplayerScript.maxShotCoolTime = fireSpeedB;
-
-                for (int i = 0; i < starterPetAmountB; i++)
-                    myplayerScript.AddFollower(1);
+                break;
+            case 2:
+                myplayerScript.damage = dmgC;
+                myplayerScript.maxLife = maxLifeC;
+                myplayerScript.life = lifeC;
+                myplayerScript.moveSpeed = moveSpeedC;
+                myplayerScript.maxShotCoolTime = fireSpeedC;
                 break;
         }
     }
@@ -90,6 +98,26 @@ public class JopManager : MonoBehaviour
                 break;
             case 1:
                 StartCoroutine(ShotTypeB());
+                break;
+            case 2:
+                if (myplayerScript.power == 1)
+                    for (int i = 0; i < bulletAmountC; i++)
+                    {
+                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
+                    }
+                else if (myplayerScript.power == 2)
+                    for (int i = 0; i < Mathf.Round(bulletAmountC * 1.5f); i++)
+                    {
+                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
+                    }
+                else if (myplayerScript.power == 3)
+                    for (int i = 0; i < bulletAmountC * 2; i++)
+                    {
+                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
+                    }
                 break;
         }
     }
@@ -119,6 +147,7 @@ public class JopManager : MonoBehaviour
         }
     }
 
+
     public void SkillOnClick(bool active)
     {
         switch (jobCode)
@@ -129,7 +158,6 @@ public class JopManager : MonoBehaviour
             case 1:
                 if (active)
                 {
-                    skillBOn = true;
                     skillBPanel.SetActive(true);
                 }
                 else
@@ -143,6 +171,7 @@ public class JopManager : MonoBehaviour
     }
     public void aa()
     {
+        skillBOn = true;
         Vector2 mousePos = Input.mousePosition;
         Vector2 transPos = Camera.main.ScreenToWorldPoint(mousePos);
         skillBPoint.transform.position = new Vector3(transPos.x, transPos.y, 0);

@@ -9,7 +9,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 {
     public Player player;
     [SerializeField] GameManager GM;
-    [SerializeField] PhotonView pv;
+    public PhotonView pv;
 
     [SerializeField] int readyAmount;
 
@@ -108,14 +108,16 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.WeaponButtonUpdate();
                 break;
         }
-        Debug.Log("카드 고르기1");
+        StartCoroutine(SelectDelay());
         GM.ClearCards();
-        isReady = true;
-        pv.RPC("ReadyAmountReset", RpcTarget.All);
-        Debug.Log("카드 고르기2");
     }
 
-
+    IEnumerator SelectDelay()
+    {
+        yield return new WaitForSeconds(4);
+        isReady = true;
+        pv.RPC("ReadyAmountReset", RpcTarget.All);
+    }
 
     [PunRPC]
     void ReadyAmountReset()
