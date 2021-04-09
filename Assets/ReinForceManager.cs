@@ -9,7 +9,7 @@ public class ReinForceManager : MonoBehaviour
     [SerializeField] GameManager gm;
 
     [Header("ReinForce1")]
-    [SerializeField] Text plainLv;
+    [SerializeField] Text plainLvText;
     [SerializeField] Text successPer;
     [SerializeField] Text successText;
     [SerializeField] GameObject plusReinForce;
@@ -112,8 +112,8 @@ public class ReinForceManager : MonoBehaviour
     public void LobbyReinRework()
     {
         Debug.Log("ewewf");
-        plainLv.text = gm.plainLv.ToString();
-        successPer.text = (100 - gm.plainLv).ToString();
+        plainLvText.text = "Lv." + gm.plainLv.ToString();
+        successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
         costText.text = coinCost.ToString();
         Disappear();
     }
@@ -138,9 +138,11 @@ public class ReinForceManager : MonoBehaviour
         {
             successText.color = Color.red;
             successText.text = "강화실패!";
+
+            plusReinForce.SetActive(false);
         }
         successText.enabled = true;
-        plainLv.text = "Lv." + gm.plainLv.ToString();
+        plainLvText.text = "Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
     }
 

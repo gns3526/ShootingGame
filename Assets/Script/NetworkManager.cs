@@ -150,7 +150,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
         GM.controlPanel.SetActive(false);
-        
+
+        JM.skillBPoint.SetActive(false);
 
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
         welcomeText.text = "Welcome, " + PhotonNetwork.LocalPlayer.NickName;
