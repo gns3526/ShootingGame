@@ -27,15 +27,18 @@ public class JopManager : MonoBehaviour
     [SerializeField] float fireSpeedB;
 
     [SerializeField] int starterPetAmountB;
-
     public bool skillBOn;
     [SerializeField] GameObject skillBPanel;
     public GameObject skillBPoint;
 
 
+
+
     public void JobApply()
     {
         if (!myplayerScript.pv.IsMine) return;
+
+        skillBPoint.SetActive(false);
 
         switch (jobCode)
         {
@@ -128,6 +131,7 @@ public class JopManager : MonoBehaviour
                 {
                     skillBOn = false;
                     skillBPanel.SetActive(false);
+                    skillBPoint.SetActive(false);
                 }
                 break;
         }
@@ -137,6 +141,7 @@ public class JopManager : MonoBehaviour
         Vector2 mousePos = Input.mousePosition;
         Vector2 transPos = Camera.main.ScreenToWorldPoint(mousePos);
         skillBPoint.transform.position = new Vector3(transPos.x, transPos.y, 0);
+        skillBPoint.SetActive(true);
 
         skillBPanel.SetActive(false);
 
