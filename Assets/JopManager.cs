@@ -39,8 +39,14 @@ public class JopManager : MonoBehaviour
     [SerializeField] float fireSpeedC;
 
     public int missPerC;
-    public int bulletAmountC;
-    public int bulletSpreadC;
+    public float bulletAmountC1;
+    [SerializeField] float bulletSpreadC1;
+    public float bulletAmountC2;
+    [SerializeField] float bulletSpreadC2;
+    public float bulletAmountC3;
+    [SerializeField] float bulletSpreadC3;
+    float aC;
+    float bC;
 
 
     public void JobApply()
@@ -83,16 +89,17 @@ public class JopManager : MonoBehaviour
                 switch (myplayerScript.power)
                 {
                     case 1:
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 8, true);
+                        GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 8, true);
+                        bullet.GetComponent<BulletScript>().dmgPer = 100;
                         break;
                     case 2:
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.1f, Quaternion.identity, 0, -1, 6, true);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.1f, Quaternion.identity, 0, -1, 6, true);
+                        GameObject bulletR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.1f, Quaternion.identity, 0, -1, 6, true);
+                        GameObject bulletL = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.1f, Quaternion.identity, 0, -1, 6, true);
                         break;
                     case 3:
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.35f, Quaternion.identity, 0, -1, 6, true);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 1, -1, 6, true);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.35f, Quaternion.identity, 0, -1, 6, true);
+                        GameObject bulletRR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.35f, Quaternion.identity, 0, -1, 6, true);
+                        GameObject bulletM = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 1, -1, 6, true);
+                        GameObject bulletLL = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.35f, Quaternion.identity, 0, -1, 6, true);
                         break;
                 }
                 break;
@@ -100,24 +107,39 @@ public class JopManager : MonoBehaviour
                 StartCoroutine(ShotTypeB());
                 break;
             case 2:
-                if (myplayerScript.power == 1)
-                    for (int i = 0; i < bulletAmountC; i++)
-                    {
-                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
-                    }
-                else if (myplayerScript.power == 2)
-                    for (int i = 0; i < Mathf.Round(bulletAmountC * 1.5f); i++)
-                    {
-                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
-                    }
-                else if (myplayerScript.power == 3)
-                    for (int i = 0; i < bulletAmountC * 2; i++)
-                    {
-                        int randomNum = Random.Range(-bulletSpreadC, bulletSpreadC + 1);
-                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, randomNum), 0, -1, 7, true);
-                    }
+                switch (myplayerScript.power)
+                {
+                    case 1:
+                        aC = bulletSpreadC1 * 2 / bulletAmountC1;
+                        bC = -bulletSpreadC1;
+                        for (int i = 0; i < bulletAmountC1; i++)
+                        {
+                            OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                            bC += aC;
+                        }
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                        break;
+                    case 2:
+                        aC = bulletSpreadC2 * 2 / bulletAmountC2;
+                        bC = -bulletSpreadC2;
+                        for (int i = 0; i < bulletAmountC2; i++)
+                        {
+                            OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                            bC += aC;
+                        }
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                        break;
+                    case 3:
+                        aC = bulletSpreadC3 * 2 / bulletAmountC3;
+                        bC = -bulletSpreadC3;
+                        for (int i = 0; i < bulletAmountC3; i++)
+                        {
+                            OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                            bC += aC;
+                        }
+                        OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
+                        break;
+                }
                 break;
         }
     }
@@ -166,6 +188,10 @@ public class JopManager : MonoBehaviour
                     skillBPanel.SetActive(false);
                     skillBPoint.SetActive(false);
                 }
+                break;
+            case 2:
+                myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = 5;
+                myplayerScript.skillC.gameObject.SetActive(true);
                 break;
         }
     }

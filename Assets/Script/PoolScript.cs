@@ -16,7 +16,6 @@ public class PoolScript : MonoBehaviourPun
     [SerializeField] Sprite[] ani3;
 
     [Header("PlayerBullet")]
-    [SerializeField] int[] bulletDamage;
     [SerializeField] Sprite[] bulletSpriteP;
     [SerializeField] Vector2[] bulletScaleP;
     [SerializeField] Vector2[] bulletBoxSizeP;
@@ -42,7 +41,6 @@ public class PoolScript : MonoBehaviourPun
             bs.isPlayerAttack = isPlayerAttack;
             if (isPlayerAttack)
             {
-                bs.dmg = bulletDamage[bulletIndex];
                 bs.bulletSpeed = -bulletSpeed[bulletSpeedIndex];
                 GetComponent<SpriteRenderer>().sprite = bulletSpriteP[bulletIndex];
                 transform.localScale = bulletScaleP[bulletIndex];

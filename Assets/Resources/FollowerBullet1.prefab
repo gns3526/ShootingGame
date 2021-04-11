@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpecialBullet: 0
-  dmg: 1
+  dmgPer: 0
   bulletSpeed: 0
   maxBulletDestroyTime: 10
   isPlayerAttack: 1
@@ -208,7 +208,6 @@ MonoBehaviour:
   ani1: []
   ani2: []
   ani3: []
-  bulletDamage: 
   bulletSpriteP: []
   bulletScaleP: []
   bulletBoxSizeP: []

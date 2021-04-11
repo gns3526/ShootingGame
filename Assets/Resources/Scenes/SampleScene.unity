@@ -14275,8 +14275,12 @@ MonoBehaviour:
   moveSpeedC: 80
   fireSpeedC: 1.5
   missPerC: 15
-  bulletAmountC: 15
-  bulletSpreadC: 15
+  bulletAmountC1: 15
+  bulletSpreadC1: 15
+  bulletAmountC2: 12
+  bulletSpreadC2: 20
+  bulletAmountC3: 9
+  bulletSpreadC3: 25
 --- !u!1 &347046823
 GameObject:
   m_ObjectHideFlags: 0

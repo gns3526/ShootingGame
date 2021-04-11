@@ -333,7 +333,6 @@ MonoBehaviour:
   ani1: []
   ani2: []
   ani3: []
-  bulletDamage: 
   bulletSpriteP: []
   bulletScaleP: []
   bulletBoxSizeP: []

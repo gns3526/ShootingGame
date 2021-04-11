@@ -146,7 +146,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   isSpecialBullet: 0
-  dmg: 3
+  dmgPer: 0
   bulletSpeed: 0
   maxBulletDestroyTime: 15
   isPlayerAttack: 0
@@ -233,7 +233,6 @@ MonoBehaviour:
   ani3:
   - {fileID: 21300000, guid: b2910d03c7d770342ae916a0ee2084c9, type: 3}
   - {fileID: 21300000, guid: 453916503057923439220f90ba52d440, type: 3}
-  bulletDamage: 0100000003000000010000000a000000030000000a000000
   bulletSpriteP:
   - {fileID: 874343242196921964, guid: ac729a8f0604123448dcb21a2122f134, type: 3}
   - {fileID: -7976837497307082302, guid: ac729a8f0604123448dcb21a2122f134, type: 3}

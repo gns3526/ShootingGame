@@ -67,6 +67,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [Header("PlayerCody")]
     public PhotonView codyPv;
 
+    [Header("Skill")]
+    public BarrierScript skillC;
+
+    [Header("Managers")]
+    public GameManager GM;
+    [SerializeField] ObjectPooler OP;
+    [SerializeField] AbilityManager AM;
+    JopManager JM;
+
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
 
@@ -75,11 +84,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Animator ani;
     [SerializeField] SpriteRenderer mainSprite;
     [SerializeField] Rigidbody2D rigid;
-
-    public GameManager GM;
-    [SerializeField] ObjectPooler OP;
-    [SerializeField] AbilityManager AM;
-    JopManager JM;
 
     [SerializeField] bool isBoomActive;
 
@@ -307,17 +311,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity, 0, -1, 0, true);
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-            rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-            curShotCoolTime = 0;
+            bullet.GetComponent<BulletScript>().dmgPer = 100;
             return;
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity, 0, -1, 0, true);
-            Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-            rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
-            curShotCoolTime = 0;
             return;
         }
 

@@ -7,7 +7,7 @@ using Photon.Realtime;
 public class BulletScript : MonoBehaviour, IPunObservable
 {
     public bool isSpecialBullet;
-    public int dmg;
+    public int dmgPer;
     public float bulletSpeed;
     [SerializeField] float maxBulletDestroyTime;
     float bulletDestroyTime;
