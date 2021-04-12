@@ -208,6 +208,18 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 GM.PlayerDie();
             }
 
+            if (JM.curSkillCool < JM.skillCoolC)
+            {
+                JM.curSkillCool += Time.deltaTime;
+                JM.skillGuage.fillAmount = JM.curSkillCool / JM.skillCoolC;
+
+                if (JM.curSkillCool > JM.skillCoolC)
+                {
+                    JM.skillBtn.interactable = true;
+                    JM.myplayerScript.skillC.gameObject.SetActive(false);
+                }
+            }
+
             if (!GM.isAndroid)
             {
                 if (Input.GetKey(KeyCode.A))
@@ -310,13 +322,16 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("AbilityBullet1", transform.position, Quaternion.identity, 0, -1, 0, true);
-            bullet.GetComponent<BulletScript>().dmgPer = 100;
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 6, true);
+            bullet.GetComponent<BulletScript>().dmgPer = 200;
+            curShotCoolTime = 0;
             return;
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("AbilityBullet2", transform.position, Quaternion.identity, 0, -1, 0, true);
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 7, true);
+            bullet.GetComponent<BulletScript>().dmgPer = 130;
+            curShotCoolTime = 0;
             return;
         }
 
@@ -330,9 +345,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
-                GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 6, -1, 9, true);
-                Rigidbody2D rigid = bullet.GetComponent<Rigidbody2D>();
-                rigid.AddForce(Vector2.up * 10, ForceMode2D.Impulse);
+                GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true);
+                bullet.GetComponent<BulletScript>().dmgPer = 1200;
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
             }

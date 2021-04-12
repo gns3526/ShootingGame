@@ -36,19 +36,19 @@ public class Follower : MonoBehaviourPun, IPunObservable
     {
         if (GetComponent<PhotonView>().IsMine)
         {
-            Watch();
             if (!JM.skillBOn)
+            {
+                Watch();
                 Follow();
+            }
             Fire();
-            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100) * (JM.skillBOn == true ? 2 : 1);
+            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100) * (JM.skillBOn == true ? 1.5f : 1);
 
         }
         else
         {
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 15);
         }
-        rigid.velocity = new Vector2(0, 0);
-
     }
 
 
@@ -86,19 +86,29 @@ public class Follower : MonoBehaviourPun, IPunObservable
                 if (JM.skillBOn)
                 {
                     float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    bullet.GetComponent<BulletScript>().dmgPer = 100;
                 } 
-                else if(player.isFire)
-                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                else if (player.isFire)
+                {
+                    GameObject bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                    bullet1.GetComponent<BulletScript>().dmgPer = 100;
+                }
+                    
                 break;
             case 2:
                 if (JM.skillBOn)
                 {
                     float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    bullet2.GetComponent<BulletScript>().dmgPer = 100;
                 }
                 else if (player.isFire)
-                    OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                {
+                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                    bullet3.GetComponent<BulletScript>().dmgPer = 100;
+                }
+                   
                 break;
         }
         curShotCoolTime = 0;

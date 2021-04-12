@@ -142,7 +142,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
 
 
-            normalBulletDmg = bulletScript.dmgPer * myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100)
+            normalBulletDmg = myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100) * (bulletScript.dmgPer / 100)
                      * (myPlayerScript.damageStack / 100) * (followerDamagePer / 100);
 
 

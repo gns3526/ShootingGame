@@ -281,7 +281,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         
         Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
 
-        Debug.Log(map[roomOption]);
         GM.curMapCode = (int)map[roomOption];
         GM.roomMapThumnail.sprite = GM.mapThumnails[GM.curMapCode];
         GM.roomMapName.text = GM.mapNames[GM.curMapCode];
@@ -296,6 +295,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         chatInput.text = "";
         RoomRenewal();
+
+        JM.OnEnableSkill();
         for (int i = 0; i < chatTextT.Length; i++)
         {
             chatTextT[i].text = "";
