@@ -159,11 +159,11 @@ public class JopManager : MonoBehaviour
                         for (int i = 0; i < bulletAmountC2; i++)
                         {
                             GameObject bullet3 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                            bullet3.GetComponent<BulletScript>().dmgPer = 100;
+                            bullet3.GetComponent<BulletScript>().dmgPer = 120;
                             bC += aC;
                         }
                         GameObject bullet4 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                        bullet4.GetComponent<BulletScript>().dmgPer = 100;
+                        bullet4.GetComponent<BulletScript>().dmgPer = 120;
                         break;
                     case 3:
                         aC = bulletSpreadC3 * 2 / bulletAmountC3;
@@ -171,11 +171,11 @@ public class JopManager : MonoBehaviour
                         for (int i = 0; i < bulletAmountC3; i++)
                         {
                             GameObject bullet5 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                            bullet5.GetComponent<BulletScript>().dmgPer = 100;
+                            bullet5.GetComponent<BulletScript>().dmgPer = 150;
                             bC += aC;
                         }
                         GameObject bullet6 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                        bullet6.GetComponent<BulletScript>().dmgPer = 100;
+                        bullet6.GetComponent<BulletScript>().dmgPer = 150;
                         break;
                 }
                 break;
@@ -209,7 +209,7 @@ public class JopManager : MonoBehaviour
     void ShotB()
     {
         GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 7, true);
-        bullet.GetComponent<BulletScript>().dmgPer = 80;
+        bullet.GetComponent<BulletScript>().dmgPer = 150;
     }
 
     public void SkillOnClick(bool active)

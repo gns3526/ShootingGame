@@ -322,14 +322,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 6, true);
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 200;
             curShotCoolTime = 0;
             return;
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 7, true);
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 130;
             curShotCoolTime = 0;
             return;
@@ -346,7 +346,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
                 GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true);
-                bullet.GetComponent<BulletScript>().dmgPer = 1200;
+                bullet.GetComponent<BulletScript>().dmgPer = 2000;
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
             }

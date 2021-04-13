@@ -11285,7 +11285,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: PlayerIcon
+  m_Text: ReinForce
 --- !u!222 &272531934
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11953,7 +11953,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Attack Speed(Max)
 --- !u!222 &287626372
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -14280,10 +14280,10 @@ MonoBehaviour:
   missPerC: 15
   bulletAmountC1: 15
   bulletSpreadC1: 15
-  bulletAmountC2: 12
-  bulletSpreadC2: 20
-  bulletAmountC3: 9
-  bulletSpreadC3: 25
+  bulletAmountC2: 20
+  bulletSpreadC2: 12
+  bulletAmountC3: 30
+  bulletSpreadC3: 9
   skillCoolC: 10
   durationC: 0
   curSkillCool: 0
@@ -15777,7 +15777,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Critical Per(Max)
 --- !u!222 &394219650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -18118,7 +18118,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uC131\uACF5\uD655\uB960:100%"
+  m_Text: Success rate:100%
 --- !u!1 &464137010
 GameObject:
   m_ObjectHideFlags: 0
@@ -18288,7 +18288,7 @@ MonoBehaviour:
   successPer: {fileID: 462279583}
   successText: {fileID: 1817384280}
   plusReinForce: {fileID: 32335758}
-  coinCost: 0
+  coinCost: 10
   costText: {fileID: 1950835884}
   reinPointAmount: {fileID: 1292478749}
   groups:
@@ -20010,7 +20010,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Dmg: 202% > 202%'
 --- !u!222 &512866650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -25501,7 +25501,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Pet Dmg(Max)
 --- !u!222 &647393226
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -28889,7 +28889,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Critical Dmg(Max)
 --- !u!222 &724177603
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -29674,7 +29674,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Dmg(Max)
 --- !u!222 &730365646
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -43421,8 +43421,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306.84, y: -88.3}
-  m_SizeDelta: {x: 348.39, y: 50.6}
+  m_AnchoredPosition: {x: 322.3, y: -88.3}
+  m_SizeDelta: {x: 379.4, y: 50.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &930210057
 MonoBehaviour:
@@ -43457,7 +43457,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Pet Attack Speed: 202% > 202%'
 --- !u!222 &930210058
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -53083,8 +53083,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306.84, y: -88.3}
-  m_SizeDelta: {x: 348.39, y: 50.6}
+  m_AnchoredPosition: {x: 322.3, y: -88.3}
+  m_SizeDelta: {x: 379.4, y: 50.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1046252080
 MonoBehaviour:
@@ -53119,7 +53119,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Critical Dmg: 202% > 202%'
 --- !u!222 &1046252081
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -58947,7 +58947,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uACF5\uACA9\uB825 \uC99D\uAC00(Max)"
+  m_Text: Pet Atk Speed(Max)
 --- !u!222 &1186905466
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -64484,10 +64484,9 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.3
-  m_Text: "\u2605 2021-03-17\n\n1. \uC0C9\uC0C1\uBCC0\uACBD\uC2DC\uC2A4\uD15C \uCD94\uAC00\n2.
-    \uC5B4\uBE4C\uB9AC\uD2F0 \uC2DC\uC2A4\uD15C \uCD94\uAC00\n3. \uC5B4\uBE4C\uB9AC\uD2F0
-    \uB2A5\uB825 \uCD94\uAC00\n4. \uB9F5 \uCD94\uAC00 \uBC0F \uB85C\uBE44\uC5D0\uC11C
-    \uBC29 \uC548\uC758 \uB9F5\uC815\uBCF4\uAC00 \uD45C\uAE30\uB428\n"
+  m_Text: 'Patch Note
+
+'
 --- !u!222 &1336684597
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -82865,7 +82864,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uCF54\uB514"
+  m_Text: Main
 --- !u!222 &1617508913
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -86772,8 +86771,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306.84, y: -88.3}
-  m_SizeDelta: {x: 348.39, y: 50.6}
+  m_AnchoredPosition: {x: 322.3, y: -88.3}
+  m_SizeDelta: {x: 379.4, y: 50.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1707982482
 MonoBehaviour:
@@ -86808,7 +86807,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Critical Per: 202% > 202%'
 --- !u!222 &1707982483
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -89012,8 +89011,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306.84, y: -88.3}
-  m_SizeDelta: {x: 348.39, y: 50.6}
+  m_AnchoredPosition: {x: 322.3, y: -88.3}
+  m_SizeDelta: {x: 379.4, y: 50.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1779832747
 MonoBehaviour:
@@ -89048,7 +89047,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Pet Dmg: 202% > 202%'
 --- !u!222 &1779832748
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -90408,7 +90407,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uAC15\uD654\uC131\uACF5!"
+  m_Text: Success!
 --- !u!1 &1817386302
 GameObject:
   m_ObjectHideFlags: 0
@@ -106511,8 +106510,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 306.84, y: -88.3}
-  m_SizeDelta: {x: 348.39, y: 50.6}
+  m_AnchoredPosition: {x: 322.3, y: -88.3}
+  m_SizeDelta: {x: 379.4, y: 50.6}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &2094986801
 MonoBehaviour:
@@ -106547,7 +106546,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\"\uD06C\uB9AC\uB370\uBBF8\uC9C0: 202% > 202%"
+  m_Text: 'Atk Speed: 202% > 202%'
 --- !u!222 &2094986802
 CanvasRenderer:
   m_ObjectHideFlags: 0
