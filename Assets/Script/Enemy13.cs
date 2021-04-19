@@ -9,7 +9,6 @@ public class Enemy13 : MonoBehaviour
     public GameObject target;
 
     [SerializeField] EnemyBasicScript EB;
-    [SerializeField] GameManager GM;
 
     [SerializeField] float stopCool;
     [SerializeField] float maxAttackCool;
@@ -20,50 +19,50 @@ public class Enemy13 : MonoBehaviour
     [SerializeField] float moveSpeed;
     [SerializeField] float sideSpeed;
 
-    int a;
+    int playerAmount;
     int targetRandomNum;
 
-    private void Start()
-    {
-        //moveSpeedOri = moveSpeed;
-    }
     private void OnEnable()
     {
         //moveSpeed = moveSpeedOri;
-        GM = FindObjectOfType<GameManager>();
+
         canMove = true;
         moveToSide = false;
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         if (!PhotonNetwork.IsMasterClient) return;
         StartCoroutine(ShotAtPlayer());
-        creat();
+    }
+    private void Start()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        SearchPlayer();
     }
 
-    public void creat()
+    public void SearchPlayer()
     {
 
-        if (GM.alivePlayers[3])
+        if (EB.GM.alivePlayers[3])
         {
-            a = 4;
+            playerAmount = 4;
         }
-        else if (GM.alivePlayers[2])
+        else if (EB.GM.alivePlayers[2])
         {
-            a = 3;
+            playerAmount = 3;
         }
-        else if (GM.alivePlayers[1])
+        else if (EB.GM.alivePlayers[1])
         {
-            a = 2;
+            playerAmount = 2;
         }
-        else if (GM.alivePlayers[0])
+        else if (EB.GM.alivePlayers[0])
         {
-            a = 1;
+            playerAmount = 1;
         }
 
         if (PhotonNetwork.IsMasterClient)
         {
-            targetRandomNum = Random.Range(0, a);
-            target = GM.alivePlayers[targetRandomNum].gameObject;
+            targetRandomNum = Random.Range(0, playerAmount);
+            target = EB.GM.alivePlayers[targetRandomNum].gameObject;
         }
 
     }

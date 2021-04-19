@@ -370,7 +370,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   EB: {fileID: 3783629525877620195}
-  GM: {fileID: 0}
   patternIndex: -1
   curPatternCount: 0
   MaxPatternCount: 04000000040000005b0000000a000000
@@ -415,6 +414,7 @@ MonoBehaviour:
   bulletSpeedCode: 
   spriteRendererEnemy: {fileID: 3646381594106627789}
   pv: {fileID: 3168336670733261172}
+  GM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
 --- !u!1 &5694560200886538556

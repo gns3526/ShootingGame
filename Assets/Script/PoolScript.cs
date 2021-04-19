@@ -34,6 +34,12 @@ public class PoolScript : MonoBehaviourPun
     [PunRPC]
     void SetActiveRPC(bool a, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, bool isPlayerAttack)
     {
+        if (!a)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
         aniCode = bulletAniCode;
         if(bulletIndex > -1)
         {
@@ -70,7 +76,7 @@ public class PoolScript : MonoBehaviourPun
                 bs.bulletSpeed = bulletSpeed[bulletSpeedIndex];
         }
 
-        gameObject.SetActive(a);
+        gameObject.SetActive(true);
     }
 
     void BulletAni()

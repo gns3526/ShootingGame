@@ -188,7 +188,6 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   target: {fileID: 0}
   EB: {fileID: 4661037525564923090}
-  GM: {fileID: 0}
   stopCool: 0.4
   shotCool: 0.5
   goCool: 2
@@ -228,6 +227,7 @@ MonoBehaviour:
   bulletSpeedCode: 07000000
   spriteRendererEnemy: {fileID: 740526286841794983}
   pv: {fileID: 1405196066104455288}
+  GM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
 --- !u!1 &5026966738304181840

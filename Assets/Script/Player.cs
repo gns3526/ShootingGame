@@ -74,7 +74,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public GameManager GM;
     public ObjectPooler OP;
     [SerializeField] AbilityManager AM;
-    public JopManager JM;
+    public JobManager JM;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -121,7 +121,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         NM = FindObjectOfType<NetworkManager>();
         OP = FindObjectOfType<ObjectPooler>();
         AM = FindObjectOfType<AbilityManager>();
-        JM = FindObjectOfType<JopManager>();
+        JM = FindObjectOfType<JobManager>();
 
         NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting

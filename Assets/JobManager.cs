@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using Photon.Pun;
 
-public class JopManager : MonoBehaviour
+public class JobManager : MonoBehaviour
 {
     [SerializeField] ObjectPooler OP;
 

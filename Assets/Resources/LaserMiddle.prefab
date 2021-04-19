@@ -339,6 +339,7 @@ MonoBehaviour:
   parentOb: {fileID: 0}
   isBossBullet: 0
   OP: {fileID: 0}
+  GM: {fileID: 0}
   boxCol: {fileID: 7398529752526687246}
   circleCol: {fileID: 0}
   animator: {fileID: 5728943140913656559}

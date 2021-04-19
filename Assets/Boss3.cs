@@ -38,14 +38,21 @@ public class Boss3 : MonoBehaviour
     private void OnEnable()
     {
         canMove = true;
+        EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, true);
+
         EB.godMode = true;
         curPatternCount = 0;
         EB.patternIndex = 0;
-        GM = FindObjectOfType<GameManager>();
 
         if (!PhotonNetwork.IsMasterClient) return;
 
         StartCoroutine(Stop());
+    }
+
+    private void Start()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        SearchPlayer();
     }
 
     private void Update()
@@ -53,7 +60,7 @@ public class Boss3 : MonoBehaviour
         if (canMove)
             transform.Translate(new Vector2(0, -moveSpeed));
     }
-    public void creat()
+    public void SearchPlayer()
     {
 
         if (GM.alivePlayers[3])
@@ -86,7 +93,7 @@ public class Boss3 : MonoBehaviour
         {
             Debug.Log("멈춤");
 
-            EB.godMode = false;
+            EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, false);
             canMove = false;
 
             StartCoroutine(Rest(2));
@@ -100,7 +107,7 @@ public class Boss3 : MonoBehaviour
         Debug.Log("생각");
 
         curPatternCount = 0;
-        creat();
+        SearchPlayer();
 
         int random = Random.Range(0, 3);
         Debug.Log(random);

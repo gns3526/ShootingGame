@@ -31,7 +31,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public PhotonView pv;
 
     Player myPlayerScript;
-    GameManager GM;
+    public GameManager GM;
     public ObjectPooler OP;
     Animator ani;
 
@@ -46,15 +46,6 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     Vector3 curPosPv;
 
-    private void Awake()
-    {
-        ani = GetComponent<Animator>();
-        OP = FindObjectOfType<ObjectPooler>();
-        GM = FindObjectOfType<GameManager>();
-
-        myPlayerScript = GM.myplayer.GetComponent<Player>();
-    }
-
     private void OnEnable()
     {
         health = maxHealth;
@@ -68,6 +59,13 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         curPosPv = new Vector3(16, 16, 0);
         isLast = false;
+    }
+
+    private void Start()
+    {
+        if (!pv.IsMine) return;
+        ani = GetComponent<Animator>();
+        myPlayerScript = GM.myplayer.GetComponent<Player>();
     }
 
 
@@ -92,7 +90,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 canFire = true;
                 health = maxHealth;
                 reVive = false;
-                godMode = false;
+                pv.RPC(nameof(GodModeRPC), RpcTarget.All, false);
             }
         }
 
@@ -191,7 +189,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (PhotonNetwork.IsMasterClient)
                     GM.allBulletDelete = true;
-                godMode = true;
+                pv.RPC(nameof(GodModeRPC), RpcTarget.All, true);
                 canFire = false;
                 reVive = true;
                 patternIndex += 1;
@@ -238,9 +236,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    void GodModeRPC()
+    public void GodModeRPC(bool set)
     {
-        godMode = true;
+        godMode = set;
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

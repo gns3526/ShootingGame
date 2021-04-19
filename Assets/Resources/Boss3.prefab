@@ -398,6 +398,7 @@ MonoBehaviour:
   bulletSpeedCode: 060000000700000003000000
   spriteRendererEnemy: {fileID: 3646381594106627789}
   pv: {fileID: 3168336670733261172}
+  GM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
 --- !u!114 &-8290077750016950082

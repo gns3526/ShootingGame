@@ -8,7 +8,6 @@ using Photon.Realtime;
 public class Enemy2 : MonoBehaviour
 {
     [SerializeField] EnemyBasicScript EB;
-    [SerializeField] GameManager GM;
 
     [SerializeField] float moveSpeed;
 

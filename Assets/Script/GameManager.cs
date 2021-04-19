@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] ObjectPooler OP;
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
-    [SerializeField] JopManager jm;
+    [SerializeField] JobManager jm;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -569,14 +569,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     void SpawnEnemy()
     {
-
-
-        //GameObject enemy = OM.MakeObj(enemysName[enemyIndex]);//소환
-
         if (PhotonNetwork.IsMasterClient)
         {
 
-            string enemyIndex = "None";
+            string enemyIndex = null;
             switch (spawnList[spawnIndex].type)
             {
                 case "1":

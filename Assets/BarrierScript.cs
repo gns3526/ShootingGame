@@ -9,7 +9,7 @@ public class BarrierScript : MonoBehaviour
     [SerializeField] Player playerScript;
 
     ObjectPooler op;
-    JopManager jm;
+    JobManager jm;
 
     [SerializeField] Text barrierCountText;
 

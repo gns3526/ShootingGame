@@ -248,6 +248,7 @@ MonoBehaviour:
   bulletSpeedCode: 
   spriteRendererEnemy: {fileID: 3160348364783051979}
   pv: {fileID: 5966246444998689558}
+  GM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
 --- !u!114 &4990642159387910656
@@ -263,7 +264,6 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   EB: {fileID: 3101975446224468293}
-  GM: {fileID: 0}
   moveSpeed: 0.1
 --- !u!61 &6924309470609747590
 BoxCollider2D:

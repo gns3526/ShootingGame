@@ -7,7 +7,7 @@ public class CodySelectUpdate : MonoBehaviour
 {
     GameManager gm;
     NetworkManager nm;
-    JopManager jm;
+    JobManager jm;
     [SerializeField] GameObject[] codys;
     [SerializeField] int codyTypeCode;
 
@@ -15,7 +15,7 @@ public class CodySelectUpdate : MonoBehaviour
     {
         gm = FindObjectOfType<GameManager>();
         nm = FindObjectOfType<NetworkManager>();
-        jm = FindObjectOfType<JopManager>();
+        jm = FindObjectOfType<JobManager>();
     }
 
 

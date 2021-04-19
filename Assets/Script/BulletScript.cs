@@ -24,8 +24,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     public bool isBossBullet;
 
-    [SerializeField] ObjectPooler OP;
-    GameManager GM;
+    public ObjectPooler OP;
+    public GameManager GM;
 
     Vector3 curPosPv;
 
@@ -38,12 +38,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public float[] bulletAniDelays;
 
     bool once;
-
-    private void Awake()
-    {
-        GM = FindObjectOfType<GameManager>();
-        OP = FindObjectOfType<ObjectPooler>();
-    }
 
     private void OnEnable()
     {
@@ -109,16 +103,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     private void Update()
     {
-        if (isRotate)
-        {
-            transform.Rotate(Vector3.forward * 10);
-        }
-
-        if (!GM.isPlaying || GM.allBulletDelete && tag == "EnemyBullet")
-        {
-            OP.PoolDestroy(gameObject);
-        }
-
         if (pv.IsMine)
         {
             transform.Translate(new Vector3(0, -bulletSpeed));

@@ -17,7 +17,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Cards CM;
     [SerializeField] GoogleSheetManager GSM;
     [SerializeField] AbilityManager AM;
-    [SerializeField] JopManager JM;
+    [SerializeField] JobManager JM;
     [SerializeField] ReinForceManager RM;
 
     [SerializeField] Animator StartButtonAni;

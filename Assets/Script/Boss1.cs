@@ -10,7 +10,6 @@ public class Boss1 : MonoBehaviour
     [SerializeField] GameObject target;
 
     [SerializeField] EnemyBasicScript EB;
-    [SerializeField] GameManager GM;
 
     [SerializeField] int patternIndex;
     [SerializeField] int curPatternCount;
@@ -27,13 +26,16 @@ public class Boss1 : MonoBehaviour
     private void OnEnable()
     {
         canMove = true;
-        GM = FindObjectOfType<GameManager>();
+        EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, true);
 
         if (!PhotonNetwork.IsMasterClient) return;
-
-        
-        creat();
         StartCoroutine(Stop());
+    }
+
+    private void Start()
+    {
+        if (!PhotonNetwork.IsMasterClient) return;
+        SearchPlayer();
     }
 
     private void Update()
@@ -41,22 +43,22 @@ public class Boss1 : MonoBehaviour
         if (canMove)
             transform.Translate(new Vector2(0, -moveSpeed));
     }
-    public void creat()
+    public void SearchPlayer()
     {
 
-        if (GM.alivePlayers[3])
+        if (EB.GM.alivePlayers[3])
         {
             a = 4;
         }
-        else if (GM.alivePlayers[2])
+        else if (EB.GM.alivePlayers[2])
         {
             a = 3;
         }
-        else if (GM.alivePlayers[1])
+        else if (EB.GM.alivePlayers[1])
         {
             a = 2;
         }
-        else if (GM.alivePlayers[0])
+        else if (EB.GM.alivePlayers[0])
         {
             a = 1;
         }
@@ -64,7 +66,7 @@ public class Boss1 : MonoBehaviour
         if (PhotonNetwork.IsMasterClient)
         {
             targetRandomNum = Random.Range(0, a);
-            target = GM.alivePlayers[targetRandomNum].gameObject;
+            target = EB.GM.alivePlayers[targetRandomNum].gameObject;
         }
     }
     public IEnumerator Stop()
@@ -72,7 +74,7 @@ public class Boss1 : MonoBehaviour
         yield return new WaitForSeconds(stopCool);
         if (gameObject.activeSelf)
         {
-            Debug.Log("멈춤");
+            EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, false);
 
             canMove = false;
 

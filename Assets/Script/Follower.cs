@@ -11,7 +11,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
     public int bulletType;
 
     public ObjectPooler OP;
-    [SerializeField] JopManager JM;
+    [SerializeField] JobManager JM;
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
@@ -26,7 +26,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
     Vector3 curPosPv;
     private void Awake()
     {
-        JM = FindObjectOfType<JopManager>();
+        JM = FindObjectOfType<JobManager>();
         parentPos = new Queue<Vector3>();
         rigid.Sleep();
     }
