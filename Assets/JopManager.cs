@@ -233,14 +233,15 @@ public class JopManager : MonoBehaviour
                 break;
             case 2:
                 myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = 5;
-                myplayerScript.skillC.gameObject.SetActive(true);
+                //myplayerScript.skillC.gameObject.SetActive(true);
+                myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
 
                 skillBtn.interactable = false;
                 curSkillCool = 0;
                 break;
         }
     }
-    public void aa()
+    public void SkillBOnClick()
     {
         skillBOn = true;
         Vector2 mousePos = Input.mousePosition;

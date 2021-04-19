@@ -72,9 +72,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [Header("Managers")]
     public GameManager GM;
-    [SerializeField] ObjectPooler OP;
+    public ObjectPooler OP;
     [SerializeField] AbilityManager AM;
-    JopManager JM;
+    public JopManager JM;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -216,7 +216,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 if (JM.curSkillCool > JM.skillCoolC)
                 {
                     JM.skillBtn.interactable = true;
-                    JM.myplayerScript.skillC.gameObject.SetActive(false);
+                    skillC.pv.RPC(nameof(skillC.BarrierOn), RpcTarget.All, false);
                 }
             }
 

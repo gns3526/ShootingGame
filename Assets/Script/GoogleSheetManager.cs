@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.Networking;
+using Photon.Pun;
 
 [System.Serializable]
 public class GoogleData
@@ -65,11 +66,28 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] bool makeNickComplete;
     [SerializeField] bool nickInputComplete;
 
+    private void Update()
+    {
+        if (Input.GetKeyDown(KeyCode.M))
+        {
+            movePlayerinfoComplete = true;
+            makeNickComplete = true;
+            nickInputComplete = true;
+
+            PhotonNetwork.OfflineMode = true;
+
+            GM.loginPanel.SetActive(false);
+
+            NM.OnJoinedLobby();
+        }
+    }
 
     void CompleteAllCheck()
     {
         if (movePlayerinfoComplete && makeNickComplete && nickInputComplete)
         {
+            
+
             movePlayerinfoComplete = false;
             makeNickComplete = false;
             nickInputComplete = false;

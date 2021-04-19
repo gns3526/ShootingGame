@@ -11092,6 +11092,7 @@ MonoBehaviour:
   GM: {fileID: 0}
   OP: {fileID: 0}
   AM: {fileID: 0}
+  JM: {fileID: 0}
   playerPoint: {fileID: 987814901808949605}
   boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
@@ -16687,6 +16688,7 @@ GameObject:
   - component: {fileID: 3173893701698539057}
   - component: {fileID: 1997594032910559564}
   - component: {fileID: 6975515289339184200}
+  - component: {fileID: 3136489064181474076}
   m_Layer: 0
   m_Name: SkillC
   m_TagString: Untagged
@@ -16787,6 +16789,30 @@ MonoBehaviour:
   playerScript: {fileID: 3941946227140826628}
   barrierCountText: {fileID: 870931108420616639}
   barrierCount: 0
+  pv: {fileID: 3136489064181474076}
+  circleCollider: {fileID: 1997594032910559564}
+--- !u!114 &3136489064181474076
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5558065061246383036}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: aa584fbee541324448dd18d8409c7a41, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  ObservedComponentsFoldoutOpen: 1
+  Group: 0
+  prefixField: -1
+  observableSearch: 2
+  Synchronization: 3
+  OwnershipTransfer: 0
+  ObservedComponents: []
+  viewIdField: 0
+  InstantiationId: 0
+  isRuntimeInstantiated: 0
 --- !u!1 &5857348403860424821
 GameObject:
   m_ObjectHideFlags: 0

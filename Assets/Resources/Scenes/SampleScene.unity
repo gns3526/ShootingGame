@@ -14277,7 +14277,7 @@ MonoBehaviour:
   lifeC: 10
   moveSpeedC: 80
   fireSpeedC: 1.5
-  missPerC: 15
+  missPerC: -36
   bulletAmountC1: 15
   bulletSpreadC1: 15
   bulletAmountC2: 20

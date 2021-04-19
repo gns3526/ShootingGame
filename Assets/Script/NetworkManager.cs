@@ -87,6 +87,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
+        //test
+        
+
         img.sprite = icons[playerIconCode];
         Screen.SetResolution(540, 960, false);
         PhotonNetwork.SendRate = 60;
@@ -278,10 +281,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         Spawn();
-        
-        Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
 
-        GM.curMapCode = (int)map[roomOption];
+        //Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
+        //test;
+        //GM.curMapCode = (int)map[roomOption];
+        GM.curMapCode = 0;
+
         GM.roomMapThumnail.sprite = GM.mapThumnails[GM.curMapCode];
         GM.roomMapName.text = GM.mapNames[GM.curMapCode];
 

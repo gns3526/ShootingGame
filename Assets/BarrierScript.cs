@@ -2,26 +2,44 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using Photon.Pun;
 
 public class BarrierScript : MonoBehaviour
 {
     [SerializeField] Player playerScript;
+
     ObjectPooler op;
     JopManager jm;
+
     [SerializeField] Text barrierCountText;
+
     public int barrierCount;
+
+    public PhotonView pv;
+    [SerializeField] CircleCollider2D circleCollider;
 
     private void Start()
     {
-        op = FindObjectOfType<ObjectPooler>();
-        jm = FindObjectOfType<JopManager>();
+        op = playerScript.OP;
+        jm = playerScript.JM;
         gameObject.SetActive(false);
     }
 
     private void OnEnable()
     {
-        barrierCountText.text = barrierCount.ToString();
-        barrierCountText.enabled = true;
+        if (playerScript.pv.IsMine)
+        {
+            barrierCountText.text = barrierCount.ToString();
+            barrierCountText.enabled = true;
+
+            circleCollider.enabled = true;
+
+            pv.RPC(nameof(BarrierCountUpdate), RpcTarget.All, barrierCount);
+        }
+        else
+        {
+            circleCollider.enabled = false;
+        }
     }
     private void OnDisable()
     {
@@ -35,10 +53,23 @@ public class BarrierScript : MonoBehaviour
         if (other.tag == "Bullet" && !other.GetComponent<BulletScript>().isPlayerAttack)
         {
             barrierCount--;
-            barrierCountText.text = barrierCount.ToString();
+            pv.RPC(nameof(BarrierCountUpdate), RpcTarget.All, barrierCount);
             op.PoolDestroy(other.gameObject);
             if (barrierCount == 0)
-                gameObject.SetActive(false);
+                pv.RPC(nameof(BarrierOn), RpcTarget.All, false);
         }
+    }
+
+    [PunRPC]
+    public void BarrierOn(bool active)
+    {
+        gameObject.SetActive(active);
+    }
+
+    [PunRPC]
+    void BarrierCountUpdate(int barrierIndex)
+    {
+        barrierCount = barrierIndex;
+        barrierCountText.text = barrierIndex.ToString();
     }
 }
