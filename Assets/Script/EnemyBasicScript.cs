@@ -125,23 +125,23 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             bulletScript = other.GetComponent<BulletScript>();
             Player myPlayerScript = GM.myplayer.GetComponent<Player>();
 
-            bool isFollowerAttack = bulletScript.isFollowerAttack;
-            float followerPenalty = 1;
-            int followerDamagePer = 100;
+            bool ispetAttack = bulletScript.ispetAttack;
+            float petPenalty = 1;
+            int petDamagePer = 100;
 
             int randomNum;
             randomNum = Random.Range(0, 101);
 
-            if (isFollowerAttack)
+            if (ispetAttack)
             {
-                followerPenalty = 0.5f;
-                followerDamagePer = myPlayerScript.followerDamagePer;
+                petPenalty = 0.5f;
+                petDamagePer = myPlayerScript.petDamagePer;
             }
 
 
 
             normalBulletDmg = myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100) * (bulletScript.dmgPer / 100)
-                     * (myPlayerScript.damageStack / 100) * (followerDamagePer / 100);
+                     * (myPlayerScript.damageStack / 100) * (petDamagePer / 100);
 
 
             if (myPlayerScript.criticalPer > randomNum)
@@ -155,7 +155,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             else
                 finalDamage = criticalPlusDamage;
 
-            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100) * followerPenalty;
+            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100) * petPenalty;
 
             pv.RPC("Hit", RpcTarget.All, finalDamage);
         }

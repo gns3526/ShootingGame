@@ -8,6 +8,8 @@ public class ReinForceManager : MonoBehaviour
     [Header("Manager")]
     [SerializeField] GameManager gm;
 
+    public Player myplayerScript;
+
     [Header("ReinForce1")]
     [SerializeField] Text plainLvText;
     [SerializeField] Text successPer;
@@ -21,14 +23,14 @@ public class ReinForceManager : MonoBehaviour
     [SerializeField] Text reinPointAmount;
     [SerializeField] GameObject[] groups;
 
-    [SerializeField] int[] dmgPer;
-    [SerializeField] int[] atkSpd;
-    [SerializeField] int[] criPer;
-    [SerializeField] int[] criDmg;
-    [SerializeField] int[] petDmg;
-    [SerializeField] int[] petAtkSpd;
+    public int[] dmgPer;
+    public int[] atkSpd;
+    public int[] criPer;
+    public int[] criDmg;
+    public int[] petDmg;
+    public int[] petAtkSpd;
 
-    [SerializeField] int[] upgradeInfo;
+    public int[] upgradeInfo;
     [SerializeField] int[] upgradeMax;
     [SerializeField] int[] upgradeCost;
 
@@ -157,5 +159,15 @@ public class ReinForceManager : MonoBehaviour
         upgradeInfo[index]++;
         gm.reinPoint -= upgradeCost[index];
         ReinForceRework();
+    }
+
+    public void ReinForceApply()
+    {
+        myplayerScript.increaseDamagePer += dmgPer[upgradeInfo[0]];
+        myplayerScript.attackSpeedPer += atkSpd[upgradeInfo[1]];
+        myplayerScript.criticalPer += criPer[upgradeInfo[1]];
+        myplayerScript.criticalDamagePer += criDmg[upgradeInfo[1]];
+        myplayerScript.petDamagePer += atkSpd[upgradeInfo[1]];
+
     }
 }

@@ -30,8 +30,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int normalMonsterDamagePer;
     public int criticalPer;
     public int criticalDamagePer;
-    public int followerDamagePer;
-    public int followerShotCoolReduce;
+    public int petDamagePer;
+    public int petAttackSpeedPer;
     public int penetratePer;
     public int finalDamagePer;
     public int goldAmountPer;
@@ -52,7 +52,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] int boom;
     [SerializeField] int maxBoom;
     public float maxShotCoolTime;
-    public float shotCoolTimeReduce;
+    public float attackSpeedPer;
     [SerializeField] float curShotCoolTime;
     public float godTime;
     public int missPercentage;
@@ -73,8 +73,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [Header("Managers")]
     public GameManager GM;
     public ObjectPooler OP;
-    [SerializeField] AbilityManager AM;
+    public AbilityManager AM;
     public JobManager JM;
+    public ReinForceManager RFM;
+    public NetworkManager NM;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -87,8 +89,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     [SerializeField] bool isBoomActive;
 
-    public GameObject[] followers;
-    public int followerAmount;
+    public GameObject[] pets;
+    public int petAmount;
 
     public bool canHit;
     public bool isRespawned;
@@ -105,7 +107,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     //Photon Panel
 
-    NetworkManager NM;
+    
     PhotonView NMPV;
     [SerializeField] Text nickNameText;
     public PhotonView pv;
@@ -117,20 +119,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Awake()
     {
-        GM = FindObjectOfType<GameManager>();
-        NM = FindObjectOfType<NetworkManager>();
-        OP = FindObjectOfType<ObjectPooler>();
-        AM = FindObjectOfType<AbilityManager>();
-        JM = FindObjectOfType<JobManager>();
 
-        NMPV = NM.GetComponent<PhotonView>();
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
 
-        for (int i = 0; i < followers.Length; i++)
+        for (int i = 0; i < pets.Length; i++)
         {
-            followers[i].GetComponent<Follower>().OP = OP;
-            followers[i].GetComponent<Follower>().player = this;
-            followers[i].SetActive(false);
+            pets[i].GetComponent<Pet>().OP = OP;
+            pets[i].GetComponent<Pet>().player = this;
+            pets[i].SetActive(false);
         }
 
 
@@ -138,35 +134,26 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             playerPoint.SetActive(true);
 
-            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
-
-            pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+            
 
             StartCoroutine(StartDelay());
         }
     }
 
-
-    private void OnEnable()
+    private void Start()
     {
+        codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
-        Unbeatable();
-
-        if(pv.IsMine)
-        Invoke("Unbeatable", 0.1f);//무적시간
-
-
+        pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
     }
+
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(0.1f);
         JM.JobApply();
         AM.AbilityApply();
-    }
 
-    void Unbeatable()
-    {
-
+        NMPV = NM.GetComponent<PhotonView>();
     }
 
     private void Update()
@@ -187,18 +174,18 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             UseBoom();
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                pv.RPC("AddFollower", RpcTarget.All, 1);
-                //AddFollower(1);
+                pv.RPC(nameof(AddPet), RpcTarget.All, 1);
+                //AddPet(1);
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                pv.RPC("AddFollower", RpcTarget.All, 2);
-                //AddFollower(2);
+                pv.RPC(nameof(AddPet), RpcTarget.All, 2);
+                //AddPet(2);
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
-                //AddFollower(2);
+                //AddPet(2);
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
@@ -357,7 +344,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     void Reload()
     {
-        curShotCoolTime += Time.deltaTime * ((shotCoolTimeReduce + attackSpeedStack) / 100);
+        curShotCoolTime += Time.deltaTime * ((attackSpeedPer + attackSpeedStack) / 100);
     }
     void UseBoom()//폭탄사용
     {
@@ -419,7 +406,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     else
                     {
                         power++;
-                        AddFollower();
+                        AddPet();
                     }
                     break;*/
                 case "Boom":
@@ -439,25 +426,25 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    public void AddFollower(int type)
+    public void AddPet(int type)
     {
         
-        for (int i = 0; i < followers.Length; i++)
+        for (int i = 0; i < pets.Length; i++)
         {
-            if (!followers[i].activeSelf)
+            if (!pets[i].activeSelf)
             {
-                followers[i].SetActive(true);
-                Follower followerScript = followers[i].GetComponent<Follower>();
-                pv.RPC("FollowerSpriteChangeRPC", RpcTarget.All,i,type);
+                pets[i].SetActive(true);
+                Pet petScript = pets[i].GetComponent<Pet>();
+                pv.RPC("petSpriteChangeRPC", RpcTarget.All,i,type);
                 switch (type)
                 {
                     case 1:
-                        followerScript.maxShotCoolTime = 0.2f;
-                        followerScript.bulletType = 1;
+                        petScript.maxShotCoolTime = 0.2f;
+                        petScript.bulletType = 1;
                         break;
                     case 2:
-                        followerScript.maxShotCoolTime = 2f;
-                        followerScript.bulletType = 2;
+                        petScript.maxShotCoolTime = 2f;
+                        petScript.bulletType = 2;
                         break;
                 }
                 break;
@@ -466,14 +453,14 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     }
 
     [PunRPC]
-    void FollowerSpriteChangeRPC(int i, int type)
+    void petSpriteChangeRPC(int i, int type)
     {
-        followerAmount++;
+        petAmount++;
         if(type == 1)
-            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num1", typeof(Sprite)) as Sprite;
+            pets[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num1", typeof(Sprite)) as Sprite;
 
         else if(type == 2)
-            followers[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num2", typeof(Sprite)) as Sprite;
+            pets[i].GetComponent<SpriteRenderer>().sprite = Resources.Load("PetSprite" + "/" + "Num2", typeof(Sprite)) as Sprite;
     }
 
 

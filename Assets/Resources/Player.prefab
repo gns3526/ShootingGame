@@ -11058,8 +11058,8 @@ MonoBehaviour:
   normalMonsterDamagePer: 100
   criticalPer: 25
   criticalDamagePer: 200
-  followerDamagePer: 100
-  followerShotCoolReduce: 100
+  petDamagePer: 0
+  petAttackSpeedPer: 0
   penetratePer: 30
   finalDamagePer: 100
   goldAmountPer: 100
@@ -11077,7 +11077,7 @@ MonoBehaviour:
   boom: 0
   maxBoom: 3
   maxShotCoolTime: 0.15
-  shotCoolTimeReduce: 100
+  attackSpeedPer: 0
   curShotCoolTime: 0
   godTime: 2
   missPercentage: 0
@@ -11093,25 +11093,16 @@ MonoBehaviour:
   OP: {fileID: 0}
   AM: {fileID: 0}
   JM: {fileID: 0}
+  RFM: {fileID: 0}
+  NM: {fileID: 0}
   playerPoint: {fileID: 987814901808949605}
   boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
   mainSprite: {fileID: 6413234793396099382}
   rigid: {fileID: 3941946227140826625}
   isBoomActive: 0
-  followers:
-  - {fileID: 3941946225890586680}
-  - {fileID: 3941946227448219103}
-  - {fileID: 3941946226894128447}
-  - {fileID: 3941946226629464981}
-  - {fileID: 3941946227259702258}
-  - {fileID: 3941946226561177525}
-  - {fileID: 3941946226391667026}
-  - {fileID: 3941946227652808678}
-  - {fileID: 3941946227690431953}
-  - {fileID: 3941946225981818743}
-  - {fileID: 3941946226552155322}
-  followerAmount: 0
+  pets: []
+  petAmount: 0
   canHit: 1
   isRespawned: 0
   joyControl: 000000000000000000

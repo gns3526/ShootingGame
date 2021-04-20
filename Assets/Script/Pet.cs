@@ -4,7 +4,7 @@ using UnityEngine;
 using Photon.Pun;
 using Photon.Realtime;
 
-public class Follower : MonoBehaviourPun, IPunObservable
+public class Pet : MonoBehaviourPun, IPunObservable
 {
     public float maxShotCoolTime;
     [SerializeField] float curShotCoolTime;
@@ -42,7 +42,7 @@ public class Follower : MonoBehaviourPun, IPunObservable
                 Follow();
             }
             Fire();
-            curShotCoolTime += Time.deltaTime * (player.followerShotCoolReduce / 100) * (JM.skillBOn == true ? 1.5f : 1);
+            curShotCoolTime += Time.deltaTime * (player.petAttackSpeedPer / 100) * (JM.skillBOn == true ? 1.5f : 1);
 
         }
         else

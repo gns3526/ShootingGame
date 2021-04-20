@@ -265,7 +265,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if(jm.jobCode == 1)
             for (int i = 0; i < jm.starterPetAmountB; i++)
-                myplayerScript.pv.RPC("AddFollower", RpcTarget.All, 1);
+                myplayerScript.pv.RPC(nameof(myplayerScript.AddPet), RpcTarget.All, 1);
 
             OP.PrePoolInstantiate();
                     nickNameText3.text = PhotonNetwork.NickName;
@@ -289,10 +289,10 @@ public class GameManager : MonoBehaviourPunCallbacks
         startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
         clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
 
-        //if (PhotonNetwork.IsMasterClient)
-        //{
+        if (PhotonNetwork.IsMasterClient)
+        {
             ReadSpawnFile();//적 스폰파일 읽기
-        //}
+        }
 
         isGameStart = true;
 
@@ -355,7 +355,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         if (myplayerScript.isDie) return;
 
-        if (myplayerScript.followers.Length == myplayerScript.followerAmount)
+        if (myplayerScript.pets.Length == myplayerScript.petAmount)
         {
             epic.RemoveAt(1);
             epic.RemoveAt(2);

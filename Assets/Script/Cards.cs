@@ -30,7 +30,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         switch (num)
         {
             case 1:
-                player.shotCoolTimeReduce += 50;
+                player.attackSpeedPer += 50;
 
                 break;
             case 2:
@@ -58,10 +58,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.UpdateLifeIcon(player.life);
                 break;
             case 7:
-                player.pv.RPC("AddFollower", RpcTarget.All, 1);
+                player.pv.RPC(nameof(player.AddPet), RpcTarget.All, 1);
                 break;
             case 8:
-                player.pv.RPC("AddFollower", RpcTarget.All, 2);
+                player.pv.RPC(nameof(player.AddPet), RpcTarget.All, 2);
                 break;
             case 9:
                 player.godTime += 2;

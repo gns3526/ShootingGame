@@ -80,6 +80,9 @@ public class JobManager : MonoBehaviour
     {
         if (!myplayerScript.pv.IsMine) return;
 
+        skillBtn.interactable = true;
+        skillGuage.fillAmount = 1;
+
         skillBPoint.SetActive(false);
 
         switch (jobCode)

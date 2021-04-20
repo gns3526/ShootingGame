@@ -12,7 +12,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     [SerializeField] float maxBulletDestroyTime;
     float bulletDestroyTime;
     public bool isPlayerAttack;
-    public bool isFollowerAttack;
+    public bool ispetAttack;
     [SerializeField] bool isRotate;
     [SerializeField] bool isPassThrough;
     public GameObject target;

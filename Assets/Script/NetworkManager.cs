@@ -474,18 +474,25 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-
-
-
     public void Spawn()
     {
 
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
+        Player myplayerScript = myPlayer.GetComponent<Player>();
+
+        myplayerScript.GM = GM;
+        myplayerScript.NM = this;
+        myplayerScript.OP = OP;
+        myplayerScript.AM = AM;
+        myplayerScript.JM = JM;
+        myplayerScript.RFM = RM;
+
         GM.myplayer = myPlayer;
-        GM.myplayerScript = myPlayer.GetComponent<Player>();
-        CM.player = myPlayer.GetComponent<Player>();
-        AM.myPlayerScript = myPlayer.GetComponent<Player>();
-        JM.myplayerScript = myPlayer.GetComponent<Player>();
+        GM.myplayerScript = myplayerScript;
+        CM.player = myplayerScript;
+        AM.myPlayerScript = myplayerScript;
+        JM.myplayerScript = myplayerScript;
+        RM.myplayerScript = myplayerScript;
 
         GM.WeaponButtonUpdate();
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
