@@ -11,6 +11,8 @@ public class ReinForceManager : MonoBehaviour
     public Player myplayerScript;
 
     [Header("ReinForce1")]
+    [SerializeField] Button mainPlainUpgradeButton;
+
     [SerializeField] Text plainLvText;
     [SerializeField] Text successPer;
     [SerializeField] Text successText;
@@ -45,27 +47,27 @@ public class ReinForceManager : MonoBehaviour
                 {
                     case 0:
                         groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 증가(Max)";
-                        groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0] - 1] + "%";
+                        groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0]] + "%";
                         break;
                     case 1:
                         groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 증가(Max)";
-                        groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1] - 1] + "%";
+                        groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1]] + "%";
                         break;
                     case 2:
                         groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 증가(Max)";
-                        groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2] - 1] + "%";
+                        groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2]] + "%";
                         break;
                     case 3:
                         groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 증가(Max)";
-                        groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3] - 1] + "%";
+                        groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3]] + "%";
                         break;
                     case 4:
                         groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 증가(Max)";
-                        groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4] - 1] + "%";
+                        groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4]] + "%";
                         break;
                     case 5:
                         groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 증가(Max)";
-                        groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5] - 1] + "%";
+                        groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5]] + "%";
                         break;
                 }
             }
@@ -75,27 +77,27 @@ public class ReinForceManager : MonoBehaviour
                 {
                     case 0:
                         groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0] - 1] + "%" + " > " + dmgPer[upgradeInfo[0]] + "%";
+                        groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0]] + "%" + " > " + dmgPer[upgradeInfo[0] + 1] + "%";
                         break;
                     case 1:
                         groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1] - 1] + "%" + " > " + atkSpd[upgradeInfo[1]] + "%";
+                        groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1]] + "%" + " > " + atkSpd[upgradeInfo[1] + 1] + "%";
                         break;
                     case 2:
                         groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2] - 1] + "%" + " > " + criPer[upgradeInfo[2]] + "%";
+                        groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2]] + "%" + " > " + criPer[upgradeInfo[2] + 1] + "%";
                         break;
                     case 3:
                         groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3] - 1] + "%" + " > " + criDmg[upgradeInfo[3]] + "%";
+                        groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3]] + "%" + " > " + criDmg[upgradeInfo[3] + 1] + "%";
                         break;
                     case 4:
                         groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4] - 1] + "%" + " > " + petDmg[upgradeInfo[4]] + "%";
+                        groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4]] + "%" + " > " + petDmg[upgradeInfo[4] + 1] + "%";
                         break;
                     case 5:
                         groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
-                        groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5] - 1] + "%" + " > " + petAtkSpd[upgradeInfo[5]] + "%";
+                        groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5]] + "%" + " > " + petAtkSpd[upgradeInfo[5] + 1] + "%";
                         break;
                 }
             }
@@ -146,6 +148,22 @@ public class ReinForceManager : MonoBehaviour
         successText.enabled = true;
         plainLvText.text = "Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
+
+        CheckCanUpgrade();
+    }
+
+    public void CheckCanUpgrade()
+    {
+        if (gm.money >= coinCost)
+        {
+            costText.color = Color.white;
+            mainPlainUpgradeButton.interactable = true;
+        }
+        else
+        {
+            costText.color = Color.red;
+            mainPlainUpgradeButton.interactable = false;
+        }
     }
 
     public void Disappear()
@@ -163,11 +181,14 @@ public class ReinForceManager : MonoBehaviour
 
     public void ReinForceApply()
     {
-        myplayerScript.increaseDamagePer += dmgPer[upgradeInfo[0]];
-        myplayerScript.attackSpeedPer += atkSpd[upgradeInfo[1]];
-        myplayerScript.criticalPer += criPer[upgradeInfo[1]];
-        myplayerScript.criticalDamagePer += criDmg[upgradeInfo[1]];
-        myplayerScript.petDamagePer += atkSpd[upgradeInfo[1]];
+        myplayerScript.increaseDamagePer += gm.plainLv;
+        myplayerScript.moveSpeed += gm.plainLv * 0.5f;
 
+        myplayerScript.increaseDamagePer += dmgPer[upgradeInfo[0]] - 100;
+        myplayerScript.attackSpeedPer += atkSpd[upgradeInfo[1]] - 100;
+        myplayerScript.criticalPer += criPer[upgradeInfo[2]] - 100;
+        myplayerScript.criticalDamagePer += criDmg[upgradeInfo[3]] - 100;
+        myplayerScript.petDamagePer += petDmg[upgradeInfo[4]] - 100;
+        myplayerScript.petAttackSpeedPer += petAtkSpd[upgradeInfo[5]] - 100;
     }
 }

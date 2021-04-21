@@ -164,6 +164,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         GM.goldAmountText.text = GM.money.ToString();
         RM.LobbyReinRework();
+        RM.CheckCanUpgrade();
 
         myList.Clear();
         MyListRenewal();

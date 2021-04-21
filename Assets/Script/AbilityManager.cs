@@ -13,6 +13,7 @@ public class AbilityManager : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] GameManager GM;
+    [SerializeField] ReinForceManager RFM;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -45,6 +46,9 @@ public class AbilityManager : MonoBehaviour
         }
         CanResetAbilityCheck();
         needCoinText.text = needCoinForAbility.ToString();
+
+        RFM.CheckCanUpgrade();
+
         if (!a) return;
         for (int i = 0; i < 3; i++)
         {

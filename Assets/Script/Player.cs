@@ -152,6 +152,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         yield return new WaitForSeconds(0.1f);
         JM.JobApply();
         AM.AbilityApply();
+        RFM.ReinForceApply();
 
         NMPV = NM.GetComponent<PhotonView>();
     }

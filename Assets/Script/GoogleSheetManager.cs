@@ -17,7 +17,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbzq_aYnqM9FqXiquh261BUmRPbpZZaLOLYiztGcVBFAcwlr5w95P_CnaakKcRw0BqkI/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbzGLsL81O65hNlOUqOypUMt_4mDLY1Aw3Wzz46NDXbg1h-D-1cJIsQbFJpy_v4mnD4q/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -27,6 +27,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] GameManager GM;
     [SerializeField] NetworkManager NM;
     [SerializeField] AbilityManager AM;
+    [SerializeField] ReinForceManager RM;
 
     [Header("Panel")]
     public GameObject loadingPanel;
@@ -305,9 +306,10 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money +"." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
-            GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2]);
-
+        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+            GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
+            RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5]);
+        
         StartCoroutine(Post(form));
     }
 
@@ -378,6 +380,14 @@ public class GoogleSheetManager : MonoBehaviour
                 AM.abilityGrade[0] = int.Parse(result[14]);
                 AM.abilityGrade[1] = int.Parse(result[15]);
                 AM.abilityGrade[2] = int.Parse(result[16]);
+
+                GM.plainLv = int.Parse(result[17]);
+
+                for (int i = 0; i < RM.upgradeInfo.Length; i++)
+                {
+                    int index = i + 18;
+                    RM.upgradeInfo[i] = int.Parse(result[index]);
+                }
                 
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;
