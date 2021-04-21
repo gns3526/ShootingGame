@@ -481,7 +481,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
         Player myplayerScript = myPlayer.GetComponent<Player>();
 
-        myplayerScript.GM = GM;
+        //myplayerScript.GM = GM;
         myplayerScript.NM = this;
         myplayerScript.OP = OP;
         myplayerScript.AM = AM;

@@ -129,7 +129,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             pets[i].SetActive(false);
         }
 
-
+        GM = FindObjectOfType<GameManager>();
         if (pv.IsMine)
         {
             playerPoint.SetActive(true);
@@ -142,9 +142,13 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
+        
+        if (pv.IsMine)
+        {
+            codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
-        pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+            pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+        }
     }
 
     IEnumerator StartDelay()
