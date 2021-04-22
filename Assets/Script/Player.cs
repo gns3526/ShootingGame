@@ -200,17 +200,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 GM.PlayerDie();
             }
 
-            if (JM.curSkillCool < JM.skillCoolC)
-            {
-                JM.curSkillCool += Time.deltaTime;
-                JM.skillGuage.fillAmount = JM.curSkillCool / JM.skillCoolC;
 
-                if (JM.curSkillCool > JM.skillCoolC)
-                {
-                    JM.skillBtn.interactable = true;
-                    skillC.pv.RPC(nameof(skillC.BarrierOn), RpcTarget.All, false);
-                }
-            }
 
             if (!GM.isAndroid)
             {

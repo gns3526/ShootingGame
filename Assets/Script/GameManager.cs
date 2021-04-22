@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
     [SerializeField] JobManager jm;
+    [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -325,6 +326,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (stage > MaxStage)
         {
             FinalStageClear();
+            specialSkinManager.ChallengeClear(1);
         }
         
         else
@@ -1064,6 +1066,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (alivePlayers[0] == null)
         {
             GameOver();
+            specialSkinManager.ChallengeClear(0);
         }
         else if(alivePlayers[0] && myplayer.GetComponent<Player>().isDie)
         {
