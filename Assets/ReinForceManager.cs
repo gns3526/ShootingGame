@@ -7,6 +7,7 @@ public class ReinForceManager : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] GameManager gm;
+    [SerializeField] SpecialSkinManager specialSkinManager;
 
     public Player myplayerScript;
 
@@ -115,17 +116,18 @@ public class ReinForceManager : MonoBehaviour
 
     public void LobbyReinRework()
     {
-        Debug.Log("ewewf");
         plainLvText.text = "Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
         costText.text = coinCost.ToString();
         Disappear();
+
+        CheckCanUpgrade();
     }
 
 
     public void ReinForce1()
     {
-        int randomNum = Random.RandomRange(0, 101);
+        int randomNum = Random.RandomRange(1, 101);
         gm.money -= coinCost;
         costText.text = coinCost.ToString();
         gm.goldAmountText.text = gm.money.ToString();
@@ -149,6 +151,9 @@ public class ReinForceManager : MonoBehaviour
         plainLvText.text = "Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
 
+        if (gm.plainLv == 100)
+            specialSkinManager.ChallengeClear(2);
+
         CheckCanUpgrade();
     }
 
@@ -163,6 +168,16 @@ public class ReinForceManager : MonoBehaviour
         {
             costText.color = Color.red;
             mainPlainUpgradeButton.interactable = false;
+        }
+        if (gm.plainLv == 100)
+        {
+            plainLvText.text = "Lv.Max";
+            successPer.text = "";
+            successPer.text = "";
+            plusReinForce.SetActive(false);
+            mainPlainUpgradeButton.interactable = false;
+            mainPlainUpgradeButton.transform.GetChild(0).gameObject.SetActive(false);
+            costText.text = "";
         }
     }
 

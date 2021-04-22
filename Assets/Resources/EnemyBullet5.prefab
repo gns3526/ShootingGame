@@ -163,7 +163,7 @@ MonoBehaviour:
   bulletSpeed: 0
   maxBulletDestroyTime: 5
   isPlayerAttack: 0
-  isFollowerAttack: 0
+  ispetAttack: 0
   isRotate: 0
   isPassThrough: 1
   target: {fileID: 0}

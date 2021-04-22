@@ -5,22 +5,33 @@ using UnityEngine.UI;
 
 public class CodySelectUpdate : MonoBehaviour
 {
-    GameManager gm;
-    NetworkManager nm;
-    JobManager jm;
+    [SerializeField] GameManager gm;
+    [SerializeField] NetworkManager nm;
+    [SerializeField] JobManager jm;
     [SerializeField] GameObject[] codys;
     [SerializeField] int codyTypeCode;
 
-    private void Awake()
+    [Header("ItemInfo")]
+    [SerializeField] Text itemNameText;
+    [SerializeField] Text itemInfoText;
+
+    [SerializeField] string[] itemNames;
+    [SerializeField] string[] itemInfos;
+
+
+    private void OnEnable()
     {
-        gm = FindObjectOfType<GameManager>();
-        nm = FindObjectOfType<NetworkManager>();
-        jm = FindObjectOfType<JobManager>();
+        for (int i = 0; i < codys.Length; i++)
+            codys[i].transform.GetChild(3).gameObject.SetActive(false);
+        
     }
 
 
     public void CodyOnClick(int index)
     {
+        for (int i = 0; i < codys.Length; i++)
+            codys[i].transform.GetChild(3).gameObject.SetActive(false);
+        Debug.Log(index + "누름");
         switch (codyTypeCode)
         {
             case 0:
@@ -45,6 +56,12 @@ public class CodySelectUpdate : MonoBehaviour
                 jm.jobCode = index;
                 break;
         }
+        codys[index].transform.GetChild(3).gameObject.SetActive(true);
+
+        itemNameText.text = "'" + itemNames[index].ToString() + "'";
+        itemInfoText.text = itemInfos[index].ToString();
+
+        if(!codys[index].transform.GetChild(1).gameObject.activeSelf)
         Select();
     }
     //0 = main
