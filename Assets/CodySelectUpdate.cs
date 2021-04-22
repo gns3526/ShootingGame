@@ -12,6 +12,7 @@ public class CodySelectUpdate : MonoBehaviour
     [SerializeField] int codyTypeCode;
 
     [Header("ItemInfo")]
+    [SerializeField] bool explainInfo;
     [SerializeField] Text itemNameText;
     [SerializeField] Text itemInfoText;
 
@@ -23,7 +24,12 @@ public class CodySelectUpdate : MonoBehaviour
     {
         for (int i = 0; i < codys.Length; i++)
             codys[i].transform.GetChild(3).gameObject.SetActive(false);
-        
+
+        if (explainInfo)
+        {
+            itemNameText.text = "";
+            itemInfoText.text = "";
+        }
     }
 
 
@@ -32,37 +38,44 @@ public class CodySelectUpdate : MonoBehaviour
         for (int i = 0; i < codys.Length; i++)
             codys[i].transform.GetChild(3).gameObject.SetActive(false);
         Debug.Log(index + "누름");
-        switch (codyTypeCode)
-        {
-            case 0:
-                gm.codyMainCode = index;
-                gm.lobbyPlayer.sprite = gm.lobbyCodyMainDummy[index];
-                break;
-            case 1:
-                gm.codyBodyCode = index;
-                gm.lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = gm.lobbyCodyDummy[index];
-                break;
-            case 2:
-                gm.codyParticleCode = index;
-                for (int i = 0; i < gm.lobbyParticleDummy.Length; i++)
-                    gm.lobbyParticleDummy[i].Stop();
-                gm.lobbyParticleDummy[index].Play();
-                break;
-            case 3:
-                nm.playerIconCode = index;
-                gm.playerIcon.sprite = nm.icons[nm.playerIconCode];
-                break;
-            case 4:
-                jm.jobCode = index;
-                break;
-        }
+        
         codys[index].transform.GetChild(3).gameObject.SetActive(true);
 
-        itemNameText.text = "'" + itemNames[index].ToString() + "'";
-        itemInfoText.text = itemInfos[index].ToString();
+        if (explainInfo)
+        {
+            itemNameText.text = "\"" + itemNames[index].ToString() + "\"";
+            itemInfoText.text = itemInfos[index].ToString();
+        }
 
-        if(!codys[index].transform.GetChild(1).gameObject.activeSelf)
-        Select();
+        if (!codys[index].transform.GetChild(1).gameObject.activeSelf)
+        {
+            switch (codyTypeCode)
+            {
+                case 0:
+                    gm.codyMainCode = index;
+                    gm.lobbyPlayer.sprite = gm.lobbyCodyMainDummy[index];
+                    break;
+                case 1:
+                    gm.codyBodyCode = index;
+                    gm.lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = gm.lobbyCodyDummy[index];
+                    break;
+                case 2:
+                    gm.codyParticleCode = index;
+                    for (int i = 0; i < gm.lobbyParticleDummy.Length; i++)
+                        gm.lobbyParticleDummy[i].Stop();
+                    gm.lobbyParticleDummy[index].Play();
+                    break;
+                case 3:
+                    nm.playerIconCode = index;
+                    gm.playerIcon.sprite = nm.icons[nm.playerIconCode];
+                    break;
+                case 4:
+                    jm.jobCode = index;
+                    break;
+            }
+
+            Select();
+        }
     }
     //0 = main
     //1 = body
@@ -72,6 +85,8 @@ public class CodySelectUpdate : MonoBehaviour
 
     public void Select()
     {
+        
+
         switch (codyTypeCode)
         {
             case 0:

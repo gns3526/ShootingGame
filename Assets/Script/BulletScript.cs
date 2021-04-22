@@ -136,6 +136,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         if (isPlayerAttack)
         {
+            if (isPassThrough) return;
             if (other.tag == "BulletBorder")
             {
                 OP.PoolDestroy(gameObject);
