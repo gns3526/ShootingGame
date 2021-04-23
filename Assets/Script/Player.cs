@@ -34,6 +34,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public int petAttackSpeedPer;
     public int penetratePer;
     public int finalDamagePer;
+
+    public int skillCooldownPer;
+
     public int goldAmountPer;
     public int expAmountPer;
 
@@ -429,8 +432,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (!pets[i].activeSelf)
             {
                 pets[i].SetActive(true);
+
                 Pet petScript = pets[i].GetComponent<Pet>();
+                petScript.OP = OP;
+
                 pv.RPC("petSpriteChangeRPC", RpcTarget.All,i,type);
+
                 switch (type)
                 {
                     case 1:

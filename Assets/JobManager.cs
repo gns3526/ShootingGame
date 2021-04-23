@@ -93,7 +93,7 @@ public class JobManager : MonoBehaviour
     {
         if (curSkillCool < skillCool)
         {
-            curSkillCool += Time.deltaTime;
+            curSkillCool += Time.deltaTime * (myplayerScript.skillCooldownPer / 100);
             skillGuage.fillAmount = curSkillCool / skillCool;
 
             if (curSkillCool > skillCool)

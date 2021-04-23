@@ -10040,7 +10040,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227140826626}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 8242009468384621392}
 --- !u!114 &3229597382091293050
 MonoBehaviour:
@@ -10188,7 +10188,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227690431952}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 5286581912542367927}
 --- !u!114 &1392863723199145665
 MonoBehaviour:
@@ -10336,7 +10336,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226561177524}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 7417675186443054760}
 --- !u!114 &6334808207860319744
 MonoBehaviour:
@@ -10484,7 +10484,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225981818742}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 1333552995362690029}
 --- !u!114 &3132938149911840192
 MonoBehaviour:
@@ -10632,7 +10632,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227259702257}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 7890349116386129299}
 --- !u!114 &1259396175902000729
 MonoBehaviour:
@@ -10780,7 +10780,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226894128444}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 119737740469841147}
 --- !u!114 &2539984814799554278
 MonoBehaviour:
@@ -10928,7 +10928,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227448219102}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 7987381444111652798}
 --- !u!114 &5998207396118162516
 MonoBehaviour:
@@ -11058,10 +11058,11 @@ MonoBehaviour:
   normalMonsterDamagePer: 100
   criticalPer: 25
   criticalDamagePer: 200
-  petDamagePer: 0
-  petAttackSpeedPer: 0
+  petDamagePer: 100
+  petAttackSpeedPer: 100
   penetratePer: 30
   finalDamagePer: 100
+  skillCooldownPer: 100
   goldAmountPer: 100
   expAmountPer: 100
   gotSpecialWeaponAbility: 1
@@ -11101,7 +11102,18 @@ MonoBehaviour:
   mainSprite: {fileID: 6413234793396099382}
   rigid: {fileID: 3941946227140826625}
   isBoomActive: 0
-  pets: []
+  pets:
+  - {fileID: 3941946225890586680}
+  - {fileID: 3941946227448219103}
+  - {fileID: 3941946226894128447}
+  - {fileID: 3941946226629464981}
+  - {fileID: 3941946227259702258}
+  - {fileID: 3941946226561177525}
+  - {fileID: 3941946226391667026}
+  - {fileID: 3941946227652808678}
+  - {fileID: 3941946227690431953}
+  - {fileID: 3941946225981818743}
+  - {fileID: 3941946226552155322}
   petAmount: 0
   canHit: 1
   isRespawned: 0
@@ -11346,7 +11358,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226629464980}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 8398975905416010760}
 --- !u!114 &8200164006916119318
 MonoBehaviour:
@@ -11494,7 +11506,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946225890586677}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 8947601787096767117}
 --- !u!114 &8562319221204444732
 MonoBehaviour:
@@ -11642,7 +11654,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946226391667025}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 4890734205602142628}
 --- !u!114 &3906439361933426806
 MonoBehaviour:
@@ -11790,7 +11802,7 @@ MonoBehaviour:
   followPos: {x: 0, y: 0, z: 0}
   followDelay: 6
   parent: {fileID: 3941946227652808677}
-  player: {fileID: 0}
+  player: {fileID: 3941946227140826628}
   rigid: {fileID: 2254529163335762336}
 --- !u!114 &1279442445436232798
 MonoBehaviour:

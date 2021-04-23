@@ -17,7 +17,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbzGLsL81O65hNlOUqOypUMt_4mDLY1Aw3Wzz46NDXbg1h-D-1cJIsQbFJpy_v4mnD4q/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxgv269A4jkb7dPfAfSWm7mGx32pRs_NCmLffPIesQTI_UhTXE1lFdsK8gkw-Ok35nG/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -306,7 +306,8 @@ public class GoogleSheetManager : MonoBehaviour
 
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
-        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." + GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+        form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." +
+            GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
             RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5]);
         
@@ -357,6 +358,7 @@ public class GoogleSheetManager : MonoBehaviour
             else if(GD.type == "6")
             {
                 string[] result = GD.value.Split(new string[] { "." }, System.StringSplitOptions.None);
+
                 NM.playerIconCode = int.Parse(result[0]);
 
                 GM.playerLv = int.Parse(result[1]);
@@ -364,31 +366,35 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.maxExp = float.Parse(result[3]);
 
                 GM.money = int.Parse(result[4]);
+                GM.reinPoint = int.Parse(result[5]);
 
-                GM.codyMainCode = int.Parse(result[5]);
-                GM.codyBodyCode = int.Parse(result[6]);
-                GM.codyParticleCode = int.Parse(result[7]);
+                GM.codyMainCode = int.Parse(result[6]);
+                GM.codyBodyCode = int.Parse(result[7]);
+                GM.codyParticleCode = int.Parse(result[8]);
 
-                GM.abilityCode[0] = int.Parse(result[8]);
-                GM.abilityCode[1] = int.Parse(result[9]);
-                GM.abilityCode[2] = int.Parse(result[10]);
+                GM.abilityCode[0] = int.Parse(result[9]);
+                GM.abilityCode[1] = int.Parse(result[10]);
+                GM.abilityCode[2] = int.Parse(result[11]);
 
-                GM.abilityValue[0] = int.Parse(result[11]);
-                GM.abilityValue[1] = int.Parse(result[12]);
-                GM.abilityValue[2] = int.Parse(result[13]);
+                GM.abilityValue[0] = int.Parse(result[12]);
+                GM.abilityValue[1] = int.Parse(result[13]);
+                GM.abilityValue[2] = int.Parse(result[14]);
 
-                AM.abilityGrade[0] = int.Parse(result[14]);
-                AM.abilityGrade[1] = int.Parse(result[15]);
-                AM.abilityGrade[2] = int.Parse(result[16]);
+                AM.abilityGrade[0] = int.Parse(result[15]);
+                AM.abilityGrade[1] = int.Parse(result[16]);
+                AM.abilityGrade[2] = int.Parse(result[17]);
 
-                GM.plainLv = int.Parse(result[17]);
+                GM.plainLv = int.Parse(result[18]);
 
-                for (int i = 0; i < RM.upgradeInfo.Length; i++)
-                {
-                    int index = i + 18;
-                    RM.upgradeInfo[i] = int.Parse(result[index]);
-                }
-                
+                RM.upgradeInfo[0] = int.Parse(result[19]);
+                RM.upgradeInfo[1] = int.Parse(result[20]);
+                RM.upgradeInfo[2] = int.Parse(result[21]);
+                RM.upgradeInfo[3] = int.Parse(result[22]);
+                RM.upgradeInfo[4] = int.Parse(result[23]);
+                RM.upgradeInfo[5] = int.Parse(result[24]);
+
+
+
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;
                 CompleteAllCheck();

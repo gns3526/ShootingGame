@@ -266,7 +266,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             if(jm.jobCode == 1)
             for (int i = 0; i < jm.starterPetAmountB; i++)
-                myplayerScript.pv.RPC(nameof(myplayerScript.AddPet), RpcTarget.All, 1);
+                {
+                    myplayerScript.pv.RPC(nameof(myplayerScript.AddPet), RpcTarget.All, 1);
+                    Debug.Log("펫소환됨");
+                }
+                
 
             OP.PrePoolInstantiate();
                     nickNameText3.text = PhotonNetwork.NickName;

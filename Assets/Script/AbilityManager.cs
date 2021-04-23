@@ -7,7 +7,7 @@ using UnityEngine.UI;
 public class Ability
 {
     public int[] SpeedValue, DamagePerValue, MaxHpValue, GodTime, AttackSpeed, DamageValue, FinalDamagePerValue, NormalMonsterDamagePer, bossMonsterDamagePer, CriticalPer
-        , CriticalDmgPer, MissPer, PetDamagePer, PetAttackSpeed, BulletPenetratePer, GoldAmountPer, ExpAmountPer;
+        , CriticalDmgPer, MissPer, PetDamagePer, PetAttackSpeed, BulletPenetratePer, GoldAmountPer, ExpAmountPer, SkillCooldown;
 }
 public class AbilityManager : MonoBehaviour
 {
@@ -106,6 +106,9 @@ public class AbilityManager : MonoBehaviour
                 case 16:
                     abilityText[i].text = "Exp earned Amount" + GM.abilityValue[i] + "%";
                     break;
+                case 17:
+                    abilityText[i].text = "SkillCooldown" + GM.abilityValue[i] + "%";
+                    break;
             }
             switch (abilityGrade[i])
             {
@@ -127,7 +130,7 @@ public class AbilityManager : MonoBehaviour
         GM.money -= needCoinForAbility;
         for (int i = 0; i < 3; i++)
         {
-            int randomNum = Random.Range(0, 17);
+            int randomNum = Random.Range(0, 18);
             if (randomNum == 0)//MoveSpeed;
             {
 
@@ -535,6 +538,30 @@ public class AbilityManager : MonoBehaviour
                     abilityGrade[i] = 1;
                 }
             }
+            else if (randomNum == 17)//SkillCooldown;
+            {
+
+                int randomValue = Random.Range(abilityPer.SkillCooldown[0], abilityPer.SkillCooldown[1] + 1);
+                GM.abilityValue[i] = randomValue;
+                abilityText[i].text = "SkillCooldown" + randomValue + "%";
+                int a = abilityPer.SkillCooldown[1] - abilityPer.SkillCooldown[0];
+                float b = Mathf.Round(a / 3);
+                if (randomValue < abilityPer.SkillCooldown[0] + b)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[0];
+                    abilityGrade[i] = 3;
+                }
+                else if (randomValue < abilityPer.SkillCooldown[0] + b * 2)
+                {
+                    abilityBack[i].sprite = abilityBackGrade[1];
+                    abilityGrade[i] = 2;
+                }
+                else
+                {
+                    abilityBack[i].sprite = abilityBackGrade[2];
+                    abilityGrade[i] = 1;
+                }
+            }
             GM.abilityCode[i] = randomNum;
         }
         CanResetAbilityCheck();
@@ -651,6 +678,11 @@ public class AbilityManager : MonoBehaviour
                     float ff = myPlayerScript.expAmountPer;
                     myPlayerScript.expAmountPer += GM.abilityValue[i];
                     Debug.Log("경험치 획득량이" + ff + "에서" + myPlayerScript.expAmountPer + "로 증가");
+                    break;
+                case 17://SkillCooldown;
+                    float gg = myPlayerScript.expAmountPer;
+                    myPlayerScript.expAmountPer += GM.abilityValue[i];
+                    Debug.Log("스킬 쿨타임 감소량이" + gg + "에서" + myPlayerScript.expAmountPer + "로 증가");
                     break;
             }
         }
