@@ -168,6 +168,8 @@ public class GoogleSheetManager : MonoBehaviour
             showImage.SetActive(false);
         }
         PassInput.enabled = true;
+
+        SoundManager.Play("Btn_2");
     }
 
     public void RegisterPanelOn(bool On)
@@ -175,9 +177,12 @@ public class GoogleSheetManager : MonoBehaviour
         idCheck = false;
         passwordCheck = false;
         passwordReCheck = false;
+
         isCurrentId.sprite = currentSprites[1];
         isCurrentPass.sprite = currentSprites[1];
         isCurrentPassRe.sprite = currentSprites[1];
+
+        idCheckBtn.interactable = false;
         if (On)
         registerPanel.SetActive(true);
         else
@@ -190,6 +195,8 @@ public class GoogleSheetManager : MonoBehaviour
             passwordReText.text = "";
             registerPanel.SetActive(false);
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void CanRegist()
@@ -207,6 +214,8 @@ public class GoogleSheetManager : MonoBehaviour
         regIdInput.interactable = false;
 
         StartCoroutine(Post(form));
+
+        SoundManager.Play("Btn_2");
     }
 
     bool SetIdPass()
@@ -228,11 +237,8 @@ public class GoogleSheetManager : MonoBehaviour
 
             StartCoroutine(Post(form));
         }
-        else
-        {
 
-        }
-
+        SoundManager.Play("Btn_2");
     }
 
     public void Login()
@@ -250,6 +256,8 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("pass", pass);
 
         StartCoroutine(Post(form));
+
+        SoundManager.Play("Btn_2");
     }
     public void CheckNickname()
     {
@@ -298,6 +306,8 @@ public class GoogleSheetManager : MonoBehaviour
     {
         loadingPanel.SetActive(true);
         CheckNicknameSame();
+
+        SoundManager.Play("Btn_2");
     }
 
     public void SaveLvInfo()
@@ -455,6 +465,7 @@ public class GoogleSheetManager : MonoBehaviour
     public void LogOutOpenOrClose(bool a)
     {
         logOutAskPanel.SetActive(a);
+        SoundManager.Play("Btn_2");
     }
 
     public void LogOut()
@@ -475,6 +486,8 @@ public class GoogleSheetManager : MonoBehaviour
         SaveLvInfo();
         debuggingText.text = "Logout complete";
         loadingPanel.SetActive(false);
+
+        SoundManager.Play("Btn_2");
     }
 
     private void OnApplicationQuit()

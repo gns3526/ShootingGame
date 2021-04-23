@@ -176,6 +176,7 @@ GameObject:
   - component: {fileID: 56288632917755077}
   - component: {fileID: 7398529752526687246}
   - component: {fileID: 7904141072514494946}
+  - component: {fileID: 110574852833619735}
   m_Layer: 0
   m_Name: LaserMiddle
   m_TagString: Bullet
@@ -481,3 +482,15 @@ MonoBehaviour:
   m_SynchronizePosition: 0
   m_SynchronizeRotation: 1
   m_SynchronizeScale: 0
+--- !u!114 &110574852833619735
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 5728943140913656555}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 8b7a7910855eb464ebc04926390be24b, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 

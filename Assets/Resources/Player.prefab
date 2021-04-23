@@ -11075,8 +11075,6 @@ MonoBehaviour:
   curWeaponShotCoolTime: -1
   isSpecialBulletAbility1: 1
   isSpecialBulletAbility2: 0
-  boom: 0
-  maxBoom: 3
   maxShotCoolTime: 0.15
   attackSpeedPer: 0
   curShotCoolTime: 0
@@ -11097,11 +11095,9 @@ MonoBehaviour:
   RFM: {fileID: 0}
   NM: {fileID: 0}
   playerPoint: {fileID: 987814901808949605}
-  boomEffect: {fileID: 0}
   ani: {fileID: 3941946227140826655}
   mainSprite: {fileID: 6413234793396099382}
   rigid: {fileID: 3941946227140826625}
-  isBoomActive: 0
   pets:
   - {fileID: 3941946225890586680}
   - {fileID: 3941946227448219103}

@@ -89,7 +89,8 @@ public class Enemy14 : MonoBehaviour
         GameObject bullet = EB.OP.PoolInstantiate("EnemyBullet5", transform.position, Quaternion.identity, EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         bullet.GetComponent<BulletScript>().bulletSpeed = 0.04f;
         bullet.GetComponent<BulletScript>().target = target;
-        
+
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 5);
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 

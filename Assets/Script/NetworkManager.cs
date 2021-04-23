@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] AbilityManager AM;
     [SerializeField] JobManager JM;
     [SerializeField] ReinForceManager RM;
+    [SerializeField] JoyStickScript joyStick;
 
     [SerializeField] Animator StartButtonAni;
 
@@ -136,6 +137,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             iconCycleNum = iconCycleNum + num;
         loginPlayerIconImage.sprite = icons[iconCycleNum];
         playerIconCode = iconCycleNum;
+
+        SoundManager.Play("Btn_2");
     }
 
     public override void OnConnectedToMaster()//2
@@ -251,6 +254,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public void RoomMakePanelOpenOrClose(bool a)
     {
         GM.makeRoomPanel.SetActive(a);
+
+        SoundManager.Play("Btn_2");
     }
 
     public void CreateRoom()
@@ -268,6 +273,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         roomOptions.CustomRoomProperties = customProperties;
         PhotonNetwork.CreateRoom(roomInput.text == "" ? "Room" + Random.Range(0, 100) : roomInput.text, roomOptions, TypedLobby.Default);
         GM.makeRoomPanel.SetActive(false);
+
+        SoundManager.Play("Btn_2");
     }
 
     public void JoinRandomRoom() => PhotonNetwork.JoinRandomRoom();
@@ -275,6 +282,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public void OutingRoom()
     {
         PhotonNetwork.LeaveRoom();
+
+        SoundManager.Play("Btn_3");
     }
 
 
@@ -437,6 +446,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         pvGM.RPC("StageStart", RpcTarget.All);
 
 
+        SoundManager.Play("Btn_2");
     }
 
 
@@ -494,6 +504,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         AM.myPlayerScript = myplayerScript;
         JM.myplayerScript = myplayerScript;
         RM.myplayerScript = myplayerScript;
+        joyStick.myPlayerScript = myplayerScript;
 
         GM.WeaponButtonUpdate();
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);

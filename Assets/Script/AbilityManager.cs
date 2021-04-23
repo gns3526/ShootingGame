@@ -50,6 +50,8 @@ public class AbilityManager : MonoBehaviour
 
         RFM.CheckCanUpgrade();
 
+        SoundManager.Play("Btn_2");
+
         if (!a) return;
         for (int i = 0; i < 3; i++)
         {
@@ -123,6 +125,8 @@ public class AbilityManager : MonoBehaviour
                     break;
             }
         }
+
+
     }
 
     public void AbilityChange()
@@ -568,6 +572,8 @@ public class AbilityManager : MonoBehaviour
 
         if (abilityGrade[0] == 1 && abilityGrade[1] == 1 && abilityGrade[2] == 1)
             specialSkinManager.ChallengeClear(3);
+
+        SoundManager.Play("Btn_1");
     }
 
     void CanResetAbilityCheck()

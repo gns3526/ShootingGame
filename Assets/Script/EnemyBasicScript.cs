@@ -76,6 +76,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
+        healthImage.fillAmount = health / maxHealth;
+
         if (PhotonNetwork.IsMasterClient)
         {
             if (!GM.isPlaying)
@@ -183,13 +185,13 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         spriteRendererEnemy.sprite = sprites[1];
         Invoke("ReturnSprite", 0.1f);
 
-
         health -= Mathf.Round(Dmg);
-        healthImage.fillAmount = health / maxHealth;
+
         Debug.Log(Dmg);
         if (health <= 0)
         {
-            myPlayerScript.score += enemyScore;
+            GM.gameScore += enemyScore;
+            GM.scoreText.text = string.Format("{0:n0}", GM.gameScore);
             if (isBoss && patternIndex < maxPattern)
             {
                 if (PhotonNetwork.IsMasterClient)
@@ -230,13 +232,14 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 GM.pv.RPC("StageEnd",RpcTarget.All);
             }
 
-            if (PhotonNetwork.IsMasterClient)
-              //  OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity);
-
             transform.rotation = Quaternion.identity;
 
-            if(PhotonNetwork.IsMasterClient)
-            OP.PoolDestroy(gameObject);
+            if (PhotonNetwork.IsMasterClient)
+            {
+                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity, -2, -1, -1, false);
+                GM.OP.PoolDestroy(gameObject);
+            }
+
         }
     }
 
@@ -244,6 +247,29 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public void GodModeRPC(bool set)
     {
         godMode = set;
+    }
+
+    [PunRPC]
+    public void SoundRPC(int soundNum)
+    {
+        switch (soundNum)
+        {
+            case 1:
+                SoundManager.Play("Gun_1");
+                break;
+            case 2:
+                SoundManager.Play("Gun_2");
+                break;
+            case 3:
+                SoundManager.Play("Gun_3");
+                break;
+            case 4:
+                SoundManager.Play("Explosion_1");
+                break;
+            case 5:
+                SoundManager.Play("Explosion_2");
+                break;
+        }
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

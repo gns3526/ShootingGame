@@ -172,12 +172,16 @@ public class JobManager : MonoBehaviour
             case 1:
                 GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 8, true);
                 bullet.GetComponent<BulletScript>().dmgPer = 100;
+
+                myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
                 break;
             case 2:
                 GameObject bulletR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.1f, Quaternion.identity, 0, -1, 6, true);
                 GameObject bulletL = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.1f, Quaternion.identity, 0, -1, 6, true);
                 bulletR.GetComponent<BulletScript>().dmgPer = 100;
                 bulletL.GetComponent<BulletScript>().dmgPer = 100;
+
+                myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
                 break;
             case 3:
                 GameObject bulletRR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.35f, Quaternion.identity, 0, -1, 6, true);
@@ -186,6 +190,8 @@ public class JobManager : MonoBehaviour
                 bulletRR.GetComponent<BulletScript>().dmgPer = 100;
                 bulletM.GetComponent<BulletScript>().dmgPer = 150;
                 bulletLL.GetComponent<BulletScript>().dmgPer = 100;
+
+                myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 2);
                 break;
         }
     }
@@ -218,6 +224,8 @@ public class JobManager : MonoBehaviour
     {
         GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 7, true);
         bullet.GetComponent<BulletScript>().dmgPer = 150;
+
+        myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
     }
 
     void ShotTypeC()
@@ -262,6 +270,7 @@ public class JobManager : MonoBehaviour
                 break;
 
         }
+        myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 4);
     }
    
     void ShotTypeD()
@@ -282,21 +291,27 @@ public class JobManager : MonoBehaviour
                 if (active)
                 {
                     skillBPanel.SetActive(true);
+
+                    SoundManager.Play("Btn_1");
                 }
                 else
                 {
                     skillBOn = false;
                     skillBPanel.SetActive(false);
                     skillBPoint.SetActive(false);
+
+                    SoundManager.Play("Btn_2");
                 }
+
                 break;
             case 2:
                 myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = 5;
-                //myplayerScript.skillC.gameObject.SetActive(true);
                 myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
 
                 skillBtn.interactable = false;
                 curSkillCool = 0;
+
+                myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 7);
                 break;
             case 3:
                 GameObject laserA = OP.PoolInstantiate("LaserM", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, true);
@@ -318,5 +333,6 @@ public class JobManager : MonoBehaviour
 
         skillBPanel.SetActive(false);
 
+        SoundManager.Play("Btn_2");
     }
 }

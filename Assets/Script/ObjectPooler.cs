@@ -43,7 +43,7 @@ public class ObjectPooler : MonoBehaviourPun
                     enemyBasic.GM = gameManager;
                     enemyBasic.OP = OP;
                 }
-
+                
                 else if (curSpawnedOb.tag == "Bullet")
                 {
                     BulletScript bulletScript = curSpawnedOb.GetComponent<BulletScript>();

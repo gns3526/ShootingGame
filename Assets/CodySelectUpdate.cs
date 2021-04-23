@@ -73,9 +73,10 @@ public class CodySelectUpdate : MonoBehaviour
                     jm.jobCode = index;
                     break;
             }
-
             Select();
         }
+
+        SoundManager.Play("Btn_3");
     }
     //0 = main
     //1 = body

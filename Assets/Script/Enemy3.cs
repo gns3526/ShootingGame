@@ -70,6 +70,9 @@ public class Enemy3 : MonoBehaviour
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
         GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.right * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet2", transform.position + Vector3.left * 0.2f, Quaternion.AngleAxis(angle + 90, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
+
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 2);
+
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());
     }

@@ -82,6 +82,8 @@ public class Enemy10 : MonoBehaviour
         EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 110), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.Euler(0, 0, angle + 70), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
 
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 3);
+
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         //moveSpeed = 0.05f;
         yield return new WaitForSeconds(goCool);

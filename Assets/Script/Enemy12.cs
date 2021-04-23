@@ -57,6 +57,8 @@ public class Enemy12 : MonoBehaviour
             EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 5, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
         }
 
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 3);
+
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         //moveSpeed = 0.05f;

@@ -10,10 +10,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool godMode;
     public bool isDie;
 
-    [SerializeField] bool isTouchTop;
-    [SerializeField] bool isTouchLeft;
-    [SerializeField] bool isTouchRight;
-    [SerializeField] bool isTouchBottom;
+    public bool isTouchTop;
+    public bool isTouchLeft;
+    public bool isTouchRight;
+    public bool isTouchBottom;
 
     [Header("Player Stats")]
     public int life;
@@ -52,8 +52,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isSpecialBulletAbility1;
     public bool isSpecialBulletAbility2;
 
-    [SerializeField] int boom;
-    [SerializeField] int maxBoom;
     public float maxShotCoolTime;
     public float attackSpeedPer;
     [SerializeField] float curShotCoolTime;
@@ -84,13 +82,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
 
-    [SerializeField] GameObject boomEffect;
-
     [SerializeField] Animator ani;
     [SerializeField] SpriteRenderer mainSprite;
     [SerializeField] Rigidbody2D rigid;
-
-    [SerializeField] bool isBoomActive;
 
     public GameObject[] pets;
     public int petAmount;
@@ -179,7 +173,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 rigid.velocity = new Vector2(0, 0);
 
             Reload();
-            UseBoom();
             if (Input.GetKeyDown(KeyCode.Y))
             {
                 pv.RPC(nameof(AddPet), RpcTarget.All, 1);
@@ -272,14 +265,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         float h = Input.GetAxisRaw("Horizontal");
         float v = Input.GetAxisRaw("Vertical");
 
-        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)/* || !isControl*/) h = 0;
-        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)/* || !isControl*/) v = 0;
-        //Vector3 curPos = transform.position;
-        //Vector3 nextPos = new Vector3(h, v, 0) * moveSpeed * Time.deltaTime;
+        if ((isTouchRight && h == 1) || (isTouchLeft && h == -1)) h = 0;
+        if ((isTouchTop && v == 1) || (isTouchBottom && v == -1)) v = 0;
 
-        //transform.position = curPos + nextPos;
-
-        //transform.Translate(Vector3.right * 7 * Time.deltaTime * h);
         if (Input.GetKey(KeyCode.Space))
             rigid.velocity = new Vector2(h * 1.5f, v * 1.5f);
         else
@@ -310,14 +298,16 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 200;
             curShotCoolTime = 0;
-            return;
+
+            pv.RPC(nameof(SoundRPC), RpcTarget.All, 1);
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 130;
             curShotCoolTime = 0;
-            return;
+
+            pv.RPC(nameof(SoundRPC), RpcTarget.All, 2);
         }
 
         JM.Shot();
@@ -334,6 +324,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 bullet.GetComponent<BulletScript>().dmgPer = 2000;
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
+
+                pv.RPC(nameof(SoundRPC), RpcTarget.All, 5);
             }
             GM.weaponBulletText.text = curBulletAmount.ToString();
             return;
@@ -344,27 +336,43 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         curShotCoolTime += Time.deltaTime * ((attackSpeedPer + attackSpeedStack) / 100);
     }
-    void UseBoom()//폭탄사용
+
+    [PunRPC]
+    public void SoundRPC(int SoundNum)
     {
-        //if (!Input.GetButton("Fire2"))
-        //    return;
+        switch (SoundNum)
+        {
+            case 1:
+                SoundManager.Play("Gun_1");
+                break;
+            case 2:
+                SoundManager.Play("Gun_2");
+                break;
+            case 3:
+                SoundManager.Play("Gun_3");
+                break;
+            case 4:
+                SoundManager.Play("Gun_4");
+                break;
+            case 5:
+                SoundManager.Play("Gun_5");
+                break;
+            case 6:
+                SoundManager.Play("Gun_6");
+                break;
+            case 7:
+                SoundManager.Play("Laser_Ready");
+                break;
+            case 8:
+                SoundManager.Play("Laser_1");
+                break;
+            case 9:
+                SoundManager.Play("Laser_2");
+                break;
 
-
-        if (isBoomActive)
-            return;
-
-        if (boom == 0)
-            return;
-
-        boom--;
-        isBoomActive = true;
-        GM.UpdateBoomIcon(boom);
-
-        boomEffect.SetActive(true);
-        Invoke("BoomFalse", 4);
-
-       
+        }
     }
+
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Border")
@@ -384,42 +392,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     isTouchBottom = true;
                     break;
             }
-        }
-        
-        
-        else if(other.tag == "Item")
-        {
-            Item itemScript = other.GetComponent<Item>();
-            switch (itemScript.type)
-            {
-                case "Coin":
-                    score += 1000;
-                    break;
-                    /*
-                case "Pow":
-                    if (power == maxPower)
-                    {
-                        score += 500;
-                    }
-                    else
-                    {
-                        power++;
-                        AddPet();
-                    }
-                    break;*/
-                case "Boom":
-                    if (boom == maxBoom)
-                    {
-                        score += 500;
-                    }
-                    else
-                    {
-                        boom++;
-                        GM.UpdateBoomIcon(boom);
-                    }
-                    break;
-            }
-            other.gameObject.SetActive(false);
         }
     }
 
@@ -470,14 +442,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     void ChangeColorRPC(float r,float g, float b)
     {
         mainSprite.color = new Color(r/255f, g/255f, b/255f, 1);
-    }
-
-
-
-    void BoomFalse()
-    {
-        boomEffect.SetActive(false);
-        isBoomActive = false;
     }
 
     [PunRPC]

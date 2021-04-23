@@ -94,6 +94,7 @@ MonoBehaviour:
   - ManagerInputRPC
   - AddPet
   - petSpriteChangeRPC
+  - SoundRPC
   DisableAutoOpenWizard: 1
   ShowSettings: 0
   DevRegionSetOnce: 1

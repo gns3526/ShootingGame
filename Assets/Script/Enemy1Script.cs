@@ -74,7 +74,8 @@ public class Enemy1Script : MonoBehaviour
 
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
         bullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward), 0, -1, EB.bulletSpeedCode[0], false);//0.1f
-        bs = bullet.GetComponent<BulletScript>();
+
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 1);
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
         StartCoroutine(ShotAtPlayer());

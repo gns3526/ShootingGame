@@ -14,7 +14,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Managers")]
     [SerializeField] NetworkManager NM;
-    [SerializeField] ObjectPooler OP;
+    public ObjectPooler OP;
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
     [SerializeField] JobManager jm;
@@ -39,7 +39,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     GameObject curSpawnEnemy;
 
     [Header("Score")]
-    [SerializeField] Text scoreText;
+    public int gameScore;
+    public Text scoreText;
     [SerializeField] Image[] lifeImage;
     [SerializeField] Image[] boomImage;
 
@@ -265,15 +266,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (once)
         {
             if(jm.jobCode == 1)
-            for (int i = 0; i < jm.starterPetAmountB; i++)
-                {
+                for (int i = 0; i < jm.starterPetAmountB; i++)
                     myplayerScript.pv.RPC(nameof(myplayerScript.AddPet), RpcTarget.All, 1);
-                    Debug.Log("펫소환됨");
-                }
-                
+
+            scoreText.text = "0";
 
             OP.PrePoolInstantiate();
-                    nickNameText3.text = PhotonNetwork.NickName;
+            nickNameText3.text = PhotonNetwork.NickName;
             once = false;
             isGameEnd = false;
             
@@ -330,6 +329,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (stage > MaxStage)
         {
             FinalStageClear();
+            specialSkinManager.ChallengeClear(0);
             specialSkinManager.ChallengeClear(1);
         }
         
@@ -489,7 +489,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
         }
 
-        if (curSpawnDelay > nextSpawnDelay)
+        if (curSpawnDelay > nextSpawnDelay && PhotonNetwork.IsMasterClient)
         {
 
             SpawnEnemy();
@@ -497,8 +497,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             curSpawnDelay = 0;
         }
         //Player playerScript = player.GetComponent<Player>();
-        if(isGameStart)
-        scoreText.text = string.Format("{0:n0}",myplayer.GetComponent<Player>().score);
+        
+       
 
         if (setExpBarLerp)
         {
@@ -663,9 +663,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         //다음 리스폰 딜레이 갱신
         nextSpawnDelay = spawnList[spawnIndex].delay;
-
-
-
     }
 
     public void UpdateBoomIcon(int boom)
@@ -762,6 +759,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             abilityPanel.SetActive(false);
         }
 
+        SoundManager.Play("Btn_2");
     }
 
     public void ColorChangePanelOpenOrClose(bool a)
@@ -780,12 +778,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             codyPanel.SetActive(false);
             abilityPanel.SetActive(false);
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void NormalColorOpenOrClose(bool a)
     {
         colorNormalPanel.SetActive(a);
 
+        SoundManager.Play("Btn_2");
     }
     public void PremiumColorOpenOrClose(bool a)
     {
@@ -797,6 +798,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             colorGSlider.value = playerColors[1] / 255f;
             colorBSlider.value = playerColors[2] / 255f;
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void CodyOpenOrClose(bool a)
@@ -814,6 +817,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             abilityPanel.SetActive(false);
         }
 
+        SoundManager.Play("Btn_2");
     }
 
     public void CodyMainOpenOrClose(bool a)
@@ -828,6 +832,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             colorChangePanel.SetActive(false);
             abilityPanel.SetActive(false);
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void JobPanelOpenOrClose(bool a)
@@ -842,6 +848,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             colorChangePanel.SetActive(false);
             abilityPanel.SetActive(false);
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void ReinForceOpenOrClose(bool a)
@@ -856,11 +864,15 @@ public class GameManager : MonoBehaviourPunCallbacks
             colorChangePanel.SetActive(false);
             abilityPanel.SetActive(false);
         }
+
+        SoundManager.Play("Btn_2");
     }
 
     public void LeftGameOpenOrClose(bool a)
     {
         leftGamePanel.SetActive(a);
+
+        SoundManager.Play("Btn_2");
     }
     public void LeftGame() => Application.Quit();
     public void NormalColorChange()
@@ -871,6 +883,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
         //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
+
+        SoundManager.Play("Btn_2");
     }
 
     void PlayerColorTest()
@@ -896,6 +910,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
 
         colorChangePanel.SetActive(false);
+
+        SoundManager.Play("Btn_2");
     }
     public void PremiumColorChangeComplete()
     {
@@ -910,6 +926,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
 
         colorChangePanel.SetActive(false);
+
+        SoundManager.Play("Btn_2");
     }
 
 
@@ -1020,6 +1038,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         NM.lobbyPanel.SetActive(true);
         PhotonNetwork.LeaveRoom();
+
+        SoundManager.Play("Btn_3");
     }
 
     public void PlayerDie()
@@ -1100,6 +1120,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             codySelectUpdate[2].Select();
         }
+
+        SoundManager.Play("Btn_2");
     }
 
 
@@ -1111,6 +1133,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         wordMap.transform.localPosition = new Vector3(0, 0, 0);
         mapPanel.SetActive(a);
         mapInfoPanel.SetBool("On", false);
+
+        SoundManager.Play("Btn_2");
     }
 
     public void ClickMapPoint(int code)
@@ -1129,10 +1153,14 @@ public class GameManager : MonoBehaviourPunCallbacks
                 difficultStars[i].SetActive(true);
         }
         mapInfoPanel.SetBool("On",true);
+
+        SoundManager.Play("Btn_3");
     }
     public void MapInfoClose()
     {
         mapInfoPanel.SetBool("On", false);
+
+        SoundManager.Play("Btn_3");
     }
     public void SelectMapComplete()
     {
@@ -1140,6 +1168,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapThumnail.sprite = mapThumnails[mapCode];
         mapNameText.text = mapNames[mapCode];
         mapPanel.SetActive(false);
+
+        SoundManager.Play("Btn_1");
     }
     
 

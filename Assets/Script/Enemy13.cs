@@ -93,7 +93,7 @@ public class Enemy13 : MonoBehaviour
         EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[3], -1, EB.bulletSpeedCode[3], false);
         EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[4], -1, EB.bulletSpeedCode[4], false);
 
-        Debug.Log(EB.bulletCode[0]+","+ EB.bulletCode[1]+ "," + EB.bulletCode[2]+ "," + EB.bulletCode[3]+ "," + EB.bulletCode[4]+ "," + EB.bulletSpeedCode[0]+ "," + EB.bulletSpeedCode[1]+ "," + EB.bulletSpeedCode[2]+ "," + EB.bulletSpeedCode[3]+ "," + EB.bulletSpeedCode[4]);
+        EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 3);
 
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 

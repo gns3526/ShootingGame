@@ -39,6 +39,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     bool once;
 
+
+    private void Awake()
+    {
+        GM = FindObjectOfType<GameManager>();
+    }
     private void OnEnable()
     {
         bulletDestroyTime = maxBulletDestroyTime;
@@ -195,7 +200,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     public void DestroyObject()
     {
-        OP.PoolDestroy(gameObject);
+        GM.OP.PoolDestroy(gameObject);
     }
 
     public void OnPhotonSerializeView(PhotonStream stream, PhotonMessageInfo info)

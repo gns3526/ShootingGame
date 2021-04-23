@@ -155,6 +155,8 @@ public class ReinForceManager : MonoBehaviour
             specialSkinManager.ChallengeClear(2);
 
         CheckCanUpgrade();
+
+        SoundManager.Play("Btn_2");
     }
 
     public void CheckCanUpgrade()
@@ -192,6 +194,8 @@ public class ReinForceManager : MonoBehaviour
         upgradeInfo[index]++;
         gm.reinPoint -= upgradeCost[index];
         ReinForceRework();
+
+        SoundManager.Play("Btn_2");
     }
 
     public void ReinForceApply()
