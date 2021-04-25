@@ -2,9 +2,9 @@
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
+using UnityEngine.EventSystems;
 
-
-public class JoyStickScript : MonoBehaviour
+public class JoyStickScript : MonoBehaviour, IDragHandler
 {
     public Player myPlayerScript;
 
@@ -17,23 +17,9 @@ public class JoyStickScript : MonoBehaviour
 
     private void Update()
     {
-        if (myPlayerScript != null)
-        {
-            if (Input.GetMouseButtonDown(0))
-            {
-                pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-
-                pointA = outerCircle.transform.position;
-                //circle.transform.position = pointA;
-                //outerCircle.transform.position = pointA;
-
-                //circle.GetComponent<Image>().enabled = true;
-                //outerCircle.GetComponent<Image>().enabled = true;
-            }
-            if (Input.GetMouseButton(0))
-                pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-        }
+        
     }
+
 
     private void FixedUpdate()
     {
@@ -45,22 +31,31 @@ public class JoyStickScript : MonoBehaviour
 
             circle.transform.position = new Vector2(pointA.x + direction.x, pointA.y + direction.y);
         }
-        else
-        {
-            //circle.GetComponent<Image>().enabled = false;
-            //outerCircle.GetComponent<Image>().enabled = false;
-        }
     }
 
     public void TouchDown()
     {
         touchStart = true;
+
+        pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+
+        pointA = outerCircle.transform.position;
+
+        pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
     }
     public void TouchUp()
     {
         touchStart = false;
 
         circle.transform.localPosition = new Vector3(0, 0, 0);
+    }
+
+    public void Drag()
+    {
+        if (myPlayerScript != null)
+        {
+            pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+        }
     }
 
     void MoveCharacter(Vector2 direction)
