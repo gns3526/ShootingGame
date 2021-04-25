@@ -4,7 +4,7 @@ using UnityEngine;
 using UnityEngine.UI;
 using UnityEngine.EventSystems;
 
-public class JoyStickScript : MonoBehaviour, IDragHandler
+public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Player myPlayerScript;
 
@@ -14,12 +14,11 @@ public class JoyStickScript : MonoBehaviour, IDragHandler
 
     [SerializeField] Transform circle;
     [SerializeField] Transform outerCircle;
+    [SerializeField] RectTransform lever;
+    [SerializeField] RectTransform rectTransform;
 
-    private void Update()
-    {
-        
-    }
-
+    [SerializeField] int right ,left;
+    
 
     private void FixedUpdate()
     {
@@ -33,21 +32,15 @@ public class JoyStickScript : MonoBehaviour, IDragHandler
         }
     }
 
-    public void TouchDown()
+ 
+
+    public void OnBeginDrag(PointerEventData eventData)
     {
-        touchStart = true;
 
-        pointA = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+        var inputpos = eventData.position - rectTransform.anchoredPosition;
+        var inputVector = inputpos;
+        lever.anchoredPosition = inputpos;
 
-        pointA = outerCircle.transform.position;
-
-        pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
-    }
-    public void TouchUp()
-    {
-        touchStart = false;
-
-        circle.transform.localPosition = new Vector3(0, 0, 0);
     }
 
     public void Drag()
@@ -55,6 +48,7 @@ public class JoyStickScript : MonoBehaviour, IDragHandler
         if (myPlayerScript != null)
         {
             pointB = Camera.main.ScreenToWorldPoint(new Vector3(Input.mousePosition.x, Input.mousePosition.y, Input.mousePosition.z));
+
         }
     }
 
@@ -63,5 +57,21 @@ public class JoyStickScript : MonoBehaviour, IDragHandler
         if ((direction.x < 0 && myPlayerScript.isTouchLeft) || direction.x > 0 && myPlayerScript.isTouchRight) direction.x = 0;
         if ((direction.y < 0 && myPlayerScript.isTouchBottom) || direction.y > 0 && myPlayerScript.isTouchTop) direction.y = 0;
         myPlayerScript.transform.Translate(direction * (myPlayerScript.moveSpeed / 100) * 4 * Time.deltaTime);
+    }
+
+    public void OnDrag(PointerEventData eventData)
+    {
+        var inputpos = eventData.position - rectTransform.anchoredPosition;
+        lever.anchoredPosition = inputpos;
+       // pointB = eventData.pressPosition;
+    }
+
+    public void OnEndDrag(PointerEventData eventData)
+    {
+
+        lever.anchoredPosition = Vector2.zero;
+       // touchStart = false;
+
+       // circle.transform.position = outerCircle.transform.position;
     }
 }
