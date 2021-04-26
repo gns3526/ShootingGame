@@ -73719,6 +73719,7 @@ MonoBehaviour:
   NM: {fileID: 1905378082}
   AM: {fileID: 1452435082}
   RM: {fileID: 465414286}
+  specialSkinManager: {fileID: 1860361863}
   loadingPanel: {fileID: 1418408154}
   registerPanel: {fileID: 2023760408}
   logOutAskPanel: {fileID: 115240031}

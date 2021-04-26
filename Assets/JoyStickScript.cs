@@ -47,8 +47,10 @@ public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     public void OnEndDrag(PointerEventData eventData)
     {
-
         lever.anchoredPosition = Vector2.zero;
+
+        myPlayerScript.ani.SetInteger("AxisX", 0);
+
         isInput = false;
     }
 
