@@ -223,7 +223,7 @@ MonoBehaviour:
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
   bulletCode: ffffffff
-  bulletSpeedCode: 06000000
+  bulletSpeedCode: 03000000
   spriteRendererEnemy: {fileID: 801309784791342134}
   pv: {fileID: 1405196066104455288}
   GM: {fileID: 0}

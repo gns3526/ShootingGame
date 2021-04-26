@@ -54,7 +54,7 @@ CircleCollider2D:
   m_UsedByComposite: 0
   m_Offset: {x: 0, y: 0}
   serializedVersion: 2
-  m_Radius: 0.25
+  m_Radius: 0.36
 --- !u!50 &2566655035291444880
 Rigidbody2D:
   serializedVersion: 4
@@ -204,7 +204,7 @@ MonoBehaviour:
   healthImage: {fileID: 1085661233968151233}
   healthBarGameObject: {fileID: 8450699055817176925}
   bulletCode: 01000000
-  bulletSpeedCode: 06000000
+  bulletSpeedCode: 03000000
   spriteRendererEnemy: {fileID: 8691950177837214836}
   pv: {fileID: -7203365746657814437}
   GM: {fileID: 0}
@@ -236,7 +236,7 @@ Transform:
   m_GameObject: {fileID: 3571910392720823193}
   m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
   m_LocalPosition: {x: 0, y: 0, z: 0}
-  m_LocalScale: {x: 0.49929, y: 0.49929, z: 0.49929}
+  m_LocalScale: {x: 0.66665196, y: 0.66665196, z: 0.66665196}
   m_Children: []
   m_Father: {fileID: 2566655035291444909}
   m_RootOrder: 0

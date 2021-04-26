@@ -15,20 +15,18 @@ public class Pet : MonoBehaviourPun, IPunObservable
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
-    [SerializeField] Transform parent;
+    public Transform parent;
     [SerializeField] Queue<Vector3> parentPos;
 
     
 
     public Player player;
-    [SerializeField] Rigidbody2D rigid;
 
     Vector3 curPosPv;
     private void Awake()
     {
         JM = FindObjectOfType<JobManager>();
         parentPos = new Queue<Vector3>();
-        rigid.Sleep();
     }
 
 
@@ -100,13 +98,13 @@ public class Pet : MonoBehaviourPun, IPunObservable
                 if (JM.skillBOn)
                 {
                     float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
-                    bullet2.GetComponent<BulletScript>().dmgPer = 100;
+                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, true);
+                    bullet2.GetComponent<BulletScript>().dmgPer = 250;
                 }
                 else if (player.isFire)
                 {
-                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
-                    bullet3.GetComponent<BulletScript>().dmgPer = 100;
+                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, true);
+                    bullet3.GetComponent<BulletScript>().dmgPer = 250;
                 }
                    
                 break;

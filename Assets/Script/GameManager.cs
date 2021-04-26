@@ -196,6 +196,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Text roomMapName;
 
     [Header("Other")]
+    public GameObject firstPetOb;
 
     public PhotonView pv;
 

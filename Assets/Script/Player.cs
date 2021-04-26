@@ -119,12 +119,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
 
-        for (int i = 0; i < pets.Length; i++)
-        {
-            pets[i].GetComponent<Pet>().OP = OP;
-            pets[i].GetComponent<Pet>().player = this;
-            pets[i].SetActive(false);
-        }
+
 
         GM = FindObjectOfType<GameManager>();
         if (pv.IsMine)

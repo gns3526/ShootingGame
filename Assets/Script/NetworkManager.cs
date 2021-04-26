@@ -19,6 +19,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] AbilityManager AM;
     [SerializeField] JobManager JM;
     [SerializeField] ReinForceManager RM;
+    [SerializeField] PetManager PM;
     [SerializeField] JoyStickScript joyStick;
 
     [SerializeField] Animator StartButtonAni;
@@ -92,7 +93,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         
 
         img.sprite = icons[playerIconCode];
-        Screen.SetResolution(540, 960, false);
+        //Screen.SetResolution(540, 960, false);
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
     }
@@ -105,24 +106,22 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
             Send();
 
-            chatInput.ActivateInputField();
 
-            chatInput.Select();
             Debug.Log("체팅");
 
         }
-        else if (chatInput.isFocused && !isChating)
-        {
-            chatAni.SetTrigger("On");
-
-            isChating = true;
-        }
-        else if(!chatInput.isFocused && isChating)
-        {
-            chatAni.SetTrigger("Off");
-            chatInput.text = "";
-            isChating = false;
-        }
+       // else if (chatInput.isFocused && !isChating)
+      /// {
+       //     chatAni.SetTrigger("On");
+//
+       //     isChating = true;
+     //   }
+      ///  else if(!chatInput.isFocused && isChating)
+      //  {
+     //       chatAni.SetTrigger("Off");
+      //      chatInput.text = "";
+      //      isChating = false;
+      //  }
     }
     public void Connect() => PhotonNetwork.ConnectUsingSettings();//1
 
@@ -455,7 +454,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     }
 
 
-
+    public void SendBefore()
+    {
+        Send();
+    }
 
     public void Send()
     {
@@ -463,7 +465,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         string msg = PhotonNetwork.NickName + ":" + chatInput.text;
         pv.RPC("ChatRPC", RpcTarget.All, msg);
         chatInput.text = "";
-        
+
+        //chatInput.ActivateInputField();
+
+       // chatInput.Select();
     }
 
     [PunRPC]
@@ -510,6 +515,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         JM.myplayerScript = myplayerScript;
         RM.myplayerScript = myplayerScript;
         joyStick.myPlayerScript = myplayerScript;
+        PM.myPlayerScript = myplayerScript;
+
+        PM.SetPlayerPetGroup();
 
         GM.WeaponButtonUpdate();
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
