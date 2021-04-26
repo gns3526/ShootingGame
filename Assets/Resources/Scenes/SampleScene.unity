@@ -25338,6 +25338,7 @@ MonoBehaviour:
   getGoldAmountText: {fileID: 1140676324}
   retryPanel: {fileID: 1245969849}
   controlPanel: {fileID: 358090814}
+  joyPadObject: {fileID: 1425287444}
   finalStageClearPanel: {fileID: 531128948}
   codyPanel: {fileID: 1818669574}
   codyMainPanel: {fileID: 789450229}
@@ -74004,7 +74005,7 @@ GameObject:
   - component: {fileID: 1425287446}
   - component: {fileID: 1425287447}
   m_Layer: 5
-  m_Name: RawImage
+  m_Name: JoyPad
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -74027,7 +74028,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0, y: 0}
   m_AnchorMax: {x: 0, y: 0}
-  m_AnchoredPosition: {x: 180, y: 205}
+  m_AnchoredPosition: {x: 260, y: 260}
   m_SizeDelta: {x: 380, y: 380}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1425287446
@@ -74072,10 +74073,9 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   myPlayerScript: {fileID: 0}
-  circle: {fileID: 1695283986}
-  outerCircle: {fileID: 1425287445}
   lever: {fileID: 1695283986}
   rectTransform: {fileID: 1425287445}
+  leverRange: 140
   right: 0
   left: 0
 --- !u!222 &1425287450

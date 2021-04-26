@@ -56,6 +56,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject retryPanel;
     public GameObject controlPanel;
+    public GameObject joyPadObject;
     [SerializeField] GameObject finalStageClearPanel;
 
     public GameObject codyPanel;

@@ -156,6 +156,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
         GM.controlPanel.SetActive(false);
+        GM.joyPadObject.SetActive(false);
 
         JM.skillBPoint.SetActive(false);
         JM.skillBOn = false;
@@ -301,7 +302,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.roomMapName.text = GM.mapNames[GM.curMapCode];
 
         if (GM.isAndroid)
+        {
             GM.controlPanel.SetActive(true);
+            GM.joyPadObject.SetActive(true);
+        }
+            
         roomPanel.SetActive(true);
         lobbyPanel.SetActive(false);
         GM.gamePlayPanel.SetActive(false);
@@ -524,6 +529,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnDisconnected(DisconnectCause cause)
     {
         GM.controlPanel.SetActive(false);
+        GM.joyPadObject.SetActive(false);
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(false);
         connectPanel.SetActive(true);
