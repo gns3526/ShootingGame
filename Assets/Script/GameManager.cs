@@ -463,8 +463,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
+        if (Input.GetKeyDown(KeyCode.K)) Debug.Log(specialSkinManager.challenge[0]);
 
-        if (stopTime > 0)
+
+            if (stopTime > 0)
         {
             stopTime -= Time.deltaTime;
             stop = true;

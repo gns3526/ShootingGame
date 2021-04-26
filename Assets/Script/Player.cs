@@ -82,7 +82,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
 
-    [SerializeField] Animator ani;
+    public Animator ani;
     [SerializeField] SpriteRenderer mainSprite;
     [SerializeField] Rigidbody2D rigid;
 

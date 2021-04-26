@@ -28,6 +28,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] NetworkManager NM;
     [SerializeField] AbilityManager AM;
     [SerializeField] ReinForceManager RM;
+    [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("Panel")]
     public GameObject loadingPanel;
@@ -319,7 +320,8 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." +
             GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
-            RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5]);
+            RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5] + "." + 
+            specialSkinManager.challenge[0] + "." + specialSkinManager.challenge[1] + "." + specialSkinManager.challenge[2] + "." + specialSkinManager.challenge[3]);
         
         StartCoroutine(Post(form));
     }
@@ -403,7 +405,15 @@ public class GoogleSheetManager : MonoBehaviour
                 RM.upgradeInfo[4] = int.Parse(result[23]);
                 RM.upgradeInfo[5] = int.Parse(result[24]);
 
-
+                int index = 25;
+                for (int i = 0; i < specialSkinManager.challenge.Length; i++)
+                {
+                    if (result[index] == "True")
+                        specialSkinManager.challenge[i] = true;
+                    else
+                        specialSkinManager.challenge[i] = false;
+                    index++;
+                }
 
                 NM.loginPlayerIconImage.sprite = NM.icons[NM.playerIconCode];
                 movePlayerinfoComplete = true;

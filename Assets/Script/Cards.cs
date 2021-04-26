@@ -114,7 +114,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     IEnumerator SelectDelay()
     {
-        yield return new WaitForSeconds(4);
+        if (curSec > 4)
+            yield return new WaitForSeconds(4);
+        else
+            yield return new WaitForSeconds(curSec);
         isReady = true;
         pv.RPC("ReadyAmountReset", RpcTarget.All);
     }
