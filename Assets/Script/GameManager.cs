@@ -214,6 +214,8 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
+
         spawnList = new List<Spawn>();
 
         cardsSave = new List<GameObject>(cards);
