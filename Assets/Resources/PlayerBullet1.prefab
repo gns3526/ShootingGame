@@ -216,6 +216,9 @@ MonoBehaviour:
   bulletScaleE: []
   bulletBoxSizeE: []
   bulletBoxOffsetE: []
+  petSprite: []
+  petShotCool: []
+  petBulletType: 
 --- !u!114 &-3231038836820400690
 MonoBehaviour:
   m_ObjectHideFlags: 0

@@ -10062,7 +10062,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  - {fileID: 0}
   petAmount: 0
   canHit: 1
   isRespawned: 0

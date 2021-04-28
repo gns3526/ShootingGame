@@ -282,6 +282,9 @@ MonoBehaviour:
   - {x: 0, y: 0.02}
   - {x: 0, y: -0.01}
   - {x: 0, y: 0.08}
+  petSprite: []
+  petShotCool: []
+  petBulletType: 
 --- !u!114 &-6112678195325725980
 MonoBehaviour:
   m_ObjectHideFlags: 0

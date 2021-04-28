@@ -28,6 +28,11 @@ public class PoolScript : MonoBehaviourPun
     [SerializeField] Vector2[] bulletBoxSizeE;
     [SerializeField] Vector2[] bulletBoxOffsetE;
 
+    [Header("Pet")]
+    [SerializeField] Sprite[] petSprite;
+    [SerializeField] float[] petShotCool;
+    [SerializeField] int[] petBulletType;
+
     //-2 = Objects
     //-1 = SpecialBullet
     //0++ = Bullets
@@ -41,7 +46,7 @@ public class PoolScript : MonoBehaviourPun
         }
 
         aniCode = bulletAniCode;
-        if(bulletIndex > -1)
+        if(bulletIndex > -1)//Normal Bullet
         {
             BulletScript bs = GetComponent<BulletScript>();
             bs.isPlayerAttack = isPlayerAttack;
@@ -66,7 +71,7 @@ public class PoolScript : MonoBehaviourPun
                 BulletAni();
             }
         }
-        else if(bulletIndex == -1)
+        else if(bulletIndex == -1)//Normal OB
         {
             BulletScript bs = GetComponent<BulletScript>();
             bs.isPlayerAttack = isPlayerAttack;
@@ -75,7 +80,14 @@ public class PoolScript : MonoBehaviourPun
             else
                 bs.bulletSpeed = bulletSpeed[bulletSpeedIndex];
         }
+        else if(bulletIndex == -3)//Pet
+        {
+            Pet petScript = GetComponent<Pet>();
 
+            GetComponent<SpriteRenderer>().sprite = petSprite[aniCode];
+            petScript.maxShotCoolTime = petShotCool[aniCode];
+            petScript.bulletType = petBulletType[aniCode];
+        }
         gameObject.SetActive(true);
     }
 

@@ -10,23 +10,41 @@ public class Pet : MonoBehaviourPun, IPunObservable
     [SerializeField] float curShotCoolTime;
     public int bulletType;
 
-    public ObjectPooler OP;
-    [SerializeField] JobManager JM;
+    PetManager petManager;
+    public ObjectPooler objectPooler;
+    JobManager jobManager;
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
-    public Transform parent;
-    [SerializeField] Queue<Vector3> parentPos;
+    public Transform followTarget;
+    [SerializeField] Queue<Vector3> followTargetPos;
 
-    
+    [SerializeField] PhotonView pv;
 
     public Player player;
 
     Vector3 curPosPv;
     private void Awake()
     {
-        JM = FindObjectOfType<JobManager>();
-        parentPos = new Queue<Vector3>();
+        petManager = FindObjectOfType<PetManager>();
+
+        if (pv.IsMine)
+        {
+            objectPooler = petManager.OP;
+            jobManager = petManager.JM;
+            followTargetPos = new Queue<Vector3>();
+
+            transform.parent = petManager.gameObject.transform;
+
+            for (int i = 0; i < petManager.petGroup.Length; i++)
+            {
+                if(petManager.petGroup[i] == null)
+                {
+                    petManager.petGroup[i] = gameObject;
+                    return;
+                }
+            }
+        }
     }
 
 
@@ -34,13 +52,13 @@ public class Pet : MonoBehaviourPun, IPunObservable
     {
         if (GetComponent<PhotonView>().IsMine)
         {
-            if (!JM.skillBOn)
+            if (!jobManager.skillBOn)
             {
                 Watch();
                 Follow();
             }
             Fire();
-            curShotCoolTime += Time.deltaTime * (player.petAttackSpeedPer / 100) * (JM.skillBOn == true ? 1.5f : 1);
+            curShotCoolTime += Time.deltaTime * (player.petAttackSpeedPer / 100) * (jobManager.skillBOn == true ? 1.5f : 1);
 
         }
         else
@@ -52,17 +70,17 @@ public class Pet : MonoBehaviourPun, IPunObservable
 
     void Watch()
     {
-        if (!parentPos.Contains(parent.position))//부모가 움직이지 않으면
+        if (!followTargetPos.Contains(followTarget.position))//부모가 움직이지 않으면
         {
-            parentPos.Enqueue(parent.position);//먼저 기억하기(위치값을 넣는다)
+            followTargetPos.Enqueue(followTarget.position);//먼저 기억하기(위치값을 넣는다)
         }
-        if(parentPos.Count > followDelay)//데이터 갯수가 체워지면
+        if(followTargetPos.Count > followDelay)//데이터 갯수가 체워지면
         {
-            followPos = parentPos.Dequeue();//빼서 대입한다
+            followPos = followTargetPos.Dequeue();//빼서 대입한다
         }
-        else if(parentPos.Count < followDelay)//안체워지면
+        else if(followTargetPos.Count < followDelay)//안체워지면
         {
-            followPos = parent.position;//부모위치로 텔포
+            followPos = followTarget.position;//부모위치로 텔포
         }
     }
     void Follow()
@@ -81,29 +99,29 @@ public class Pet : MonoBehaviourPun, IPunObservable
         switch (bulletType)
         {
             case 1:
-                if (JM.skillBOn)
+                if (jobManager.skillBOn)
                 {
-                    float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    float angle = Mathf.Atan2(jobManager.skillBPoint.transform.position.y - gameObject.transform.position.y, jobManager.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    GameObject bullet = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
                     bullet.GetComponent<BulletScript>().dmgPer = 100;
                 } 
                 else if (player.isFire)
                 {
-                    GameObject bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                    GameObject bullet1 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
                     bullet1.GetComponent<BulletScript>().dmgPer = 100;
                 }
                     
                 break;
             case 2:
-                if (JM.skillBOn)
+                if (jobManager.skillBOn)
                 {
-                    float angle = Mathf.Atan2(JM.skillBPoint.transform.position.y - gameObject.transform.position.y, JM.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, true);
+                    float angle = Mathf.Atan2(jobManager.skillBPoint.transform.position.y - gameObject.transform.position.y, jobManager.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                    GameObject bullet2 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, true);
                     bullet2.GetComponent<BulletScript>().dmgPer = 250;
                 }
                 else if (player.isFire)
                 {
-                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, true);
+                    GameObject bullet3 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, true);
                     bullet3.GetComponent<BulletScript>().dmgPer = 250;
                 }
                    

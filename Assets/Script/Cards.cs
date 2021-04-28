@@ -7,7 +7,9 @@ using UnityEngine.UI;
 
 public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 {
-    public Player player;
+    public Player myPlayerScript;
+
+    [SerializeField] ObjectPooler OP;
     [SerializeField] GameManager GM;
     public PhotonView pv;
 
@@ -30,80 +32,80 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         switch (num)
         {
             case 1:
-                player.attackSpeedPer += 50;
+                myPlayerScript.attackSpeedPer += 50;
 
                 break;
             case 2:
-                player.moveSpeed += 20;
+                myPlayerScript.moveSpeed += 20;
                 break;
             case 3:
-                player.increaseDamagePer += 50;
+                myPlayerScript.increaseDamagePer += 50;
                 break;
             case 4:
-                if (player.power != player.maxPower)
+                if (myPlayerScript.power != myPlayerScript.maxPower)
                 {
-                    player.power++;
+                    myPlayerScript.power++;
                 }
                 break;
             case 5:
-                if (player.maxLife != 10)
+                if (myPlayerScript.maxLife != 10)
                 {
-                    player.maxLife++;
-                    player.life++;
-                    GM.UpdateLifeIcon(player.life);
+                    myPlayerScript.maxLife++;
+                    myPlayerScript.life++;
+                    GM.UpdateLifeIcon(myPlayerScript.life);
                 }
                 break;
             case 6:
-                player.life = player.maxLife;
-                GM.UpdateLifeIcon(player.life);
+                myPlayerScript.life = myPlayerScript.maxLife;
+                GM.UpdateLifeIcon(myPlayerScript.life);
                 break;
             case 7:
-                player.pv.RPC(nameof(player.AddPet), RpcTarget.All, 1);
+                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 0, -1, true);
                 break;
             case 8:
-                player.pv.RPC(nameof(player.AddPet), RpcTarget.All, 2);
+                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 1, -1, true);
                 break;
             case 9:
-                player.godTime += 2;
+                myPlayerScript.godTime += 2;
                 break;
             case 10:
-                player.missPercentage += 10;
+                myPlayerScript.missPercentage += 10;
                 break;
             case 11:
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 1);
                 break;
             case 12:
-                player.isDamageStack = true;
+                myPlayerScript.isDamageStack = true;
                 break;
             case 13:
-                player.isAttackSpeedStack = true;
+                myPlayerScript.isAttackSpeedStack = true;
                 break;
             case 14:
-                player.bossDamagePer += 60;
+                myPlayerScript.bossDamagePer += 60;
                 break;
             case 15:
-                player.criticalPer += 10;
+                myPlayerScript.criticalPer += 10;
                 break;
             case 16:
-                player.criticalDamagePer += 50;
+                myPlayerScript.criticalDamagePer += 50;
                 break;
             case 17:
-                player.isSpecialBulletAbility1 = true;
-                player.isSpecialBulletAbility2 = false;
+                myPlayerScript.isSpecialBulletAbility1 = true;
+                myPlayerScript.isSpecialBulletAbility2 = false;
                 break;
             case 18:
-                player.isSpecialBulletAbility1 = false;
-                player.isSpecialBulletAbility2 = true;
+                myPlayerScript.isSpecialBulletAbility1 = false;
+                myPlayerScript.isSpecialBulletAbility2 = true;
                 break;
             case 19:
-                player.gotSpecialWeaponAbility = true;
-                player.weaponCode = 1;
-                player.toTalChargeTime = 2;
-                player.curChargeTime = player.toTalChargeTime;
-                player.curBulletAmount = 0;
-                player.maxSpecialBullet = 20;
-                player.weaponTotalShotCoolTime = 0.5f;
-                player.curWeaponShotCoolTime = -1;
+                myPlayerScript.gotSpecialWeaponAbility = true;
+                myPlayerScript.weaponCode = 1;
+                myPlayerScript.toTalChargeTime = 2;
+                myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
+                myPlayerScript.curBulletAmount = 0;
+                myPlayerScript.maxSpecialBullet = 20;
+                myPlayerScript.weaponTotalShotCoolTime = 0.5f;
+                myPlayerScript.curWeaponShotCoolTime = -1;
 
                 GM.WeaponButtonUpdate();
                 break;
@@ -176,17 +178,17 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                     cTTime = 0.3f;
                     if(cTInt == 0)
                     {
-                        curConditionText.text = "Waiting for another player.";
+                        curConditionText.text = "Waiting for another myPlayerScript.";
                         cTInt = 1;
                     }
                     else if (cTInt == 1)
                     {
-                        curConditionText.text = "Waiting for another player..";
+                        curConditionText.text = "Waiting for another myPlayerScript..";
                         cTInt = 2;
                     }
                     else if (cTInt == 2)
                     {
-                        curConditionText.text = "Waiting for another player...";
+                        curConditionText.text = "Waiting for another myPlayerScript...";
                         cTInt = 0;
                     }
                 }

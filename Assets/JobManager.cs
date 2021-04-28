@@ -7,7 +7,7 @@ using Photon.Pun;
 public class JobManager : MonoBehaviour
 {
     [SerializeField] ObjectPooler OP;
-
+    [SerializeField] GameManager GM;
 
     public Player myplayerScript;
     public int jobCode;
@@ -31,7 +31,9 @@ public class JobManager : MonoBehaviour
 
     public int starterPetAmountB;
     public bool skillBOn;
-    [SerializeField] GameObject skillBPanel;
+
+    [SerializeField] GameObject mobileSkillBPanel;
+    public GameObject desktopSkillBPanel;
     public GameObject skillBPoint;
 
     [Header("Class C")]
@@ -282,6 +284,8 @@ public class JobManager : MonoBehaviour
 
     public void SkillOnClick(bool active)
     {
+        if (curSkillCool < skillCool) return;
+
         switch (jobCode)
         {
             case 0:
@@ -290,14 +294,22 @@ public class JobManager : MonoBehaviour
             case 1:
                 if (active)
                 {
-                    skillBPanel.SetActive(true);
+                    if(GM.isAndroid)
+                        mobileSkillBPanel.SetActive(true);
+                    else if(!GM.isAndroid)
+                        desktopSkillBPanel.SetActive(true);
 
                     SoundManager.Play("Btn_1");
                 }
                 else
                 {
                     skillBOn = false;
-                    skillBPanel.SetActive(false);
+
+                    if (GM.isAndroid)
+                        mobileSkillBPanel.SetActive(false);
+                    else if (!GM.isAndroid)
+                        desktopSkillBPanel.SetActive(false);
+
                     skillBPoint.SetActive(false);
 
                     SoundManager.Play("Btn_2");
@@ -331,7 +343,10 @@ public class JobManager : MonoBehaviour
         skillBPoint.transform.position = new Vector3(transPos.x, transPos.y, 0);
         skillBPoint.SetActive(true);
 
-        skillBPanel.SetActive(false);
+        if (GM.isAndroid)
+            mobileSkillBPanel.SetActive(false);
+        else if (!GM.isAndroid)
+            desktopSkillBPanel.SetActive(false);
 
         SoundManager.Play("Btn_2");
     }

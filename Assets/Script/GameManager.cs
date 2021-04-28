@@ -17,7 +17,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public ObjectPooler OP;
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
-    [SerializeField] JobManager jm;
+    public JobManager jm;
     [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("GamePlayInfo")]
@@ -55,7 +55,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text getGoldAmountText;
 
     [SerializeField] GameObject retryPanel;
-    public GameObject controlPanel;
+    public GameObject mobileControlPanel;
+    public GameObject deskTopControlPanel;
     public GameObject joyPadObject;
     [SerializeField] GameObject finalStageClearPanel;
 
@@ -215,7 +216,13 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        if (SystemInfo.deviceType == DeviceType.Desktop) isAndroid = false;
+        else if(SystemInfo.deviceType == DeviceType.Handheld) isAndroid = true;
+
+        if(isAndroid)
         Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
+        else if(!isAndroid)
+        Screen.SetResolution(540, 960, false);
 
         spawnList = new List<Spawn>();
 
@@ -269,17 +276,19 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (once)
         {
-            if(jm.jobCode == 1)
-                for (int i = 0; i < jm.starterPetAmountB; i++)
-                    myplayerScript.pv.RPC(nameof(myplayerScript.AddPet), RpcTarget.All, 1);
-
             scoreText.text = "0";
+            StartCoroutine(NM.SpawnDelay());
+            nickNameText3.text = PhotonNetwork.NickName;
+
+
+
 
             OP.PrePoolInstantiate();
-            nickNameText3.text = PhotonNetwork.NickName;
+            
+
+            
             once = false;
             isGameEnd = false;
-            
         }
         stageEndOnce = true;
 
@@ -1035,11 +1044,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         once = true;
        // OP.a = 0;
 
+        if(isAndroid) mobileControlPanel.SetActive(false);
+        else if(!isAndroid) deskTopControlPanel.SetActive(false);
+
         cardPanel.SetActive(false);
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gamePlayPanel.SetActive(false);
-        controlPanel.SetActive(false);
+        
         finalStageClearPanel.SetActive(false);
 
         NM.lobbyPanel.SetActive(true);

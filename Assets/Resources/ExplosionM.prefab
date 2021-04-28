@@ -155,6 +155,9 @@ MonoBehaviour:
   bulletScaleE: []
   bulletBoxSizeE: []
   bulletBoxOffsetE: []
+  petSprite: []
+  petShotCool: []
+  petBulletType: 
 --- !u!58 &7647455010297148655
 CircleCollider2D:
   m_ObjectHideFlags: 0

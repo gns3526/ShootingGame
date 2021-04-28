@@ -99,11 +99,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool weaponFire;
 
     public bool specialShot;
-
-    //public float[] playerColor;
-
-    //Photon Panel
-
     
     PhotonView NMPV;
     [SerializeField] Text nickNameText;
@@ -170,18 +165,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             Reload();
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                pv.RPC(nameof(AddPet), RpcTarget.All, 1);
-                //AddPet(1);
+                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 0, -1, true);
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                pv.RPC(nameof(AddPet), RpcTarget.All, 2);
-                //AddPet(2);
+                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 1, -1, true);
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
-                //AddPet(2);
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
@@ -190,7 +182,24 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 pv.RPC("PlayerIsDie", RpcTarget.All);
                 GM.PlayerDie();
             }
-
+            if (Input.GetKeyDown(KeyCode.S))
+            {
+                if(JM.jobCode == 1)
+                {
+                    if (JM.desktopSkillBPanel.activeSelf)
+                    {
+                        JM.SkillOnClick(false);
+                    }
+                    else
+                    {
+                        JM.SkillOnClick(true);
+                    }
+                }
+                else
+                {
+                    JM.SkillOnClick(true);
+                }
+            }
 
 
             if (!GM.isAndroid)
@@ -390,36 +399,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
     }
 
-    [PunRPC]
-    public void AddPet(int type)
-    {
-        
-        for (int i = 0; i < pets.Length; i++)
-        {
-            if (!pets[i].activeSelf)
-            {
-                pets[i].SetActive(true);
-
-                Pet petScript = pets[i].GetComponent<Pet>();
-                petScript.OP = OP;
-
-                pv.RPC("petSpriteChangeRPC", RpcTarget.All,i,type);
-
-                switch (type)
-                {
-                    case 1:
-                        petScript.maxShotCoolTime = 0.2f;
-                        petScript.bulletType = 1;
-                        break;
-                    case 2:
-                        petScript.maxShotCoolTime = 2f;
-                        petScript.bulletType = 2;
-                        break;
-                }
-                break;
-            }
-        }
-    }
+    
 
     [PunRPC]
     void petSpriteChangeRPC(int i, int type)

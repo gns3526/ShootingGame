@@ -243,6 +243,9 @@ MonoBehaviour:
   - {x: 0, y: 0}
   - {x: 0, y: 0}
   - {x: 0, y: 0}
+  petSprite: []
+  petShotCool: []
+  petBulletType: 
 --- !u!50 &7295839056746773223
 Rigidbody2D:
   serializedVersion: 4

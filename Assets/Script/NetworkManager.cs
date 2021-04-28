@@ -93,7 +93,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         
 
         img.sprite = icons[playerIconCode];
-        //Screen.SetResolution(540, 960, false);
+
         PhotonNetwork.SendRate = 60;
         PhotonNetwork.SerializationRate = 30;
     }
@@ -151,10 +151,13 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedLobby()//3
     {
         Debug.Log("로비에 접속");
+        if(GM.isAndroid) GM.mobileControlPanel.SetActive(false);
+        else if (!GM.isAndroid) GM.deskTopControlPanel.SetActive(false);
+
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
-        GM.controlPanel.SetActive(false);
+        
         GM.joyPadObject.SetActive(false);
 
         JM.skillBPoint.SetActive(false);
@@ -302,8 +305,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (GM.isAndroid)
         {
-            GM.controlPanel.SetActive(true);
+            GM.mobileControlPanel.SetActive(true);
             GM.joyPadObject.SetActive(true);
+        }
+        else if (!GM.isAndroid)
+        {
+            GM.deskTopControlPanel.SetActive(true);
         }
             
         roomPanel.SetActive(true);
@@ -510,33 +517,38 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         GM.myplayer = myPlayer;
         GM.myplayerScript = myplayerScript;
-        CM.player = myplayerScript;
+        CM.myPlayerScript = myplayerScript;
         AM.myPlayerScript = myplayerScript;
         JM.myplayerScript = myplayerScript;
         RM.myplayerScript = myplayerScript;
         joyStick.myPlayerScript = myplayerScript;
         PM.myPlayerScript = myplayerScript;
 
-        PM.SetPlayerPetGroup();
 
         GM.WeaponButtonUpdate();
         GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
         GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
 
-
-
-
         respawnPanel.SetActive(false);
+    }
 
-        
-        //GM.AlivePlayerSet();
+    public IEnumerator SpawnDelay()
+    {
+        Player myplayerScript = myPlayer.GetComponent<Player>();
+        yield return new WaitForSeconds(0.5f);
+        PM.SetPlayerPetGroup();
+
+        if (JM.jobCode == 1)
+            for (int i = 0; i < JM.starterPetAmountB; i++)
+                OP.PoolInstantiate("Pet", myPlayer.transform.position, Quaternion.identity, -3, 0, -1, true);
     }
 
     public void DisConnect() => PhotonNetwork.Disconnect();
 
     public override void OnDisconnected(DisconnectCause cause)
     {
-        GM.controlPanel.SetActive(false);
+        if(GM.isAndroid) GM.mobileControlPanel.SetActive(false);
+        else if (GM.isAndroid) GM.deskTopControlPanel.SetActive(false);
         GM.joyPadObject.SetActive(false);
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(false);

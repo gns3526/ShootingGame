@@ -59,20 +59,6 @@ public class ObjectPooler : MonoBehaviourPun
         }
     }
 
-    [PunRPC]
-    void ManagerInputRPC(int index)
-    {
-        switch (index)
-        {
-            case 0:
-
-                break;
-            case 1:
-
-                break;
-        }
-    }
-
 
     public GameObject PoolInstantiate(string tag, Vector3 position, Quaternion rotation, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, bool isPlayerAttack)
     {
