@@ -145,6 +145,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         AM.AbilityApply();
         RFM.ReinForceApply();
 
+        GM.UpdateLifeIcon(life);
+
         NMPV = NM.GetComponent<PhotonView>();
     }
 
@@ -228,7 +230,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 {
                     curChargeTime = toTalChargeTime;
                     curBulletAmount++;
-                    GM.weaponBulletText.text = curBulletAmount.ToString();
+                    if (GM.isAndroid)
+                        GM.weaponBulletText_M.text = curBulletAmount.ToString();
+                    else
+                        GM.weaponBulletText_D.text = curBulletAmount.ToString();
+                    if (curBulletAmount == maxSpecialBullet)
+                        GM.bulletMaxUi.SetActive(true);
                 }
             }
             if(curWeaponShotCoolTime < weaponTotalShotCoolTime && GM.isPlaying)
@@ -331,7 +338,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
                 pv.RPC(nameof(SoundRPC), RpcTarget.All, 5);
             }
-            GM.weaponBulletText.text = curBulletAmount.ToString();
+            if(GM.isAndroid)
+                GM.weaponBulletText_M.text = curBulletAmount.ToString();
+            else
+                GM.weaponBulletText_D.text = curBulletAmount.ToString();
+            GM.bulletMaxUi.SetActive(false);
             return;
         }
     }

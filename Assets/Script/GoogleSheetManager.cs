@@ -17,7 +17,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbyAH-GcvTUd3hiOZzoYqX3BmlSMV17TbSvSbsnhZt8MU5pRZrrYQsTRvyimm2HFScDS/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbwdl0aH6mSoThhXkFkEiq_uX7b9IumWVx0jy4l2I-UJh5m43Qqy8QIgWrGGd3w3MS3J/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -28,6 +28,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] NetworkManager NM;
     [SerializeField] AbilityManager AM;
     [SerializeField] ReinForceManager RM;
+    [SerializeField] JobManager JM;
     [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("Panel")]
@@ -320,7 +321,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." +
             GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
-            RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5] + "." + 
+            RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5] + "." + JM.jobCode + "." +
             specialSkinManager.challenge[0] + "." + specialSkinManager.challenge[1] + "." + specialSkinManager.challenge[2] + "." + specialSkinManager.challenge[3]);
         
         StartCoroutine(Post(form));
@@ -405,7 +406,8 @@ public class GoogleSheetManager : MonoBehaviour
                 RM.upgradeInfo[4] = int.Parse(result[23]);
                 RM.upgradeInfo[5] = int.Parse(result[24]);
 
-                int index = 25;
+                JM.jobCode = int.Parse(result[25]);
+                int index = 26;
                 for (int i = 0; i < specialSkinManager.challenge.Length; i++)
                 {
                     if (result[index] == "True")
@@ -449,6 +451,7 @@ public class GoogleSheetManager : MonoBehaviour
             if (GD.result == "OK")
             {
                 makeNickComplete = true;
+                nickInputComplete = true;
                 CompleteAllCheck();
             }
             else print("닉네임 중복됨");

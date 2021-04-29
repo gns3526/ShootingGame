@@ -12,7 +12,10 @@ public class JobManager : MonoBehaviour
     public Player myplayerScript;
     public int jobCode;
     public Button skillBtn;
-    public Image skillGuage;
+
+    public Image skillGuage_M;
+    public Image skillGuage_D;
+    public GameObject guageMaxUi;
 
     [Header("Class A")]
     [SerializeField] int dmgA;
@@ -72,23 +75,37 @@ public class JobManager : MonoBehaviour
     public void OnEnableSkill()
     {
         curSkillCool = 100;
+        
+
         switch (jobCode)
         {
             case 0:
-                skillGuage.enabled = false;
+                SkillGuageEnable(false);
+                guageMaxUi.SetActive(false);
                 break;
             case 1:
-                skillGuage.enabled = false;
+                SkillGuageEnable(false);
+                guageMaxUi.SetActive(false);
                 break;
             case 2:
-                skillGuage.enabled = true;
+                SkillGuageEnable(true);
+                guageMaxUi.SetActive(true);
                 skillCool = skillCoolC;
                 break;
             case 3:
-                skillGuage.enabled = true;
+                SkillGuageEnable(true);
+                guageMaxUi.SetActive(true);
                 skillCool = skillCoolD;
                 break;
         }
+    }
+
+    private void SkillGuageEnable(bool b)
+    {
+        if (GM.isAndroid)
+            skillGuage_M.enabled = b;
+        else if (!GM.isAndroid)
+            skillGuage_D.enabled = b;
     }
 
     private void Update()
@@ -96,12 +113,18 @@ public class JobManager : MonoBehaviour
         if (curSkillCool < skillCool)
         {
             curSkillCool += Time.deltaTime * (myplayerScript.skillCooldownPer / 100);
-            skillGuage.fillAmount = curSkillCool / skillCool;
+
+            if(GM.isAndroid)
+                skillGuage_M.fillAmount = curSkillCool / skillCool;
+            else
+                skillGuage_D.fillAmount = curSkillCool / skillCool;
 
             if (curSkillCool > skillCool)
             {
                 skillBtn.interactable = true;
                 myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All, false);
+
+                guageMaxUi.SetActive(true);
             }
         }
     }
@@ -111,7 +134,7 @@ public class JobManager : MonoBehaviour
         if (!myplayerScript.pv.IsMine) return;
 
         skillBtn.interactable = true;
-        skillGuage.fillAmount = 1;
+        skillGuage_M.fillAmount = 1;
 
         skillBPoint.SetActive(false);
 
@@ -285,6 +308,8 @@ public class JobManager : MonoBehaviour
     public void SkillOnClick(bool active)
     {
         if (curSkillCool < skillCool) return;
+
+        guageMaxUi.SetActive(false);
 
         switch (jobCode)
         {

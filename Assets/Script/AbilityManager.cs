@@ -613,7 +613,6 @@ public class AbilityManager : MonoBehaviour
                     myPlayerScript.maxLife += GM.abilityValue[i];
                     myPlayerScript.life = myPlayerScript.maxLife;
                     Debug.Log("체력이" + c + "에서" + myPlayerScript.maxLife + "로 증가");
-                    GM.UpdateLifeIcon(myPlayerScript.life);
                     break;
                 case 3://GodTime;
                     float d = myPlayerScript.godTime;

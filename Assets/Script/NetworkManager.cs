@@ -322,7 +322,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         chatInput.text = "";
         RoomRenewal();
 
-        JM.OnEnableSkill();
+
+
         for (int i = 0; i < chatTextT.Length; i++)
         {
             chatTextT[i].text = "";
@@ -524,9 +525,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         joyStick.myPlayerScript = myplayerScript;
         PM.myPlayerScript = myplayerScript;
 
-
+        JM.OnEnableSkill();
         GM.WeaponButtonUpdate();
-        GM.UpdateLifeIcon(myPlayer.GetComponent<Player>().life);
+        
+
         GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
 
         respawnPanel.SetActive(false);

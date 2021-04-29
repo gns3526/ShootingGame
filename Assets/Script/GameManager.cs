@@ -104,9 +104,11 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("ControlPanel")]
     public GameObject normalShotBotton;
-    public GameObject specialShotBotton;
+    public GameObject specialShotBotton_M;
 
-    public Text weaponBulletText;
+    public Text weaponBulletText_M;
+    public Text weaponBulletText_D;
+    public GameObject bulletMaxUi;
     public Image weaponShotButtonImage;
 
     [Header("CodyPanel")]
@@ -718,15 +720,34 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void WeaponButtonUpdate()
     {
+        bulletMaxUi.SetActive(false);
         if (myplayer.GetComponent<Player>().gotSpecialWeaponAbility)
         {
-            specialShotBotton.SetActive(true);
-            weaponBulletText.text = "0";
+            if (isAndroid)
+            {
+                specialShotBotton_M.SetActive(true);
+
+                weaponBulletText_M.enabled = true;
+                weaponBulletText_M.text = "0";
+            }
+            else if (!isAndroid)
+            {
+                weaponBulletText_D.enabled = true;
+                weaponBulletText_D.text = "0";
+            }
         }
         else
         {
-            specialShotBotton.SetActive(false);
-            weaponBulletText.text = "0";
+            if (isAndroid)
+            {
+                specialShotBotton_M.SetActive(false);
+
+                weaponBulletText_M.enabled = false;
+            }
+            else if (!isAndroid)
+            {
+                weaponBulletText_D.enabled = false;
+            }
         }
     }
 
