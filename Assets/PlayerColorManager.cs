@@ -70,6 +70,10 @@ public class PlayerColorManager : MonoBehaviour
             colorRSlider_M.value = playerMainColors[0] / 255f;
             colorGSlider_M.value = playerMainColors[1] / 255f;
             colorBSlider_M.value = playerMainColors[2] / 255f;
+
+            colorRSlider_B.value = playerBoosterColors[0] / 255f;
+            colorGSlider_B.value = playerBoosterColors[1] / 255f;
+            colorBSlider_B.value = playerBoosterColors[2] / 255f;
         }
 
         SoundManager.Play("Btn_2");
@@ -115,9 +119,9 @@ public class PlayerColorManager : MonoBehaviour
         Main_G = colorGSlider_M.value * 255;
         Main_B = colorBSlider_M.value * 255;
 
-        Booster_R = Random.Range(0, 256);
-        Booster_G = Random.Range(0, 256);
-        Booster_B = Random.Range(0, 256);
+        Booster_R = colorRSlider_B.value * 255;
+        Booster_G = colorGSlider_B.value * 255;
+        Booster_B = colorBSlider_B.value * 255;
 
 
         playerMainColors[0] = Mathf.Round(Main_R);

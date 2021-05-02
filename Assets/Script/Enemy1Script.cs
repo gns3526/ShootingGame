@@ -65,7 +65,7 @@ public class Enemy1Script : MonoBehaviour
     private void Update()
     {
         if (!PhotonNetwork.IsMasterClient) return;
-        transform.Translate(new Vector2(0, -moveSpeed));
+        transform.Translate(new Vector2(0, -moveSpeed * Time.deltaTime));
     }
 
     IEnumerator ShotAtPlayer()
