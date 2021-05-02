@@ -18,6 +18,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
     public JobManager jm;
+    public PlayerColorManager colorManager;
     [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("GamePlayInfo")]
@@ -64,14 +65,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject codyMainPanel;
     [SerializeField] GameObject codyBodyPanel;
     [SerializeField] GameObject codyParticlePanel;
-    public GameObject colorChangePanel;
-    [SerializeField] GameObject colorNormalPanel;
-    [SerializeField] GameObject colorPremiumPanel;
     public GameObject codyIconPanel;
     [SerializeField] GameObject jobPanel;
     [SerializeField] GameObject reinForcePanel;
 
-    [SerializeField] GameObject abilityPanel;
+    public GameObject abilityPanel;
 
     public GameObject loginPanel;
     public GameObject roomExpPanal;
@@ -119,11 +117,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] CodySelectUpdate[] codySelectUpdate;
 
-    [SerializeField] Slider colorRSlider;
-    [SerializeField] Slider colorGSlider;
-    [SerializeField] Slider colorBSlider;
-    [SerializeField] Text[] colorRGBTexts;
-    [SerializeField] Image playerColorTest;
+
 
     [Header("Player")]
     [SerializeField] Transform playerPos;
@@ -134,7 +128,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Player[] alivePlayers;
     public Player[] allPlayers;
 
-    public float[] playerColors;
+
     public int codyMainCode;
     public int codyBodyCode;
     public int codyParticleCode;
@@ -586,8 +580,6 @@ public class GameManager : MonoBehaviourPunCallbacks
                 }
             }
         }
-        if(colorPremiumPanel.activeSelf)
-        PlayerColorTest();
     }
 
     void SpawnEnemy()
@@ -728,12 +720,12 @@ public class GameManager : MonoBehaviourPunCallbacks
                 specialShotBotton_M.SetActive(true);
 
                 weaponBulletText_M.enabled = true;
-                weaponBulletText_M.text = "0";
+                weaponBulletText_M.text = myplayerScript.curBulletAmount.ToString() + "/" + myplayerScript.maxSpecialBullet.ToString(); ;
             }
             else if (!isAndroid)
             {
                 weaponBulletText_D.enabled = true;
-                weaponBulletText_D.text = "0";
+                weaponBulletText_D.text = myplayerScript.curBulletAmount.ToString() + "/" + myplayerScript.maxSpecialBullet.ToString(); ;
             }
         }
         else
@@ -781,77 +773,31 @@ public class GameManager : MonoBehaviourPunCallbacks
         //explosionScript.StartExplosion(targetType);
     }
 
+    public void LobbyPlayerRework()
+    {
+        lobbyPlayer.sprite = lobbyCodyMainDummy[codyMainCode];
+        lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[codyBodyCode];
+        lobbyPlayer.color = new Color(colorManager.playerColors[0] / 255f, colorManager.playerColors[1] / 255f, colorManager.playerColors[2] / 255f, 1);
+
+        lobbyParticleDummy[codyParticleCode].Play();
+    }
+
     public void IconPanelOpenOrClose(bool a)
     {
         codyIconPanel.SetActive(a);
 
-        if (a)
-        {
-            codySelectUpdate[3].Select();
-
-            codyParticlePanel.SetActive(false);
-            codyPanel.SetActive(false);
-            colorChangePanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
+        codySelectUpdate[3].Select();
 
         SoundManager.Play("Btn_2");
     }
 
-    public void ColorChangePanelOpenOrClose(bool a)
-    {
-        colorChangePanel.SetActive(a);
-
-
-        if (a)
-        {
-            playerColorTest.sprite = lobbyCodyMainDummy[codyMainCode];
-            playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
-            colorNormalPanel.SetActive(true);
-            colorPremiumPanel.SetActive(false);
-            codyIconPanel.SetActive(false);
-            codyMainPanel.SetActive(false);
-            codyPanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
-
-        SoundManager.Play("Btn_2");
-    }
-
-    public void NormalColorOpenOrClose(bool a)
-    {
-        colorNormalPanel.SetActive(a);
-
-        SoundManager.Play("Btn_2");
-    }
-    public void PremiumColorOpenOrClose(bool a)
-    {
-        colorPremiumPanel.SetActive(a);
-
-        if (a)
-        {
-            colorRSlider.value = playerColors[0] / 255f;
-            colorGSlider.value = playerColors[1] / 255f;
-            colorBSlider.value = playerColors[2] / 255f;
-        }
-
-        SoundManager.Play("Btn_2");
-    }
+    
 
     public void CodyOpenOrClose(bool a)
     {
         codyPanel.SetActive(a);
-        if (a)
-        {
-            codySelectUpdate[1].Select();
 
-            codyIconPanel.SetActive(false);
-            codyParticlePanel.SetActive(false);
-            codyBodyPanel.SetActive(true);
-            codyMainPanel.SetActive(false);
-            colorChangePanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
+        codySelectUpdate[1].Select();
 
         SoundManager.Play("Btn_2");
     }
@@ -859,15 +805,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void CodyMainOpenOrClose(bool a)
     {
         codyMainPanel.SetActive(a);
-        if(a)
-        {
-            codySelectUpdate[0].Select();
 
-            codyIconPanel.SetActive(false);
-            codyPanel.SetActive(false);
-            colorChangePanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
+        codySelectUpdate[0].Select();
 
         SoundManager.Play("Btn_2");
     }
@@ -875,15 +814,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void JobPanelOpenOrClose(bool a)
     {
         jobPanel.SetActive(a);
-        if (a)
-        {
-            codySelectUpdate[4].Select();
 
-            codyIconPanel.SetActive(false);
-            codyPanel.SetActive(false);
-            colorChangePanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
+        codySelectUpdate[4].Select();
 
         SoundManager.Play("Btn_2");
     }
@@ -891,15 +823,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void ReinForceOpenOrClose(bool a)
     {
         reinForcePanel.SetActive(a);
-        if (a)
-        {
-            RM.ReinForceRework();
 
-            codyIconPanel.SetActive(false);
-            codyPanel.SetActive(false);
-            colorChangePanel.SetActive(false);
-            abilityPanel.SetActive(false);
-        }
+        RM.ReinForceRework();
 
         SoundManager.Play("Btn_2");
     }
@@ -911,71 +836,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         SoundManager.Play("Btn_2");
     }
     public void LeftGame() => Application.Quit();
-    public void NormalColorChange()
-    {
-        R = Random.Range(0, 256);
-        G = Random.Range(0, 256);
-        B = Random.Range(0, 256);
-
-        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
-        //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
-
-        SoundManager.Play("Btn_2");
-    }
-
-    void PlayerColorTest()
-    {
-        R = colorRSlider.value * 255;
-        G = colorGSlider.value * 255;
-        B = colorBSlider.value * 255;
-        colorRGBTexts[0].text = Mathf.Round(R).ToString();
-        colorRGBTexts[1].text = Mathf.Round(G).ToString();
-        colorRGBTexts[2].text = Mathf.Round(B).ToString();
-        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
-    }
-
-    float R;
-    float G;
-    float B;
-    public void NormalColorChangeComplete()
-    {
-        playerColors[0] = Mathf.Round(R);
-        playerColors[1] = Mathf.Round(G);
-        playerColors[2] = Mathf.Round(B);
-
-        lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
-
-        colorChangePanel.SetActive(false);
-
-        SoundManager.Play("Btn_2");
-    }
-    public void PremiumColorChangeComplete()
-    {
-        R = colorRSlider.value * 255;
-        G = colorGSlider.value * 255;
-        B = colorBSlider.value * 255;
-
-        playerColors[0] = Mathf.Round(R);
-        playerColors[1] = Mathf.Round(G);
-        playerColors[2] = Mathf.Round(B);
-
-        lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
-
-        colorChangePanel.SetActive(false);
-
-        SoundManager.Play("Btn_2");
-    }
-
-
-    public void LobbyPlayerRework()
-    {
-        lobbyPlayer.sprite = lobbyCodyMainDummy[codyMainCode];
-        lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[codyBodyCode];
-        lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
-
-        lobbyParticleDummy[codyParticleCode].Play();
-    }
-
+   
     public void FinalStageClear()
     {
         isGameEnd = true;

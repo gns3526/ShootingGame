@@ -516,10 +516,10 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
-    m_FontSize: 86
+    m_FontSize: 59
     m_FontStyle: 0
     m_BestFit: 0
-    m_MinSize: 10
+    m_MinSize: 5
     m_MaxSize: 92
     m_Alignment: 2
     m_AlignByGeometry: 0
@@ -527,7 +527,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 99/99
 --- !u!222 &7592895
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -553,8 +553,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 190.49994, y: -744.5}
-  m_SizeDelta: {x: 151.6, y: 98.8}
+  m_AnchoredPosition: {x: 80, y: -744.5}
+  m_SizeDelta: {x: 372.5, y: 98.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &8286763
 GameObject:
@@ -992,18 +992,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
-        m_MethodName: NormalColorOpenOrClose
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: PremiumColorOpenOrClose
         m_Mode: 6
         m_Arguments:
@@ -1013,6 +1002,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 124006200}
+        m_MethodName: NormalColorOpenOrClose
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -6074,7 +6074,7 @@ GameObject:
   - component: {fileID: 124006201}
   - component: {fileID: 124006200}
   m_Layer: 0
-  m_Name: PlayerStatManager
+  m_Name: PlayerColorManager
   m_TagString: Untagged
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
@@ -6089,9 +6089,25 @@ MonoBehaviour:
   m_GameObject: {fileID: 124006199}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 0c57e3e91deb67b4e991726894b71de6, type: 3}
+  m_Script: {fileID: 11500000, guid: be9a3478cded5fc4b9b97c9870e12ff4, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  GM: {fileID: 601972270}
+  playerColors:
+  - 1
+  - 1
+  - 1
+  colorChangePanel: {fileID: 738090496}
+  colorNormalPanel: {fileID: 604431768}
+  colorPremiumPanel: {fileID: 955616804}
+  colorRSlider: {fileID: 1650971289}
+  colorGSlider: {fileID: 282381763}
+  colorBSlider: {fileID: 136562972}
+  colorRGBTexts:
+  - {fileID: 1467630284}
+  - {fileID: 1194530786}
+  - {fileID: 1673777606}
+  playerColorTest: {fileID: 1869436875}
 --- !u!4 &124006201
 Transform:
   m_ObjectHideFlags: 0
@@ -8009,7 +8025,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: NormalColorChange
         m_Mode: 1
         m_Arguments:
@@ -15018,7 +15034,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: ColorChangePanelOpenOrClose
         m_Mode: 6
         m_Arguments:
@@ -15754,7 +15770,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -2000, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 100, y: 100}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!1 &364419277
@@ -22080,8 +22096,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: -175.70001, y: -9.364998}
-  m_SizeDelta: {x: 151.6, y: 98.8}
+  m_AnchoredPosition: {x: -272.2, y: -9.364998}
+  m_SizeDelta: {x: 344.5, y: 98.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &519203922
 MonoBehaviour:
@@ -22105,18 +22121,18 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
-    m_FontSize: 86
+    m_FontSize: 59
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
     m_MaxSize: 92
-    m_Alignment: 2
+    m_Alignment: 8
     m_AlignByGeometry: 0
     m_RichText: 1
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: 99
+  m_Text: 99/99
 --- !u!222 &519203923
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -23025,7 +23041,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 738090497}
-  m_RootOrder: 5
+  m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -25527,6 +25543,7 @@ MonoBehaviour:
   CM: {fileID: 1229472097}
   RM: {fileID: 465414286}
   jm: {fileID: 343471261}
+  colorManager: {fileID: 124006200}
   specialSkinManager: {fileID: 1860361863}
   stage: 1
   MaxStage: 10
@@ -25592,9 +25609,6 @@ MonoBehaviour:
   codyMainPanel: {fileID: 789450229}
   codyBodyPanel: {fileID: 820017695}
   codyParticlePanel: {fileID: 1442311298}
-  colorChangePanel: {fileID: 738090496}
-  colorNormalPanel: {fileID: 604431768}
-  colorPremiumPanel: {fileID: 955616804}
   codyIconPanel: {fileID: 1161876951}
   jobPanel: {fileID: 1633440305}
   reinForcePanel: {fileID: 1069383179}
@@ -25698,14 +25712,6 @@ MonoBehaviour:
   - {fileID: 1005440222}
   - {fileID: 632286541}
   - {fileID: 651994949}
-  colorRSlider: {fileID: 1650971289}
-  colorGSlider: {fileID: 282381763}
-  colorBSlider: {fileID: 136562972}
-  colorRGBTexts:
-  - {fileID: 1467630284}
-  - {fileID: 1194530786}
-  - {fileID: 1673777606}
-  playerColorTest: {fileID: 1869436875}
   playerPos: {fileID: 36089541}
   myplayer: {fileID: 0}
   myplayerScript: {fileID: 0}
@@ -25720,10 +25726,6 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
-  playerColors:
-  - 255
-  - 255
-  - 255
   codyMainCode: 0
   codyBodyCode: 0
   codyParticleCode: 0
@@ -25931,7 +25933,7 @@ RectTransform:
   - {fileID: 160713169}
   - {fileID: 1572165605}
   m_Father: {fileID: 738090497}
-  m_RootOrder: 4
+  m_RootOrder: 5
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -32913,10 +32915,10 @@ RectTransform:
   m_Children:
   - {fileID: 1107881435}
   - {fileID: 1198579377}
+  - {fileID: 530452135}
   - {fileID: 2036956866}
   - {fileID: 1382046153}
   - {fileID: 604431769}
-  - {fileID: 530452135}
   - {fileID: 955616805}
   - {fileID: 315226250}
   - {fileID: 17634564}
@@ -64983,18 +64985,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
-        m_MethodName: PremiumColorOpenOrClose
-        m_Mode: 6
-        m_Arguments:
-          m_ObjectArgument: {fileID: 0}
-          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
-          m_IntArgument: 0
-          m_FloatArgument: 0
-          m_StringArgument: 
-          m_BoolArgument: 1
-        m_CallState: 2
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: NormalColorOpenOrClose
         m_Mode: 6
         m_Arguments:
@@ -65004,6 +64995,17 @@ MonoBehaviour:
           m_FloatArgument: 0
           m_StringArgument: 
           m_BoolArgument: 0
+        m_CallState: 2
+      - m_Target: {fileID: 124006200}
+        m_MethodName: PremiumColorOpenOrClose
+        m_Mode: 6
+        m_Arguments:
+          m_ObjectArgument: {fileID: 0}
+          m_ObjectArgumentAssemblyTypeName: UnityEngine.Object, UnityEngine
+          m_IntArgument: 0
+          m_FloatArgument: 0
+          m_StringArgument: 
+          m_BoolArgument: 1
         m_CallState: 2
     m_TypeName: UnityEngine.UI.Button+ButtonClickedEvent, UnityEngine.UI, Version=1.0.0.0,
       Culture=neutral, PublicKeyToken=null
@@ -73017,6 +73019,7 @@ GameObject:
   - component: {fileID: 1376361695}
   - component: {fileID: 1376361697}
   - component: {fileID: 1376361696}
+  - component: {fileID: 1376361698}
   m_Layer: 5
   m_Name: FullText
   m_TagString: Untagged
@@ -73085,6 +73088,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1376361694}
   m_CullTransparentMesh: 0
+--- !u!95 &1376361698
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1376361694}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 22829722ad2435446a91172326440657, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1379656330
 GameObject:
   m_ObjectHideFlags: 0
@@ -73364,7 +73386,7 @@ RectTransform:
   m_Children:
   - {fileID: 1869436874}
   m_Father: {fileID: 738090497}
-  m_RootOrder: 3
+  m_RootOrder: 4
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -74330,6 +74352,7 @@ MonoBehaviour:
   AM: {fileID: 1452435082}
   RM: {fileID: 465414286}
   JM: {fileID: 343471261}
+  colorManager: {fileID: 124006200}
   specialSkinManager: {fileID: 1860361863}
   loadingPanel: {fileID: 1418408154}
   registerPanel: {fileID: 2023760408}
@@ -87867,7 +87890,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: NormalColorChangeComplete
         m_Mode: 1
         m_Arguments:
@@ -106229,7 +106252,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: PremiumColorChangeComplete
         m_Mode: 1
         m_Arguments:
@@ -108012,6 +108035,7 @@ MonoBehaviour:
   JM: {fileID: 343471261}
   RM: {fileID: 465414286}
   PM: {fileID: 1646883382}
+  colorManager: {fileID: 124006200}
   joyStick: {fileID: 1425287447}
   StartButtonAni: {fileID: 1362354613}
   nickNameInput: {fileID: 1182712291}
@@ -111413,6 +111437,7 @@ GameObject:
   - component: {fileID: 1982593422}
   - component: {fileID: 1982593424}
   - component: {fileID: 1982593423}
+  - component: {fileID: 1982593425}
   m_Layer: 5
   m_Name: MaxText
   m_TagString: Untagged
@@ -111436,7 +111461,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 212.00003, y: 12}
+  m_AnchoredPosition: {x: 324, y: 20.3}
   m_SizeDelta: {x: 223.41, y: 111.34}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1982593423
@@ -111481,6 +111506,25 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1982593421}
   m_CullTransparentMesh: 0
+--- !u!95 &1982593425
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1982593421}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 825d77b298d1f1d498d0ab8394b230fa, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0
 --- !u!1 &1983234279
 GameObject:
   m_ObjectHideFlags: 0
@@ -113883,7 +113927,7 @@ RectTransform:
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 738090497}
-  m_RootOrder: 2
+  m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
@@ -113933,7 +113977,7 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 601972270}
+      - m_Target: {fileID: 124006200}
         m_MethodName: ColorChangePanelOpenOrClose
         m_Mode: 6
         m_Arguments:

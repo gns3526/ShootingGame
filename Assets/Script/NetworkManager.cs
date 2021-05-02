@@ -20,6 +20,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] JobManager JM;
     [SerializeField] ReinForceManager RM;
     [SerializeField] PetManager PM;
+    [SerializeField] PlayerColorManager colorManager;
     [SerializeField] JoyStickScript joyStick;
 
     [SerializeField] Animator StartButtonAni;
@@ -350,13 +351,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         Player player = myPlayer.GetComponent<Player>();
 
-        //if(PhotonNetwork.IsMasterClient)
-        //player.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
-
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + " joined the game</color>");
         
-        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
-        //myPlayer.transform.GetChild(0).GetComponent<PhotonView>().RPC("CodyRework", RpcTarget.All, GM.codyBodyCode, GM.codyParticleCode);
+        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
@@ -370,7 +367,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 //pv.RPC("KickAll", RpcTarget.All);
                 GM.GoToLobby();
         }
-
     }
 
 
@@ -394,7 +390,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         if (pv.IsMine)
-            myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+            myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
 
         if(myPlayer != null)
         myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);

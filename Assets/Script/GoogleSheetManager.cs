@@ -29,6 +29,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] AbilityManager AM;
     [SerializeField] ReinForceManager RM;
     [SerializeField] JobManager JM;
+    [SerializeField] PlayerColorManager colorManager;
     [SerializeField] SpecialSkinManager specialSkinManager;
 
     [Header("Panel")]
@@ -364,7 +365,7 @@ public class GoogleSheetManager : MonoBehaviour
                 string[] result = playercolor.Split(new string[] { "." }, System.StringSplitOptions.None);
                 for (int i = 0; i < result.Length; i++)
                 {
-                    GM.playerColors[i] = int.Parse(result[i]);
+                    colorManager.playerColors[i] = int.Parse(result[i]);
                 }
                 GetValue(6);
             }
@@ -521,7 +522,7 @@ public class GoogleSheetManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "logout");
         form.AddField("playerNum", playernum);
-        form.AddField("playerColor", GM.playerColors[0] + "." + GM.playerColors[1] + "." + GM.playerColors[2]);
+        form.AddField("playerColor", colorManager.playerColors[0] + "." + colorManager.playerColors[1] + "." + colorManager.playerColors[2]);
 
         StartCoroutine(Post(form));
     }

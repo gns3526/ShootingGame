@@ -78,6 +78,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public JobManager JM;
     public ReinForceManager RFM;
     public NetworkManager NM;
+    public PlayerColorManager colorManager;
 
     [Header("Others")]
     [SerializeField] GameObject playerPoint;
@@ -114,9 +115,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         nickNameText.text = pv.IsMine ? PhotonNetwork.NickName : pv.Owner.NickName;//NickName Setting
 
-
-
         GM = FindObjectOfType<GameManager>();
+
+        colorManager = GM.colorManager;
         if (pv.IsMine)
         {
             playerPoint.SetActive(true);
@@ -134,7 +135,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
-            pv.RPC("ChangeColorRPC", RpcTarget.All, GM.playerColors[0], GM.playerColors[1], GM.playerColors[2]);
+            pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
         }
     }
 
@@ -231,9 +232,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     curChargeTime = toTalChargeTime;
                     curBulletAmount++;
                     if (GM.isAndroid)
-                        GM.weaponBulletText_M.text = curBulletAmount.ToString();
+                        GM.weaponBulletText_M.text = curBulletAmount.ToString() + "/" + maxSpecialBullet.ToString();
                     else
-                        GM.weaponBulletText_D.text = curBulletAmount.ToString();
+                        GM.weaponBulletText_D.text = curBulletAmount.ToString() + "/" + maxSpecialBullet.ToString();
                     if (curBulletAmount == maxSpecialBullet)
                         GM.bulletMaxUi.SetActive(true);
                 }
@@ -339,9 +340,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 pv.RPC(nameof(SoundRPC), RpcTarget.All, 5);
             }
             if(GM.isAndroid)
-                GM.weaponBulletText_M.text = curBulletAmount.ToString();
+                GM.weaponBulletText_M.text = curBulletAmount.ToString() + "/" + maxSpecialBullet.ToString();
             else
-                GM.weaponBulletText_D.text = curBulletAmount.ToString();
+                GM.weaponBulletText_D.text = curBulletAmount.ToString() + "/" + maxSpecialBullet.ToString();
             GM.bulletMaxUi.SetActive(false);
             return;
         }
