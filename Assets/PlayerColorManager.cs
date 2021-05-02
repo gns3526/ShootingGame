@@ -7,18 +7,35 @@ public class PlayerColorManager : MonoBehaviour
 {
     [SerializeField] GameManager GM;
 
-    public float[] playerColors;
+    public float[] playerMainColors;
+    public float[] playerBoosterColors;
 
     public GameObject colorChangePanel;
     [SerializeField] GameObject colorNormalPanel;
     [SerializeField] GameObject colorPremiumPanel;
 
-    [SerializeField] Slider colorRSlider;
-    [SerializeField] Slider colorGSlider;
-    [SerializeField] Slider colorBSlider;
-    [SerializeField] Text[] colorRGBTexts;
-    [SerializeField] Image playerColorTest;
+    [SerializeField] Slider colorRSlider_M ;
+    [SerializeField] Slider colorGSlider_M;
+    [SerializeField] Slider colorBSlider_M;
 
+    [SerializeField] Slider colorRSlider_B;
+    [SerializeField] Slider colorGSlider_B;
+    [SerializeField] Slider colorBSlider_B;
+
+    [SerializeField] Text[] colorRGBTexts_M;
+    [SerializeField] Text[] colorRGBTexts_B;
+
+    [SerializeField] Image playerMainColor;
+    [SerializeField] Image playerBoosterColor;
+
+
+    float Main_R;
+    float Main_G;
+    float Main_B;
+
+    float Booster_R;
+    float Booster_G;
+    float Booster_B;
     public void ColorChangePanelOpenOrClose(bool a)
     {
         colorChangePanel.SetActive(a);
@@ -26,14 +43,13 @@ public class PlayerColorManager : MonoBehaviour
 
         if (a)
         {
-            playerColorTest.sprite = GM.lobbyCodyMainDummy[GM.codyMainCode];
-            playerColorTest.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+            playerMainColor.sprite = GM.lobbyCodyMainDummy[GM.codyMainCode];
+
+            playerMainColor.color = new Color(playerMainColors[0] / 255f, playerMainColors[1] / 255f, playerMainColors[2] / 255f, 1);
+            playerBoosterColor.color = new Color(playerBoosterColors[0] / 255f, playerBoosterColors[1] / 255f, playerBoosterColors[2] / 255f, 1);
+
             colorNormalPanel.SetActive(true);
             colorPremiumPanel.SetActive(false);
-            GM.codyIconPanel.SetActive(false);
-            GM.codyMainPanel.SetActive(false);
-            GM.codyPanel.SetActive(false);
-            GM.abilityPanel.SetActive(false);
         }
 
         SoundManager.Play("Btn_2");
@@ -51,9 +67,9 @@ public class PlayerColorManager : MonoBehaviour
 
         if (a)
         {
-            colorRSlider.value = playerColors[0] / 255f;
-            colorGSlider.value = playerColors[1] / 255f;
-            colorBSlider.value = playerColors[2] / 255f;
+            colorRSlider_M.value = playerMainColors[0] / 255f;
+            colorGSlider_M.value = playerMainColors[1] / 255f;
+            colorBSlider_M.value = playerMainColors[2] / 255f;
         }
 
         SoundManager.Play("Btn_2");
@@ -61,37 +77,33 @@ public class PlayerColorManager : MonoBehaviour
 
     public void NormalColorChange()
     {
-        R = Random.Range(0, 256);
-        G = Random.Range(0, 256);
-        B = Random.Range(0, 256);
+        Main_R = Random.Range(0, 256);
+        Main_G = Random.Range(0, 256);
+        Main_B = Random.Range(0, 256);
 
-        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
-        //myplayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All,playerColors[0], playerColors[1], playerColors[2]);
+        Booster_R = Random.Range(0, 256);
+        Booster_G = Random.Range(0, 256);
+        Booster_B = Random.Range(0, 256);
+
+        playerMainColor.color = new Color(Main_R / 255f, Main_G / 255f, Main_B / 255f, 1);
+        playerBoosterColor.color = new Color(Booster_R / 255f, Booster_G / 255f, Booster_B / 255f, 1);
 
         SoundManager.Play("Btn_2");
     }
 
-    void PlayerColorTest()
-    {
-        R = colorRSlider.value * 255;
-        G = colorGSlider.value * 255;
-        B = colorBSlider.value * 255;
-        colorRGBTexts[0].text = Mathf.Round(R).ToString();
-        colorRGBTexts[1].text = Mathf.Round(G).ToString();
-        colorRGBTexts[2].text = Mathf.Round(B).ToString();
-        playerColorTest.color = new Color(R / 255f, G / 255f, B / 255f, 1);
-    }
+    
 
-    float R;
-    float G;
-    float B;
     public void NormalColorChangeComplete()
     {
-        playerColors[0] = Mathf.Round(R);
-        playerColors[1] = Mathf.Round(G);
-        playerColors[2] = Mathf.Round(B);
+        playerMainColors[0] = Mathf.Round(Main_R);
+        playerMainColors[1] = Mathf.Round(Main_G);
+        playerMainColors[2] = Mathf.Round(Main_B);
 
-        GM.lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+        playerBoosterColors[0] = Mathf.Round(Booster_R);
+        playerBoosterColors[1] = Mathf.Round(Booster_G);
+        playerBoosterColors[2] = Mathf.Round(Booster_B);
+
+        GM.lobbyPlayer.color = new Color(playerMainColors[0] / 255f, playerMainColors[1] / 255f, playerMainColors[2] / 255f, 1);
 
         colorChangePanel.SetActive(false);
 
@@ -99,22 +111,51 @@ public class PlayerColorManager : MonoBehaviour
     }
     public void PremiumColorChangeComplete()
     {
-        R = colorRSlider.value * 255;
-        G = colorGSlider.value * 255;
-        B = colorBSlider.value * 255;
+        Main_R = colorRSlider_M.value * 255;
+        Main_G = colorGSlider_M.value * 255;
+        Main_B = colorBSlider_M.value * 255;
 
-        playerColors[0] = Mathf.Round(R);
-        playerColors[1] = Mathf.Round(G);
-        playerColors[2] = Mathf.Round(B);
+        Booster_R = Random.Range(0, 256);
+        Booster_G = Random.Range(0, 256);
+        Booster_B = Random.Range(0, 256);
 
-        GM.lobbyPlayer.color = new Color(playerColors[0] / 255f, playerColors[1] / 255f, playerColors[2] / 255f, 1);
+
+        playerMainColors[0] = Mathf.Round(Main_R);
+        playerMainColors[1] = Mathf.Round(Main_G);
+        playerMainColors[2] = Mathf.Round(Main_B);
+
+        playerBoosterColors[0] = Mathf.Round(Booster_R);
+        playerBoosterColors[1] = Mathf.Round(Booster_G);
+        playerBoosterColors[2] = Mathf.Round(Booster_B);
+
+        GM.lobbyPlayer.color = new Color(playerMainColors[0] / 255f, playerMainColors[1] / 255f, playerMainColors[2] / 255f, 1);
 
         colorChangePanel.SetActive(false);
 
         SoundManager.Play("Btn_2");
     }
 
+    void PlayerColorTest()
+    {
+        Main_R = colorRSlider_M.value * 255;
+        Main_G = colorGSlider_M.value * 255;
+        Main_B = colorBSlider_M.value * 255;
 
+        Booster_R = colorRSlider_B.value * 255;
+        Booster_G = colorGSlider_B.value * 255;
+        Booster_B = colorBSlider_B.value * 255;
+
+        colorRGBTexts_M[0].text = Mathf.Round(Main_R).ToString();
+        colorRGBTexts_M[1].text = Mathf.Round(Main_G).ToString();
+        colorRGBTexts_M[2].text = Mathf.Round(Main_B).ToString();
+
+        colorRGBTexts_B[0].text = Mathf.Round(Booster_R).ToString();
+        colorRGBTexts_B[1].text = Mathf.Round(Booster_G).ToString();
+        colorRGBTexts_B[2].text = Mathf.Round(Booster_B).ToString();
+
+        playerMainColor.color = new Color(Main_R / 255f, Main_G / 255f, Main_B / 255f, 1);
+        playerBoosterColor.color = new Color(Booster_R / 255f, Booster_G / 255f, Booster_B / 255f, 1);
+    }
 
 
 

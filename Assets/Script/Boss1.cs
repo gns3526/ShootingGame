@@ -28,7 +28,7 @@ public class Boss1 : MonoBehaviour
         canMove = true;
         EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, true);
 
-        if (!PhotonNetwork.IsMasterClient) return;
+        if (PhotonNetwork.IsMasterClient)
         StartCoroutine(Stop());
     }
 
@@ -81,7 +81,7 @@ public class Boss1 : MonoBehaviour
             //StartCoroutine(Think(2));
         }
     }
-    /*
+    
     IEnumerator Think(float waitTime)
     {
         //if (!gameObject.activeSelf)//활성화 되어있지 않다면
@@ -90,7 +90,7 @@ public class Boss1 : MonoBehaviour
         Debug.Log("생각");
         patternIndex = patternIndex >= 3 ? 0 : patternIndex + 1;//패턴갯수 오버하면 0으로만듬
         curPatternCount = 0;
-
+        /*
         switch (patternIndex)
         {
             case 0:
@@ -105,33 +105,19 @@ public class Boss1 : MonoBehaviour
             case 3:
                 StartCoroutine(FireAround());
                 break;
-        }
+        }*/
     }
     IEnumerator FireFoward()//앞으로 4발
     {
-        GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
-        bulletR.transform.position = transform.position + Vector3.right * 0.3f;
-        GameObject bulletRR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
-        bulletRR.transform.position = transform.position + Vector3.right * 0.45f;
-        GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
-        bulletL.transform.position = transform.position + Vector3.left * 0.3f;
-        GameObject bulletLL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position, Quaternion.identity);
-        bulletLL.transform.position = transform.position + Vector3.left * 0.45f;
+        GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.identity, 3, 1, 6, false);
 
-        bulletR.GetComponent<BulletScript>().isBossBullet = true;
-        bulletRR.GetComponent<BulletScript>().isBossBullet = true;
-        bulletL.GetComponent<BulletScript>().isBossBullet = true;
-        bulletLL.GetComponent<BulletScript>().isBossBullet = true;
+        GameObject bulletRR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.identity, 3, 1, 6, false);
 
-        Rigidbody2D rigidR = bulletR.GetComponent<Rigidbody2D>();
-        Rigidbody2D rigidL = bulletL.GetComponent<Rigidbody2D>();
-        Rigidbody2D rigidRR = bulletRR.GetComponent<Rigidbody2D>();
-        Rigidbody2D rigidLL = bulletLL.GetComponent<Rigidbody2D>();
+        GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.identity, 3, 1, 6, false);
 
-        rigidR.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
-        rigidL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
-        rigidRR.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
-        rigidLL.AddForce(Vector2.down * 8, ForceMode2D.Impulse);
+        GameObject bulletLL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.identity, 3, 1, 6, false);
+
+
 
         curPatternCount++;
         yield return new WaitForSeconds(fireCoolTime[0]);
@@ -144,6 +130,7 @@ public class Boss1 : MonoBehaviour
             StartCoroutine(Think(1));
         }
     }
+    /*
     IEnumerator FireShot()//플래이어방향으로 샷건
     {
         for (int i = 0; i < 5; i++)

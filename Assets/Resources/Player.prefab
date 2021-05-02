@@ -10148,9 +10148,11 @@ MonoBehaviour:
   JM: {fileID: 0}
   RFM: {fileID: 0}
   NM: {fileID: 0}
+  colorManager: {fileID: 0}
   playerPoint: {fileID: 987814901808949605}
   ani: {fileID: 3941946227140826655}
   mainSprite: {fileID: 6413234793396099382}
+  boosterSprite: {fileID: 7724763731612264424}
   rigid: {fileID: 3941946227140826625}
   pets:
   - {fileID: 0}

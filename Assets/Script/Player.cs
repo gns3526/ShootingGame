@@ -85,6 +85,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public Animator ani;
     [SerializeField] SpriteRenderer mainSprite;
+    [SerializeField] SpriteRenderer boosterSprite;
     [SerializeField] Rigidbody2D rigid;
 
     public GameObject[] pets;
@@ -135,7 +136,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
 
-            pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
+            pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
         }
     }
 
@@ -426,9 +427,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
 
     [PunRPC]
-    void ChangeColorRPC(float r,float g, float b)
+    void ChangeColorRPC(float r,float g, float b, float rr, float gg, float bb)
     {
         mainSprite.color = new Color(r/255f, g/255f, b/255f, 1);
+        boosterSprite.color = new Color(rr / 255f, gg / 255f, bb / 255f, 1);
     }
 
     [PunRPC]

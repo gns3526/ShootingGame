@@ -777,7 +777,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         lobbyPlayer.sprite = lobbyCodyMainDummy[codyMainCode];
         lobbyPlayer.transform.GetChild(0).GetComponent<Image>().sprite = lobbyCodyDummy[codyBodyCode];
-        lobbyPlayer.color = new Color(colorManager.playerColors[0] / 255f, colorManager.playerColors[1] / 255f, colorManager.playerColors[2] / 255f, 1);
+
+        lobbyPlayer.color = new Color(colorManager.playerMainColors[0] / 255f, colorManager.playerMainColors[1] / 255f, colorManager.playerMainColors[2] / 255f, 1);
+
 
         lobbyParticleDummy[codyParticleCode].Play();
     }

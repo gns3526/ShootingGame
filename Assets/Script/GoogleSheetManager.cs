@@ -17,7 +17,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbwdl0aH6mSoThhXkFkEiq_uX7b9IumWVx0jy4l2I-UJh5m43Qqy8QIgWrGGd3w3MS3J/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbwj_yebSExCXxe8Ecm1s09xvv3c4fhAWHWpMxTUPyGvYGYH4Kcrj_0XFOVbep-jxAeB/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -363,10 +363,12 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 playercolor = GD.value;
                 string[] result = playercolor.Split(new string[] { "." }, System.StringSplitOptions.None);
-                for (int i = 0; i < result.Length; i++)
-                {
-                    colorManager.playerColors[i] = int.Parse(result[i]);
-                }
+                colorManager.playerMainColors[0] = int.Parse(result[0]);
+                colorManager.playerMainColors[1] = int.Parse(result[1]);
+                colorManager.playerMainColors[2] = int.Parse(result[2]);
+                colorManager.playerBoosterColors[0] = int.Parse(result[3]);
+                colorManager.playerBoosterColors[1] = int.Parse(result[4]);
+                colorManager.playerBoosterColors[2] = int.Parse(result[5]);
                 GetValue(6);
             }
             else if(GD.type == "6")
@@ -522,7 +524,7 @@ public class GoogleSheetManager : MonoBehaviour
         WWWForm form = new WWWForm();
         form.AddField("order", "logout");
         form.AddField("playerNum", playernum);
-        form.AddField("playerColor", colorManager.playerColors[0] + "." + colorManager.playerColors[1] + "." + colorManager.playerColors[2]);
+        form.AddField("playerColor", colorManager.playerMainColors[0] + "." + colorManager.playerMainColors[1] + "." + colorManager.playerMainColors[2] + "." + colorManager.playerBoosterColors[0] + "." + colorManager.playerBoosterColors[1] + "." + colorManager.playerBoosterColors[2]);
 
         StartCoroutine(Post(form));
     }

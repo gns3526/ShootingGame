@@ -31,7 +31,7 @@ public class Boss2 : MonoBehaviour
         EB.pv.RPC(nameof(EB.GodModeRPC), RpcTarget.All, true);
         curPatternCount = 0;
         EB.patternIndex = 0;
-        GM = FindObjectOfType<GameManager>();
+
 
         if (!PhotonNetwork.IsMasterClient) return;
 
@@ -40,6 +40,7 @@ public class Boss2 : MonoBehaviour
 
     private void Start()
     {
+        GM = FindObjectOfType<GameManager>();
         if (!PhotonNetwork.IsMasterClient) return;
         SearchPlayer();
     }

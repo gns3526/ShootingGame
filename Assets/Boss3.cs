@@ -51,6 +51,7 @@ public class Boss3 : MonoBehaviour
 
     private void Start()
     {
+        GM = FindObjectOfType<GameManager>();
         if (!PhotonNetwork.IsMasterClient) return;
         SearchPlayer();
     }

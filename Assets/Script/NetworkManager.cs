@@ -353,7 +353,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + " joined the game</color>");
         
-        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
+        player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
     }
 
     public override void OnPlayerLeftRoom(Photon.Realtime.Player otherPlayer)
@@ -390,7 +390,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
         if (pv.IsMine)
-            myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerColors[0], colorManager.playerColors[1], colorManager.playerColors[2]);
+            myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
 
         if(myPlayer != null)
         myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
