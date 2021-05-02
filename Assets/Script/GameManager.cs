@@ -215,6 +215,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (SystemInfo.deviceType == DeviceType.Desktop) isAndroid = false;
         else if(SystemInfo.deviceType == DeviceType.Handheld) isAndroid = true;
 
+        isAndroid = true;
+
         if(isAndroid)
         Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
         else if(!isAndroid)
