@@ -217,9 +217,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         isAndroid = true;
 
+        /*
         if(isAndroid)
         Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
-        else if(!isAndroid)
+        else if(!isAndroid)*/
         Screen.SetResolution(540, 960, false);
 
         spawnList = new List<Spawn>();
