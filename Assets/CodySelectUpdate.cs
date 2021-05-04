@@ -27,8 +27,31 @@ public class CodySelectUpdate : MonoBehaviour
 
         if (explainInfo)
         {
-            itemNameText.text = "";
-            itemInfoText.text = "";
+            switch (codyTypeCode)
+            {
+                case 0:
+                    itemNameText.text = itemNames[gm.codyMainCode];
+                    itemInfoText.text = itemInfos[gm.codyMainCode];
+                    break;
+                case 1:
+                    itemNameText.text = itemNames[gm.codyBodyCode];
+                    itemInfoText.text = itemInfos[gm.codyBodyCode];
+                    break;
+                case 2:
+                    itemNameText.text = itemNames[gm.codyParticleCode];
+                    itemInfoText.text = itemInfos[gm.codyParticleCode];
+                    break;
+                case 3:
+                    itemNameText.text = itemNames[nm.playerIconCode];
+                    itemInfoText.text = itemInfos[nm.playerIconCode];
+                    break;
+                case 4:
+                    itemNameText.text = itemNames[jm.jobCode];
+                    itemInfoText.text = itemInfos[jm.jobCode];
+                    break;
+            }
+            
+            
         }
     }
 
