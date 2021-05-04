@@ -89,8 +89,8 @@ GameObject:
   - component: {fileID: 6447052280214845121}
   - component: {fileID: -5277476490254181811}
   - component: {fileID: 2534159281094844759}
-  - component: {fileID: -735259948057730502}
   - component: {fileID: 2862203395692315025}
+  - component: {fileID: -735259948057730502}
   m_Layer: 0
   m_Name: Enemy3
   m_TagString: Enemy
@@ -261,6 +261,22 @@ MonoBehaviour:
     InterpolateOption: 0
     InterpolateMoveTowardsSpeed: 1
     InterpolateLerpSpeed: 0
+--- !u!114 &2862203395692315025
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 7461705952728156019}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 75b67cf945949d9419d7a06f26054ed7, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  target: {fileID: 0}
+  EB: {fileID: -735259948057730502}
+  maxAttackCool: 2
+  moveSpeed: 1.7
 --- !u!114 &-735259948057730502
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -298,22 +314,6 @@ MonoBehaviour:
   GM: {fileID: 0}
   OP: {fileID: 0}
   targetRandomNum: 0
---- !u!114 &2862203395692315025
-MonoBehaviour:
-  m_ObjectHideFlags: 0
-  m_CorrespondingSourceObject: {fileID: 0}
-  m_PrefabInstance: {fileID: 0}
-  m_PrefabAsset: {fileID: 0}
-  m_GameObject: {fileID: 7461705952728156019}
-  m_Enabled: 1
-  m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: 75b67cf945949d9419d7a06f26054ed7, type: 3}
-  m_Name: 
-  m_EditorClassIdentifier: 
-  target: {fileID: 0}
-  EB: {fileID: -735259948057730502}
-  maxAttackCool: 2
-  moveSpeed: 0.03
 --- !u!1 &7529607913075604165
 GameObject:
   m_ObjectHideFlags: 0

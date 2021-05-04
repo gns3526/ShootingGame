@@ -134,7 +134,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             bool ispetAttack = bulletScript.ispetAttack;
             float petPenalty = 1;
-            int petDamagePer = 100;
+            float petDamagePer = 100;
+
+            bool isCritical;
 
             int randomNum;
             randomNum = Random.Range(0, 101);
@@ -145,26 +147,46 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 petDamagePer = myPlayerScript.petDamagePer;
             }
 
+            // 내스텟 + (내 스텟 * 계수/100)
 
-
-            normalBulletDmg = myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100) * (bulletScript.dmgPer / 100)
-                     * (myPlayerScript.damageStack / 100) * (petDamagePer / 100);
+            normalBulletDmg = myPlayerScript.damage + (myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100)) + (myPlayerScript.damage * (bulletScript.dmgPer / 100))
+                     + (myPlayerScript.damage * (myPlayerScript.damageStack / 100)) + (myPlayerScript.damage * (petDamagePer / 100));
 
 
             if (myPlayerScript.criticalPer > randomNum)
-                criticalPlusDamage = normalBulletDmg * (myPlayerScript.criticalDamagePer / 100);
-
+            {
+                isCritical = true;
+                criticalPlusDamage = normalBulletDmg + (normalBulletDmg * (myPlayerScript.criticalDamagePer / 100));
+            }
             else
+            {
+                isCritical = false;
                 criticalPlusDamage = normalBulletDmg;
+            }
+
 
             if (isBoss)
-                finalDamage = criticalPlusDamage * (myPlayerScript.bossDamagePer / 100);
+                finalDamage = criticalPlusDamage + (criticalPlusDamage * (myPlayerScript.bossDamagePer / 100));
             else
                 finalDamage = criticalPlusDamage;
 
-            finalDamage = finalDamage * (myPlayerScript.finalDamagePer / 100) * petPenalty;
+            finalDamage = (finalDamage + (finalDamage * (myPlayerScript.finalDamagePer / 100))) * petPenalty;
 
-            pv.RPC("Hit", RpcTarget.All, finalDamage);
+            Debug.Log(finalDamage);
+
+            float finalDamageInt = Mathf.Round(finalDamage);
+
+            pv.RPC(nameof(Hit), RpcTarget.All, finalDamage);
+
+            if (isCritical)
+                OP.PoolInstantiate("DamageText", transform.position, Quaternion.identity, -4 , (int)finalDamage, 2, false);
+            else
+                OP.PoolInstantiate("DamageText", transform.position, Quaternion.identity, -4 , (int)finalDamage, 1, false);
+
+            Debug.Log(myPlayerScript.damage + "+("+ myPlayerScript.damage + "* (" + myPlayerScript.increaseDamagePer + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
+                     +"+ (" + myPlayerScript.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + petDamagePer + " / " + 100 + "))" );
+            Debug.Log(myPlayerScript.damage + ","+myPlayerScript.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + myPlayerScript.petDamagePer);
+            Debug.Log("데미지 = "+ normalBulletDmg);
         }
     }
 
@@ -185,7 +207,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         spriteRendererEnemy.sprite = sprites[1];
         Invoke("ReturnSprite", 0.1f);
 
-        health -= Mathf.Round(Dmg);
+        health -= Dmg;
 
         Debug.Log(Dmg);
         if (health <= 0)
@@ -212,7 +234,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                     if (myPlayerScript.attackSpeedStackint == 1)
                     {
                         myPlayerScript.attackSpeedStackint = 0;
-                        myPlayerScript.attackSpeedStack++;
+                        myPlayerScript.attackSpeedStack += 1;
                     }
                 }
                 if (myPlayerScript.isDamageStack)
@@ -222,7 +244,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                     if (myPlayerScript.damageStackint == 1)
                     {
                         myPlayerScript.damageStackint = 0;
-                        myPlayerScript.damageStack++;
+                        myPlayerScript.damageStack += 1;
                     }
                 }
             }

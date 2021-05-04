@@ -175,7 +175,7 @@ MonoBehaviour:
   target: {fileID: 0}
   EB: {fileID: -2268814125293810654}
   maxAttackCool: 1
-  moveSpeed: 0.03
+  moveSpeed: 2
 --- !u!114 &-2268814125293810654
 MonoBehaviour:
   m_ObjectHideFlags: 0

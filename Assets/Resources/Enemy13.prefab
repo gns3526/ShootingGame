@@ -180,8 +180,8 @@ MonoBehaviour:
   goCool: 2
   canMove: 0
   moveToSide: 0
-  moveSpeed: 0.1
-  sideSpeed: 0.04
+  moveSpeed: 5
+  sideSpeed: 1.5
 --- !u!114 &4661037525564923090
 MonoBehaviour:
   m_ObjectHideFlags: 0

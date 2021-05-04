@@ -1,6 +1,7 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityEngine.UI;
 using Photon.Pun;
 using Photon.Realtime;
 
@@ -33,6 +34,8 @@ public class PoolScript : MonoBehaviourPun
     [SerializeField] float[] petShotCool;
     [SerializeField] int[] petBulletType;
 
+    //-4 = Damage
+    //-3 = Pet
     //-2 = Objects
     //-1 = SpecialBullet
     //0++ = Bullets
@@ -80,13 +83,29 @@ public class PoolScript : MonoBehaviourPun
             else
                 bs.bulletSpeed = bulletSpeed[bulletSpeedIndex];
         }
+        else if(bulletIndex == -2)//other OB
+        {
+            //nothing
+        }
         else if(bulletIndex == -3)//Pet
         {
+            //a , Num, petType 
+
             Pet petScript = GetComponent<Pet>();
 
-            GetComponent<SpriteRenderer>().sprite = petSprite[aniCode];
-            petScript.maxShotCoolTime = petShotCool[aniCode];
-            petScript.bulletType = petBulletType[aniCode];
+            GetComponent<SpriteRenderer>().sprite = petSprite[bulletAniCode];
+            petScript.maxShotCoolTime = petShotCool[bulletAniCode];
+            petScript.bulletType = petBulletType[bulletAniCode];
+        }
+        else if(bulletIndex == -4)
+        {
+            //a , Num , DamageAmount , colorNum , isPlus
+
+            DamageText damageText = GetComponent<DamageText>();
+
+            GetComponent<Text>().text = bulletAniCode.ToString();
+
+            damageText.pv.RPC(nameof(damageText.ChangeTextRPC), RpcTarget.All, bulletAniCode, bulletSpeedIndex, isPlayerAttack);
         }
         gameObject.SetActive(true);
     }

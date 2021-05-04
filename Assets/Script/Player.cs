@@ -24,21 +24,21 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public float moveSpeed;
     public int power;
     public int maxPower;
-    public int damage;
-    public int increaseDamagePer;
-    public int bossDamagePer;
-    public int normalMonsterDamagePer;
-    public int criticalPer;
-    public int criticalDamagePer;
-    public int petDamagePer;
-    public int petAttackSpeedPer;
-    public int penetratePer;
-    public int finalDamagePer;
+    public float damage;
+    public float increaseDamagePer;
+    public float bossDamagePer;
+    public float normalMonsterDamagePer;
+    public float criticalPer;
+    public float criticalDamagePer;
+    public float petDamagePer;
+    public float petAttackSpeedPer;
+    public float penetratePer;
+    public float finalDamagePer;
 
     public int skillCooldownPer;
 
-    public int goldAmountPer;
-    public int expAmountPer;
+    public float goldAmountPer;
+    public float expAmountPer;
 
     public bool gotSpecialWeaponAbility;
     public int weaponCode;
@@ -60,10 +60,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool isAttackSpeedStack;
     public int attackSpeedStackint;
-    public int attackSpeedStack;
+    public float attackSpeedStack;
     public bool isDamageStack;
     public int damageStackint;
-    public int damageStack;
+    public float damageStack;
 
     [Header("PlayerCody")]
     public PhotonView codyPv;
@@ -309,7 +309,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, true);
-            bullet.GetComponent<BulletScript>().dmgPer = 200;
+            bullet.GetComponent<BulletScript>().dmgPer = 100;
             curShotCoolTime = 0;
 
             pv.RPC(nameof(SoundRPC), RpcTarget.All, 1);
@@ -317,7 +317,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, true);
-            bullet.GetComponent<BulletScript>().dmgPer = 130;
+            bullet.GetComponent<BulletScript>().dmgPer = 50;
             curShotCoolTime = 0;
 
             pv.RPC(nameof(SoundRPC), RpcTarget.All, 2);
@@ -334,7 +334,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
                 GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true);
-                bullet.GetComponent<BulletScript>().dmgPer = 2000;
+                bullet.GetComponent<BulletScript>().dmgPer = 300;
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
 

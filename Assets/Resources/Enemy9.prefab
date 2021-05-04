@@ -195,7 +195,7 @@ MonoBehaviour:
   maxAttackCool: 0.2
   goCool: 1
   canMove: 0
-  moveSpeed: 0.08
+  moveSpeed: 5
 --- !u!114 &6507730814146821326
 MonoBehaviour:
   m_ObjectHideFlags: 0

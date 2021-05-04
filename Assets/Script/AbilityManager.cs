@@ -598,7 +598,7 @@ public class AbilityManager : MonoBehaviour
                     Debug.Log("움직임속도가" + a + "에서" + myPlayerScript.moveSpeed + "로 증가");
                     break;
                 case 1://AttackDamagePer;
-                    int b = myPlayerScript.increaseDamagePer;
+                    float b = myPlayerScript.increaseDamagePer;
                     myPlayerScript.increaseDamagePer += GM.abilityValue[i];
                     Debug.Log("공격력이" + b + "에서" + myPlayerScript.increaseDamagePer + "로 증가");
                     break;

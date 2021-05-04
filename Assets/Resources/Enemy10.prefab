@@ -195,7 +195,7 @@ MonoBehaviour:
   shotCool: 0.5
   goCool: 2
   canMove: 0
-  moveSpeed: 0.1
+  moveSpeed: 6
 --- !u!114 &4661037525564923090
 MonoBehaviour:
   m_ObjectHideFlags: 0

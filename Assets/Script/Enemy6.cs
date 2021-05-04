@@ -70,7 +70,7 @@ public class Enemy6 : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
 
         if (canMove)
-            transform.Translate(new Vector2(0, -moveSpeed));
+            transform.Translate(new Vector2(0, -moveSpeed * Time.deltaTime));
 
         if(transform.position.y < target.transform.position.y && once)
         {

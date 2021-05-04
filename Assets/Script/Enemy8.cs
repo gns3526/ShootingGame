@@ -31,7 +31,7 @@ public class Enemy8 : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
 
         if (canMove)
-            transform.Translate(new Vector2(0, -moveSpeed));
+            transform.Translate(new Vector2(0, -moveSpeed * Time.deltaTime));
     }
 
     IEnumerator ShotAtPlayer()

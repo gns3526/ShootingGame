@@ -56,7 +56,6 @@ public class EnemyScript : MonoBehaviourPunCallbacks//, IPunObservable
     [SerializeField] int targetRandomNum;
     int a;
 
-    float normalBulletDmg;
     float criticalPlusDamage;
     float finalDamage;
     private void Awake()

@@ -71,12 +71,12 @@ public class Enemy13 : MonoBehaviour
         if (!PhotonNetwork.IsMasterClient) return;
 
         if (canMove)
-            transform.Translate(new Vector2(0, -moveSpeed));
+            transform.Translate(new Vector2(0, -moveSpeed * Time.deltaTime));
         else if (moveToSide)
             if (transform.position.x > 0)
-                transform.Translate(new Vector2(sideSpeed, 0));
+                transform.Translate(new Vector2(sideSpeed * Time.deltaTime, 0));
             else
-                transform.Translate(new Vector2(-sideSpeed, 0));
+                transform.Translate(new Vector2(-sideSpeed * Time.deltaTime, 0));
 
     }
 

@@ -10107,18 +10107,18 @@ MonoBehaviour:
   power: 1
   maxPower: 3
   damage: 3
-  increaseDamagePer: 100
-  bossDamagePer: 100
-  normalMonsterDamagePer: 100
+  increaseDamagePer: 0
+  bossDamagePer: 0
+  normalMonsterDamagePer: 0
   criticalPer: 25
-  criticalDamagePer: 200
-  petDamagePer: 100
-  petAttackSpeedPer: 100
+  criticalDamagePer: 100
+  petDamagePer: 0
+  petAttackSpeedPer: 0
   penetratePer: 30
-  finalDamagePer: 100
-  skillCooldownPer: 100
-  goldAmountPer: 100
-  expAmountPer: 100
+  finalDamagePer: 0
+  skillCooldownPer: 0
+  goldAmountPer: 0
+  expAmountPer: 0
   gotSpecialWeaponAbility: 1
   weaponCode: 1
   toTalChargeTime: 2
@@ -10139,7 +10139,7 @@ MonoBehaviour:
   attackSpeedStack: 100
   isDamageStack: 0
   damageStackint: 0
-  damageStack: 100
+  damageStack: 0
   codyPv: {fileID: 216727624181193990}
   skillC: {fileID: 6975515289339184200}
   GM: {fileID: 0}

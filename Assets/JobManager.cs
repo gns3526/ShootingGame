@@ -196,15 +196,15 @@ public class JobManager : MonoBehaviour
         {
             case 1:
                 GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 8, true);
-                bullet.GetComponent<BulletScript>().dmgPer = 100;
+                bullet.GetComponent<BulletScript>().dmgPer = 50;
 
                 myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
                 break;
             case 2:
                 GameObject bulletR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.1f, Quaternion.identity, 0, -1, 6, true);
                 GameObject bulletL = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.1f, Quaternion.identity, 0, -1, 6, true);
-                bulletR.GetComponent<BulletScript>().dmgPer = 100;
-                bulletL.GetComponent<BulletScript>().dmgPer = 100;
+                bulletR.GetComponent<BulletScript>().dmgPer = 50;
+                bulletL.GetComponent<BulletScript>().dmgPer = 50;
 
                 myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
                 break;
@@ -212,9 +212,9 @@ public class JobManager : MonoBehaviour
                 GameObject bulletRR = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.35f, Quaternion.identity, 0, -1, 6, true);
                 GameObject bulletM = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 1, -1, 6, true);
                 GameObject bulletLL = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.35f, Quaternion.identity, 0, -1, 6, true);
-                bulletRR.GetComponent<BulletScript>().dmgPer = 100;
-                bulletM.GetComponent<BulletScript>().dmgPer = 150;
-                bulletLL.GetComponent<BulletScript>().dmgPer = 100;
+                bulletRR.GetComponent<BulletScript>().dmgPer = 50;
+                bulletM.GetComponent<BulletScript>().dmgPer = 75;
+                bulletLL.GetComponent<BulletScript>().dmgPer = 50;
 
                 myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 2);
                 break;
@@ -248,7 +248,7 @@ public class JobManager : MonoBehaviour
     void ShotB()
     {
         GameObject bullet = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.identity, 0, -1, 7, true);
-        bullet.GetComponent<BulletScript>().dmgPer = 150;
+        bullet.GetComponent<BulletScript>().dmgPer = 75;
 
         myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
     }
@@ -263,11 +263,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC1; i++)
                 {
                     GameObject bullet1 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet1.GetComponent<BulletScript>().dmgPer = 100;
+                    bullet1.GetComponent<BulletScript>().dmgPer = 50;
                     bC += aC;
                 }
                 GameObject bullet2 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet2.GetComponent<BulletScript>().dmgPer = 100;
+                bullet2.GetComponent<BulletScript>().dmgPer = 50;
                 break;
             case 2:
                 aC = bulletSpreadC2 * 2 / bulletAmountC2;
@@ -275,11 +275,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC2; i++)
                 {
                     GameObject bullet3 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet3.GetComponent<BulletScript>().dmgPer = 120;
+                    bullet3.GetComponent<BulletScript>().dmgPer = 60;
                     bC += aC;
                 }
                 GameObject bullet4 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet4.GetComponent<BulletScript>().dmgPer = 120;
+                bullet4.GetComponent<BulletScript>().dmgPer = 60;
                 break;
             case 3:
                 aC = bulletSpreadC3 * 2 / bulletAmountC3;
@@ -287,11 +287,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC3; i++)
                 {
                     GameObject bullet5 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet5.GetComponent<BulletScript>().dmgPer = 150;
+                    bullet5.GetComponent<BulletScript>().dmgPer = 75;
                     bC += aC;
                 }
                 GameObject bullet6 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet6.GetComponent<BulletScript>().dmgPer = 150;
+                bullet6.GetComponent<BulletScript>().dmgPer = 75;
                 break;
 
         }
@@ -302,7 +302,7 @@ public class JobManager : MonoBehaviour
     {
         GameObject laserA = OP.PoolInstantiate("LaserS", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, true);
         laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
-        laserA.GetComponent<BulletScript>().dmgPer = 200;
+        laserA.GetComponent<BulletScript>().dmgPer = 100;
     }
 
     public void SkillOnClick(bool active)
@@ -353,7 +353,7 @@ public class JobManager : MonoBehaviour
             case 3:
                 GameObject laserA = OP.PoolInstantiate("LaserM", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, true);
                 laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
-                laserA.GetComponent<BulletScript>().dmgPer = 6000;
+                laserA.GetComponent<BulletScript>().dmgPer = 3000;
 
                 skillBtn.interactable = false;
                 curSkillCool = 0;

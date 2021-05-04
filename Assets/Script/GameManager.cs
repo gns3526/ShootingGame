@@ -215,12 +215,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (SystemInfo.deviceType == DeviceType.Desktop) isAndroid = false;
         else if(SystemInfo.deviceType == DeviceType.Handheld) isAndroid = true;
 
-        isAndroid = true;
+        //isAndroid = true;
 
-        /*
+        
         if(isAndroid)
         Screen.SetResolution(Screen.width, Screen.width * 16 / 9, true);
-        else if(!isAndroid)*/
+        else if(!isAndroid)
         Screen.SetResolution(540, 960, false);
 
         spawnList = new List<Spawn>();
@@ -231,7 +231,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         epicSave = new List<GameObject>(epic);
         uniqueSave = new List<GameObject>(unique);
         legendarySave = new List<GameObject>(legendary);
-        //ReadSpawnFile();//적 스폰파일 읽기
 
         for (int i = 0; i < mapPointsText.Length; i++)
             mapPointsText[i].text = mapNames[i];

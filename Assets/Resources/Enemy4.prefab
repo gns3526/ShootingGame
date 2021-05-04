@@ -194,7 +194,7 @@ MonoBehaviour:
   stopCool: 0.2
   dashCool: 0.5
   canMove: 0
-  moveSpeed: 0.15
+  moveSpeed: 8
 --- !u!114 &-908712958210550795
 MonoBehaviour:
   m_ObjectHideFlags: 0
