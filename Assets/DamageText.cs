@@ -11,7 +11,7 @@ public class DamageText : MonoBehaviour
     [SerializeField] GameManager GM;
     [SerializeField] ObjectPooler objectManager;
 
-    [SerializeField] Text damage;
+    [SerializeField] Text damageText;
 
     [SerializeField] Color damageColor;
     [SerializeField] Color healColor;
@@ -19,39 +19,30 @@ public class DamageText : MonoBehaviour
 
     Color color;
 
+    [SerializeField] Font[] damageSkins;
+
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>();
         objectManager = GM.OP;
 
-        transform.parent = GameObject.Find("DamageDummy").gameObject.transform;
-
+        if(pv.IsMine)
+            transform.parent = GameObject.Find("MyDamageDummy").gameObject.transform;
+        else
+            transform.parent = GameObject.Find("OtherDamageDummy").gameObject.transform;
         gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
     }
 
     [PunRPC]
-    public void ChangeTextRPC(float damageAmount, int colornum, bool plus)
+    public void ChangeTextRPC(int damageAmount, int damageSkinCode, bool IsCritical)
     {
-        if (plus)
-        {
-            damage.text = "+" + damageAmount.ToString();
-        }
+        if (IsCritical)
+            damageText.color = criticalColor;
+
         else
-        {
-            damage.text = "-" + damageAmount.ToString();
-        }
-        if(colornum == 0)
-        {
-            damage.color = healColor;
-        }
-        else if(colornum == 1)
-        {
-            damage.color = damageColor;
-        }
-        else if(colornum == 2)
-        {
-            damage.color = criticalColor;
-        }
+            damageText.color = damageColor;
+        
+        damageText.font = damageSkins[damageSkinCode];
     }
 
     public void PoolDestroy()

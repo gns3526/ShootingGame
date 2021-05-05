@@ -43,6 +43,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>();
+        OP = GM.OP;
     }
     private void OnEnable()
     {
@@ -110,7 +111,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         if (pv.IsMine)
         {
-            transform.Translate(new Vector3(0, -bulletSpeed));
+            transform.Translate(new Vector3(0, -bulletSpeed * Time.deltaTime));
+
             bulletDestroyTime -= Time.deltaTime;
             if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);
             if (isFollowTarget && target != null)

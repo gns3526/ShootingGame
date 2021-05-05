@@ -99,7 +99,7 @@ public class PoolScript : MonoBehaviourPun
         }
         else if(bulletIndex == -4)
         {
-            //a , Num , DamageAmount , colorNum , isPlus
+            //a , Num , DamageAmount , DamageSkinCode , isCritical
 
             DamageText damageText = GetComponent<DamageText>();
 

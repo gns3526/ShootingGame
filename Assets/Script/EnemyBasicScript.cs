@@ -64,6 +64,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>().GetComponent<GameManager>();
+        OP = GM.OP;
     }
 
     private void Start()
