@@ -14,7 +14,7 @@ public class AbilityManager : MonoBehaviour
     [Header("Manager")]
     [SerializeField] GameManager GM;
     [SerializeField] ReinForceManager RFM;
-    [SerializeField] SpecialSkinManager specialSkinManager;
+    [SerializeField] ChallengeManager ChallengeManager;
 
     [SerializeField] GameObject abilityPanel;
 
@@ -565,7 +565,7 @@ public class AbilityManager : MonoBehaviour
         CanResetAbilityCheck();
 
         if (abilityGrade[0] == 1 && abilityGrade[1] == 1 && abilityGrade[2] == 1)
-            specialSkinManager.ChallengeClear(3);
+            ChallengeManager.ChallengeClear(3);
 
         SoundManager.Play("Btn_1");
     }

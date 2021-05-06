@@ -9,22 +9,22 @@ public class DamageText : MonoBehaviour
     public PhotonView pv;
 
     [SerializeField] GameManager GM;
-    [SerializeField] ObjectPooler objectManager;
+    ObjectPooler objectManager;
+    DamageTextManager dtm;
 
     [SerializeField] Text damageText;
 
-    [SerializeField] Color damageColor;
-    [SerializeField] Color healColor;
-    [SerializeField] Color criticalColor;
+
 
     Color color;
 
-    [SerializeField] Font[] damageSkins;
+    
 
     private void Awake()
     {
         GM = FindObjectOfType<GameManager>();
         objectManager = GM.OP;
+        dtm = GM.DTM;
 
         if(pv.IsMine)
             transform.parent = GameObject.Find("MyDamageDummy").gameObject.transform;
@@ -37,12 +37,12 @@ public class DamageText : MonoBehaviour
     public void ChangeTextRPC(int damageAmount, int damageSkinCode, bool IsCritical)
     {
         if (IsCritical)
-            damageText.color = criticalColor;
+            damageText.color = dtm.criticalColor;
 
         else
-            damageText.color = damageColor;
+            damageText.color = dtm.damageColor;
         
-        damageText.font = damageSkins[damageSkinCode];
+        damageText.font = dtm.damageSkins[damageSkinCode];
     }
 
     public void PoolDestroy()

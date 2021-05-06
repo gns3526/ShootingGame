@@ -69,7 +69,7 @@ public class JobManager : MonoBehaviour
     [SerializeField] float skillCoolD;
 
     [Header("Other")]
-    float skillCool;
+    [SerializeField] private float skillCool;
     public float curSkillCool;
 
     public void OnEnableSkill()

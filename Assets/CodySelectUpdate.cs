@@ -8,6 +8,7 @@ public class CodySelectUpdate : MonoBehaviour
     [SerializeField] GameManager gm;
     [SerializeField] NetworkManager nm;
     [SerializeField] JobManager jm;
+    [SerializeField] DamageTextManager dtm;
     [SerializeField] GameObject[] codys;
     [SerializeField] int codyTypeCode;
 
@@ -19,6 +20,11 @@ public class CodySelectUpdate : MonoBehaviour
     [SerializeField] string[] itemNames;
     [SerializeField] string[] itemInfos;
 
+    private void Awake()
+    {
+        dtm = gm.DTM;
+    }
+
 
     private void OnEnable()
     {
@@ -27,31 +33,38 @@ public class CodySelectUpdate : MonoBehaviour
 
         if (explainInfo)
         {
+            itemNameText.font = dtm.damageSkins[1];
+            itemNameText.color = Color.white;
             switch (codyTypeCode)
             {
                 case 0:
-                    itemNameText.text = itemNames[gm.codyMainCode];
+                    itemNameText.text = "\"" + itemNames[gm.codyMainCode] + "\"";
                     itemInfoText.text = itemInfos[gm.codyMainCode];
                     break;
                 case 1:
-                    itemNameText.text = itemNames[gm.codyBodyCode];
+                    itemNameText.text = "\"" + itemNames[gm.codyBodyCode] + "\"";
                     itemInfoText.text = itemInfos[gm.codyBodyCode];
                     break;
                 case 2:
-                    itemNameText.text = itemNames[gm.codyParticleCode];
+                    itemNameText.text = "\"" + itemNames[gm.codyParticleCode] + "\"";
                     itemInfoText.text = itemInfos[gm.codyParticleCode];
                     break;
                 case 3:
-                    itemNameText.text = itemNames[nm.playerIconCode];
+                    itemNameText.text = "\"" + itemNames[nm.playerIconCode] + "\"";
                     itemInfoText.text = itemInfos[nm.playerIconCode];
                     break;
                 case 4:
-                    itemNameText.text = itemNames[jm.jobCode];
+                    itemNameText.text = "\"" + itemNames[jm.jobCode] + "\"";
                     itemInfoText.text = itemInfos[jm.jobCode];
                     break;
+                case 5:
+                    itemNameText.font = dtm.damageSkins[dtm.damageSkinCode];
+                    itemNameText.color = dtm.damageColor;
+
+                    itemNameText.text = "\"" + "1234567890" + "\"";
+                    itemInfoText.text = itemInfos[dtm.damageSkinCode];
+                    break;
             }
-            
-            
         }
     }
 
@@ -66,6 +79,14 @@ public class CodySelectUpdate : MonoBehaviour
 
         if (explainInfo)
         {
+            itemNameText.color = Color.white;
+
+            if (codyTypeCode == 5)
+            {
+                itemNameText.font = dtm.damageSkins[index];
+                itemNameText.color = dtm.damageColor;
+            }
+
             itemNameText.text = "\"" + itemNames[index].ToString() + "\"";
             itemInfoText.text = itemInfos[index].ToString();
         }
@@ -94,6 +115,9 @@ public class CodySelectUpdate : MonoBehaviour
                     break;
                 case 4:
                     jm.jobCode = index;
+                    break;
+                case 5:
+                    dtm.damageSkinCode = index;
                     break;
             }
             Select();
@@ -132,6 +156,10 @@ public class CodySelectUpdate : MonoBehaviour
             case 4:
                 for (int i = 0; i < codys.Length; i++)
                     codys[i].transform.GetChild(2).gameObject.SetActive(jm.jobCode == i ? true : false);
+                break;
+            case 5:
+                for (int i = 0; i < codys.Length; i++)
+                    codys[i].transform.GetChild(2).gameObject.SetActive(dtm.damageSkinCode == i ? true : false);
                 break;
         }
         

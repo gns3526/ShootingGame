@@ -10116,7 +10116,7 @@ MonoBehaviour:
   petAttackSpeedPer: 0
   penetratePer: 30
   finalDamagePer: 0
-  skillCooldownPer: 0
+  skillCooldownPer: 100
   goldAmountPer: 0
   expAmountPer: 0
   gotSpecialWeaponAbility: 1

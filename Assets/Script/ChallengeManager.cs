@@ -3,7 +3,7 @@ using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class SpecialSkinManager : MonoBehaviour
+public class ChallengeManager : MonoBehaviour
 {
     public bool[] challenge;
     public Sprite[] challengeImage;

@@ -30,7 +30,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] ReinForceManager RM;
     [SerializeField] JobManager JM;
     [SerializeField] PlayerColorManager colorManager;
-    [SerializeField] SpecialSkinManager specialSkinManager;
+    [SerializeField] ChallengeManager challengeManager;
 
     [Header("Panel")]
     public GameObject loadingPanel;
@@ -323,7 +323,7 @@ public class GoogleSheetManager : MonoBehaviour
             GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
             RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5] + "." + JM.jobCode + "." +
-            specialSkinManager.challenge[0] + "." + specialSkinManager.challenge[1] + "." + specialSkinManager.challenge[2] + "." + specialSkinManager.challenge[3]);
+            challengeManager.challenge[0] + "." + challengeManager.challenge[1] + "." + challengeManager.challenge[2] + "." + challengeManager.challenge[3]);
         
         StartCoroutine(Post(form));
     }
@@ -411,12 +411,12 @@ public class GoogleSheetManager : MonoBehaviour
 
                 JM.jobCode = int.Parse(result[25]);
                 int index = 26;
-                for (int i = 0; i < specialSkinManager.challenge.Length; i++)
+                for (int i = 0; i < challengeManager.challenge.Length; i++)
                 {
                     if (result[index] == "True")
-                        specialSkinManager.challenge[i] = true;
+                        challengeManager.challenge[i] = true;
                     else
-                        specialSkinManager.challenge[i] = false;
+                        challengeManager.challenge[i] = false;
                     index++;
                 }
 

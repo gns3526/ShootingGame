@@ -7,7 +7,7 @@ public class ReinForceManager : MonoBehaviour
 {
     [Header("Manager")]
     [SerializeField] GameManager gm;
-    [SerializeField] SpecialSkinManager specialSkinManager;
+    [SerializeField] ChallengeManager challengeManager;
 
     public Player myplayerScript;
 
@@ -152,7 +152,7 @@ public class ReinForceManager : MonoBehaviour
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
 
         if (gm.plainLv == 100)
-            specialSkinManager.ChallengeClear(2);
+            challengeManager.ChallengeClear(2);
 
         CheckCanUpgrade();
 

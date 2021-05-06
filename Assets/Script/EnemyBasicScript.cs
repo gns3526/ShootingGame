@@ -33,6 +33,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     Player myPlayerScript;
     public GameManager GM;
     public ObjectPooler OP;
+    DamageTextManager dtm;
+
     Animator ani;
 
     BulletScript bulletScript;
@@ -65,6 +67,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     {
         GM = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         OP = GM.OP;
+        dtm = GM.DTM;
     }
 
     private void Start()
@@ -179,10 +182,15 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             pv.RPC(nameof(Hit), RpcTarget.All, finalDamage);
 
+
+            float randomPosX = Random.Range(-0.3f, 0.3f);
+            float randomPosY = Random.Range(-0.3f, 0.3f);
+            Vector2 damagePos = new Vector2(transform.position.x + randomPosX, transform.position.y + randomPosY);
+
             if (isCritical)
-                OP.PoolInstantiate("DamageText", transform.position, Quaternion.identity, -4 , (int)finalDamage, 2, false);
+                OP.PoolInstantiate("DamageText", damagePos, Quaternion.identity, -4 , (int)finalDamage, dtm.damageSkinCode, true);
             else
-                OP.PoolInstantiate("DamageText", transform.position, Quaternion.identity, -4 , (int)finalDamage, 1, false);
+                OP.PoolInstantiate("DamageText", damagePos, Quaternion.identity, -4 , (int)finalDamage, dtm.damageSkinCode, false);
 
             Debug.Log(myPlayerScript.damage + "+("+ myPlayerScript.damage + "* (" + myPlayerScript.increaseDamagePer + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
                      +"+ (" + myPlayerScript.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + petDamagePer + " / " + 100 + "))" );

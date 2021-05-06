@@ -18,8 +18,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Cards CM;
     [SerializeField] ReinForceManager RM;
     public JobManager jm;
+    public DamageTextManager DTM;
     public PlayerColorManager colorManager;
-    [SerializeField] SpecialSkinManager specialSkinManager;
+    public ChallengeManager challengeManager;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -115,7 +116,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Sprite[] lobbyCodyMainDummy;
     public ParticleSystem[] lobbyParticleDummy;
 
-    [SerializeField] CodySelectUpdate[] codySelectUpdate;
+    public CodySelectUpdate[] codySelectUpdate;
 
 
 
@@ -340,8 +341,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (stage > MaxStage)
         {
             FinalStageClear();
-            specialSkinManager.ChallengeClear(0);
-            specialSkinManager.ChallengeClear(1);
+            challengeManager.ChallengeClear(0);
+            challengeManager.ChallengeClear(1);
         }
         
         else
@@ -473,7 +474,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) Debug.Log(specialSkinManager.challenge[0]);
+        if (Input.GetKeyDown(KeyCode.K)) Debug.Log(challengeManager.challenge[0]);
 
 
             if (stopTime > 0)
@@ -994,7 +995,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (alivePlayers[0] == null)
         {
             GameOver();
-            specialSkinManager.ChallengeClear(0);
+            challengeManager.ChallengeClear(0);
         }
         else if(alivePlayers[0] && myplayer.GetComponent<Player>().isDie)
         {
@@ -1007,11 +1008,12 @@ public class GameManager : MonoBehaviourPunCallbacks
         SceneManager.LoadScene(0);
     }
 
-    public void CodyBodyPanelClick(int a)
+    public void CodyPanelClick(int a)
     {
         if(a == 0)
         {
             codyParticlePanel.SetActive(false);
+            DTM.damageSkinChangePanel.SetActive(false);
             codyBodyPanel.SetActive(true);
 
             codySelectUpdate[1].Select();
@@ -1020,9 +1022,19 @@ public class GameManager : MonoBehaviourPunCallbacks
         else if (a == 1)
         {
             codyBodyPanel.SetActive(false);
+            DTM.damageSkinChangePanel.SetActive(false);
             codyParticlePanel.SetActive(true);
 
             codySelectUpdate[2].Select();
+        }
+
+        else if (a == 2)
+        {
+            codyBodyPanel.SetActive(false);
+            codyParticlePanel.SetActive(false);
+            DTM.damageSkinChangePanel.SetActive(true);
+
+            codySelectUpdate[5].Select();
         }
 
         SoundManager.Play("Btn_2");
