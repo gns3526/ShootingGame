@@ -52,6 +52,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (animator != null)
            animator.SetBool("Start",true);
 
+        /*
         if (isPlayerAttack)
         {
             if (pv.IsMine)
@@ -75,7 +76,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
                 boxCol.enabled = true;
             else if (circleCol != null)
                 circleCol.enabled = true;
-        }
+        }*/
             
         once = true;
         Delay();

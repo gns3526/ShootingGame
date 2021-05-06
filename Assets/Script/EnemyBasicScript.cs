@@ -72,7 +72,6 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        if (!pv.IsMine) return;
         ani = GetComponent<Animator>();
         myPlayerScript = GM.myplayer.GetComponent<Player>();
     }
@@ -129,6 +128,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         else if (other.tag == "Bullet")
         {
             if (!other.GetComponent<BulletScript>().isPlayerAttack) return;
+
+            if (!other.GetComponent<PhotonView>().IsMine) return;
 
             if (godMode)
                 return;

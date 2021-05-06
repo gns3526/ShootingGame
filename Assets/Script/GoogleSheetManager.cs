@@ -17,7 +17,7 @@ public class GoogleData
 public class GoogleSheetManager : MonoBehaviour
 {
                         
-    const string URL = "https://script.google.com/macros/s/AKfycbxaC1XjUAVUiawK-XB90Afy3yP3oGoixy-0XAmmzF6KZrVarwNhdcPOPSJLEKnkSU9z/exec";
+    const string URL = "https://script.google.com/macros/s/AKfycbxA6JYIo1zR-591bjVCbxZjW-4BQkXpJ8A3LlHnWNhWX4jhUlQFxWSYHexoQZvz6PB9/exec";
     //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
@@ -31,6 +31,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] JobManager JM;
     [SerializeField] PlayerColorManager colorManager;
     [SerializeField] ChallengeManager challengeManager;
+    [SerializeField] DamageTextManager DTM;
 
     [Header("Panel")]
     public GameObject loadingPanel;
@@ -320,7 +321,7 @@ public class GoogleSheetManager : MonoBehaviour
         form.AddField("order", "setLv");
         form.AddField("playerNum", playernum);
         form.AddField("playerLv", NM.playerIconCode + "." + GM.playerLv + "." + GM.exp + "." + GM.maxExp + "." + GM.money + "." + GM.reinPoint + "." + GM.codyMainCode + "." + GM.codyBodyCode + "." +
-            GM.codyParticleCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
+            GM.codyParticleCode + "."+ DTM.damageSkinCode + "." + GM.abilityCode[0] + "." + GM.abilityCode[1] + "." + GM.abilityCode[2] + "." +
             GM.abilityValue[0] + "." + GM.abilityValue[1] + "." + GM.abilityValue[2] + "." + AM.abilityGrade[0] + "." + AM.abilityGrade[1] + "." + AM.abilityGrade[2] + "." + GM.plainLv + "." + 
             RM.upgradeInfo[0] + "." + RM.upgradeInfo[1] + "." + RM.upgradeInfo[2] + "." + RM.upgradeInfo[3] + "." + RM.upgradeInfo[4] + "." + RM.upgradeInfo[5] + "." + JM.jobCode + "." +
             challengeManager.challenge[0] + "." + challengeManager.challenge[1] + "." + challengeManager.challenge[2] + "." + challengeManager.challenge[3]);
@@ -388,29 +389,31 @@ public class GoogleSheetManager : MonoBehaviour
                 GM.codyBodyCode = int.Parse(result[7]);
                 GM.codyParticleCode = int.Parse(result[8]);
 
-                GM.abilityCode[0] = int.Parse(result[9]);
-                GM.abilityCode[1] = int.Parse(result[10]);
-                GM.abilityCode[2] = int.Parse(result[11]);
+                DTM.damageSkinCode = int.Parse(result[9]);
 
-                GM.abilityValue[0] = int.Parse(result[12]);
-                GM.abilityValue[1] = int.Parse(result[13]);
-                GM.abilityValue[2] = int.Parse(result[14]);
+                GM.abilityCode[0] = int.Parse(result[10]);
+                GM.abilityCode[1] = int.Parse(result[11]);
+                GM.abilityCode[2] = int.Parse(result[12]);
 
-                AM.abilityGrade[0] = int.Parse(result[15]);
-                AM.abilityGrade[1] = int.Parse(result[16]);
-                AM.abilityGrade[2] = int.Parse(result[17]);
+                GM.abilityValue[0] = int.Parse(result[13]);
+                GM.abilityValue[1] = int.Parse(result[14]);
+                GM.abilityValue[2] = int.Parse(result[15]);
 
-                GM.plainLv = int.Parse(result[18]);
+                AM.abilityGrade[0] = int.Parse(result[16]);
+                AM.abilityGrade[1] = int.Parse(result[17]);
+                AM.abilityGrade[2] = int.Parse(result[18]);
 
-                RM.upgradeInfo[0] = int.Parse(result[19]);
-                RM.upgradeInfo[1] = int.Parse(result[20]);
-                RM.upgradeInfo[2] = int.Parse(result[21]);
-                RM.upgradeInfo[3] = int.Parse(result[22]);
-                RM.upgradeInfo[4] = int.Parse(result[23]);
-                RM.upgradeInfo[5] = int.Parse(result[24]);
+                GM.plainLv = int.Parse(result[19]);
 
-                JM.jobCode = int.Parse(result[25]);
-                int index = 26;
+                RM.upgradeInfo[0] = int.Parse(result[20]);
+                RM.upgradeInfo[1] = int.Parse(result[21]);
+                RM.upgradeInfo[2] = int.Parse(result[22]);
+                RM.upgradeInfo[3] = int.Parse(result[23]);
+                RM.upgradeInfo[4] = int.Parse(result[24]);
+                RM.upgradeInfo[5] = int.Parse(result[25]);
+
+                JM.jobCode = int.Parse(result[26]);
+                int index = 27;
                 for (int i = 0; i < challengeManager.challenge.Length; i++)
                 {
                     if (result[index] == "True")

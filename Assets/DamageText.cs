@@ -26,10 +26,10 @@ public class DamageText : MonoBehaviour
         objectManager = GM.OP;
         dtm = GM.DTM;
 
-        if(pv.IsMine)
+        //if(pv.IsMine)
             transform.parent = GameObject.Find("MyDamageDummy").gameObject.transform;
-        else
-            transform.parent = GameObject.Find("OtherDamageDummy").gameObject.transform;
+        //else
+        //    transform.parent = GameObject.Find("OtherDamageDummy").gameObject.transform;
         gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
     }
 

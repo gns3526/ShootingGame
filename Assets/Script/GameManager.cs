@@ -869,11 +869,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(expGIveOnce)
         {
             
-            if(myplayerScript.expAmountPer == 100)
+            if(myplayerScript.expAmountPer == 0)
                 getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
             else
             {
-                float finalExpAmount = Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
+                float finalExpAmount = Mathf.Ceil(ExpAmount + (ExpAmount * (myplayerScript.expAmountPer / 100)));
                 float bonusExpAmount = finalExpAmount - ExpAmount;
                 getExpAmountText.text = "|Applying Ability|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
             }
@@ -898,13 +898,14 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator GiveGold(int GoldAmount)
     {
         yield return new WaitForSeconds(2);
-        if (myplayerScript.goldAmountPer == 100)
+        if (myplayerScript.goldAmountPer == 0)
             getGoldAmountText.text = "+" + GoldAmount.ToString() + "Gold";
         else
         {
-            float finalGoleAmount = Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
-            float bonusGoldAmount = finalGoleAmount - GoldAmount;
-            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoleAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
+            float finalGoldAmount = Mathf.Ceil(GoldAmount + (GoldAmount * (myplayerScript.goldAmountPer / 100)));
+
+            float bonusGoldAmount = finalGoldAmount - GoldAmount;
+            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoldAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
         }
         money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();
