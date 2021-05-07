@@ -14,18 +14,17 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     private void Start()
     {
-        if (pv.IsMine)
-        {
-            GM = FindObjectOfType<GameManager>();
-            player = GM.myplayer.GetComponent<Player>();
-        }
+        GM = FindObjectOfType<GameManager>();
+
+        //player = GM.myplayer.GetComponent<Player>();
+
     }
 
     private void OnTriggerEnter2D(Collider2D other)
     {
         if (other.tag == "Enemy")
         {
-            if (player == null) return;
+            if (!pv.IsMine) return;
 
             if (!player.canHit) return;
 
@@ -35,13 +34,24 @@ public class PlayerHitBoxScript : MonoBehaviour
         }
         else if(other.tag == "Bullet")
         {
-            if (player == null) return;
+            if (!pv.IsMine) return;
 
             if (!player.canHit) return;
 
             if (other.GetComponent<BulletScript>().isPlayerAttack) return;
 
             Hit();
+        }
+        else if (other.tag == "HealBullet")
+        {
+            if (!pv.IsMine) return;
+
+            if (other.GetComponent<PhotonView>().IsMine) return;
+
+            GM.OP.DamagePoolInstantiate("DamageText", transform.position, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
+
+            player.life++;
+            GM.UpdateLifeIcon(player.life);
         }
     }
 
@@ -59,6 +69,9 @@ public class PlayerHitBoxScript : MonoBehaviour
         player.canHit = false;
         player.GM.UpdateLifeIcon(player.life);
         player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+
+        if(GM.jm.jobCode == 4)
+        GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, true);
 
 
         if (player.life == 0)

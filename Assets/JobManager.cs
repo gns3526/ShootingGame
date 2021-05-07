@@ -9,6 +9,8 @@ public class JobManager : MonoBehaviour
     [SerializeField] ObjectPooler OP;
     [SerializeField] GameManager GM;
 
+    public Sprite[] jobIconDummy;
+
     public Player myplayerScript;
     public int jobCode;
     public Button skillBtn;
@@ -56,6 +58,7 @@ public class JobManager : MonoBehaviour
     float aC;
     float bC;
 
+    public int barrierAmount;
     public float skillCoolC;
     [SerializeField] float durationC;
 
@@ -67,6 +70,15 @@ public class JobManager : MonoBehaviour
     [SerializeField] float fireSpeedD;
 
     [SerializeField] float skillCoolD;
+
+    [Header("Class E")]
+    [SerializeField] int dmgE;
+    [SerializeField] int maxLifeE;
+    [SerializeField] int lifeE;
+    [SerializeField] int moveSpeedE;
+    [SerializeField] float fireSpeedE;
+
+    [SerializeField] float skillCoefficientE;
 
     [Header("Other")]
     [SerializeField] private float skillCool;
@@ -97,6 +109,10 @@ public class JobManager : MonoBehaviour
                 guageMaxUi.SetActive(true);
                 skillCool = skillCoolD;
                 break;
+            case 4:
+                SkillGuageEnable(true);
+                guageMaxUi.SetActive(true);
+                break;
         }
     }
 
@@ -110,7 +126,7 @@ public class JobManager : MonoBehaviour
 
     private void Update()
     {
-        if (curSkillCool < skillCool)
+        if (curSkillCool < skillCool && GM.isPlaying)
         {
             curSkillCool += Time.deltaTime * (myplayerScript.skillCooldownPer / 100);
 
@@ -167,6 +183,13 @@ public class JobManager : MonoBehaviour
                 myplayerScript.life = lifeD;
                 myplayerScript.moveSpeed = moveSpeedD;
                 myplayerScript.maxShotCoolTime = fireSpeedD;
+                break;
+            case 4:
+                myplayerScript.damage = dmgE;
+                myplayerScript.maxLife = maxLifeE;
+                myplayerScript.life = lifeE;
+                myplayerScript.moveSpeed = moveSpeedE;
+                myplayerScript.maxShotCoolTime = fireSpeedE;
                 break;
         }
     }
@@ -342,7 +365,7 @@ public class JobManager : MonoBehaviour
 
                 break;
             case 2:
-                myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = 5;
+                myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = barrierAmount;
                 myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
 
                 skillBtn.interactable = false;
@@ -355,6 +378,10 @@ public class JobManager : MonoBehaviour
                 laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
                 laserA.GetComponent<BulletScript>().dmgPer = 3000;
 
+                skillBtn.interactable = false;
+                curSkillCool = 0;
+                break;
+            case 4:
                 skillBtn.interactable = false;
                 curSkillCool = 0;
                 break;

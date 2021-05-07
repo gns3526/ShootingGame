@@ -477,7 +477,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (Input.GetKeyDown(KeyCode.K)) Debug.Log(challengeManager.challenge[0]);
 
 
-            if (stopTime > 0)
+        if (stopTime > 0)
         {
             stopTime -= Time.deltaTime;
             stop = true;

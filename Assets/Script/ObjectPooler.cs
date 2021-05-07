@@ -79,6 +79,25 @@ public class ObjectPooler : MonoBehaviourPun
         return curSpawnedOb;
     }
 
+    public GameObject DamagePoolInstantiate(string tag, Vector3 position, Quaternion rotation, int damageAmount, int damageColorCode, int damageSkinCode, bool isPlus)
+    {
+        if (!poolDictionary.ContainsKey(tag))
+        {
+            Debug.LogWarning($"Pool with tag {tag} doesn't excist");
+            return null;
+        }
+
+        curSpawnedOb = poolDictionary[tag].Dequeue();//Take out First as Num
+
+        curSpawnedOb.GetComponent<PhotonView>().RPC("DamagePoolRPC", RpcTarget.All, true, damageAmount, damageColorCode, damageSkinCode, isPlus);
+        curSpawnedOb.transform.position = position;
+        curSpawnedOb.transform.rotation = rotation;
+
+        poolDictionary[tag].Enqueue(curSpawnedOb);
+
+        return curSpawnedOb;
+    }
+
     public void PoolDestroy(GameObject obj)
     {
         obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, true);

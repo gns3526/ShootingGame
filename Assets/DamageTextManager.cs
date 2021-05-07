@@ -11,7 +11,6 @@ public class DamageTextManager : MonoBehaviour
     public GameObject damageSkinChangePanel;
 
     public Color damageColor;
-    public Color healColor;
     public Color criticalColor;
-
+    public Color healColor;
 }

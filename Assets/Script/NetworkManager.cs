@@ -371,16 +371,10 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
     [PunRPC]
-    void num(int index , int ssss)
+    void PlayerIcon(int playerIndex , int playerIconCode, int playerJobCode)
     {
-        if (0 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
-        else if (1 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
-        else if (2 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
-        else if (3 == index)
-            playerInfoGroup[index].GetComponent<Player_Icon>().image.sprite = icons[ssss];
+        playerInfoGroup[playerIndex].GetComponent<Player_Icon>().profileImage.sprite = icons[playerIconCode];
+        playerInfoGroup[playerIndex].GetComponent<Player_Icon>().jobImage.sprite = JM.jobIconDummy[playerJobCode];
     }
     
 
@@ -436,7 +430,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
                 {
                     playerInfoGroupInt = i;
-                    pv.RPC("num", RpcTarget.All, playerInfoGroupInt , playerIconCode);
+                    pv.RPC(nameof(PlayerIcon), RpcTarget.All, playerInfoGroupInt , playerIconCode, JM.jobCode);
                 }
             }
             else

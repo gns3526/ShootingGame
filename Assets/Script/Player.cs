@@ -410,6 +410,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     break;
             }
         }
+        
     }
 
     

@@ -97,16 +97,6 @@ public class PoolScript : MonoBehaviourPun
             petScript.maxShotCoolTime = petShotCool[bulletAniCode];
             petScript.bulletType = petBulletType[bulletAniCode];
         }
-        else if(bulletIndex == -4)
-        {
-            //a , Num , DamageAmount , DamageSkinCode , isCritical
-
-            DamageText damageText = GetComponent<DamageText>();
-
-            GetComponent<Text>().text = bulletAniCode.ToString();
-
-            damageText.pv.RPC(nameof(damageText.ChangeTextRPC), RpcTarget.All, bulletAniCode, bulletSpeedIndex, isPlayerAttack);
-        }
         gameObject.SetActive(true);
     }
 
@@ -131,5 +121,31 @@ public class PoolScript : MonoBehaviourPun
                 bs.bulletAniDelayCode = 4;
                 break;
         }
+    }
+
+    [PunRPC]
+    void DamagePoolRPC(bool a, int damageAmount, int damageColorCode, int damageSkinCode, bool isPlus)
+    {
+        if (!a)
+        {
+            gameObject.SetActive(false);
+            return;
+        }
+
+        DamageText damageText = GetComponent<DamageText>();
+
+        damageText.pv.RPC(nameof(damageText.ChangeTextRPC), RpcTarget.All, damageAmount, damageColorCode, damageSkinCode, isPlus);
+
+        gameObject.SetActive(true);
+    }
+
+    void DestroyObRPC()
+    {
+        GetComponent<PhotonView>().RPC(nameof(Destroy), RpcTarget.All);
+    }
+    [PunRPC]
+    void Destroy()
+    {
+        gameObject.SetActive(false);
     }
 }
