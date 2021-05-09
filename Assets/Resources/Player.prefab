@@ -10104,7 +10104,7 @@ MonoBehaviour:
   maxLife: 10
   score: 0
   moveSpeed: 100
-  power: 1
+  power: 3
   maxPower: 3
   damage: 3
   increaseDamagePer: 0

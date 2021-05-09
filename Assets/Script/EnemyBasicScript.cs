@@ -219,6 +219,14 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
         health -= Dmg;
 
+        if (GM.myplayerScript.pv.IsMine)
+        {
+            JobManager jm = GM.jm;
+            if (jm.jobCode == 4)
+                if (jm.curSkillCool < jm.skillCool)
+                    jm.curSkillCool += jm.skillCoefficientE;
+        }
+
         Debug.Log(Dmg);
         if (health <= 0)
         {
@@ -235,7 +243,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                 return;
             }
             
-            if (GM.pv.IsMine)
+            if (GM.myplayerScript.pv.IsMine)
             {
                 if (myPlayerScript.isAttackSpeedStack)
                 {

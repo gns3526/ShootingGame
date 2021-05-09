@@ -48,6 +48,8 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             if (other.GetComponent<PhotonView>().IsMine) return;
 
+            if (GM.jm.jobCode == 4) return;
+
             GM.OP.DamagePoolInstantiate("DamageText", transform.position, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
 
             player.life++;

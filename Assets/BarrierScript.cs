@@ -41,6 +41,7 @@ public class BarrierScript : MonoBehaviour
             circleCollider.enabled = false;
         }
     }
+
     private void OnDisable()
     {
         barrierCountText.enabled = false;

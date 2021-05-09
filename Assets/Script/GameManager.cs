@@ -44,6 +44,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public int gameScore;
     public Text scoreText;
     [SerializeField] Image[] lifeImage;
+    [SerializeField] Sprite[] lifeSprite;
     [SerializeField] Image[] boomImage;
 
     [SerializeField] Text clearScoreText;
@@ -692,11 +693,15 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         for (int i = 0; i < lifeImage.Length; i++)//끄기
         {
-            lifeImage[i].color = new Color(1, 1, 1, 0);
+            lifeImage[i].sprite = lifeSprite[0]; ;
         }
-        for (int i = 0; i < life; i++)
+        for (int i = 0; i < myplayerScript.maxLife; i++)
         {
-            lifeImage[i].color = new Color(1, 1, 1, 1);
+            lifeImage[i].sprite = lifeSprite[1];
+        }
+        for (int i = 0; i < myplayerScript.life; i++)
+        {
+            lifeImage[i].sprite = lifeSprite[2];
         }
     }
 

@@ -26,6 +26,10 @@ public class JobManager : MonoBehaviour
     [SerializeField] int moveSpeedA;
     [SerializeField] float fireSpeedA;
 
+    [SerializeField] int skillADamageAmount;
+    [SerializeField] int skillAatkSpeed;
+    [SerializeField] float skillCoolA;
+    [SerializeField] float durationA;
 
     [Header("Class B")]
     [SerializeField] int dmgB;
@@ -37,6 +41,7 @@ public class JobManager : MonoBehaviour
     public int starterPetAmountB;
     public bool skillBOn;
 
+    [SerializeField] float skillCoolB;
     [SerializeField] GameObject mobileSkillBPanel;
     public GameObject desktopSkillBPanel;
     public GameObject skillBPoint;
@@ -78,40 +83,45 @@ public class JobManager : MonoBehaviour
     [SerializeField] int moveSpeedE;
     [SerializeField] float fireSpeedE;
 
-    [SerializeField] float skillCoefficientE;
+    private bool shotBoolE;
+    [SerializeField] float maxSkillGuageE;
+    public float skillCoefficientE;
 
     [Header("Other")]
-    [SerializeField] private float skillCool;
+    public bool canUseSkill;
+    [SerializeField] private GameObject mobileSkillLockOb;
+    [SerializeField] private GameObject deskTopSkillLockOb;
+
+    public float skillCool;
     public float curSkillCool;
+    [SerializeField] float duration;
 
     public void OnEnableSkill()
     {
-        curSkillCool = 100;
-        
+        curSkillCool = 0;
+        duration = -1;
 
+        guageMaxUi.SetActive(false);
         switch (jobCode)
         {
             case 0:
                 SkillGuageEnable(false);
-                guageMaxUi.SetActive(false);
                 break;
             case 1:
-                SkillGuageEnable(false);
-                guageMaxUi.SetActive(false);
+                SkillGuageEnable(true);
+                skillCool = skillCoolB;
                 break;
             case 2:
                 SkillGuageEnable(true);
-                guageMaxUi.SetActive(true);
                 skillCool = skillCoolC;
                 break;
             case 3:
                 SkillGuageEnable(true);
-                guageMaxUi.SetActive(true);
                 skillCool = skillCoolD;
                 break;
             case 4:
                 SkillGuageEnable(true);
-                guageMaxUi.SetActive(true);
+                skillCool = maxSkillGuageE;
                 break;
         }
     }
@@ -126,8 +136,9 @@ public class JobManager : MonoBehaviour
 
     private void Update()
     {
-        if (curSkillCool < skillCool && GM.isPlaying)
+        if (curSkillCool < skillCool && duration < 0 && GM.isPlaying)
         {
+            if(jobCode != 4)
             curSkillCool += Time.deltaTime * (myplayerScript.skillCooldownPer / 100);
 
             if(GM.isAndroid)
@@ -135,12 +146,41 @@ public class JobManager : MonoBehaviour
             else
                 skillGuage_D.fillAmount = curSkillCool / skillCool;
 
-            if (curSkillCool > skillCool)
-            {
-                skillBtn.interactable = true;
-                myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All, false);
 
-                guageMaxUi.SetActive(true);
+        }
+        else if (curSkillCool > skillCool)
+        {
+            if (GM.isAndroid)
+                skillGuage_M.fillAmount = 1;
+            else
+                skillGuage_D.fillAmount = 1;
+            CanUseSkillUpdate(true);
+
+            guageMaxUi.SetActive(true);
+        }
+
+        else if(duration > 0)
+        {
+            duration -= Time.deltaTime;
+
+            switch (jobCode)
+            {
+                case 2:
+                    if (GM.isAndroid)
+                        skillGuage_M.fillAmount = duration / durationC;
+                    else
+                        skillGuage_D.fillAmount = duration / durationC;
+                    break;
+            }
+
+            if(duration < 0)
+            {
+                switch (jobCode)
+                {
+                    case 2:
+                        myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All, false);
+                        break;
+                }
             }
         }
     }
@@ -149,7 +189,7 @@ public class JobManager : MonoBehaviour
     {
         if (!myplayerScript.pv.IsMine) return;
 
-        skillBtn.interactable = true;
+        CanUseSkillUpdate(false);
         skillGuage_M.fillAmount = 1;
 
         skillBPoint.SetActive(false);
@@ -209,6 +249,9 @@ public class JobManager : MonoBehaviour
                 break;
             case 3:
                 ShotTypeD();
+                break;
+            case 4:
+                ShotTypeE();
                 break;
         }
     }
@@ -328,9 +371,114 @@ public class JobManager : MonoBehaviour
         laserA.GetComponent<BulletScript>().dmgPer = 100;
     }
 
+    void ShotTypeE()
+    {
+        if (shotBoolE)
+        {
+            shotBoolE = false;
+
+            switch (myplayerScript.power)
+            {
+                case 1:
+                    GameObject bullet1 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, -5), 0, -1, 7, true);
+                    bullet1.GetComponent<BulletScript>().dmgPer = 10;
+
+                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet2.GetComponent<BulletScript>().dmgPer = 10;
+
+                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, 5), 0, -1, 7, true);
+                    bullet3.GetComponent<BulletScript>().dmgPer = 10;
+                    break;
+                case 2:
+                    GameObject bullet4 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, -3), 0, -1, 7, true);
+                    bullet4.GetComponent<BulletScript>().dmgPer = 20;
+
+                    GameObject bullet5 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet5.GetComponent<BulletScript>().dmgPer = 20;
+
+                    GameObject bullet6 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, 3), 0, -1, 7, true);
+                    bullet6.GetComponent<BulletScript>().dmgPer = 20;
+                    break;
+                case 3:
+                    GameObject bullet7 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.4f, Quaternion.Euler(0, 0, -2), 0, -1, 7, true);
+                    bullet7.GetComponent<BulletScript>().dmgPer = 30;
+
+                    GameObject bullet8 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.1f, Quaternion.Euler(0, 0, -0.7f), 0, -1, 7, true);
+                    bullet8.GetComponent<BulletScript>().dmgPer = 30;
+
+                    GameObject bullet9 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.1f, Quaternion.Euler(0, 0, 0.7f), 0, -1, 7, true);
+                    bullet9.GetComponent<BulletScript>().dmgPer = 30;
+
+                    GameObject bullet10 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.4f, Quaternion.Euler(0, 0, 2), 0, -1, 7, true);
+                    bullet10.GetComponent<BulletScript>().dmgPer = 30;
+                    break;
+            }
+
+        }
+        else
+        {
+            shotBoolE = true;
+
+            switch (myplayerScript.power)
+            {
+                case 1:
+                    GameObject bullet1 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.15f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet1.GetComponent<BulletScript>().dmgPer = 10;
+
+                    GameObject bullet2 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.15f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet2.GetComponent<BulletScript>().dmgPer = 10;
+                    break;
+                case 2:
+                    GameObject bullet3 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet3.GetComponent<BulletScript>().dmgPer = 10;
+
+                    GameObject bullet4 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position                       , Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet4.GetComponent<BulletScript>().dmgPer = 10;
+
+                    GameObject bullet5 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet5.GetComponent<BulletScript>().dmgPer = 10;
+                    break;
+                case 3:
+                    GameObject bullet6 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.right * 0.3f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet6.GetComponent<BulletScript>().dmgPer = 20;
+
+                    GameObject bullet7 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position                       , Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet7.GetComponent<BulletScript>().dmgPer = 20;
+
+                    GameObject bullet8 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position + Vector3.left * 0.3f, Quaternion.Euler(0, 0, 0), 0, -1, 7, true);
+                    bullet8.GetComponent<BulletScript>().dmgPer = 20;
+                    break;
+            }
+
+        }
+
+        myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 1);
+    }
+
+
+    public void CanUseSkillUpdate(bool a)
+    {
+        canUseSkill = a;
+
+        if (a)
+        {
+            if (GM.isAndroid)
+                mobileSkillLockOb.SetActive(false);
+            else
+                deskTopSkillLockOb.SetActive(false);
+        }
+        else
+        {
+            if (GM.isAndroid)
+                mobileSkillLockOb.SetActive(true);
+            else
+                deskTopSkillLockOb.SetActive(true);
+        }
+    }
+
     public void SkillOnClick(bool active)
     {
-        if (curSkillCool < skillCool) return;
+        if (!canUseSkill) return;
 
         guageMaxUi.SetActive(false);
 
@@ -360,6 +508,9 @@ public class JobManager : MonoBehaviour
 
                     skillBPoint.SetActive(false);
 
+                    CanUseSkillUpdate(false);
+                    curSkillCool = 0;
+
                     SoundManager.Play("Btn_2");
                 }
 
@@ -368,7 +519,9 @@ public class JobManager : MonoBehaviour
                 myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = barrierAmount;
                 myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
 
-                skillBtn.interactable = false;
+                CanUseSkillUpdate(false);
+                duration = durationC;
+
                 curSkillCool = 0;
 
                 myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 7);
@@ -378,17 +531,26 @@ public class JobManager : MonoBehaviour
                 laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
                 laserA.GetComponent<BulletScript>().dmgPer = 3000;
 
-                skillBtn.interactable = false;
+                CanUseSkillUpdate(false);
                 curSkillCool = 0;
                 break;
             case 4:
-                skillBtn.interactable = false;
+                if (myplayerScript.life == myplayerScript.maxLife) return;
+
+                CanUseSkillUpdate(false);
                 curSkillCool = 0;
+
+                myplayerScript.life++;
+                GM.OP.DamagePoolInstantiate("DamageText", myplayerScript.transform.position + Vector3.up * 0.5f, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
+
+                GM.UpdateLifeIcon(myplayerScript.life);
                 break;
         }
     }
     public void SkillBOnClick()
     {
+        guageMaxUi.SetActive(false);
+
         skillBOn = true;
         Vector2 mousePos = Input.mousePosition;
         Vector2 transPos = Camera.main.ScreenToWorldPoint(mousePos);
@@ -399,6 +561,9 @@ public class JobManager : MonoBehaviour
             mobileSkillBPanel.SetActive(false);
         else if (!GM.isAndroid)
             desktopSkillBPanel.SetActive(false);
+
+        CanUseSkillUpdate(false);
+        curSkillCool = 0;
 
         SoundManager.Play("Btn_2");
     }

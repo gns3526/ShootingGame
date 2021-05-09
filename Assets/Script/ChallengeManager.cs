@@ -16,6 +16,11 @@ public class ChallengeManager : MonoBehaviour
 
     public List<int> achiveCode;
 
+    private void Start()
+    {
+        successPanel.SetActive(false);
+    }
+
     public void ChallengeClear(int index)
     {
         if (challenge[index]) return;
@@ -36,6 +41,7 @@ public class ChallengeManager : MonoBehaviour
             challenge[achiveCode[0]] = true;
             successPanel.transform.GetChild(0).GetComponent<Image>().sprite = challengeImage[achiveCode[0]];
             successPanel.transform.GetChild(2).GetComponent<Text>().text = challengeInfo[achiveCode[0]];
+            successPanel.SetActive(true);
 
             animator.SetTrigger("Active");
 
@@ -50,6 +56,7 @@ public class ChallengeManager : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(4);
+        successPanel.SetActive(false);
         Challenge();
     }
 }
