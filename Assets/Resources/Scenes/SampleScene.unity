@@ -16921,6 +16921,10 @@ MonoBehaviour:
   lifeA: 6
   moveSpeedA: 100
   fireSpeedA: 0.15
+  skillADamageAmount: 40
+  skillAatkSpeed: 40
+  skillCoolA: 8
+  durationA: 6
   dmgB: 2
   maxLifeB: 5
   lifeB: 5
@@ -52780,7 +52784,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBAA8\uB4E0\uD50C\uB798\uC774\uC5B4\uAC00 \uC624\uB79C\uC9C0\uBCD1\uC73C\uB85C
+  m_Text: "\uBAA8\uB4E0\uD50C\uB798\uC774\uC5B4\uAC00 \uC624\uB80C\uC9C0\uBCD1\uC73C\uB85C
     \uC4F0\uB7EC\uC84C\uB2E4\n"
 --- !u!222 &966037140
 CanvasRenderer:

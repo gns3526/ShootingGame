@@ -189,9 +189,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             Vector2 damagePos = new Vector2(transform.position.x + randomPosX, transform.position.y + randomPosY);
 
             if (isCritical)
-                OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 0, dtm.damageSkinCode, false);
-            else
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 1, dtm.damageSkinCode, false);
+            else
+                OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 0, dtm.damageSkinCode, false);
 
             Debug.Log(myPlayerScript.damage + "+("+ myPlayerScript.damage + "* (" + myPlayerScript.increaseDamagePer + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
                      +"+ (" + myPlayerScript.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + petDamagePer + " / " + 100 + "))" );

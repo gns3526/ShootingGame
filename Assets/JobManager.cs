@@ -105,7 +105,8 @@ public class JobManager : MonoBehaviour
         switch (jobCode)
         {
             case 0:
-                SkillGuageEnable(false);
+                SkillGuageEnable(true);
+                skillCool = skillCoolA;
                 break;
             case 1:
                 SkillGuageEnable(true);
@@ -163,20 +164,23 @@ public class JobManager : MonoBehaviour
         {
             duration -= Time.deltaTime;
 
-            switch (jobCode)
-            {
-                case 2:
-                    if (GM.isAndroid)
-                        skillGuage_M.fillAmount = duration / durationC;
-                    else
-                        skillGuage_D.fillAmount = duration / durationC;
-                    break;
-            }
 
+            if(jobCode == 0 || jobCode == 2)
+            {
+                if (GM.isAndroid)
+                    skillGuage_M.fillAmount = duration / durationC;
+                else
+                    skillGuage_D.fillAmount = duration / durationC;
+            }
             if(duration < 0)
             {
                 switch (jobCode)
                 {
+                    case 0:
+                        myplayerScript.increaseDamagePer -= skillADamageAmount;
+                        myplayerScript.attackSpeedPer -= skillAatkSpeed;
+                        break;
+
                     case 2:
                         myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All, false);
                         break;
@@ -485,7 +489,14 @@ public class JobManager : MonoBehaviour
         switch (jobCode)
         {
             case 0:
+                myplayerScript.increaseDamagePer += skillADamageAmount;
+                myplayerScript.attackSpeedPer += skillAatkSpeed;
+                
+                myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, (float)2);
 
+                CanUseSkillUpdate(false);
+                duration = durationA;
+                curSkillCool = 0;
                 break;
             case 1:
                 if (active)
