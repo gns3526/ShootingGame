@@ -52,6 +52,17 @@ public class ObjectPooler : MonoBehaviourPun
                     bulletScript.OP = OP;
                 }
 
+                else if (curSpawnedOb.tag == "Barrier")
+                {
+                    BarrierScript barrier = curSpawnedOb.GetComponent<BarrierScript>();
+
+                    barrier.gm = gameManager;
+                    barrier.op = OP;
+                    barrier.myPlayerScript = networkManager.myPlayer.GetComponent<Player>();
+
+                    Debug.Log("방벽");
+                }
+
                 curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, true);
                 objectPool.Enqueue(curSpawnedOb);
             }

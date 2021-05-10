@@ -12508,6 +12508,10 @@ MonoBehaviour:
     prefab: {fileID: 1676223660689767346, guid: 485909d526cae9d4e8b425b179cb258d,
       type: 3}
     size: 2
+  - tag: SkillC
+    prefab: {fileID: 8377985261826265399, guid: 0fb94339855b36a4fb8edf4a23c2d87b,
+      type: 3}
+    size: 1
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
@@ -16948,9 +16952,9 @@ MonoBehaviour:
   bulletSpreadC2: 12
   bulletAmountC3: 30
   bulletSpreadC3: 9
-  barrierAmount: 10
-  skillCoolC: 10
-  durationC: 5
+  barrierAmountC: 10
+  barrierDuractionC: 9
+  skillCoolC: 13
   dmgD: 4
   maxLifeD: 4
   lifeD: 4

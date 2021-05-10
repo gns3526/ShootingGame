@@ -6,28 +6,25 @@ using Photon.Pun;
 
 public class BarrierScript : MonoBehaviour
 {
-    [SerializeField] Player playerScript;
+    public Player myPlayerScript;
 
-    ObjectPooler op;
-    JobManager jm;
+    public GameManager gm;
+    public ObjectPooler op;
 
     [SerializeField] Text barrierCountText;
 
     public int barrierCount;
+    public float duraction;
 
     public PhotonView pv;
     [SerializeField] CircleCollider2D circleCollider;
 
-    private void Start()
-    {
-        op = playerScript.OP;
-        jm = playerScript.JM;
-        gameObject.SetActive(false);
-    }
+    bool active;
 
-    private void OnEnable()
+    public void BarrierActive()
     {
-        if (playerScript.pv.IsMine)
+
+        if (myPlayerScript.pv.IsMine)
         {
             barrierCountText.text = barrierCount.ToString();
             barrierCountText.enabled = true;
@@ -40,6 +37,8 @@ public class BarrierScript : MonoBehaviour
         {
             circleCollider.enabled = false;
         }
+
+        active = true;
     }
 
     private void OnDisable()
@@ -49,7 +48,7 @@ public class BarrierScript : MonoBehaviour
 
     private void OnTriggerEnter2D(Collider2D other)
     {
-        if (!playerScript.pv.IsMine) return;
+        if (!myPlayerScript.pv.IsMine) return;
 
         if (other.tag == "Bullet" && !other.GetComponent<BulletScript>().isPlayerAttack)
         {
@@ -59,6 +58,19 @@ public class BarrierScript : MonoBehaviour
             if (barrierCount == 0)
                 pv.RPC(nameof(BarrierOn), RpcTarget.All, false);
         }
+    }
+
+    private void Update()
+    {
+        if (myPlayerScript != null && duraction > 0 && active)
+        {
+            duraction -= Time.deltaTime;
+            gameObject.transform.position = myPlayerScript.transform.position;
+
+            if(duraction < 0)
+                op.PoolDestroy(gameObject);
+        }
+            
     }
 
     [PunRPC]

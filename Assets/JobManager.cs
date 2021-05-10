@@ -63,9 +63,9 @@ public class JobManager : MonoBehaviour
     float aC;
     float bC;
 
-    public int barrierAmount;
+    public int barrierAmountC;
+    public int barrierDuractionC;
     public float skillCoolC;
-    [SerializeField] float durationC;
 
     [Header("Class D")]
     [SerializeField] int dmgD;
@@ -165,12 +165,12 @@ public class JobManager : MonoBehaviour
             duration -= Time.deltaTime;
 
 
-            if(jobCode == 0 || jobCode == 2)
+            if(jobCode == 0)
             {
                 if (GM.isAndroid)
-                    skillGuage_M.fillAmount = duration / durationC;
+                    skillGuage_M.fillAmount = duration / durationA;
                 else
-                    skillGuage_D.fillAmount = duration / durationC;
+                    skillGuage_D.fillAmount = duration / durationA;
             }
             if(duration < 0)
             {
@@ -527,11 +527,15 @@ public class JobManager : MonoBehaviour
 
                 break;
             case 2:
-                myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = barrierAmount;
-                myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
+                //myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = barrierAmount;
+                //myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
+                BarrierScript barrier = OP.PoolInstantiate("SkillC", myplayerScript.gameObject.transform.position ,Quaternion.identity, -2, -1, -1, true).GetComponent<BarrierScript>();
+                barrier.barrierCount = barrierAmountC;
+                barrier.duraction = barrierDuractionC;
+
+                barrier.BarrierActive();
 
                 CanUseSkillUpdate(false);
-                duration = durationC;
 
                 curSkillCool = 0;
 
