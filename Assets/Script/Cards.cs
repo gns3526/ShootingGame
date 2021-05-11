@@ -100,6 +100,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             case 19:
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 1;
+                myPlayerScript.weaponDmg = 20;
                 myPlayerScript.toTalChargeTime = 2;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;

@@ -333,11 +333,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC1; i++)
                 {
                     GameObject bullet1 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet1.GetComponent<BulletScript>().dmgPer = 50;
+                    bullet1.GetComponent<BulletScript>().dmgPer = 0;
                     bC += aC;
                 }
                 GameObject bullet2 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet2.GetComponent<BulletScript>().dmgPer = 50;
+                bullet2.GetComponent<BulletScript>().dmgPer = 0;
                 break;
             case 2:
                 aC = bulletSpreadC2 * 2 / bulletAmountC2;
@@ -345,11 +345,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC2; i++)
                 {
                     GameObject bullet3 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet3.GetComponent<BulletScript>().dmgPer = 60;
+                    bullet3.GetComponent<BulletScript>().dmgPer = 10;
                     bC += aC;
                 }
                 GameObject bullet4 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet4.GetComponent<BulletScript>().dmgPer = 60;
+                bullet4.GetComponent<BulletScript>().dmgPer = 10;
                 break;
             case 3:
                 aC = bulletSpreadC3 * 2 / bulletAmountC3;
@@ -357,11 +357,11 @@ public class JobManager : MonoBehaviour
                 for (int i = 0; i < bulletAmountC3; i++)
                 {
                     GameObject bullet5 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                    bullet5.GetComponent<BulletScript>().dmgPer = 75;
+                    bullet5.GetComponent<BulletScript>().dmgPer = 20;
                     bC += aC;
                 }
                 GameObject bullet6 = OP.PoolInstantiate("BulletBasic", myplayerScript.transform.position, Quaternion.Euler(0, 0, bC), 0, -1, 7, true);
-                bullet6.GetComponent<BulletScript>().dmgPer = 75;
+                bullet6.GetComponent<BulletScript>().dmgPer = 20;
                 break;
 
         }
@@ -492,7 +492,7 @@ public class JobManager : MonoBehaviour
                 myplayerScript.increaseDamagePer += skillADamageAmount;
                 myplayerScript.attackSpeedPer += skillAatkSpeed;
                 
-                myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, (float)2);
+                myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, 0.5f);
 
                 CanUseSkillUpdate(false);
                 duration = durationA;

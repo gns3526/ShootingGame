@@ -139,7 +139,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             bool ispetAttack = bulletScript.ispetAttack;
             float petPenalty = 1;
-            float petDamagePer = 100;
+            float petDamagePer = 0;
 
             bool isCritical;
 
@@ -157,6 +157,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             normalBulletDmg = myPlayerScript.damage + (myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100)) + (myPlayerScript.damage * (bulletScript.dmgPer / 100))
                      + (myPlayerScript.damage * (myPlayerScript.damageStack / 100)) + (myPlayerScript.damage * (petDamagePer / 100));
 
+            normalBulletDmg += bulletScript.dmg;
 
             if (myPlayerScript.criticalPer > randomNum)
             {
@@ -195,7 +196,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             Debug.Log(myPlayerScript.damage + "+("+ myPlayerScript.damage + "* (" + myPlayerScript.increaseDamagePer + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
                      +"+ (" + myPlayerScript.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + petDamagePer + " / " + 100 + "))" );
-            Debug.Log(myPlayerScript.damage + ","+myPlayerScript.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + myPlayerScript.petDamagePer);
+            Debug.Log(myPlayerScript.damage + ","+myPlayerScript.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + myPlayerScript.petDamagePer + "," + bulletScript.dmg);
             Debug.Log("데미지 = "+ normalBulletDmg);
         }
     }

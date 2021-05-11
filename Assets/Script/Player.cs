@@ -42,6 +42,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool gotSpecialWeaponAbility;
     public int weaponCode;
+    public int weaponDmg;
     public float toTalChargeTime;
     public float curChargeTime;
     public int curBulletAmount;
@@ -333,8 +334,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
-                GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true);
-                bullet.GetComponent<BulletScript>().dmgPer = 300;
+                BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true).GetComponent<BulletScript>();
+                bullet.dmg = weaponDmg;
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
 

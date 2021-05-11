@@ -147,6 +147,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   isSpecialBullet: 0
   dmgPer: 0
+  dmg: 0
   bulletSpeed: 0
   maxBulletDestroyTime: 15
   isPlayerAttack: 0

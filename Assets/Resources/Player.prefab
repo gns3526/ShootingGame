@@ -10123,6 +10123,7 @@ MonoBehaviour:
   expAmountPer: 0
   gotSpecialWeaponAbility: 1
   weaponCode: 1
+  weaponDmg: 20
   toTalChargeTime: 2
   curChargeTime: 2
   curBulletAmount: 0

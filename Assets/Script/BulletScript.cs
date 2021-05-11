@@ -8,6 +8,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
 {
     public bool isSpecialBullet;
     public int dmgPer;
+    public float dmg;
     public float bulletSpeed;
     [SerializeField] float maxBulletDestroyTime;
     float bulletDestroyTime;
@@ -52,6 +53,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (animator != null)
            animator.SetBool("Start",true);
 
+        dmg = 0;
+        bulletSpeed = 0;
+        dmgPer = 0;
         /*
         if (isPlayerAttack)
         {
@@ -77,7 +81,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
             else if (circleCol != null)
                 circleCol.enabled = true;
         }*/
-            
+
         once = true;
         Delay();
     }
@@ -95,7 +99,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
             boxCol.offset = new Vector2(0.01f, 0.01f);
         }
         curPosPv = new Vector3(16, 16, 0);
-        bulletSpeed = 0;
+
         isBossBullet = false;
 
         if (animator != null)
