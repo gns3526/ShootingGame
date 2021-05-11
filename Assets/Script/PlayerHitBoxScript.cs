@@ -6,7 +6,7 @@ using Photon.Realtime;
 
 public class PlayerHitBoxScript : MonoBehaviour
 {
-    [SerializeField] Player player;
+    [SerializeField] Player myPlayerScript;
     [SerializeField] Animator playerAni;
 
     [SerializeField] PhotonView pv;
@@ -26,7 +26,7 @@ public class PlayerHitBoxScript : MonoBehaviour
         {
             if (!pv.IsMine) return;
 
-            if (!player.canHit) return;
+            if (!myPlayerScript.canHit) return;
 
             if (other.GetComponent<EnemyBasicScript>().isPassingNodamage) return;
 
@@ -36,7 +36,7 @@ public class PlayerHitBoxScript : MonoBehaviour
         {
             if (!pv.IsMine) return;
 
-            if (!player.canHit) return;
+            if (!myPlayerScript.canHit) return;
 
             if (other.GetComponent<BulletScript>().isPlayerAttack) return;
 
@@ -52,38 +52,37 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             GM.OP.DamagePoolInstantiate("DamageText", transform.position, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
 
-            player.life++;
-            GM.UpdateLifeIcon(player.life);
+            myPlayerScript.life++;
+            GM.UpdateLifeIcon(myPlayerScript.life);
         }
     }
 
     void Hit()
     {
         int randomNum = Random.Range(0, 101);
-        if (player.missPercentage > randomNum)
+        if (myPlayerScript.missPercentage > randomNum)
         {
             StartCoroutine(GodTime());
-            player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+            myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
             return;
         }
 
-        player.life--;
-        player.canHit = false;
-        player.GM.UpdateLifeIcon(player.life);
-        player.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+        myPlayerScript.life--;
+        myPlayerScript.canHit = false;
+        myPlayerScript.GM.UpdateLifeIcon(myPlayerScript.life);
+        myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
 
-        if(GM.jm.jobCode == 4)
+        if(GM.jm.jobCode == 4 && !myPlayerScript.isDie)
         GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, true);
 
-
-        if (player.life == 0)
+        if (myPlayerScript.life == 0)
         {
             pv.RPC("PlayerIsDie", RpcTarget.All);
             GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
         }
         else
         {
-            player.GM.StartCoroutine("ReSpawnM");
+            myPlayerScript.GM.StartCoroutine("ReSpawnM");
         }
         StartCoroutine(GodTime());
     }
@@ -92,9 +91,9 @@ public class PlayerHitBoxScript : MonoBehaviour
     IEnumerator GodTime()
     {
         playerAni.SetBool("GodOn", true);
-        yield return new WaitForSeconds(player.godTime);
+        yield return new WaitForSeconds(myPlayerScript.godTime);
         playerAni.SetBool("GodOn", false);
-        player.canHit = true;
+        myPlayerScript.canHit = true;
     }
 
 }

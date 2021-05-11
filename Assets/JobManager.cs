@@ -28,6 +28,7 @@ public class JobManager : MonoBehaviour
 
     [SerializeField] int skillADamageAmount;
     [SerializeField] int skillAatkSpeed;
+    [SerializeField] int skillACriticalPer;
     [SerializeField] float skillCoolA;
     [SerializeField] float durationA;
 
@@ -179,6 +180,9 @@ public class JobManager : MonoBehaviour
                     case 0:
                         myplayerScript.increaseDamagePer -= skillADamageAmount;
                         myplayerScript.attackSpeedPer -= skillAatkSpeed;
+                        myplayerScript.criticalPer -= skillACriticalPer;
+
+                        myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, false, 0, (float)0);
                         break;
 
                     case 2:
@@ -491,8 +495,9 @@ public class JobManager : MonoBehaviour
             case 0:
                 myplayerScript.increaseDamagePer += skillADamageAmount;
                 myplayerScript.attackSpeedPer += skillAatkSpeed;
+                myplayerScript.criticalPer += skillACriticalPer;
                 
-                myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, 0.5f);
+                myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, (float)0);
 
                 CanUseSkillUpdate(false);
                 duration = durationA;

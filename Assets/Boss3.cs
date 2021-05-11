@@ -59,7 +59,7 @@ public class Boss3 : MonoBehaviour
     private void Update()
     {
         if (canMove)
-            transform.Translate(new Vector2(0, -moveSpeed));
+            transform.Translate(new Vector2(0, -moveSpeed * Time.deltaTime));
     }
     public void SearchPlayer()
     {

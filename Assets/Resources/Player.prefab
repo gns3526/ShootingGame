@@ -151,7 +151,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 4da98e7ed38851845a89ad286dfcb861, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  player: {fileID: 3941946227140826628}
+  myPlayerScript: {fileID: 3941946227140826628}
   playerAni: {fileID: 3941946227140826655}
   pv: {fileID: -8026742147984905641}
 --- !u!50 &6770348892743492470
@@ -10113,9 +10113,9 @@ MonoBehaviour:
   bossDamagePer: 0
   normalMonsterDamagePer: 0
   criticalPer: 25
-  criticalDamagePer: 100
+  criticalDamagePer: 75
   petDamagePer: 0
-  petAttackSpeedPer: 100
+  petAttackSpeedPer: 0
   penetratePer: 30
   finalDamagePer: 0
   skillCooldownPer: 100
@@ -15312,7 +15312,7 @@ ParticleSystem:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 6837412671991761598}
   serializedVersion: 6
-  lengthInSec: 0.05
+  lengthInSec: 0.57
   simulationSpeed: 1
   stopAction: 0
   cullingMode: 0
@@ -15387,7 +15387,7 @@ ParticleSystem:
     startLifetime:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 3.09
+      scalar: 0.77
       minScalar: 5
       maxCurve:
         serializedVersion: 2
@@ -15556,7 +15556,7 @@ ParticleSystem:
     startSize:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.64
+      scalar: 0.28
       minScalar: 1
       maxCurve:
         serializedVersion: 2
@@ -17455,7 +17455,7 @@ ParticleSystem:
     y:
       serializedVersion: 2
       minMaxState: 0
-      scalar: 0.4
+      scalar: 2.09
       minScalar: 0
       maxCurve:
         serializedVersion: 2

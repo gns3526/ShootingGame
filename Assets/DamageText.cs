@@ -52,6 +52,9 @@ public class DamageText : MonoBehaviour
             case 2:
                 damageText.color = dtm.healColor;
                 break;
+            case 3:
+                damageText.color = dtm.weaponColor;
+                break;
         }
 
         damageText.font = dtm.damageSkins[damageSkinCode];

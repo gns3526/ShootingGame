@@ -79,30 +79,30 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        healthImage.fillAmount = health / maxHealth;
-
         if (PhotonNetwork.IsMasterClient)
         {
             if (!GM.isPlaying)
             {
-                //pv.RPC("Hit", RpcTarget.All, 10000f);
-                //Hit(10000);
                 OP.PoolDestroy(gameObject);
+            }
+            if (reVive)
+            {
+                healthImage.fillAmount += 0.01f;
+                Debug.Log("재생");
+                if (healthImage.fillAmount == 1)
+                {
+                    GM.allBulletDelete = false;
+                    canFire = true;
+                    health = maxHealth;
+                    reVive = false;
+                    pv.RPC(nameof(GodModeRPC), RpcTarget.All, false);
+
+                    patternIndex += 1;
+                }
             }
         }
 
-        if (reVive)
-        {
-            healthImage.fillAmount += 0.01f;
-            if(healthImage.fillAmount == 1)
-            {
-                GM.allBulletDelete = false;
-                canFire = true;
-                health = maxHealth;
-                reVive = false;
-                pv.RPC(nameof(GodModeRPC), RpcTarget.All, false);
-            }
-        }
+        
 
         if (!pv.IsMine)
         {
@@ -191,6 +191,8 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (isCritical)
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 1, dtm.damageSkinCode, false);
+            else if(bulletScript.dmg > 0)
+                OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 3, dtm.damageSkinCode, false);
             else
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 0, dtm.damageSkinCode, false);
 
@@ -213,7 +215,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         if (health <= 0)
             return;
 
-        
+        healthImage.fillAmount = health / maxHealth;
 
         spriteRendererEnemy.sprite = sprites[1];
         Invoke("ReturnSprite", 0.1f);
@@ -236,11 +238,13 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             if (isBoss && patternIndex < maxPattern)
             {
                 if (PhotonNetwork.IsMasterClient)
+                {
                     GM.allBulletDelete = true;
-                pv.RPC(nameof(GodModeRPC), RpcTarget.All, true);
-                canFire = false;
-                reVive = true;
-                patternIndex += 1;
+                    pv.RPC(nameof(GodModeRPC), RpcTarget.All, true);
+                    canFire = false;
+                    reVive = true;
+                    
+                }
                 return;
             }
             

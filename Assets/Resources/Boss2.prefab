@@ -225,9 +225,8 @@ SpriteRenderer:
   m_SortingLayerID: 0
   m_SortingLayer: 0
   m_SortingOrder: 0
-  m_Sprite: {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7,
-    type: 3}
-  m_Color: {r: 0, g: 0.6028013, b: 1, a: 1}
+  m_Sprite: {fileID: 21300000, guid: 884138d3ad0a3e2448268d28c900d8d4, type: 3}
+  m_Color: {r: 1, g: 0.3160377, b: 0.895634, a: 1}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -383,7 +382,7 @@ MonoBehaviour:
   - 0.5
   stopCool: 2.5
   canMove: 0
-  moveSpeed: 0.02
+  moveSpeed: 1
 --- !u!114 &3783629525877620195
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -406,8 +405,8 @@ MonoBehaviour:
   patternIndex: 0
   maxPattern: 3
   reVive: 0
-  health: 1
-  maxHealth: 1000
+  health: 10000
+  maxHealth: 10000
   sprites:
   - {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}
   - {fileID: 1455800853001472315, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}

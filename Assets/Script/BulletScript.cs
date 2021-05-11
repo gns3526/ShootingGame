@@ -53,9 +53,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         if (animator != null)
            animator.SetBool("Start",true);
 
-        dmg = 0;
-        bulletSpeed = 0;
-        dmgPer = 0;
+
         /*
         if (isPlayerAttack)
         {
@@ -110,6 +108,15 @@ public class BulletScript : MonoBehaviour, IPunObservable
             for (int i = 0; i < bulletAniSprites.Length; i++)
                 bulletAniSprites[i] = null;
         bulletAniDelayCode = 0;
+    }
+
+    IEnumerator BulletResetInfoDelay()
+    {
+        yield return new WaitForSeconds(0.1f);
+
+        dmg = 0;
+        bulletSpeed = 0;
+        dmgPer = 0;
     }
 
     private void Update()

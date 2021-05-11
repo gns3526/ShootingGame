@@ -16927,6 +16927,7 @@ MonoBehaviour:
   fireSpeedA: 0.15
   skillADamageAmount: 40
   skillAatkSpeed: 40
+  skillACriticalPer: 100
   skillCoolA: 8
   durationA: 6
   dmgB: 2
@@ -29050,9 +29051,10 @@ MonoBehaviour:
   - {fileID: 12800000, guid: e00995507c2406448b4c8429136104dd, type: 3}
   - {fileID: 12800000, guid: 495c9e2a934bcc640a8d7427b13cb680, type: 3}
   damageSkinChangePanel: {fileID: 461842688}
-  damageColor: {r: 1, g: 0.6084906, b: 0.6084906, a: 1}
-  criticalColor: {r: 1, g: 0.23113209, b: 0.23113209, a: 1}
-  healColor: {r: 0.60413706, g: 1, b: 0.5235849, a: 1}
+  damageColor: {r: 1, g: 1, b: 1, a: 1}
+  criticalColor: {r: 1, g: 0, b: 0, a: 1}
+  healColor: {r: 0.16528928, g: 1, b: 0, a: 1}
+  weaponColor: {r: 0.6320754, g: 0, b: 0.44447052, a: 1}
 --- !u!4 &613779016
 Transform:
   m_ObjectHideFlags: 0

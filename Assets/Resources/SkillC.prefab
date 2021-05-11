@@ -193,6 +193,7 @@ GameObject:
   - component: {fileID: 1360561677173146007}
   - component: {fileID: -4531136848593655310}
   - component: {fileID: 4346611896781136360}
+  - component: {fileID: 4174127216599355073}
   m_Layer: 0
   m_Name: SkillC
   m_TagString: Barrier
@@ -253,7 +254,7 @@ SpriteRenderer:
   m_SortingLayer: 0
   m_SortingOrder: 0
   m_Sprite: {fileID: 21300000, guid: 6c581ef689180264c8868e38aacae70c, type: 3}
-  m_Color: {r: 1, g: 1, b: 1, a: 1}
+  m_Color: {r: 1, g: 1, b: 1, a: 0.7764706}
   m_FlipX: 0
   m_FlipY: 0
   m_DrawMode: 0
@@ -299,6 +300,8 @@ MonoBehaviour:
   duraction: 0
   pv: {fileID: 1360561677173146007}
   circleCollider: {fileID: 2512519020957633479}
+  barrierHitAni: {fileID: 4174127216599355073}
+  curPosPv: {x: 0, y: 0, z: 0}
 --- !u!114 &1360561677173146007
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -318,6 +321,7 @@ MonoBehaviour:
   Synchronization: 3
   OwnershipTransfer: 0
   ObservedComponents:
+  - {fileID: 6460591502960305859}
   - {fileID: -4531136848593655310}
   viewIdField: 0
   InstantiationId: 0
@@ -382,3 +386,22 @@ MonoBehaviour:
   petSprite: []
   petShotCool: []
   petBulletType: 
+--- !u!95 &4174127216599355073
+Animator:
+  serializedVersion: 3
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8377985261826265399}
+  m_Enabled: 1
+  m_Avatar: {fileID: 0}
+  m_Controller: {fileID: 9100000, guid: 9306a35c39c22f145888f5c050e9cbf7, type: 2}
+  m_CullingMode: 0
+  m_UpdateMode: 0
+  m_ApplyRootMotion: 0
+  m_LinearVelocityBlending: 0
+  m_WarningMessage: 
+  m_HasTransformHierarchy: 1
+  m_AllowConstantClipSamplingOptimization: 1
+  m_KeepAnimatorControllerStateOnDisable: 0

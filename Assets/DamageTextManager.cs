@@ -13,4 +13,5 @@ public class DamageTextManager : MonoBehaviour
     public Color damageColor;
     public Color criticalColor;
     public Color healColor;
+    public Color weaponColor;
 }

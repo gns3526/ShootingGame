@@ -427,7 +427,7 @@ MonoBehaviour:
   - 1
   stopCool: 2.5
   canMove: 0
-  moveSpeed: 0.02
+  moveSpeed: 1
   bulletAniDelay: 000000000000000003000000
   bulletAni1:
   - {fileID: 21300000, guid: 30515ff529bef7c458206556f4795de4, type: 3}
