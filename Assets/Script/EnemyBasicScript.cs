@@ -189,7 +189,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             float randomPosY = Random.Range(-0.3f, 0.3f);
             Vector2 damagePos = new Vector2(transform.position.x + randomPosX, transform.position.y + randomPosY);
 
-            if (isCritical)
+            if (isCritical && bulletScript.dmg == 0)
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 1, dtm.damageSkinCode, false);
             else if(!isCritical && bulletScript.dmg > 0)
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 3, dtm.damageSkinCode, false);

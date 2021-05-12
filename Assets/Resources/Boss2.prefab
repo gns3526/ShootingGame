@@ -405,8 +405,8 @@ MonoBehaviour:
   patternIndex: 0
   maxPattern: 3
   reVive: 0
-  health: 10000
-  maxHealth: 10000
+  health: 1000
+  maxHealth: 1000
   sprites:
   - {fileID: -1947097705129849200, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}
   - {fileID: 1455800853001472315, guid: 581fccc5d3abbee47aece1b92e24f2f7, type: 3}

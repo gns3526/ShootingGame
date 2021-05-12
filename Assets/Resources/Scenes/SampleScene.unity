@@ -13051,6 +13051,10 @@ MonoBehaviour:
     prefab: {fileID: 8377985261826265399, guid: 0fb94339855b36a4fb8edf4a23c2d87b,
       type: 3}
     size: 1
+  - tag: Enemy15
+    prefab: {fileID: 2566655035291444886, guid: 3192d7d5c00b49344a8557b91cdbe76c,
+      type: 3}
+    size: 10
 --- !u!4 &264256442
 Transform:
   m_ObjectHideFlags: 0
