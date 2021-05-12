@@ -15,7 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Managers")]
     [SerializeField] NetworkManager NM;
     public ObjectPooler OP;
-    [SerializeField] Cards CM;
+    public Cards CM;
     [SerializeField] ReinForceManager RM;
     public JobManager jm;
     public DamageTextManager DTM;
@@ -53,9 +53,9 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [Header("Panels")]
     public GameObject gamePlayPanel;
-    [SerializeField] GameObject gamePlayExpPanel;
-    [SerializeField] Text getExpAmountText;
-    [SerializeField] Text getGoldAmountText;
+    public GameObject gamePlayExpPanel;
+    public Text getExpAmountText;
+    public Text getGoldAmountText;
 
     [SerializeField] GameObject retryPanel;
     public GameObject mobileControlPanel;
@@ -81,26 +81,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject leftGamePanel;
 
-    [Header("Cards")]
-    [SerializeField] List<GameObject> cards;
-    [SerializeField] List<GameObject> cardsSave;
-
-    [SerializeField] List<GameObject> rare;
-    [SerializeField] List<GameObject> epic;
-    [SerializeField] List<GameObject> unique;
-    [SerializeField] List<GameObject> legendary;
-
-    List<GameObject> rareSave;
-    List<GameObject> epicSave;
-    List<GameObject> uniqueSave;
-    List<GameObject> legendarySave;
-
-    [SerializeField] GameObject cardPanel;
-
-    [SerializeField] int rarePer;
-    [SerializeField] int epicPer;
-    [SerializeField] int uniquePer;
-    [SerializeField] int legendaryPer;
+    
 
     [Header("ControlPanel")]
     public GameObject normalShotBotton;
@@ -156,7 +137,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] Text expText3;
     [SerializeField] Image playerIcon3;
     [SerializeField] Image expImage3;
-    [SerializeField] Text goldAmountText3;
+    public Text goldAmountText3;
 
     [Header("PlayerStateInfo")]
     public int money;
@@ -187,8 +168,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Sprite[] mapThumnails;
     public string[] mapNames;
     [SerializeField] int[] mapDifficulty;
-    [SerializeField] int[] mapCoinAmount;
-    [SerializeField] int[] mapExpAmount;
+    public int[] mapCoinAmount;
+    public int[] mapExpAmount;
 
     public int curMapCode;
     public Image roomMapThumnail;
@@ -206,7 +187,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool allBulletDelete;
     [SerializeField] bool setExpBarLerp;
     bool isLvUp;
-    bool expGIveOnce;
+    public bool expGIveOnce;
     float overExp;
 
     [SerializeField] bool once;
@@ -227,12 +208,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         spawnList = new List<Spawn>();
 
-        cardsSave = new List<GameObject>(cards);
 
-        rareSave = new List<GameObject>(rare);
-        epicSave = new List<GameObject>(epic);
-        uniqueSave = new List<GameObject>(unique);
-        legendarySave = new List<GameObject>(legendary);
 
         for (int i = 0; i < mapPointsText.Length; i++)
             mapPointsText[i].text = mapNames[i];
@@ -315,7 +291,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         fadeAni.SetTrigger("Out");//밝아지기
 
-        cardPanel.SetActive(false);
+        CM.cardPanel.SetActive(false);
 
         myplayer.GetComponent<Player>().godMode = false;
 
@@ -350,97 +326,15 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             fadeAni.SetTrigger("In");//어두워 지기
 
-            Invoke("SelectCard", 3);//카드고르기
+            StartCoroutine(CardDelay());//카드고르기
         }
     }
-    
-    public void SelectCard()
+    IEnumerator CardDelay()
     {
-        CM.isReady = false;
-        CM.curMin = 1;
-        CM.curSec = 0;
-        CM.isCellectingTime = true;
-
-        Player myplayerScript = myplayer.GetComponent<Player>();
-
-        getExpAmountText.text = "";
-        getGoldAmountText.text = "";
-        goldAmountText3.text = money.ToString();
-
-        gamePlayExpPanel.SetActive(true);
-        expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
-        StartCoroutine(GiveGold(mapCoinAmount[mapCode]));
-
-        if (myplayerScript.isDie) return;
-
-        if (myplayerScript.pets.Length == myplayerScript.petAmount)
-        {
-            epic.RemoveAt(1);
-            epic.RemoveAt(2);
-        }
-
-
-        for (int i = 0; i < 3; i++)
-        {
-            int a = Random.Range(0, 101);
-            Debug.Log(a);
-            if(0 <= a && a < rarePer)
-            {
-                int randomR = Random.Range(0, rare.Count);
-
-                rare[randomR].SetActive(true);
-                rare.RemoveAt(randomR);
-                Debug.Log("레어");
-            }
-            else if (rarePer <= a && a < rarePer + epicPer)
-            {
-                int randomR = Random.Range(0, epic.Count);
-
-                epic[randomR].SetActive(true);
-                epic.RemoveAt(randomR);
-                Debug.Log("에픽");
-            }
-            else if (rarePer + epicPer <= a && a < rarePer + epicPer + uniquePer)
-            {
-                int randomR = Random.Range(0, unique.Count);
-
-                unique[randomR].SetActive(true);
-                unique.RemoveAt(randomR);
-                Debug.Log("유니크");
-            }
-            else if (rarePer + epicPer + uniquePer <= a && a <= rarePer + epicPer + uniquePer + legendaryPer)
-            {
-                int randomR = Random.Range(0, legendary.Count);
-
-                legendary[randomR].SetActive(true);
-                legendary.RemoveAt(randomR);
-                Debug.Log("레전");
-            }
-        }
-        cardPanel.SetActive(true);
+        yield return new WaitForSeconds(3);
+        CM.SelectCard();
     }
-    public void SelectComplete()
-    {
-        gamePlayExpPanel.SetActive(false);
-        pv.RPC("StageStart", RpcTarget.All);
-    }
-    public void ClearCards()
-    {
-        cards = new List<GameObject>(cardsSave);
-
-        rare = new List<GameObject>(rareSave);
-        epic = new List<GameObject>(epicSave);
-        unique = new List<GameObject>(uniqueSave);
-        legendary = new List<GameObject>(legendarySave);
-        Debug.Log("카드 없앰1");
-        for (int i = 0; i < cards.Count; i++)
-        {
-            cards[i].SetActive(false);
-        }
-
-        Debug.Log("카드 없앰2");
-    }
+   
 
     void ReadSpawnFile()
     {
@@ -721,6 +615,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public void WeaponButtonUpdate()
     {
         bulletMaxUi.SetActive(false);
+        myplayerScript.curBulletAmount = 0;
         if (myplayer.GetComponent<Player>().gotSpecialWeaponAbility)
         {
             if (isAndroid)
@@ -862,7 +757,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
     }
 
-    IEnumerator ExpGiveDelay(int ExpAmount)
+    public IEnumerator ExpGiveDelay(int ExpAmount)
     {
         yield return new WaitForSeconds(2);
 
@@ -900,7 +795,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         SetExpPanel();
     }
 
-    IEnumerator GiveGold(int GoldAmount)
+    public IEnumerator GiveGold(int GoldAmount)
     {
         yield return new WaitForSeconds(2);
         if (myplayerScript.goldAmountPer == 0)
@@ -940,7 +835,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(isAndroid) mobileControlPanel.SetActive(false);
         else if(!isAndroid) deskTopControlPanel.SetActive(false);
 
-        cardPanel.SetActive(false);
+        CM.cardPanel.SetActive(false);
         retryPanel.SetActive(false);
         gameOverPanel.SetActive(false);
         gamePlayPanel.SetActive(false);

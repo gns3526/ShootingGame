@@ -10121,16 +10121,16 @@ MonoBehaviour:
   skillCooldownPer: 100
   goldAmountPer: 0
   expAmountPer: 0
-  gotSpecialWeaponAbility: 1
-  weaponCode: 1
-  weaponDmg: 20
-  toTalChargeTime: 2
-  curChargeTime: 2
+  gotSpecialWeaponAbility: 0
+  weaponCode: 0
+  weaponDmg: 0
+  toTalChargeTime: 0
+  curChargeTime: 0
   curBulletAmount: 0
-  maxSpecialBullet: 20
-  weaponTotalShotCoolTime: 0.5
+  maxSpecialBullet: 0
+  weaponTotalShotCoolTime: 0
   curWeaponShotCoolTime: -1
-  isSpecialBulletAbility1: 1
+  isSpecialBulletAbility1: 0
   isSpecialBulletAbility2: 0
   maxShotCoolTime: 0.15
   attackSpeedPer: 0

@@ -191,8 +191,10 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (isCritical)
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 1, dtm.damageSkinCode, false);
-            else if(bulletScript.dmg > 0)
+            else if(!isCritical && bulletScript.dmg > 0)
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 3, dtm.damageSkinCode, false);
+            else if (isCritical && bulletScript.dmg > 0)
+                OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 4, dtm.damageSkinCode, false);
             else
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 0, dtm.damageSkinCode, false);
 

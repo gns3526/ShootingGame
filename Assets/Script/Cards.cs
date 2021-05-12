@@ -13,6 +13,28 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] GameManager GM;
     public PhotonView pv;
 
+    [Header("Cards Info")]
+    [SerializeField] List<GameObject> cards;
+    [SerializeField] List<GameObject> cardsSave;
+
+    [SerializeField] List<GameObject> rare;
+    [SerializeField] List<GameObject> epic;
+    [SerializeField] List<GameObject> unique;
+    [SerializeField] List<GameObject> legendary;
+
+    List<GameObject> rareSave;
+    List<GameObject> epicSave;
+    List<GameObject> uniqueSave;
+    List<GameObject> legendarySave;
+
+    public GameObject cardPanel;
+
+    [SerializeField] int rarePer;
+    [SerializeField] int epicPer;
+    [SerializeField] int uniquePer;
+    [SerializeField] int legendaryPer;
+
+    [Header("Selecting Cards")]
     [SerializeField] int readyAmount;
 
     public int curMin;
@@ -26,6 +48,106 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] int cTInt;
     public bool isReady;
     [SerializeField] float cTTime;
+
+    private void Start()
+    {
+        cardsSave = new List<GameObject>(cards);
+
+        rareSave = new List<GameObject>(rare);
+        epicSave = new List<GameObject>(epic);
+        uniqueSave = new List<GameObject>(unique);
+        legendarySave = new List<GameObject>(legendary);
+    }
+
+    public void SelectCard()
+    {
+        isReady = false;
+        curMin = 1;
+        curSec = 0;
+        isCellectingTime = true;
+
+        Player myplayerScript = GM.myplayer.GetComponent<Player>();
+
+        GM.getExpAmountText.text = "";
+        GM.getGoldAmountText.text = "";
+        GM.goldAmountText3.text = GM.money.ToString();
+
+        GM.gamePlayExpPanel.SetActive(true);
+        GM.expGIveOnce = true;
+        StartCoroutine(GM.ExpGiveDelay(GM.mapExpAmount[GM.mapCode]));
+        StartCoroutine(GM.GiveGold(GM.mapCoinAmount[GM.mapCode]));
+
+        if (myplayerScript.isDie) return;
+
+        if (myplayerScript.pets.Length == myplayerScript.petAmount)
+        {
+            epic.RemoveAt(1);
+            epic.RemoveAt(2);
+        }
+
+
+        for (int i = 0; i < 3; i++)
+        {
+            int a = Random.Range(0, 101);
+            Debug.Log(a);
+            if (0 <= a && a < rarePer)
+            {
+                int randomR = Random.Range(0, rare.Count);
+
+                rare[randomR].SetActive(true);
+                rare.RemoveAt(randomR);
+                Debug.Log("레어");
+            }
+            else if (rarePer <= a && a < rarePer + epicPer)
+            {
+                int randomR = Random.Range(0, epic.Count);
+
+                epic[randomR].SetActive(true);
+                epic.RemoveAt(randomR);
+                Debug.Log("에픽");
+            }
+            else if (rarePer + epicPer <= a && a < rarePer + epicPer + uniquePer)
+            {
+                int randomR = Random.Range(0, unique.Count);
+
+                unique[randomR].SetActive(true);
+                unique.RemoveAt(randomR);
+                Debug.Log("유니크");
+            }
+            else if (rarePer + epicPer + uniquePer <= a && a <= rarePer + epicPer + uniquePer + legendaryPer)
+            {
+                int randomR = Random.Range(0, legendary.Count);
+
+                legendary[randomR].SetActive(true);
+                legendary.RemoveAt(randomR);
+                Debug.Log("레전");
+            }
+        }
+        cardPanel.SetActive(true);
+    }
+    public void SelectComplete()
+    {
+        GM.gamePlayExpPanel.SetActive(false);
+        GM.pv.RPC("StageStart", RpcTarget.All);
+    }
+    public void ClearCards()
+    {
+        cards = new List<GameObject>(cardsSave);
+
+        rare = new List<GameObject>(rareSave);
+        epic = new List<GameObject>(epicSave);
+        unique = new List<GameObject>(uniqueSave);
+        legendary = new List<GameObject>(legendarySave);
+        Debug.Log("카드 없앰1");
+        for (int i = 0; i < cards.Count; i++)
+        {
+            cards[i].SetActive(false);
+        }
+
+        Debug.Log("카드 없앰2");
+    }
+
+
     public void CardS(int num)
     {
 
@@ -101,18 +223,40 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 1;
                 myPlayerScript.weaponDmg = 20;
-                myPlayerScript.toTalChargeTime = 2;
+                myPlayerScript.toTalChargeTime = 3;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;
                 myPlayerScript.maxSpecialBullet = 20;
-                myPlayerScript.weaponTotalShotCoolTime = 0.5f;
+                myPlayerScript.weaponTotalShotCoolTime = 1f;
                 myPlayerScript.curWeaponShotCoolTime = -1;
 
                 GM.WeaponButtonUpdate();
                 break;
+            case 20:
+                myPlayerScript.gotSpecialWeaponAbility = true;
+                myPlayerScript.weaponCode = 2;
+                myPlayerScript.weaponDmg = 1;
+                myPlayerScript.toTalChargeTime = 1f;
+                myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
+                myPlayerScript.curBulletAmount = 0;
+                myPlayerScript.maxSpecialBullet = 50;
+                myPlayerScript.weaponTotalShotCoolTime = 0.1f;
+                myPlayerScript.curWeaponShotCoolTime = -1;
+
+                GM.WeaponButtonUpdate();
+                break;
+            case 21:
+                myPlayerScript.skillCooldownPer += 50;
+                break;
+            case 22:
+                myPlayerScript.damage += 2;
+                break;
+            case 23:
+                myPlayerScript.finalDamagePer += 50;
+                break;
         }
         StartCoroutine(SelectDelay());
-        GM.ClearCards();
+        ClearCards();
     }
 
     IEnumerator SelectDelay()
@@ -133,7 +277,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         if(PhotonNetwork.PlayerList.Length == readyAmount)
         {
             curSec = -11;
-            GM.SelectComplete();
+            SelectComplete();
             readyAmount = 0;
         }
     }
@@ -166,8 +310,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             else
             {
                 isCellectingTime = false;
-                GM.ClearCards();
-                GM.SelectComplete();
+                ClearCards();
+                SelectComplete();
                 pv.RPC("ReadyAmountSetZero", RpcTarget.All);
             }
 

@@ -139,6 +139,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
         }
+
+        GM.CM.CardS(20);
     }
 
     IEnumerator StartDelay()
@@ -332,10 +334,21 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     {
         if (gotSpecialWeaponAbility && weaponFire)
         {
-            if (weaponCode == 1 && curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
+            if (curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
             {
-                BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true).GetComponent<BulletScript>();
-                bullet.dmg = weaponDmg;
+                switch (weaponCode)
+                {
+                    case 1:
+                        BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true).GetComponent<BulletScript>();
+                        bullet.dmg = weaponDmg;
+                        break;
+                    case 2:
+                        float randomAngle = Random.Range(-7f, 7f);
+                        BulletScript bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0,0,randomAngle), 2, -1, 10, true).GetComponent<BulletScript>();
+                        bullet1.dmg = weaponDmg;
+                        break;
+                }
+                
                 curBulletAmount--;
                 curWeaponShotCoolTime = 0;
 
