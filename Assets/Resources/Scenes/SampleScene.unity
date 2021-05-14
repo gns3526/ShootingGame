@@ -3882,7 +3882,7 @@ Transform:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 64180062}
   m_LocalRotation: {x: -0, y: -0, z: -0, w: 1}
-  m_LocalPosition: {x: 0, y: 10, z: 0}
+  m_LocalPosition: {x: 0, y: 10, z: 1.3}
   m_LocalScale: {x: 1.2919, y: 1.2919, z: 1.2919}
   m_Children: []
   m_Father: {fileID: 731953603}
@@ -13283,6 +13283,10 @@ MonoBehaviour:
     size: 1
   - tag: Enemy15
     prefab: {fileID: 2566655035291444886, guid: 3192d7d5c00b49344a8557b91cdbe76c,
+      type: 3}
+    size: 10
+  - tag: ElectricWire
+    prefab: {fileID: 5390636990138927755, guid: 8a543ebe79994354ba51ba0f2eae7d12,
       type: 3}
     size: 10
 --- !u!4 &264256442

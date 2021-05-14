@@ -149,8 +149,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
             else
             transform.position = Vector3.Lerp(transform.position, curPosPv, Time.deltaTime * 10);
         }
-        //if(!pv.IsMine && isPlayerAttack)
-        //transform.position = curPosPv;
+        if(!pv.IsMine && isPlayerAttack)
+        transform.position = curPosPv;
     }
     private void OnTriggerEnter2D(Collider2D other)
     {

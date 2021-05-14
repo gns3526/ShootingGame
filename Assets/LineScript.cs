@@ -9,13 +9,12 @@ public class LineScript : MonoBehaviour
     [SerializeField] Transform point1;
     [SerializeField] Transform point2;
 
-    
+    [SerializeField] float lineWidth;
+
     private void Start()
     {
-        lr.startWidth = .05f;
-        lr.endWidth = .05f;
-
-        //lr.BakeMesh(mesh, true);
+        lr.startWidth = lineWidth;
+        lr.endWidth = lineWidth;
     }
 
     void Update()

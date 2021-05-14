@@ -22,12 +22,14 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] float maxHealth;
     [SerializeField] Sprite[] sprites;
     [SerializeField] Image healthImage;
+    [SerializeField] Image healthImage2;
     public GameObject healthBarGameObject;
     public int[] bulletCode;
     public int[] bulletSpeedCode;
 
 
     [SerializeField] SpriteRenderer spriteRendererEnemy;
+    [SerializeField] SpriteRenderer spriteRendererEnemy2;
     public PhotonView pv;
 
     Player myPlayerScript;
@@ -54,6 +56,10 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         health = maxHealth;
         canFire = true;
         healthImage.fillAmount = 1;
+
+        if (healthImage2 != null)
+            healthImage2.fillAmount = 1;
+
         transform.rotation = Quaternion.identity;
         healthBarGameObject.transform.rotation = Quaternion.identity;
     }
@@ -210,6 +216,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     void ReturnSprite()
     {
         spriteRendererEnemy.sprite = sprites[0];
+
+        if (spriteRendererEnemy2 != null)
+            spriteRendererEnemy2.sprite = sprites[0];
     }
 
 
@@ -219,12 +228,18 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         if (health <= 0)
             return;
 
-        healthImage.fillAmount = health / maxHealth;
+        if(healthImage2 != null)
+            healthImage2.fillAmount = health / maxHealth;
 
         spriteRendererEnemy.sprite = sprites[1];
+        if (spriteRendererEnemy2 != null)
+            spriteRendererEnemy2.sprite = sprites[1];
+
         Invoke("ReturnSprite", 0.1f);
 
         health -= Dmg;
+
+        healthImage.fillAmount = health / maxHealth;
 
         if (GM.myplayerScript.pv.IsMine)
         {

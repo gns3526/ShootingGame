@@ -306,10 +306,12 @@ MonoBehaviour:
   - {fileID: -2531241511545790211, guid: 9c2585dfae1f5de429d470bf6bad4292, type: 3}
   - {fileID: -3475447687785860090, guid: 9c2585dfae1f5de429d470bf6bad4292, type: 3}
   healthImage: {fileID: 3470955312078292659}
+  healthImage2: {fileID: 0}
   healthBarGameObject: {fileID: 8521617868756814303}
   bulletCode: ffffffff
   bulletSpeedCode: 02000000
   spriteRendererEnemy: {fileID: 2730646687750815199}
+  spriteRendererEnemy2: {fileID: 0}
   pv: {fileID: 6279287305572448718}
   GM: {fileID: 0}
   OP: {fileID: 0}
