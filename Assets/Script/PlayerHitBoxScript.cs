@@ -11,13 +11,12 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     [SerializeField] PhotonView pv;
     GameManager GM;
+    PlayerState ps;
 
     private void Start()
     {
-        GM = FindObjectOfType<GameManager>();
-
-        //player = GM.myplayer.GetComponent<Player>();
-
+        GM = myPlayerScript.GM;
+        ps = GM.ps;
     }
 
     private void OnTriggerEnter2D(Collider2D other)
@@ -52,30 +51,30 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             GM.OP.DamagePoolInstantiate("DamageText", transform.position, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
 
-            myPlayerScript.life++;
-            GM.UpdateLifeIcon(myPlayerScript.life);
+            ps.life++;
+            GM.UpdateLifeIcon(ps.life);
         }
     }
 
     void Hit()
     {
         int randomNum = Random.Range(0, 101);
-        if (myPlayerScript.missPercentage > randomNum)
+        if (ps.missPercentage > randomNum)
         {
             StartCoroutine(GodTime());
             myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
             return;
         }
 
-        myPlayerScript.life--;
+        ps.life--;
         myPlayerScript.canHit = false;
-        myPlayerScript.GM.UpdateLifeIcon(myPlayerScript.life);
+        myPlayerScript.GM.UpdateLifeIcon(ps.life);
         myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
 
         if(GM.jm.jobCode == 4 && !myPlayerScript.isDie)
         GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, true);
 
-        if (myPlayerScript.life == 0)
+        if (ps.life == 0)
         {
             pv.RPC("PlayerIsDie", RpcTarget.All);
             GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
@@ -91,7 +90,7 @@ public class PlayerHitBoxScript : MonoBehaviour
     IEnumerator GodTime()
     {
         playerAni.SetBool("GodOn", true);
-        yield return new WaitForSeconds(myPlayerScript.godTime);
+        yield return new WaitForSeconds(ps.godTime);
         playerAni.SetBool("GodOn", false);
         myPlayerScript.canHit = true;
     }

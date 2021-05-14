@@ -22,6 +22,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] PetManager PM;
     [SerializeField] PlayerColorManager colorManager;
     [SerializeField] JoyStickScript joyStick;
+    [SerializeField] PlayerState ps;
 
     [SerializeField] Animator StartButtonAni;
 
@@ -177,6 +178,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         MyListRenewal();
 
         GM.LobbyPlayerRework();
+        ps.StateUpdate();
     }
 
     public void MyListClick(int num)//방 클릭했을때
@@ -505,6 +507,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         myplayerScript.AM = AM;
         myplayerScript.JM = JM;
         myplayerScript.RFM = RM;
+        myplayerScript.ps = ps;
 
         GM.myplayer = myPlayer;
         GM.myplayerScript = myplayerScript;
@@ -522,6 +525,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.pv.RPC("AlivePlayerSet", RpcTarget.All);
 
         respawnPanel.SetActive(false);
+
+        ps.StateUpdate();
     }
 
     public IEnumerator SpawnDelay()

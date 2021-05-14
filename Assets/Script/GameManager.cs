@@ -21,6 +21,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public DamageTextManager DTM;
     public PlayerColorManager colorManager;
     public ChallengeManager challengeManager;
+    public PlayerState ps;
 
     [Header("GamePlayInfo")]
     [SerializeField] int stage;
@@ -592,11 +593,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             lifeImage[i].sprite = lifeSprite[0]; ;
         }
-        for (int i = 0; i < myplayerScript.maxLife; i++)
+        for (int i = 0; i < ps.maxLife; i++)
         {
             lifeImage[i].sprite = lifeSprite[1];
         }
-        for (int i = 0; i < myplayerScript.life; i++)
+        for (int i = 0; i < ps.life; i++)
         {
             lifeImage[i].sprite = lifeSprite[2];
         }
@@ -661,8 +662,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         if (myplayer.GetComponent<Player>().isDie)
         {
             myplayer.GetComponent<PhotonView>().RPC("PlayerIsAlive", RpcTarget.All);
-            myplayer.GetComponent<Player>().life = Life;
-            UpdateLifeIcon(myplayer.GetComponent<Player>().life);
+            ps.life = Life;
+            UpdateLifeIcon(ps.life);
             retryPanel.SetActive(false);
 
         }
@@ -724,6 +725,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         jobPanel.SetActive(a);
 
         codySelectUpdate[4].Select();
+        ps.StateUpdate();
 
         SoundManager.Play("Btn_2");
     }
@@ -733,6 +735,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         reinForcePanel.SetActive(a);
 
         RM.ReinForceRework();
+        ps.StateUpdate();
 
         SoundManager.Play("Btn_2");
     }
@@ -752,8 +755,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         Player myplayerScript = myplayer.GetComponent<Player>();
 
         clearScoreText.text = myplayerScript.score.ToString();
-        clearLifeText.text = (myplayerScript.life * 1000).ToString();
-        clearTotalScore.text = (myplayerScript.score + (myplayerScript.life * 1000)).ToString();
+        clearLifeText.text = (ps.life * 1000).ToString();
+        clearTotalScore.text = (myplayerScript.score + (ps.life * 1000)).ToString();
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
@@ -772,16 +775,16 @@ public class GameManager : MonoBehaviourPunCallbacks
         if(expGIveOnce)
         {
             
-            if(myplayerScript.expAmountPer == 0)
+            if(ps.expAmountPer == 0)
                 getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
             else
             {
-                float finalExpAmount = Mathf.Ceil(ExpAmount + (ExpAmount * (myplayerScript.expAmountPer / 100)));
+                float finalExpAmount = Mathf.Ceil(ExpAmount + (ExpAmount * (ps.expAmountPer / 100)));
                 float bonusExpAmount = finalExpAmount - ExpAmount;
                 getExpAmountText.text = "|Applying Ability|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
             }
             expGIveOnce = false;
-            exp += Mathf.Ceil(ExpAmount * (myplayerScript.expAmountPer / 100));
+            exp += Mathf.Ceil(ExpAmount * (ps.expAmountPer / 100));
         }
 
         if(exp >= maxExp)
@@ -801,16 +804,16 @@ public class GameManager : MonoBehaviourPunCallbacks
     public IEnumerator GiveGold(int GoldAmount)
     {
         yield return new WaitForSeconds(2);
-        if (myplayerScript.goldAmountPer == 0)
+        if (ps.goldAmountPer == 0)
             getGoldAmountText.text = "+" + GoldAmount.ToString() + "Gold";
         else
         {
-            float finalGoldAmount = Mathf.Ceil(GoldAmount + (GoldAmount * (myplayerScript.goldAmountPer / 100)));
+            float finalGoldAmount = Mathf.Ceil(GoldAmount + (GoldAmount * (ps.goldAmountPer / 100)));
 
             float bonusGoldAmount = finalGoldAmount - GoldAmount;
             getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoldAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
         }
-        money += (int)Mathf.Ceil(GoldAmount * (myplayerScript.goldAmountPer / 100));
+        money += (int)Mathf.Ceil(GoldAmount * (ps.goldAmountPer / 100));
         goldAmountText3.text = money.ToString();
         if(myplayerScript.isDie)
         StartCoroutine(DieReadyDelay());

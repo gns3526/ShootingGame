@@ -8,6 +8,7 @@ public class JobManager : MonoBehaviour
 {
     [SerializeField] ObjectPooler OP;
     [SerializeField] GameManager GM;
+    [SerializeField] PlayerState ps;
 
     public Sprite[] jobIconDummy;
 
@@ -20,11 +21,11 @@ public class JobManager : MonoBehaviour
     public GameObject guageMaxUi;
 
     [Header("Class A")]
-    [SerializeField] int dmgA;
-    [SerializeField] int maxLifeA;
-    [SerializeField] int lifeA;
-    [SerializeField] int moveSpeedA;
-    [SerializeField] float fireSpeedA;
+    public int dmgA;
+    public int maxLifeA;
+    public int lifeA;
+    public int moveSpeedA;
+    public float fireSpeedA;
 
     [SerializeField] int skillADamageAmount;
     [SerializeField] int skillAatkSpeed;
@@ -33,11 +34,11 @@ public class JobManager : MonoBehaviour
     [SerializeField] float durationA;
 
     [Header("Class B")]
-    [SerializeField] int dmgB;
-    [SerializeField] int maxLifeB;
-    [SerializeField] int lifeB;
-    [SerializeField] int moveSpeedB;
-    [SerializeField] float fireSpeedB;
+    public int dmgB;
+    public int maxLifeB;
+    public int lifeB;
+    public int moveSpeedB;
+    public float fireSpeedB;
 
     public int starterPetAmountB;
     public bool skillBOn;
@@ -48,11 +49,11 @@ public class JobManager : MonoBehaviour
     public GameObject skillBPoint;
 
     [Header("Class C")]
-    [SerializeField] int dmgC;
-    [SerializeField] int maxLifeC;
-    [SerializeField] int lifeC;
-    [SerializeField] int moveSpeedC;
-    [SerializeField] float fireSpeedC;
+    public int dmgC;
+    public int maxLifeC;
+    public int lifeC;
+    public int moveSpeedC;
+    public float fireSpeedC;
 
     public int missPerC;
     public float bulletAmountC1;
@@ -69,20 +70,20 @@ public class JobManager : MonoBehaviour
     public float skillCoolC;
 
     [Header("Class D")]
-    [SerializeField] int dmgD;
-    [SerializeField] int maxLifeD;
-    [SerializeField] int lifeD;
-    [SerializeField] int moveSpeedD;
-    [SerializeField] float fireSpeedD;
+    public int dmgD;
+    public int maxLifeD;
+    public int lifeD;
+    public int moveSpeedD;
+    public float fireSpeedD;
 
     [SerializeField] float skillCoolD;
 
     [Header("Class E")]
-    [SerializeField] int dmgE;
-    [SerializeField] int maxLifeE;
-    [SerializeField] int lifeE;
-    [SerializeField] int moveSpeedE;
-    [SerializeField] float fireSpeedE;
+    public int dmgE;
+    public int maxLifeE;
+    public int lifeE;
+    public int moveSpeedE;
+    public float fireSpeedE;
 
     private bool shotBoolE;
     [SerializeField] float maxSkillGuageE;
@@ -141,7 +142,7 @@ public class JobManager : MonoBehaviour
         if (curSkillCool < skillCool && duration < 0 && GM.isPlaying)
         {
             if(jobCode != 4)
-            curSkillCool += Time.deltaTime * (myplayerScript.skillCooldownPer / 100);
+            curSkillCool += Time.deltaTime * (ps.skillCooldownPer / 100);
 
             if(GM.isAndroid)
                 skillGuage_M.fillAmount = curSkillCool / skillCool;
@@ -178,9 +179,9 @@ public class JobManager : MonoBehaviour
                 switch (jobCode)
                 {
                     case 0:
-                        myplayerScript.increaseDamagePer -= skillADamageAmount;
-                        myplayerScript.attackSpeedPer -= skillAatkSpeed;
-                        myplayerScript.criticalPer -= skillACriticalPer;
+                        ps.increaseDamagePer -= skillADamageAmount;
+                        ps.attackSpeedPer -= skillAatkSpeed;
+                        ps.criticalPer -= skillACriticalPer;
 
                         myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, false, 0, (float)0);
                         break;
@@ -195,7 +196,6 @@ public class JobManager : MonoBehaviour
 
     public void JobApply()
     {
-        if (!myplayerScript.pv.IsMine) return;
 
         CanUseSkillUpdate(false);
         skillGuage_M.fillAmount = 1;
@@ -205,39 +205,39 @@ public class JobManager : MonoBehaviour
         switch (jobCode)
         {
             case 0:
-                myplayerScript.damage = dmgA;
-                myplayerScript.maxLife = maxLifeA;
-                myplayerScript.life = lifeA;
-                myplayerScript.moveSpeed = moveSpeedA;
-                myplayerScript.maxShotCoolTime = fireSpeedA;
+                ps.damage = dmgA;
+                ps.maxLife = maxLifeA;
+                ps.life = lifeA;
+                ps.moveSpeed = moveSpeedA;
+                ps.maxShotCoolTime = fireSpeedA;
                 break;
             case 1:
-                myplayerScript.damage = dmgB;
-                myplayerScript.maxLife = maxLifeB;
-                myplayerScript.life = lifeB;
-                myplayerScript.moveSpeed = moveSpeedB;
-                myplayerScript.maxShotCoolTime = fireSpeedB;
+                ps.damage = dmgB;
+                ps.maxLife = maxLifeB;
+                ps.life = lifeB;
+                ps.moveSpeed = moveSpeedB;
+                ps.maxShotCoolTime = fireSpeedB;
                 break;
             case 2:
-                myplayerScript.damage = dmgC;
-                myplayerScript.maxLife = maxLifeC;
-                myplayerScript.life = lifeC;
-                myplayerScript.moveSpeed = moveSpeedC;
-                myplayerScript.maxShotCoolTime = fireSpeedC;
+                ps.damage = dmgC;
+                ps.maxLife = maxLifeC;
+                ps.life = lifeC;
+                ps.moveSpeed = moveSpeedC;
+                ps.maxShotCoolTime = fireSpeedC;
                 break;
             case 3:
-                myplayerScript.damage = dmgD;
-                myplayerScript.maxLife = maxLifeD;
-                myplayerScript.life = lifeD;
-                myplayerScript.moveSpeed = moveSpeedD;
-                myplayerScript.maxShotCoolTime = fireSpeedD;
+                ps.damage = dmgD;
+                ps.maxLife = maxLifeD;
+                ps.life = lifeD;
+                ps.moveSpeed = moveSpeedD;
+                ps.maxShotCoolTime = fireSpeedD;
                 break;
             case 4:
-                myplayerScript.damage = dmgE;
-                myplayerScript.maxLife = maxLifeE;
-                myplayerScript.life = lifeE;
-                myplayerScript.moveSpeed = moveSpeedE;
-                myplayerScript.maxShotCoolTime = fireSpeedE;
+                ps.damage = dmgE;
+                ps.maxLife = maxLifeE;
+                ps.life = lifeE;
+                ps.moveSpeed = moveSpeedE;
+                ps.maxShotCoolTime = fireSpeedE;
                 break;
         }
     }
@@ -493,9 +493,9 @@ public class JobManager : MonoBehaviour
         switch (jobCode)
         {
             case 0:
-                myplayerScript.increaseDamagePer += skillADamageAmount;
-                myplayerScript.attackSpeedPer += skillAatkSpeed;
-                myplayerScript.criticalPer += skillACriticalPer;
+                ps.increaseDamagePer += skillADamageAmount;
+                ps.attackSpeedPer += skillAatkSpeed;
+                ps.criticalPer += skillACriticalPer;
                 
                 myplayerScript.codyPv.RPC("SkillParticleActive", RpcTarget.All, true, 0, (float)0);
 
@@ -555,15 +555,15 @@ public class JobManager : MonoBehaviour
                 curSkillCool = 0;
                 break;
             case 4:
-                if (myplayerScript.life == myplayerScript.maxLife) return;
+                if (ps.life == ps.maxLife) return;
 
                 CanUseSkillUpdate(false);
                 curSkillCool = 0;
 
-                myplayerScript.life++;
+                ps.life++;
                 GM.OP.DamagePoolInstantiate("DamageText", myplayerScript.transform.position + Vector3.up * 0.5f, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
 
-                GM.UpdateLifeIcon(myplayerScript.life);
+                GM.UpdateLifeIcon(ps.life);
                 break;
         }
     }

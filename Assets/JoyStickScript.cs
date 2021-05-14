@@ -7,6 +7,7 @@ using UnityEngine.EventSystems;
 public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
     public Player myPlayerScript;
+    [SerializeField] PlayerState ps;
 
     [SerializeField] RectTransform lever;
     [SerializeField] RectTransform rectTransform;
@@ -23,7 +24,7 @@ public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
     {
         if ((direction.x < 0 && myPlayerScript.isTouchLeft) || direction.x > 0 && myPlayerScript.isTouchRight) direction.x = 0;
         if ((direction.y < 0 && myPlayerScript.isTouchBottom) || direction.y > 0 && myPlayerScript.isTouchTop) direction.y = 0;
-        myPlayerScript.transform.Translate(direction * (myPlayerScript.moveSpeed / 100) * 4 * Time.deltaTime);
+        myPlayerScript.transform.Translate(direction * (ps.moveSpeed / 100) * 4 * Time.deltaTime);
 
         if(direction.x > 0)
         myPlayerScript.ani.SetInteger("AxisX", 1);

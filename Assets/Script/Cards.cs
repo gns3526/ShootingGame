@@ -11,6 +11,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     [SerializeField] ObjectPooler OP;
     [SerializeField] GameManager GM;
+    [SerializeField] PlayerState ps;
     public PhotonView pv;
 
     [Header("Cards Info")]
@@ -154,14 +155,14 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         switch (num)
         {
             case 1:
-                myPlayerScript.attackSpeedPer += 50;
+                ps.attackSpeedPer += 50;
 
                 break;
             case 2:
-                myPlayerScript.moveSpeed += 20;
+                ps.moveSpeed += 20;
                 break;
             case 3:
-                myPlayerScript.increaseDamagePer += 50;
+                ps.increaseDamagePer += 50;
                 break;
             case 4:
                 if (myPlayerScript.power != myPlayerScript.maxPower)
@@ -170,16 +171,16 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 }
                 break;
             case 5:
-                if (myPlayerScript.maxLife != 10)
+                if (ps.maxLife != 10)
                 {
-                    myPlayerScript.maxLife++;
-                    myPlayerScript.life++;
-                    GM.UpdateLifeIcon(myPlayerScript.life);
+                    ps.maxLife++;
+                    ps.life++;
+                    GM.UpdateLifeIcon(ps.life);
                 }
                 break;
             case 6:
-                myPlayerScript.life = myPlayerScript.maxLife;
-                GM.UpdateLifeIcon(myPlayerScript.life);
+                ps.life = ps.maxLife;
+                GM.UpdateLifeIcon(ps.life);
                 break;
             case 7:
                 OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 0, -1, true);
@@ -188,10 +189,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 1, -1, true);
                 break;
             case 9:
-                myPlayerScript.godTime += 2;
+                ps.godTime += 2;
                 break;
             case 10:
-                myPlayerScript.missPercentage += 10;
+                ps.missPercentage += 10;
                 break;
             case 11:
                 GM.pv.RPC("ReviveTeam", RpcTarget.All, 1);
@@ -203,13 +204,13 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.isAttackSpeedStack = true;
                 break;
             case 14:
-                myPlayerScript.bossDamagePer += 60;
+                ps.bossDamagePer += 60;
                 break;
             case 15:
-                myPlayerScript.criticalPer += 10;
+                ps.criticalPer += 10;
                 break;
             case 16:
-                myPlayerScript.criticalDamagePer += 50;
+                ps.criticalDamagePer += 50;
                 break;
             case 17:
                 myPlayerScript.isSpecialBulletAbility1 = true;
@@ -246,13 +247,13 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.WeaponButtonUpdate();
                 break;
             case 21:
-                myPlayerScript.skillCooldownPer += 50;
+                ps.skillCooldownPer += 50;
                 break;
             case 22:
-                myPlayerScript.damage += 2;
+                ps.damage += 2;
                 break;
             case 23:
-                myPlayerScript.finalDamagePer += 50;
+                ps.finalDamagePer += 50;
                 break;
         }
         if (!GM.isGameStart) return;

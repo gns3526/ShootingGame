@@ -16,29 +16,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isTouchBottom;
 
     [Header("Player Stats")]
-    public int life;
+    
     [SerializeField] Text lifeText;
-    public int maxLife;
+
     public int score;
 
-    public float moveSpeed;
+    
     public int power;
     public int maxPower;
-    public float damage;
-    public float increaseDamagePer;
-    public float bossDamagePer;
-    public float normalMonsterDamagePer;
-    public float criticalPer;
-    public float criticalDamagePer;
-    public float petDamagePer;
-    public float petAttackSpeedPer;
-    public float penetratePer;
-    public float finalDamagePer;
-
-    public int skillCooldownPer;
-
-    public float goldAmountPer;
-    public float expAmountPer;
+    
 
     public bool gotSpecialWeaponAbility;
     public int weaponCode;
@@ -53,11 +39,9 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isSpecialBulletAbility1;
     public bool isSpecialBulletAbility2;
 
-    public float maxShotCoolTime;
-    public float attackSpeedPer;
-    [SerializeField] float curShotCoolTime;
-    public float godTime;
-    public int missPercentage;
+
+
+
 
     public bool isAttackSpeedStack;
     public int attackSpeedStackint;
@@ -79,6 +63,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public JobManager JM;
     public ReinForceManager RFM;
     public NetworkManager NM;
+    public PlayerState ps;
     public PlayerColorManager colorManager;
 
     [Header("Others")]
@@ -146,18 +131,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(0.1f);
-        JM.JobApply();
-        AM.AbilityApply();
-        RFM.ReinForceApply();
 
-        GM.UpdateLifeIcon(life);
+        GM.UpdateLifeIcon(ps.life);
 
         NMPV = NM.GetComponent<PhotonView>();
     }
 
     private void Update()
     {
-        lifeText.text = life.ToString();
+        lifeText.text = ps.life.ToString();
         if (pv.IsMine)
         {
             if (!NM.isChating)
@@ -184,8 +166,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
-                life = 0;
-                GM.UpdateLifeIcon(life);
+                ps.life = 0;
+                GM.UpdateLifeIcon(ps.life);
                 pv.RPC("PlayerIsDie", RpcTarget.All);
                 GM.PlayerDie();
             }
@@ -287,7 +269,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (Input.GetKey(KeyCode.Space))
             rigid.velocity = new Vector2(h * 1.5f, v * 1.5f);
         else
-            rigid.velocity = new Vector2((moveSpeed / 100) * 4 * h, (moveSpeed / 100) * 4 * v);
+            rigid.velocity = new Vector2((ps.moveSpeed / 100) * 4 * h, (ps.moveSpeed / 100) * 4 * v);
 
         if (Input.GetButtonDown("Horizontal") || Input.GetButtonUp("Horizontal"))
         {
@@ -305,7 +287,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if (isDie) return;
 
-        if (curShotCoolTime < maxShotCoolTime) return;
+        if (ps.curShotCoolTime < ps.maxShotCoolTime) return;
 
         int randomNum = Random.Range(0,101);
 
@@ -313,7 +295,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 100;
-            curShotCoolTime = 0;
+            ps.curShotCoolTime = 0;
 
             pv.RPC(nameof(SoundRPC), RpcTarget.All, 1);
         }
@@ -321,13 +303,13 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         {
             GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, true);
             bullet.GetComponent<BulletScript>().dmgPer = 50;
-            curShotCoolTime = 0;
+            ps.curShotCoolTime = 0;
 
             pv.RPC(nameof(SoundRPC), RpcTarget.All, 2);
         }
 
         JM.Shot();
-        curShotCoolTime = 0;
+        ps.curShotCoolTime = 0;
     }
 
     void WeaponFire()
@@ -365,7 +347,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     void Reload()
     {
-        curShotCoolTime += Time.deltaTime * ((attackSpeedPer + attackSpeedStack) / 100);
+        ps.curShotCoolTime += Time.deltaTime * ((ps.attackSpeedPer + attackSpeedStack) / 100);
     }
 
     [PunRPC]
@@ -488,12 +470,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(transform.position);
-            stream.SendNext(life);
+            stream.SendNext(ps.life);
         }
         else
         {
             curPosPv = (Vector3)stream.ReceiveNext();
-            life = (int)stream.ReceiveNext();
+            ps.life = (int)stream.ReceiveNext();
         }
     }
 }

@@ -7,6 +7,7 @@ public class PetManager : MonoBehaviour
 {
     public JobManager JM;
     public ObjectPooler OP;
+    public PlayerState ps;
 
     public GameObject[] petGroup;
     public Player myPlayerScript;

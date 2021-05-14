@@ -27,6 +27,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
     public ObjectPooler OP;
     public GameManager GM;
+    PlayerState ps;
 
     Vector3 curPosPv;
 
@@ -45,6 +46,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         GM = FindObjectOfType<GameManager>();
         OP = GM.OP;
+        ps = GM.ps;
     }
     private void OnEnable()
     {
@@ -165,7 +167,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
                 attackAmount--;
 
                 int penetrate = Random.Range(0, 101);
-                if (penetrate <= GM.myplayer.GetComponent<Player>().penetratePer)
+                if (penetrate <= ps.penetratePer)
                     attackAmount++;
 
                 if(attackAmount < 1)

@@ -10101,26 +10101,10 @@ MonoBehaviour:
   isTouchLeft: 0
   isTouchRight: 0
   isTouchBottom: 0
-  life: 10
   lifeText: {fileID: 1874954468832490246}
-  maxLife: 10
   score: 0
-  moveSpeed: 100
   power: 1
   maxPower: 3
-  damage: 3
-  increaseDamagePer: 0
-  bossDamagePer: 0
-  normalMonsterDamagePer: 0
-  criticalPer: 25
-  criticalDamagePer: 75
-  petDamagePer: 0
-  petAttackSpeedPer: 0
-  penetratePer: 30
-  finalDamagePer: 0
-  skillCooldownPer: 100
-  goldAmountPer: 0
-  expAmountPer: 0
   gotSpecialWeaponAbility: 0
   weaponCode: 0
   weaponDmg: 0
@@ -10132,11 +10116,6 @@ MonoBehaviour:
   curWeaponShotCoolTime: -1
   isSpecialBulletAbility1: 0
   isSpecialBulletAbility2: 0
-  maxShotCoolTime: 0.15
-  attackSpeedPer: 0
-  curShotCoolTime: 0
-  godTime: 2
-  missPercentage: 0
   isAttackSpeedStack: 0
   attackSpeedStackint: 0
   attackSpeedStack: 100
@@ -10151,6 +10130,7 @@ MonoBehaviour:
   JM: {fileID: 0}
   RFM: {fileID: 0}
   NM: {fileID: 0}
+  ps: {fileID: 0}
   colorManager: {fileID: 0}
   playerPoint: {fileID: 987814901808949605}
   ani: {fileID: 3941946227140826655}

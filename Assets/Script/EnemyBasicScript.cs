@@ -34,6 +34,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     public GameManager GM;
     public ObjectPooler OP;
     DamageTextManager dtm;
+    PlayerState ps;
 
     Animator ani;
 
@@ -68,6 +69,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         GM = FindObjectOfType<GameManager>().GetComponent<GameManager>();
         OP = GM.OP;
         dtm = GM.DTM;
+        ps = GM.ps;
     }
 
     private void Start()
@@ -149,20 +151,20 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             if (ispetAttack)
             {
                 petPenalty = 0.5f;
-                petDamagePer = myPlayerScript.petDamagePer;
+                petDamagePer = ps.petDamagePer;
             }
 
             // 내스텟 + (내 스텟 * 계수/100)
 
-            normalBulletDmg = myPlayerScript.damage + (myPlayerScript.damage * (myPlayerScript.increaseDamagePer / 100)) + (myPlayerScript.damage * (bulletScript.dmgPer / 100))
-                     + (myPlayerScript.damage * (myPlayerScript.damageStack / 100)) + (myPlayerScript.damage * (petDamagePer / 100));
+            normalBulletDmg = ps.damage + (ps.damage * (ps.increaseDamagePer / 100)) + (ps.damage * (bulletScript.dmgPer / 100))
+                     + (ps.damage * (myPlayerScript.damageStack / 100)) + (ps.damage * (petDamagePer / 100));
 
             normalBulletDmg += bulletScript.dmg;
 
-            if (myPlayerScript.criticalPer > randomNum)
+            if (ps.criticalPer > randomNum)
             {
                 isCritical = true;
-                criticalPlusDamage = normalBulletDmg + (normalBulletDmg * (myPlayerScript.criticalDamagePer / 100));
+                criticalPlusDamage = normalBulletDmg + (normalBulletDmg * (ps.criticalDamagePer / 100));
             }
             else
             {
@@ -172,11 +174,11 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
 
             if (isBoss)
-                finalDamage = criticalPlusDamage + (criticalPlusDamage * (myPlayerScript.bossDamagePer / 100));
+                finalDamage = criticalPlusDamage + (criticalPlusDamage * (ps.bossDamagePer / 100));
             else
                 finalDamage = criticalPlusDamage;
 
-            finalDamage = (finalDamage + (finalDamage * (myPlayerScript.finalDamagePer / 100))) * petPenalty;
+            finalDamage = (finalDamage + (finalDamage * (ps.finalDamagePer / 100))) * petPenalty;
 
             Debug.Log(finalDamage);
 
@@ -198,9 +200,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             else
                 OP.DamagePoolInstantiate("DamageText", damagePos, Quaternion.identity, (int)finalDamage, 0, dtm.damageSkinCode, false);
 
-            Debug.Log(myPlayerScript.damage + "+("+ myPlayerScript.damage + "* (" + myPlayerScript.increaseDamagePer + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
-                     +"+ (" + myPlayerScript.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + myPlayerScript.damage + "* (" + petDamagePer + " / " + 100 + "))" );
-            Debug.Log(myPlayerScript.damage + ","+myPlayerScript.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + myPlayerScript.petDamagePer + "," + bulletScript.dmg);
+            Debug.Log(ps.damage + "+("+ ps.damage + "* (" + ps.increaseDamagePer + " / " + 100 + ")) + (" + ps.damage + "* (" + bulletScript.dmgPer + " / " + 100 + "))"
+                     +"+ (" + ps.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + ps.damage + "* (" + petDamagePer + " / " + 100 + "))" );
+            Debug.Log(ps.damage + ","+ ps.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + ps.petDamagePer + "," + bulletScript.dmg);
             Debug.Log("데미지 = "+ normalBulletDmg);
         }
     }

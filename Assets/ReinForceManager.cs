@@ -8,6 +8,7 @@ public class ReinForceManager : MonoBehaviour
     [Header("Manager")]
     [SerializeField] GameManager gm;
     [SerializeField] ChallengeManager challengeManager;
+    [SerializeField] PlayerState ps;
 
     public Player myplayerScript;
 
@@ -200,14 +201,14 @@ public class ReinForceManager : MonoBehaviour
 
     public void ReinForceApply()
     {
-        myplayerScript.increaseDamagePer += gm.plainLv;
-        myplayerScript.moveSpeed += gm.plainLv * 0.5f;
+        ps.increaseDamagePer += gm.plainLv;
+        ps.moveSpeed += gm.plainLv * 0.5f;
 
-        myplayerScript.increaseDamagePer += dmgPer[upgradeInfo[0]] - 100;
-        myplayerScript.attackSpeedPer += atkSpd[upgradeInfo[1]] - 100;
-        myplayerScript.criticalPer += criPer[upgradeInfo[2]] - 100;
-        myplayerScript.criticalDamagePer += criDmg[upgradeInfo[3]] - 100;
-        myplayerScript.petDamagePer += petDmg[upgradeInfo[4]] - 100;
-        myplayerScript.petAttackSpeedPer += petAtkSpd[upgradeInfo[5]] - 100;
+        ps.increaseDamagePer += dmgPer[upgradeInfo[0]] - 100;
+        ps.attackSpeedPer += atkSpd[upgradeInfo[1]] - 100;
+        ps.criticalPer += criPer[upgradeInfo[2]] - 100;
+        ps.criticalDamagePer += criDmg[upgradeInfo[3]] - 100;
+        ps.petDamagePer += petDmg[upgradeInfo[4]] - 100;
+        ps.petAttackSpeedPer += petAtkSpd[upgradeInfo[5]] - 100;
     }
 }

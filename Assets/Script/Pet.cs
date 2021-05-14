@@ -13,6 +13,7 @@ public class Pet : MonoBehaviourPun, IPunObservable
     PetManager petManager;
     public ObjectPooler objectPooler;
     JobManager jobManager;
+    PlayerState ps;
 
     [SerializeField] Vector3 followPos;
     [SerializeField] int followDelay;
@@ -32,6 +33,7 @@ public class Pet : MonoBehaviourPun, IPunObservable
         {
             objectPooler = petManager.OP;
             jobManager = petManager.JM;
+            ps = petManager.ps;
             followTargetPos = new Queue<Vector3>();
 
             transform.parent = petManager.gameObject.transform;
@@ -58,7 +60,7 @@ public class Pet : MonoBehaviourPun, IPunObservable
                 Follow();
             }
             Fire();
-            curShotCoolTime += Time.deltaTime * (player.petAttackSpeedPer / 100) * (jobManager.skillBOn == true ? 1.5f : 1);
+            curShotCoolTime += Time.deltaTime * (ps.petAttackSpeedPer / 100) * (jobManager.skillBOn == true ? 1.5f : 1);
 
         }
         else
