@@ -257,13 +257,8 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(NM.SpawnDelay());
             nickNameText3.text = PhotonNetwork.NickName;
 
-
-
-
             OP.PrePoolInstantiate();
-            
 
-            
             once = false;
             isGameEnd = false;
         }
@@ -277,6 +272,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         NM.roomPanel.SetActive(false);
         gamePlayPanel.SetActive(true);
         gamePlayExpPanel.SetActive(false);
+
+        NM.chatPanel.SetActive(false);
 
         startAni.SetTrigger("Active");//스테이지Ui
         
@@ -333,6 +330,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     IEnumerator CardDelay()
     {
         yield return new WaitForSeconds(3);
+        NM.chatPanel.SetActive(true);
         CM.SelectCard();
     }
    
@@ -725,7 +723,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         jobPanel.SetActive(a);
 
         codySelectUpdate[4].Select();
-        ps.StateUpdate();
 
         SoundManager.Play("Btn_2");
     }
@@ -735,7 +732,6 @@ public class GameManager : MonoBehaviourPunCallbacks
         reinForcePanel.SetActive(a);
 
         RM.ReinForceRework();
-        ps.StateUpdate();
 
         SoundManager.Play("Btn_2");
     }

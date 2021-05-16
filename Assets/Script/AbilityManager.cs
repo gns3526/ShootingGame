@@ -45,7 +45,7 @@ public class AbilityManager : MonoBehaviour
 
         RFM.CheckCanUpgrade();
 
-        ps.StateUpdate();
+
 
         SoundManager.Play("Btn_2");
 

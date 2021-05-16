@@ -27,8 +27,6 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             if (!myPlayerScript.canHit) return;
 
-            if (other.GetComponent<EnemyBasicScript>().isPassingNodamage) return;
-
             Hit();
         }
         else if(other.tag == "Bullet")

@@ -56,6 +56,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     GameObject[] temp;
 
     bool canStart;
+
+    public GameObject chatPanel;
     [SerializeField] Text[] chatTextT;
     [SerializeField] InputField chatInput;
     [SerializeField] Animator chatAni;
@@ -159,6 +161,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         roomPanel.SetActive(false);
         lobbyPanel.SetActive(true);
         connectPanel.SetActive(false);
+        chatPanel.SetActive(false);
         
         GM.joyPadObject.SetActive(false);
 
@@ -178,7 +181,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         MyListRenewal();
 
         GM.LobbyPlayerRework();
-        ps.StateUpdate();
+
     }
 
     public void MyListClick(int num)//방 클릭했을때
@@ -322,6 +325,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         GM.SetExpPanel();
 
+        chatPanel.SetActive(true);
         chatInput.text = "";
         RoomRenewal();
 
@@ -526,7 +530,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         respawnPanel.SetActive(false);
 
-        ps.StateUpdate();
+        ps.StatReset();
     }
 
     public IEnumerator SpawnDelay()

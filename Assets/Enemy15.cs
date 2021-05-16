@@ -63,6 +63,7 @@ public class Enemy15 : MonoBehaviour
 
         float angle = Mathf.Atan2(enemy1.transform.position.y - enemy2.transform.position.y, enemy1.transform.position.x - enemy2.transform.position.x) * Mathf.Rad2Deg;
 
+        if(wire != null)
         wire.transform.rotation = Quaternion.Euler(0, 0, angle);
     }
 }
