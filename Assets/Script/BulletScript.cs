@@ -100,6 +100,8 @@ public class BulletScript : MonoBehaviour, IPunObservable
         }
         curPosPv = new Vector3(16, 16, 0);
 
+        Invoke("ResetBulletInfo", 0.1f);
+
         isBossBullet = false;
 
         if (animator != null)
@@ -112,13 +114,12 @@ public class BulletScript : MonoBehaviour, IPunObservable
         bulletAniDelayCode = 0;
     }
 
-    IEnumerator BulletResetInfoDelay()
+    void ResetBulletInfo()
     {
-        yield return new WaitForSeconds(0.1f);
-
         dmg = 0;
         bulletSpeed = 0;
         dmgPer = 0;
+        ispetAttack = false;
     }
 
     private void Update()

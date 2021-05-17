@@ -19,7 +19,6 @@ public class Enemy15 : MonoBehaviour
     float randomSpeed2;
 
     [SerializeField] GameObject wire;
-    [SerializeField] GameObject spawnedOb;
 
     [SerializeField] GameObject hpBar1;
     [SerializeField] GameObject hpBar2;
@@ -42,15 +41,15 @@ public class Enemy15 : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(0.5f);
-        spawnedOb = EB.GM.OP.PoolInstantiate("ElectricWire", transform.position, Quaternion.identity, -1, -1, 0, false);
-        BulletScript bs = spawnedOb.GetComponent<BulletScript>();
+        wire = EB.GM.OP.PoolInstantiate("ElectricWire", transform.position, Quaternion.identity, -1, -1, 0, false);
+        BulletScript bs = wire.GetComponent<BulletScript>();
         bs.parentOb = enemy1;
-        wire = spawnedOb;
     }
 
     private void OnDisable()
     {
-        EB.GM.OP.PoolDestroy(spawnedOb);
+        if(wire != null)
+        EB.GM.OP.PoolDestroy(wire);
     }
     private void Update()
     {

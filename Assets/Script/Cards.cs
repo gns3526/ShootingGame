@@ -255,6 +255,18 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
             case 23:
                 ps.finalDamagePer += 50;
                 break;
+            case 24:
+                ps.normalMonsterDamagePer += 50;
+                break;
+            case 25:
+                ps.penetratePer += 50;
+                break;
+            case 26:
+                ps.petDamagePer += 50;
+                break;
+            case 27:
+                ps.petAttackSpeedPer += 50;
+                break;
         }
         if (!GM.isGameStart) return;
         StartCoroutine(SelectDelay());

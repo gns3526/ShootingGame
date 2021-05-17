@@ -146,7 +146,6 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             Player myPlayerScript = GM.myplayer.GetComponent<Player>();
 
             bool ispetAttack = bulletScript.ispetAttack;
-            float petPenalty = 1;
             float petDamagePer = 0;
 
             bool isCritical;
@@ -155,10 +154,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             randomNum = Random.Range(0, 101);
 
             if (ispetAttack)
-            {
-                petPenalty = 0.5f;
                 petDamagePer = ps.petDamagePer;
-            }
 
             // 내스텟 + (내 스텟 * 계수/100)
 
@@ -184,7 +180,10 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             else
                 finalDamage = criticalPlusDamage;
 
-            finalDamage = (finalDamage + (finalDamage * (ps.finalDamagePer / 100))) * petPenalty;
+            finalDamage = (finalDamage + (finalDamage * (ps.finalDamagePer / 100)));
+
+            if (ispetAttack)
+                finalDamage = finalDamage / 2;
 
             Debug.Log(finalDamage);
 

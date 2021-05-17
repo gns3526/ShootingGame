@@ -470,7 +470,6 @@ MonoBehaviour:
   - 2
   - 4
   wire: {fileID: 0}
-  spawnedOb: {fileID: 0}
   hpBar1: {fileID: 5383857295718611977}
   hpBar2: {fileID: 1763298008851720281}
 --- !u!1 &5026966738304181840
