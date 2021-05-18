@@ -133,6 +133,8 @@ public class PlayerState : MonoBehaviour
         stateTexts[16].text = (goldAmountPer + 100).ToString() + "%";
 
         stateTexts[17].text = (expAmountPer + 100).ToString() + "%";
+
+        SoundManager.Play("Btn_3");
     }
 
     public void Reset_StatPanelOpenOrClose(bool a)
@@ -180,6 +182,8 @@ public class PlayerState : MonoBehaviour
         stateTexts[16].text = (goldAmountPer + 100).ToString() + "%";
 
         stateTexts[17].text = (expAmountPer + 100).ToString() + "%";
+
+        SoundManager.Play("Btn_3");
     }
 
     public void StatReset()

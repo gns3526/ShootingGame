@@ -8,7 +8,7 @@ using Hashtable = ExitGames.Client.Photon.Hashtable;
 
 public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 {
-    [SerializeField] PhotonView pv;
+    public PhotonView pv;
     [SerializeField] PhotonView pvGM;
 
     [Header("Manager")]
@@ -73,7 +73,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] bool isFilter;
     Hashtable cc;
 
+
+
+
     [Header("PlayerIcon")]
+
     public int playerIconCode;
 
     [SerializeField] int iconCycleNum;
@@ -85,6 +89,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     [SerializeField] Text curPage;
 
     public GameObject myPlayer;
+    Player myplayerScript;
 
     float stopTime;
     public GameObject reconnectPanel;
@@ -164,6 +169,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         chatPanel.SetActive(false);
         
         GM.joyPadObject.SetActive(false);
+        GM.playerInfoPanel.SetActive(false);
 
         JM.skillBPoint.SetActive(false);
         JM.skillBOn = false;
@@ -182,6 +188,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         GM.LobbyPlayerRework();
 
+        SoundManager.Stop("LobbyMusic_3");
     }
 
     public void MyListClick(int num)//방 클릭했을때
@@ -293,6 +300,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         PhotonNetwork.LeaveRoom();
 
         SoundManager.Play("Btn_3");
+        SoundManager.Stop("LobbyMusic_2");
+        SoundManager.Play("LobbyMusic_1");
     }
 
 
@@ -324,12 +333,15 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.gamePlayPanel.SetActive(false);
 
         GM.SetExpPanel();
+        GM.fadeAni.SetTrigger("Out");//밝아지기
+        GM.playerInfoPanel.SetActive(true);
 
         chatPanel.SetActive(true);
         chatInput.text = "";
         RoomRenewal();
 
-
+        SoundManager.Stop("LobbyMusic_1");
+        SoundManager.Play("LobbyMusic_2");
 
         for (int i = 0; i < chatTextT.Length; i++)
         {
@@ -377,10 +389,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
 
     [PunRPC]
-    void PlayerIcon(int playerIndex , int playerIconCode, int playerJobCode)
+    public void PlayerInfoUpdate(int playerIndex , int playerIconCode, int playerJobCode, int life)
     {
         playerInfoGroup[playerIndex].GetComponent<Player_Icon>().profileImage.sprite = icons[playerIconCode];
         playerInfoGroup[playerIndex].GetComponent<Player_Icon>().jobImage.sprite = JM.jobIconDummy[playerJobCode];
+        playerInfoGroup[playerIndex].GetComponent<Player_Icon>().hpText.text = life.ToString();
     }
     
 
@@ -393,7 +406,11 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
             myPlayer.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
 
         if(myPlayer != null)
-        myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
+        {
+            myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
+            myplayerScript.pv.RPC(nameof(myplayerScript.LifeUpdate), RpcTarget.All, ps.life);
+        }
+        
 
         listText.text = "";//player list text reset
 
@@ -436,7 +453,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
                 if (PhotonNetwork.PlayerList[i].NickName == PhotonNetwork.NickName)
                 {
                     playerInfoGroupInt = i;
-                    pv.RPC(nameof(PlayerIcon), RpcTarget.All, playerInfoGroupInt , playerIconCode, JM.jobCode);
+                    pv.RPC(nameof(PlayerInfoUpdate), RpcTarget.All, playerInfoGroupInt , playerIconCode, JM.jobCode, ps.life);
                 }
             }
             else
@@ -503,7 +520,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
 
         myPlayer = PhotonNetwork.Instantiate("Player", new Vector3(1.6f, 0, 0), Quaternion.identity);
-        Player myplayerScript = myPlayer.GetComponent<Player>();
+        myplayerScript = myPlayer.GetComponent<Player>();
 
         //myplayerScript.GM = GM;
         myplayerScript.NM = this;

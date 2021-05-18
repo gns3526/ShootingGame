@@ -14,6 +14,7 @@ public class Player_Icon : MonoBehaviourPun
 
     public Image profileImage;
     public Image jobImage;
+    public Text hpText;
     [SerializeField] Text text;
 
 

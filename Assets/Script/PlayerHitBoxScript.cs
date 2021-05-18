@@ -56,6 +56,8 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     void Hit()
     {
+        if (myPlayerScript.godMode) return;
+
         int randomNum = Random.Range(0, 101);
         if (ps.missPercentage > randomNum)
         {
@@ -68,8 +70,10 @@ public class PlayerHitBoxScript : MonoBehaviour
         myPlayerScript.canHit = false;
         myPlayerScript.GM.UpdateLifeIcon(ps.life);
         myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+        pv.RPC(nameof(myPlayerScript.LifeUpdate), RpcTarget.All, ps.life);
+        GM.NM.pv.RPC(nameof(GM.NM.PlayerInfoUpdate), RpcTarget.All, GM.NM.playerInfoGroupInt, GM.NM.playerIconCode, GM.jm.jobCode, ps.life);
 
-        if(GM.jm.jobCode == 4 && !myPlayerScript.isDie)
+        if (GM.jm.jobCode == 4 && !myPlayerScript.isDie)
         GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, true);
 
         if (ps.life == 0)
@@ -85,6 +89,7 @@ public class PlayerHitBoxScript : MonoBehaviour
     }
 
 
+
     IEnumerator GodTime()
     {
         playerAni.SetBool("GodOn", true);
@@ -92,5 +97,4 @@ public class PlayerHitBoxScript : MonoBehaviour
         playerAni.SetBool("GodOn", false);
         myPlayerScript.canHit = true;
     }
-
 }

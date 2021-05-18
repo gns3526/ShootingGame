@@ -75,8 +75,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
         GM.gamePlayExpPanel.SetActive(true);
         GM.expGIveOnce = true;
-        StartCoroutine(GM.ExpGiveDelay(GM.mapExpAmount[GM.mapCode]));
-        StartCoroutine(GM.GiveGold(GM.mapCoinAmount[GM.mapCode]));
+        StartCoroutine(GM.ExpGiveDelay(GM.mapExpAmount[GM.mapCode]/ PhotonNetwork.PlayerList.Length));
+        StartCoroutine(GM.GiveGold(GM.mapCoinAmount[GM.mapCode] / PhotonNetwork.PlayerList.Length));
 
         if (myplayerScript.isDie) return;
 

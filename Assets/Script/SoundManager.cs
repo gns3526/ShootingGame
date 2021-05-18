@@ -26,6 +26,9 @@ public class SoundManager : MonoBehaviour {
         sounds.Add("Btn_1", audioSource[11]);
         sounds.Add("Btn_2", audioSource[12]);
         sounds.Add("Btn_3", audioSource[13]);
+        sounds.Add("LobbyMusic_1", audioSource[14]);
+        sounds.Add("LobbyMusic_2", audioSource[15]);
+        sounds.Add("LobbyMusic_3", audioSource[16]);
     }
     //  SoundManager.Play("Effect_Getcombine");
     public static void Play(string soundName)
@@ -33,6 +36,14 @@ public class SoundManager : MonoBehaviour {
         if (sounds.ContainsKey(soundName))
         {
             sounds[soundName].Play();
+        }
+    }
+
+    public static void Stop(string soundName)
+    {
+        if (sounds.ContainsKey(soundName))
+        {
+            sounds[soundName].Stop();
         }
     }
 }

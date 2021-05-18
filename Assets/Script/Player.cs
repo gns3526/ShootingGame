@@ -14,10 +14,8 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isTouchLeft;
     public bool isTouchRight;
     public bool isTouchBottom;
-
-    [Header("Player Stats")]
     
-    [SerializeField] Text lifeText;
+    public Text lifeText;
 
     public int score;
 
@@ -139,7 +137,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Update()
     {
-        lifeText.text = ps.life.ToString();
+        
         if (pv.IsMine)
         {
             if (!NM.isChating)
@@ -434,14 +432,21 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     void PlayerIsDie()
     {
         isDie = true;
+        godMode = true;
     }
 
     [PunRPC]
     void PlayerIsAlive()
     {
         isDie = false;
+        godMode = false;
     }
 
+    [PunRPC]
+    public void LifeUpdate(int life)
+    {
+        lifeText.text = life.ToString();
+    }
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Border")
@@ -470,12 +475,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         if (stream.IsWriting)//isMine = true
         {
             stream.SendNext(transform.position);
-            stream.SendNext(ps.life);
+            //stream.SendNext(ps.life);
         }
         else
         {
             curPosPv = (Vector3)stream.ReceiveNext();
-            ps.life = (int)stream.ReceiveNext();
+            //ps.life = (int)stream.ReceiveNext();
         }
     }
 }

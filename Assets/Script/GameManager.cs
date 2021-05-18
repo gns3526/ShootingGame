@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isAndroid;
 
     [Header("Managers")]
-    [SerializeField] NetworkManager NM;
+   public NetworkManager NM;
     public ObjectPooler OP;
     public Cards CM;
     [SerializeField] ReinForceManager RM;
@@ -30,7 +30,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isPlaying;
     [SerializeField] Animator startAni;
     [SerializeField] Animator clearAni;
-    [SerializeField] Animator fadeAni;
+    public Animator fadeAni;
 
     [Header("MonsterSpawn")]
     [SerializeField] Transform[] enemySpawnPoint;
@@ -82,7 +82,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject leftGamePanel;
 
-    
+    [Header("PlayerInfo")]
+    public GameObject playerInfoPanel;
+    [SerializeField] Animator playerInfoAni;
+
 
     [Header("ControlPanel")]
     public GameObject normalShotBotton;
@@ -251,6 +254,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StageStart()
     {
+        myplayerScript.godMode = false;
         if (once)
         {
             scoreText.text = "0";
@@ -261,6 +265,10 @@ public class GameManager : MonoBehaviourPunCallbacks
 
             once = false;
             isGameEnd = false;
+
+            SoundManager.Stop("LobbyMusic_1");
+            SoundManager.Stop("LobbyMusic_2");
+            SoundManager.Play("LobbyMusic_3");
         }
         stageEndOnce = true;
 
@@ -290,14 +298,11 @@ public class GameManager : MonoBehaviourPunCallbacks
         fadeAni.SetTrigger("Out");//밝아지기
 
         CM.cardPanel.SetActive(false);
-
-        myplayer.GetComponent<Player>().godMode = false;
-
-
     }
     [PunRPC]
     public void StageEnd()
     {
+        myplayerScript.godMode = true;
         if (!stageEndOnce) return;
         stageEndOnce = false;
 
@@ -306,9 +311,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         clearAni.SetTrigger("Active");//클리어Ui
 
-
-
-        myplayer.GetComponent<Player>().godMode = true;
         //myplayer.transform.position = playerPos.position;//플래이어 위치 초기화
 
         stage++;//스테이지 증가
@@ -370,6 +372,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         if (Input.GetKeyDown(KeyCode.K)) Debug.Log(challengeManager.challenge[0]);
 
+        if (Input.GetKeyDown(KeyCode.Tab)) PlayerInfoPanelMove();
 
         if (stopTime > 0)
         {
@@ -426,7 +429,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(mapExpAmount[mapCode]);
+                        GiveExp(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length);
                     }
                     else
                         setExpBarLerp = false;
@@ -448,7 +451,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(mapExpAmount[mapCode]);
+                        GiveExp(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length);
                     }
                     else
                         setExpBarLerp = false;
@@ -470,7 +473,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(mapExpAmount[mapCode]);
+                        GiveExp(mapExpAmount[mapCode] / PhotonNetwork.CountOfPlayers);
                     }
                     else
                         setExpBarLerp = false;
@@ -689,6 +692,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         lobbyParticleDummy[codyParticleCode].Play();
     }
 
+    bool playerInfoPanelActive;
+    public void PlayerInfoPanelMove()
+    {
+        playerInfoPanelActive = !playerInfoPanelActive;
+
+        playerInfoAni.SetBool("Active", playerInfoPanelActive);
+    }
+
     public void IconPanelOpenOrClose(bool a)
     {
         codyIconPanel.SetActive(a);
@@ -756,7 +767,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
+        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length));
     }
 
     public IEnumerator ExpGiveDelay(int ExpAmount)
@@ -848,6 +859,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         PhotonNetwork.LeaveRoom();
 
         SoundManager.Play("Btn_3");
+        SoundManager.Stop("LobbyMusic_2");
+        SoundManager.Play("LobbyMusic_1");
     }
 
     public void PlayerDie()

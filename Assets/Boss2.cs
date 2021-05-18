@@ -143,6 +143,8 @@ public class Boss2 : MonoBehaviour
             StartCoroutine(Rest(2));
         }
 
+        SoundManager.Play("Gun_2");
+
         if (!nextPattern)
         {
             curPatternCount++;
@@ -201,6 +203,8 @@ public class Boss2 : MonoBehaviour
             StartCoroutine(Rest(2));
         }
 
+        SoundManager.Play("Gun_5");
+
         if (!nextPattern)
         {
             curPatternCount++;
@@ -234,6 +238,8 @@ public class Boss2 : MonoBehaviour
             nextPattern = true;
             StartCoroutine(Rest(2));
         }
+
+        SoundManager.Play("Gun_3");
 
         if (!nextPattern)
         {
@@ -280,7 +286,10 @@ public class Boss2 : MonoBehaviour
         {
             EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 9, Vector3.forward), 1, -1, 4, false);
         }
-        if(EB.patternIndex == 0 || EB.patternIndex == 1)
+
+        SoundManager.Play("Gun_4");
+
+        if (EB.patternIndex == 0 || EB.patternIndex == 1)
             StartCoroutine(Attack1());
     }
 }

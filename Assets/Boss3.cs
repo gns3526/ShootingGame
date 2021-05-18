@@ -130,9 +130,10 @@ public class Boss3 : MonoBehaviour
     {
         curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 3, 0, EB.bulletSpeedCode[0], false);
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
-        //BulletAniRPC(0);
 
         curPatternCount++;
+
+        SoundManager.Play("Gun_5");
         yield return new WaitForSeconds(fireCoolTime[0]);
         if (curPatternCount < MaxPatternCount[0] && EB.canFire)
         {
@@ -165,9 +166,10 @@ public class Boss3 : MonoBehaviour
                 break;
         }
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
-        //BulletAniRPC(1);
 
         curPatternCount++;
+
+        SoundManager.Play("Gun_3");
         yield return new WaitForSeconds(fireCoolTime[1]);
         if (curPatternCount < MaxPatternCount[1] && EB.canFire)
         {
@@ -186,9 +188,10 @@ public class Boss3 : MonoBehaviour
 
         curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle + 90), 5, 2, EB.bulletSpeedCode[2], false);
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
-        //BulletAniRPC(2);
 
         curPatternCount++;
+
+        SoundManager.Play("Gun_6");
         yield return new WaitForSeconds(fireCoolTime[2]);
         if (curPatternCount < MaxPatternCount[2] && EB.canFire)
         {
@@ -198,27 +201,5 @@ public class Boss3 : MonoBehaviour
         {
             StartCoroutine(Rest(2));
         }
-    }
-
-
-    void BulletAniRPC(int pattern)
-    {
-        Debug.Log("총알 0");
-        switch (pattern)
-        {
-            case 0:
-                for (int i = 0; i < bulletAni1.Length; i++)
-                    curShotBulletScipt.bulletAniSprites[i] = bulletAni1[i];
-                break;
-            case 1:
-                for (int i = 0; i < bulletAni2.Length; i++)
-                    curShotBulletScipt.bulletAniSprites[i] = bulletAni2[i];
-                break;
-            case 2:
-                for (int i = 0; i < bulletAni3.Length; i++)
-                    curShotBulletScipt.bulletAniSprites[i] = bulletAni3[i];
-                break;
-        }
-        curShotBullet.GetComponent<BulletScript>().bulletAniDelayCode = bulletAniDelay[pattern];
     }
 }

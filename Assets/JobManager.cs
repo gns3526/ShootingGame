@@ -532,8 +532,6 @@ public class JobManager : MonoBehaviour
 
                 break;
             case 2:
-                //myplayerScript.skillC.GetComponent<BarrierScript>().barrierCount = barrierAmount;
-                //myplayerScript.skillC.pv.RPC(nameof(myplayerScript.skillC.BarrierOn), RpcTarget.All,true);
                 BarrierScript barrier = OP.PoolInstantiate("SkillC", myplayerScript.gameObject.transform.position ,Quaternion.identity, -2, -1, -1, true).GetComponent<BarrierScript>();
                 barrier.barrierCount = barrierAmountC;
                 barrier.duraction = barrierDuractionC;
