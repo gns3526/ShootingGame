@@ -158,19 +158,20 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             // 내스텟 + (내 스텟 * 계수/100)
 
-            normalBulletDmg = ps.damage + (ps.damage * (ps.increaseDamagePer / 100)) + (ps.damage * (bulletScript.dmgPer / 100))
+            normalBulletDmg = ps.damage + bulletScript.dmg + (ps.damage * (ps.increaseDamagePer / 100)) + (ps.damage * (bulletScript.dmgPer / 100))
                      + (ps.damage * (myPlayerScript.damageStack / 100)) + (ps.damage * (petDamagePer / 100));
-
-            normalBulletDmg += bulletScript.dmg;
 
             if (ps.criticalPer > randomNum)
             {
                 isCritical = true;
+                Debug.Log(ps.criticalDamagePer);
+                Debug.Log("크리터짐");
                 criticalPlusDamage = normalBulletDmg + (normalBulletDmg * (ps.criticalDamagePer / 100));
             }
             else
             {
                 isCritical = false;
+                Debug.Log("크리안터짐");
                 criticalPlusDamage = normalBulletDmg;
             }
 
@@ -209,6 +210,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
                      +"+ (" + ps.damage + "* (" + myPlayerScript.damageStack + " / " + 100 + ")) + (" + ps.damage + "* (" + petDamagePer + " / " + 100 + "))" );
             Debug.Log(ps.damage + ","+ ps.increaseDamagePer+ "," + bulletScript.dmgPer + "," + myPlayerScript.damageStack + "," + ps.petDamagePer + "," + bulletScript.dmg);
             Debug.Log("데미지 = "+ normalBulletDmg);
+
         }
     }
 

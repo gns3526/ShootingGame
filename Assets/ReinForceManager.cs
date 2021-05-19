@@ -24,23 +24,60 @@ public class ReinForceManager : MonoBehaviour
 
 
     [Header("ReinForce2")]
-    [SerializeField] Text reinPointAmount;
+    [SerializeField] Text reinPointAmountText;
     [SerializeField] GameObject[] groups;
 
-    public int[] dmgPer;
-    public int[] atkSpd;
-    public int[] criPer;
-    public int[] criDmg;
-    public int[] petDmg;
-    public int[] petAtkSpd;
+    [SerializeField] GameObject resetAskPanel;
+
+    public float[] dmgPer;
+    public float[] atkSpd;
+    public float[] criPer;
+    public float[] criDmg;
+    public float[] petDmg;
+    public float[] petAtkSpd;
+
+    [SerializeField] float setdmgPerAmountFloat;
+    [SerializeField] float setatkSpdAmountFloat;
+    [SerializeField] float setcriPerAmountFloat;
+    [SerializeField] float setcriDmgAmountFloat;
+    [SerializeField] float setpetDmgAmountFloat;
+    [SerializeField] float setpetAtkSpdAmountFloat;
 
     public int[] upgradeInfo;
     [SerializeField] int[] upgradeMax;
     [SerializeField] int[] upgradeCost;
 
+    public void Start()
+    {
+        for (int i = 0; i < dmgPer.Length; i++)
+        {
+            dmgPer[i] += setdmgPerAmountFloat * i;
+        }
+        for (int i = 0; i < atkSpd.Length; i++)
+        {
+            atkSpd[i] += setatkSpdAmountFloat * i;
+        }
+        for (int i = 0; i < criPer.Length; i++)
+        {
+            criPer[i] += setcriPerAmountFloat * i;
+        }
+        for (int i = 0; i < criDmg.Length; i++)
+        {
+            criDmg[i] += setcriDmgAmountFloat * i;
+        }
+        for (int i = 0; i < petDmg.Length; i++)
+        {
+            petDmg[i] += setpetDmgAmountFloat * i;
+        }
+        for (int i = 0; i < petAtkSpd.Length; i++)
+        {
+            petAtkSpd[i] += setpetAtkSpdAmountFloat * i;
+        }
+    }
+
     public void ReinForceRework()
     {
-        reinPointAmount.text = gm.reinPoint.ToString();
+        reinPointAmountText.text = gm.reinPoint.ToString();
         for (int i = 0; i < upgradeInfo.Length; i++)
         {
             if (upgradeInfo[i] == upgradeMax[i])
@@ -48,27 +85,27 @@ public class ReinForceManager : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 증가(Max)";
+                        groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 (Max)";
                         groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0]] + "%";
                         break;
                     case 1:
-                        groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 증가(Max)";
+                        groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 (Max)";
                         groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1]] + "%";
                         break;
                     case 2:
-                        groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 증가(Max)";
+                        groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 (Max)";
                         groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2]] + "%";
                         break;
                     case 3:
-                        groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 증가(Max)";
+                        groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 (Max)";
                         groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3]] + "%";
                         break;
                     case 4:
-                        groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 증가(Max)";
+                        groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 (Max)";
                         groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4]] + "%";
                         break;
                     case 5:
-                        groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 증가(Max)";
+                        groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 (Max)";
                         groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5]] + "%";
                         break;
                 }
@@ -78,27 +115,27 @@ public class ReinForceManager : MonoBehaviour
                 switch (i)
                 {
                     case 0:
-                        groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[0].transform.GetChild(1).GetComponent<Text>().text = "공격력 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[0].transform.GetChild(2).GetComponent<Text>().text = "데미지: " + dmgPer[upgradeInfo[0]] + "%" + " > " + dmgPer[upgradeInfo[0] + 1] + "%";
                         break;
                     case 1:
-                        groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[1].transform.GetChild(1).GetComponent<Text>().text = "공격속도 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[1].transform.GetChild(2).GetComponent<Text>().text = "공격속도: " + atkSpd[upgradeInfo[1]] + "%" + " > " + atkSpd[upgradeInfo[1] + 1] + "%";
                         break;
                     case 2:
-                        groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[2].transform.GetChild(1).GetComponent<Text>().text = "크리확률 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[2].transform.GetChild(2).GetComponent<Text>().text = "크리확률: " + criPer[upgradeInfo[2]] + "%" + " > " + criPer[upgradeInfo[2] + 1] + "%";
                         break;
                     case 3:
-                        groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[3].transform.GetChild(1).GetComponent<Text>().text = "크리데미지 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[3].transform.GetChild(2).GetComponent<Text>().text = "크리데미지: " + criDmg[upgradeInfo[3]] + "%" + " > " + criDmg[upgradeInfo[3] + 1] + "%";
                         break;
                     case 4:
-                        groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[4].transform.GetChild(1).GetComponent<Text>().text = "펫 공격력 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[4].transform.GetChild(2).GetComponent<Text>().text = "펫 공격력: " + petDmg[upgradeInfo[4]] + "%" + " > " + petDmg[upgradeInfo[4] + 1] + "%";
                         break;
                     case 5:
-                        groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 증가" + "(" + "Lv." + upgradeInfo[i] + ")";
+                        groups[5].transform.GetChild(1).GetComponent<Text>().text = "펫 공격속도 " + "(" + "Lv." + upgradeInfo[i] + ")";
                         groups[5].transform.GetChild(2).GetComponent<Text>().text = "펫 공격속도: " + petAtkSpd[upgradeInfo[5]] + "%" + " > " + petAtkSpd[upgradeInfo[5] + 1] + "%";
                         break;
                 }
@@ -210,5 +247,23 @@ public class ReinForceManager : MonoBehaviour
         ps.criticalDamagePer += criDmg[upgradeInfo[3]] - 100;
         ps.petDamagePer += petDmg[upgradeInfo[4]] - 100;
         ps.petAttackSpeedPer += petAtkSpd[upgradeInfo[5]] - 100;
+    }
+
+    public void ReinForcePointResetAsk(bool a)
+    {
+        resetAskPanel.SetActive(a);
+    }
+
+    public void ResetReinForcePoint()
+    {
+        gm.reinPoint = gm.plainLv;
+
+        for (int i = 0; i < upgradeInfo.Length; i++)
+        {
+            upgradeInfo[i] = 0;
+        }
+        ReinForceRework();
+
+        resetAskPanel.SetActive(false);
     }
 }

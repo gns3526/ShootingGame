@@ -198,7 +198,7 @@ public class PlayerState : MonoBehaviour
         bossDamagePer = 0;
         normalMonsterDamagePer = 0;
         criticalPer = 35;
-        criticalDamagePer = 0;
+        criticalDamagePer = 50;
         petDamagePer = 0;
         petAttackSpeedPer = 100;
         penetratePer = 10;
