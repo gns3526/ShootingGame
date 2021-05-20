@@ -15,6 +15,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [Header("Managers")]
    public NetworkManager NM;
     public ObjectPooler OP;
+    public OptionManager option;
     public Cards CM;
     [SerializeField] ReinForceManager RM;
     public JobManager jm;

@@ -59,7 +59,7 @@ public class CodySelectUpdate : MonoBehaviour
                     break;
                 case 5:
                     itemNameText.font = dtm.damageSkins[dtm.damageSkinCode];
-                    itemNameText.color = dtm.damageColor;
+                    itemNameText.color = dtm.damageColor_M;
 
                     itemNameText.text = "\"" + "1234567890" + "\"";
                     itemInfoText.text = itemInfos[dtm.damageSkinCode];
@@ -84,7 +84,7 @@ public class CodySelectUpdate : MonoBehaviour
             if (codyTypeCode == 5)
             {
                 itemNameText.font = dtm.damageSkins[index];
-                itemNameText.color = dtm.damageColor;
+                itemNameText.color = dtm.damageColor_M;
             }
 
             itemNameText.text = "\"" + itemNames[index].ToString() + "\"";

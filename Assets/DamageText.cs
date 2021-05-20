@@ -11,10 +11,12 @@ public class DamageText : MonoBehaviour
     [SerializeField] GameManager GM;
     ObjectPooler objectManager;
     DamageTextManager dtm;
+    OptionManager option;
 
     [SerializeField] Text damageText;
+    [SerializeField] Outline damageOutline;
 
-
+    [SerializeField] Animator ani;
 
     Color color;
 
@@ -25,12 +27,20 @@ public class DamageText : MonoBehaviour
         GM = FindObjectOfType<GameManager>();
         objectManager = GM.OP;
         dtm = GM.DTM;
+        option = GM.option;
 
-        //if(pv.IsMine)
+        if (pv.IsMine)
             transform.parent = GameObject.Find("MyDamageDummy").gameObject.transform;
-        //else
-        //    transform.parent = GameObject.Find("OtherDamageDummy").gameObject.transform;
+            
+        else
+            transform.parent = GameObject.Find("OtherDamageDummy").gameObject.transform;
+            
         gameObject.transform.localScale = new Vector3(0.5f, 0.5f, 1);
+    }
+
+    private void OnEnable()
+    {
+        ani.SetTrigger("Trigger");
     }
 
     [PunRPC]
@@ -41,24 +51,53 @@ public class DamageText : MonoBehaviour
         else
             damageText.text = "-" + damageAmount;
 
-        switch (colorCode)
+        if (pv.IsMine)
         {
-            case 0:
-                damageText.color = dtm.damageColor;
-                break;
-            case 1:
-                damageText.color = dtm.criticalColor;
-                break;
-            case 2:
-                damageText.color = dtm.healColor;
-                break;
-            case 3:
-                damageText.color = dtm.weaponColor;
-                break;
-            case 4:
-                damageText.color = dtm.weaponCriticalColor;
-                break;
+            switch (colorCode)
+            {
+                case 0:
+                    damageText.color = dtm.damageColor_M;
+                    break;
+                case 1:
+                    damageText.color = dtm.criticalColor_M;
+                    break;
+                case 2:
+                    damageText.color = dtm.healColor_M;
+                    break;
+                case 3:
+                    damageText.color = dtm.weaponColor_M;
+                    break;
+                case 4:
+                    damageText.color = dtm.weaponCriticalColor_M;
+                    break;
+            }
+            damageOutline.effectColor = dtm.outline_M;
         }
+
+        else
+        {
+            switch (colorCode)
+            {
+                case 0:
+                    damageText.color = dtm.damageColor_Y;
+                    break;
+                case 1:
+                    damageText.color = dtm.criticalColor_Y;
+                    break;
+                case 2:
+                    damageText.color = dtm.healColor_Y;
+                    break;
+                case 3:
+                    damageText.color = dtm.weaponColor_Y;
+                    break;
+                case 4:
+                    damageText.color = dtm.weaponCriticalColor_Y;
+                    break;
+            }
+            damageOutline.effectColor = dtm.outline_Y;
+        }
+            
+
 
         damageText.font = dtm.damageSkins[damageSkinCode];
     }

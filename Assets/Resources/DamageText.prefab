@@ -115,6 +115,8 @@ MonoBehaviour:
   pv: {fileID: 6690984514987352043}
   GM: {fileID: 0}
   damageText: {fileID: 8982828821345525159}
+  damageOutline: {fileID: 8982828821345525158}
+  ani: {fileID: 3541047109367954283}
 --- !u!114 &6690984514987352043
 MonoBehaviour:
   m_ObjectHideFlags: 0
