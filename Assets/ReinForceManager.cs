@@ -252,6 +252,8 @@ public class ReinForceManager : MonoBehaviour
     public void ReinForcePointResetAsk(bool a)
     {
         resetAskPanel.SetActive(a);
+
+        SoundManager.Play("Btn_2");
     }
 
     public void ResetReinForcePoint()
@@ -265,5 +267,7 @@ public class ReinForceManager : MonoBehaviour
         ReinForceRework();
 
         resetAskPanel.SetActive(false);
+
+        SoundManager.Play("Btn_1");
     }
 }
