@@ -11,6 +11,7 @@ public class OptionManager : MonoBehaviour
     [SerializeField] GameObject optionPanel;
 
     [Header("Sound")]
+    [SerializeField] GameObject soundPanel;
     public float musicVolume;
     public float uiVolume;
     public float shotVolume;
@@ -23,8 +24,17 @@ public class OptionManager : MonoBehaviour
     public Text shotVolumeText;
 
     [Header("DamageSkin")]
+    [SerializeField] GameObject damagePanel;
     public float myAlpha;
     public float otherAlpha;
+    [SerializeField] Text myAlphaText;
+    [SerializeField] Text otherAlphaText;
+    [SerializeField] Text testMyDamageText;
+    [SerializeField] Text testOtherDamageText;
+
+    [SerializeField] Slider myTransparencySlider;
+    [SerializeField] Slider otherTransparencySlider;
+
     private void Start()
     {
         musicVolume = PlayerPrefs.GetFloat("MusicVolume");
@@ -49,33 +59,68 @@ public class OptionManager : MonoBehaviour
 
         if (a)
         {
-            musicVolumeText.text = Mathf.Round(musicVolume * 100).ToString();
-            musicVolumeText.text = Mathf.Round(uiVolume * 100).ToString();
-            musicVolumeText.text = Mathf.Round(shotVolume * 100).ToString();
-
-            musicVolumeSlider.value = musicVolume;
-            uiVolumeSlider.value = uiVolume;
-            shotVolumeSlider.value = shotVolume;
+            damagePanel.SetActive(false);
+            soundPanel.SetActive(true);
         }
         else
         {
-            dtm.damageColor_M = new Color(dtm.damageColor_M.r, dtm.damageColor_M.g, dtm.damageColor_M.b, myAlpha / 255);
-            dtm.criticalColor_M = new Color(dtm.criticalColor_M.r, dtm.criticalColor_M.g, dtm.criticalColor_M.b, myAlpha / 255);
-            dtm.healColor_M = new Color(dtm.healColor_M.r, dtm.healColor_M.g, dtm.healColor_M.b, myAlpha / 255);
-            dtm.weaponColor_M = new Color(dtm.weaponColor_M.r, dtm.weaponColor_M.g, dtm.weaponColor_M.b, myAlpha / 255);
-            dtm.weaponCriticalColor_M = new Color(dtm.weaponCriticalColor_M.r, dtm.weaponCriticalColor_M.g, dtm.weaponCriticalColor_M.b, myAlpha / 255);
+            dtm.damageColor_M = new Color(dtm.damageColor_M.r, dtm.damageColor_M.g, dtm.damageColor_M.b, myAlpha);
+            dtm.criticalColor_M = new Color(dtm.criticalColor_M.r, dtm.criticalColor_M.g, dtm.criticalColor_M.b, myAlpha);
+            dtm.healColor_M = new Color(dtm.healColor_M.r, dtm.healColor_M.g, dtm.healColor_M.b, myAlpha);
+            dtm.weaponColor_M = new Color(dtm.weaponColor_M.r, dtm.weaponColor_M.g, dtm.weaponColor_M.b, myAlpha);
+            dtm.weaponCriticalColor_M = new Color(dtm.weaponCriticalColor_M.r, dtm.weaponCriticalColor_M.g, dtm.weaponCriticalColor_M.b, myAlpha);
 
-            dtm.damageColor_Y = new Color(dtm.damageColor_Y.r, dtm.damageColor_Y.g, dtm.damageColor_Y.b, otherAlpha / 255);
-            dtm.criticalColor_Y = new Color(dtm.criticalColor_Y.r, dtm.criticalColor_Y.g, dtm.criticalColor_Y.b, otherAlpha / 255);
-            dtm.healColor_Y = new Color(dtm.healColor_Y.r, dtm.healColor_Y.g, dtm.healColor_Y.b, otherAlpha / 255);
-            dtm.weaponColor_Y = new Color(dtm.weaponColor_Y.r, dtm.weaponColor_Y.g, dtm.weaponColor_Y.b, otherAlpha / 255);
-            dtm.weaponCriticalColor_Y = new Color(dtm.weaponCriticalColor_Y.r, dtm.weaponCriticalColor_Y.g, dtm.weaponCriticalColor_Y.b, otherAlpha / 255);
+            dtm.damageColor_Y = new Color(dtm.damageColor_Y.r, dtm.damageColor_Y.g, dtm.damageColor_Y.b, otherAlpha);
+            dtm.criticalColor_Y = new Color(dtm.criticalColor_Y.r, dtm.criticalColor_Y.g, dtm.criticalColor_Y.b, otherAlpha);
+            dtm.healColor_Y = new Color(dtm.healColor_Y.r, dtm.healColor_Y.g, dtm.healColor_Y.b, otherAlpha);
+            dtm.weaponColor_Y = new Color(dtm.weaponColor_Y.r, dtm.weaponColor_Y.g, dtm.weaponColor_Y.b, otherAlpha);
+            dtm.weaponCriticalColor_Y = new Color(dtm.weaponCriticalColor_Y.r, dtm.weaponCriticalColor_Y.g, dtm.weaponCriticalColor_Y.b, otherAlpha);
 
-            dtm.outline_M = new Color(0, 0, 0, myAlpha / 255);
-            dtm.outline_Y = new Color(0, 0, 0, otherAlpha / 255);
+            dtm.outline_M = new Color(0, 0, 0, myAlpha);
+            dtm.outline_Y = new Color(0, 0, 0, otherAlpha);
         }
 
 
         SoundManager.Play("Btn_3");
+    }
+
+    public void SoundPanel()
+    {
+        soundPanel.SetActive(true);
+
+        damagePanel.SetActive(false);
+
+        musicVolumeText.text = Mathf.Round(musicVolume * 100).ToString();
+        musicVolumeText.text = Mathf.Round(uiVolume * 100).ToString();
+        musicVolumeText.text = Mathf.Round(shotVolume * 100).ToString();
+
+        musicVolumeSlider.value = musicVolume;
+        uiVolumeSlider.value = uiVolume;
+        shotVolumeSlider.value = shotVolume;
+    }
+
+    public void BattlePanel()
+    {
+        damagePanel.SetActive(true);
+
+        soundPanel.SetActive(false);
+
+        myTransparencySlider.value = myAlpha;
+        otherTransparencySlider.value = otherAlpha;
+    }
+
+    public void SetMyDamageTransparency(float value)
+    {
+        myAlphaText.text = Mathf.Round(value * 100).ToString();
+
+        myAlpha = value;
+        testMyDamageText.color = new Color(testMyDamageText.color.r, testMyDamageText.color.g, testMyDamageText.color.b, value);
+    }
+    public void SetOtherDamageTransparency(float value)
+    {
+        otherAlphaText.text = Mathf.Round(value * 100).ToString();
+
+        otherAlpha = value;
+        testOtherDamageText.color = new Color(testOtherDamageText.color.r, testOtherDamageText.color.g, testOtherDamageText.color.b, value);
     }
 }
