@@ -181,6 +181,8 @@ MonoBehaviour:
   spriteRender: {fileID: 0}
   bulletAniSprites:
   - {fileID: 0}
+  rigid: {fileID: 8247648505571610864}
+  homingPower: 0
   bulletAniDelayCode: 0
   bulletAniDelays: []
 --- !u!114 &6875291545260556553

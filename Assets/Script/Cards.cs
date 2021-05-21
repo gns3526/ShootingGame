@@ -231,6 +231,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.weaponTotalShotCoolTime = 1f;
                 myPlayerScript.curWeaponShotCoolTime = -1;
 
+                GM.raderOb.SetActive(false);
+
                 GM.WeaponButtonUpdate();
                 break;
             case 20:
@@ -243,6 +245,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.maxSpecialBullet = 50;
                 myPlayerScript.weaponTotalShotCoolTime = 0.1f;
                 myPlayerScript.curWeaponShotCoolTime = -1;
+
+                GM.raderOb.SetActive(false);
 
                 GM.WeaponButtonUpdate();
                 break;
@@ -266,6 +270,22 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 break;
             case 27:
                 ps.petAttackSpeedPer += 50;
+                break;
+            case 28:
+                myPlayerScript.gotSpecialWeaponAbility = true;
+                myPlayerScript.weaponCode = 3;
+                myPlayerScript.weaponDmg = 1;
+                myPlayerScript.toTalChargeTime = 1f;
+                myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
+                myPlayerScript.curBulletAmount = 0;
+                myPlayerScript.maxSpecialBullet = 50;
+                myPlayerScript.weaponTotalShotCoolTime = 0.1f;
+                myPlayerScript.curWeaponShotCoolTime = -1;
+
+                GM.raderScript.myPlayerScript = myPlayerScript;
+                GM.raderOb.SetActive(true);
+
+                GM.WeaponButtonUpdate();
                 break;
         }
         if (!GM.isGameStart) return;

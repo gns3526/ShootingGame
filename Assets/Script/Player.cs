@@ -123,7 +123,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
         }
 
-        GM.CM.CardS(20);
+        GM.CM.CardS(28);
     }
 
     IEnumerator StartDelay()
@@ -225,7 +225,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             }
             if(curWeaponShotCoolTime < weaponTotalShotCoolTime && GM.isPlaying)
             {
-                curWeaponShotCoolTime += Time.deltaTime;
+                curWeaponShotCoolTime += Time.deltaTime * ((ps.attackSpeedPer + attackSpeedStack) / 100);
                 GM.weaponShotButtonImage.fillAmount = curWeaponShotCoolTime / weaponTotalShotCoolTime;
             }
         }
@@ -326,6 +326,15 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                         float randomAngle = Random.Range(-7f, 7f);
                         BulletScript bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0,0,randomAngle), 2, -1, 10, true).GetComponent<BulletScript>();
                         bullet1.dmg = weaponDmg;
+                        break;
+                    case 3:
+                        if (GM.raderScript.enemys.Count == 0) return;
+                        int randomEnemyNum = Random.Range(0, GM.raderScript.enemys.Count);
+                        BulletScript bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 180), 2, -1, 5, true).GetComponent<BulletScript>();
+                        bullet2.homingPower = 1000;
+                        bullet2.dmg = weaponDmg;
+                        bullet2.isFollowTarget = true;
+                        bullet2.target = GM.raderScript.enemys[randomEnemyNum];
                         break;
                 }
                 

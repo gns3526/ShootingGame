@@ -30,20 +30,43 @@ public class OptionManager : MonoBehaviour
     [SerializeField] Text myAlphaText;
     [SerializeField] Text otherAlphaText;
     [SerializeField] Text testMyDamageText;
+    [SerializeField] Outline testMyOutlineText;
     [SerializeField] Text testOtherDamageText;
+    [SerializeField] Outline testOtherOutlineText;
 
     [SerializeField] Slider myTransparencySlider;
     [SerializeField] Slider otherTransparencySlider;
 
     private void Start()
     {
-        musicVolume = PlayerPrefs.GetFloat("MusicVolume");
-        uiVolume = PlayerPrefs.GetFloat("UiVolume");
-        shotVolume = PlayerPrefs.GetFloat("ShotVolume");
+
+        PlayerPrefs.GetInt("Start");
+        if(PlayerPrefs.GetInt("Start") == 0)
+        {
+            PlayerPrefs.SetInt("Start", 1);
+
+            musicVolume = 1;
+            uiVolume = 1;
+            shotVolume = 1;
+
+            myAlpha = 1;
+            otherAlpha = 1;
+        }
+        else
+        {
+            musicVolume = PlayerPrefs.GetFloat("MusicVolume");
+            uiVolume = PlayerPrefs.GetFloat("UiVolume");
+            shotVolume = PlayerPrefs.GetFloat("ShotVolume");
+
+            myAlpha = PlayerPrefs.GetFloat("MyAlpha");
+            otherAlpha = PlayerPrefs.GetFloat("OtherAlpha");
+        }
 
         soundManager.SetMusicVolume(musicVolume);
         soundManager.SetUiVolume(uiVolume);
         soundManager.SetShotVolume(shotVolume);
+
+        SoundManager.Play("LobbyMusic_1");
     }
 
     private void OnApplicationQuit()
@@ -51,6 +74,9 @@ public class OptionManager : MonoBehaviour
         PlayerPrefs.SetFloat("MusicVolume", musicVolume);
         PlayerPrefs.SetFloat("UiVolume", uiVolume);
         PlayerPrefs.SetFloat("ShotVolume", shotVolume);
+
+        PlayerPrefs.SetFloat("MyAlpha", myAlpha);
+        PlayerPrefs.SetFloat("OtherAlpha", otherAlpha);
     }
 
     public void OptionPanel(bool a)
@@ -61,6 +87,14 @@ public class OptionManager : MonoBehaviour
         {
             damagePanel.SetActive(false);
             soundPanel.SetActive(true);
+
+            musicVolumeText.text = Mathf.Round(musicVolume * 100).ToString();
+            musicVolumeText.text = Mathf.Round(uiVolume * 100).ToString();
+            musicVolumeText.text = Mathf.Round(shotVolume * 100).ToString();
+
+            musicVolumeSlider.value = musicVolume;
+            uiVolumeSlider.value = uiVolume;
+            shotVolumeSlider.value = shotVolume;
         }
         else
         {
@@ -115,6 +149,7 @@ public class OptionManager : MonoBehaviour
 
         myAlpha = value;
         testMyDamageText.color = new Color(testMyDamageText.color.r, testMyDamageText.color.g, testMyDamageText.color.b, value);
+        testMyOutlineText.effectColor = new Color(0, 0, 0, value);
     }
     public void SetOtherDamageTransparency(float value)
     {
@@ -122,5 +157,6 @@ public class OptionManager : MonoBehaviour
 
         otherAlpha = value;
         testOtherDamageText.color = new Color(testOtherDamageText.color.r, testOtherDamageText.color.g, testOtherDamageText.color.b, value);
+        testOtherOutlineText.effectColor = new Color(0, 0, 0, value);
     }
 }

@@ -36,6 +36,10 @@ public class BulletScript : MonoBehaviour, IPunObservable
     public Animator animator;
     [SerializeField] SpriteRenderer spriteRender;
     public Sprite[] bulletAniSprites;
+    [SerializeField] Rigidbody2D rigid;
+
+    public int homingPower;
+
     public int bulletAniDelayCode;
     public float[] bulletAniDelays;
 
@@ -120,20 +124,37 @@ public class BulletScript : MonoBehaviour, IPunObservable
         bulletSpeed = 0;
         dmgPer = 0;
         ispetAttack = false;
+        isFollowTarget = false;
+        target = null;
     }
 
     private void Update()
     {
         if (pv.IsMine)
         {
-            transform.Translate(new Vector3(0, -bulletSpeed * Time.deltaTime));
+            
 
             bulletDestroyTime -= Time.deltaTime;
             if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);
-            if (isFollowTarget && target != null)
+            if (isFollowTarget)
             {
-                float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+                //float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
+                //transform.rotation = Quaternion.Euler(0, 0, angle + 90);
+                if(isPlayerAttack)
+                    transform.Translate(-bulletSpeed * Time.deltaTime, 0, 0);
+                else
+                    transform.Translate(bulletSpeed * Time.deltaTime, 0, 0);
+                Vector2 direction = transform.position - target.transform.position;
+
+                direction.Normalize();
+
+                float cross = Vector3.Cross(direction, transform.right).z;
+
+                rigid.angularVelocity = cross * homingPower;
+            }
+            else
+            {
+                transform.Translate(new Vector3(0, -bulletSpeed * Time.deltaTime));
             }
         }
 

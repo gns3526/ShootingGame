@@ -171,6 +171,8 @@ MonoBehaviour:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
+  rigid: {fileID: 7768235347239702801}
+  homingPower: 0
   bulletAniDelayCode: 0
   bulletAniDelays:
   - 0.05

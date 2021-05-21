@@ -13,7 +13,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isAndroid;
 
     [Header("Managers")]
-   public NetworkManager NM;
+    public NetworkManager NM;
     public ObjectPooler OP;
     public OptionManager option;
     public Cards CM;
@@ -180,6 +180,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Image roomMapThumnail;
     public Text roomMapName;
 
+    [Header("Rader")]
+    public GameObject raderOb;
+    public RaderScript raderScript;
+
     [Header("Other")]
     public GameObject firstPetOb;
 
@@ -197,6 +201,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] bool once;
     bool stageEndOnce;
+
 
     private void Awake()
     {
