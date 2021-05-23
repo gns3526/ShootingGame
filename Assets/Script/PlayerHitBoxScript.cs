@@ -74,7 +74,7 @@ public class PlayerHitBoxScript : MonoBehaviour
         GM.NM.pv.RPC(nameof(GM.NM.PlayerInfoUpdate), RpcTarget.All, GM.NM.playerInfoGroupInt, GM.NM.playerIconCode, GM.jm.jobCode, ps.life);
 
         if (GM.jm.jobCode == 4 && !myPlayerScript.isDie)
-        GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, true);
+        GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, 0, true);
 
         if (ps.life == 0)
         {

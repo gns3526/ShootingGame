@@ -123,7 +123,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
         }
 
-        GM.CM.CardS(28);
+        GM.CM.CardS(19);
     }
 
     IEnumerator StartDelay()
@@ -143,6 +143,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (!NM.isChating)
             {
                 Move();
+                if(GM.canShotWeapon)
                 WeaponFire();
                 Fire();
             }
@@ -152,11 +153,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             Reload();
             if (Input.GetKeyDown(KeyCode.Y))
             {
-                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 0, -1, true);
+                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 0, -1, 0, true);
             }
             if (Input.GetKeyDown(KeyCode.U))
             {
-                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 1, -1, true);
+                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 1, -1, 0, true);
             }
             if (Input.GetKeyDown(KeyCode.R))
             {
@@ -164,10 +165,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             }
             if(Input.GetKeyDown(KeyCode.P))
             {
-                ps.life = 0;
-                GM.UpdateLifeIcon(ps.life);
-                pv.RPC("PlayerIsDie", RpcTarget.All);
-                GM.PlayerDie();
+                GM.CM.CardS(20);
             }
             if (Input.GetKeyDown(KeyCode.S))
             {
@@ -226,7 +224,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if(curWeaponShotCoolTime < weaponTotalShotCoolTime && GM.isPlaying)
             {
                 curWeaponShotCoolTime += Time.deltaTime * ((ps.attackSpeedPer + attackSpeedStack) / 100);
-                GM.weaponShotButtonImage.fillAmount = curWeaponShotCoolTime / weaponTotalShotCoolTime;
             }
         }
         else if((transform.position - curPosPv).sqrMagnitude >= 100)
@@ -291,7 +288,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if(isSpecialBulletAbility1 && (20 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, true);
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, 0, true);
             bullet.GetComponent<BulletScript>().dmgPer = 100;
             ps.curShotCoolTime = 0;
 
@@ -299,7 +296,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         }
         if (isSpecialBulletAbility2 && (60 > randomNum))
         {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, true);
+            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, 0, true);
             bullet.GetComponent<BulletScript>().dmgPer = 50;
             ps.curShotCoolTime = 0;
 
@@ -310,6 +307,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         ps.curShotCoolTime = 0;
     }
 
+    bool left;
     void WeaponFire()
     {
         if (gotSpecialWeaponAbility && weaponFire)
@@ -319,22 +317,29 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 switch (weaponCode)
                 {
                     case 1:
-                        BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 9, true).GetComponent<BulletScript>();
+                        BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 15, 1, true).GetComponent<BulletScript>();
                         bullet.dmg = weaponDmg;
                         break;
                     case 2:
                         float randomAngle = Random.Range(-7f, 7f);
-                        BulletScript bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0,0,randomAngle), 2, -1, 10, true).GetComponent<BulletScript>();
+                        BulletScript bullet1 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0,0,randomAngle), 2, -1, 10, 0, true).GetComponent<BulletScript>();
                         bullet1.dmg = weaponDmg;
                         break;
                     case 3:
                         if (GM.raderScript.enemys.Count == 0) return;
+
+                        left = !left;
+
                         int randomEnemyNum = Random.Range(0, GM.raderScript.enemys.Count);
-                        BulletScript bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 180), 2, -1, 5, true).GetComponent<BulletScript>();
-                        bullet2.homingPower = 1000;
+
+                        BulletScript bullet2 = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, left == true ? 140 : 220), 2, -1, 7, 0, true).GetComponent<BulletScript>();
+
+                        bullet2.homingPower = 400;
                         bullet2.dmg = weaponDmg;
                         bullet2.isFollowTarget = true;
                         bullet2.target = GM.raderScript.enemys[randomEnemyNum];
+
+                        
                         break;
                 }
                 

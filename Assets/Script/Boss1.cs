@@ -109,13 +109,13 @@ public class Boss1 : MonoBehaviour
     }
     IEnumerator FireFoward()//앞으로 4발
     {
-        GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.identity, 3, 1, 6, false);
+        GameObject bulletR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.3f, Quaternion.identity, 3, 1, 6, 0, false);
 
-        GameObject bulletRR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.identity, 3, 1, 6, false);
+        GameObject bulletRR = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.right * 0.45f, Quaternion.identity, 3, 1, 6, 0, false);
 
-        GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.identity, 3, 1, 6, false);
+        GameObject bulletL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.3f, Quaternion.identity, 3, 1, 6, 0, false);
 
-        GameObject bulletLL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.identity, 3, 1, 6, false);
+        GameObject bulletLL = EB.OP.PoolInstantiate("EnemyBullet4", transform.position + Vector3.left * 0.45f, Quaternion.identity, 3, 1, 6, 0, false);
 
 
 

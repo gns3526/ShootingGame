@@ -87,11 +87,11 @@ public class Enemy13 : MonoBehaviour
         yield return new WaitForSeconds(maxAttackCool);
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
 
-        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[0], -1, EB.bulletSpeedCode[0], false);
-        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[1], -1, EB.bulletSpeedCode[1], false);
-        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[2], -1, EB.bulletSpeedCode[2], false);
-        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[3], -1, EB.bulletSpeedCode[3], false);
-        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[4], -1, EB.bulletSpeedCode[4], false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[0], -1, EB.bulletSpeedCode[0], 0, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[1], -1, EB.bulletSpeedCode[1], 0, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[2], -1, EB.bulletSpeedCode[2], 0, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[3], -1, EB.bulletSpeedCode[3], 0, false);
+        EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(angle + 90, Vector3.forward) ,EB.bulletCode[4], -1, EB.bulletSpeedCode[4], 0, false);
 
         EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 3);
 

@@ -41,7 +41,7 @@ public class Enemy15 : MonoBehaviour
     IEnumerator Delay()
     {
         yield return new WaitForSeconds(0.5f);
-        wire = EB.GM.OP.PoolInstantiate("ElectricWire", transform.position, Quaternion.identity, -1, -1, 0, false);
+        wire = EB.GM.OP.PoolInstantiate("ElectricWire", transform.position, Quaternion.identity, -1, -1, 0, 0, false);
         BulletScript bs = wire.GetComponent<BulletScript>();
         bs.parentOb = enemy1;
     }

@@ -128,7 +128,7 @@ public class Boss3 : MonoBehaviour
 
     IEnumerator Pattern1()//
     {
-        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 3, 0, EB.bulletSpeedCode[0], false);
+        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 3, 0, EB.bulletSpeedCode[0], 0, false);
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
 
         curPatternCount++;
@@ -156,13 +156,13 @@ public class Boss3 : MonoBehaviour
         switch (pattern2Index)
         {
             case 0:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.right * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], 0, false);
                 break;
             case 1:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], 0, false);
                 break;
             case 2:
-                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], false);
+                curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position + Vector3.left * 0.4f, Quaternion.Euler(0, 0, 0), 4, 1, EB.bulletSpeedCode[1], 0, false);
                 break;
         }
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
@@ -186,7 +186,7 @@ public class Boss3 : MonoBehaviour
         float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
 
 
-        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle + 90), 5, 2, EB.bulletSpeedCode[2], false);
+        curShotBullet = EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle + 90), 5, 2, EB.bulletSpeedCode[2], 0, false);
         curShotBulletScipt = curShotBullet.GetComponent<BulletScript>();
 
         curPatternCount++;

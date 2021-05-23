@@ -26,8 +26,32 @@ public class ObjectPooler : MonoBehaviourPun
 
     GameObject curSpawnedOb;
 
+    int index;
+    [SerializeField] GameObject spawnOb;
+    [SerializeField] GameObject[] spawnedOb;
+
+    public void PreInstantiate()
+    {
+        for (int i = 0; i < spawnedOb.Length; i++)
+        {
+            GameObject Object = Instantiate(spawnOb, new Vector3(16, 16, 0), Quaternion.identity);
+            Object.SetActive(false);
+
+            spawnedOb[i] = Object;
+        }
+    }
+
+    public void SmokeInstantiate(GameObject target)
+    {
+        if (index == spawnedOb.Length) index = 0;
+        spawnedOb[index].SetActive(true);
+        spawnedOb[index].GetComponent<SmokeParticleScript>().followTarget = target;
+        index++;
+    }
+
     public void PrePoolInstantiate()
     {
+        PreInstantiate();
         poolDictionary = new Dictionary<string, Queue<GameObject>>();
         foreach (Pool pool in pools)
         {
@@ -63,7 +87,7 @@ public class ObjectPooler : MonoBehaviourPun
                     Debug.Log("방벽");
                 }
 
-                curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, true);
+                curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, 0, true);
                 objectPool.Enqueue(curSpawnedOb);
             }
             poolDictionary.Add(pool.tag, objectPool);
@@ -71,7 +95,7 @@ public class ObjectPooler : MonoBehaviourPun
     }
 
 
-    public GameObject PoolInstantiate(string tag, Vector3 position, Quaternion rotation, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, bool isPlayerAttack)
+    public GameObject PoolInstantiate(string tag, Vector3 position, Quaternion rotation, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, int particleIndex, bool isPlayerAttack)
     {
         if (!poolDictionary.ContainsKey(tag))
         {
@@ -81,7 +105,7 @@ public class ObjectPooler : MonoBehaviourPun
 
         curSpawnedOb = poolDictionary[tag].Dequeue();//Take out First as Num
 
-        curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, true, bulletIndex, bulletAniCode, bulletSpeedIndex, isPlayerAttack);
+        curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, true, bulletIndex, bulletAniCode, bulletSpeedIndex, particleIndex, isPlayerAttack);
         curSpawnedOb.transform.position = position;
         curSpawnedOb.transform.rotation = rotation;
 
@@ -111,6 +135,6 @@ public class ObjectPooler : MonoBehaviourPun
 
     public void PoolDestroy(GameObject obj)
     {
-        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, true);
+        obj.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, 0, true);
     }
 }

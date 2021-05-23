@@ -183,10 +183,10 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.UpdateLifeIcon(ps.life);
                 break;
             case 7:
-                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 0, -1, true);
+                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 0, -1, 0, true);
                 break;
             case 8:
-                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 1, -1, true);
+                OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 1, -1, 0, true);
                 break;
             case 9:
                 ps.godTime += 2;
@@ -221,14 +221,21 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.isSpecialBulletAbility2 = true;
                 break;
             case 19:
+                GM.canShotWeapon = true;
+
+                if (GM.isAndroid)
+                    GM.mobileWeaponLockOb.SetActive(false);
+                else
+                    GM.deskTopWeaponLockOb.SetActive(false);
+
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 1;
-                myPlayerScript.weaponDmg = 20;
-                myPlayerScript.toTalChargeTime = 3;
+                myPlayerScript.weaponDmg = 25;
+                myPlayerScript.toTalChargeTime = 1.5f;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;
                 myPlayerScript.maxSpecialBullet = 20;
-                myPlayerScript.weaponTotalShotCoolTime = 1f;
+                myPlayerScript.weaponTotalShotCoolTime = 0.5f;
                 myPlayerScript.curWeaponShotCoolTime = -1;
 
                 GM.raderOb.SetActive(false);
@@ -236,9 +243,16 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.WeaponButtonUpdate();
                 break;
             case 20:
+                GM.canShotWeapon = true;
+
+                if (GM.isAndroid)
+                    GM.mobileWeaponLockOb.SetActive(false);
+                else
+                    GM.deskTopWeaponLockOb.SetActive(false);
+
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 2;
-                myPlayerScript.weaponDmg = 1;
+                myPlayerScript.weaponDmg = 2;
                 myPlayerScript.toTalChargeTime = 1f;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;
@@ -263,7 +277,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 ps.normalMonsterDamagePer += 50;
                 break;
             case 25:
-                ps.penetratePer += 50;
+                ps.penetratePer += 30;
                 break;
             case 26:
                 ps.petDamagePer += 50;
@@ -272,14 +286,21 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 ps.petAttackSpeedPer += 50;
                 break;
             case 28:
+                GM.canShotWeapon = false;
+
+                if (GM.isAndroid)
+                    GM.mobileWeaponLockOb.SetActive(true);
+                else
+                    GM.deskTopWeaponLockOb.SetActive(true);
+
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 3;
                 myPlayerScript.weaponDmg = 1;
-                myPlayerScript.toTalChargeTime = 1f;
+                myPlayerScript.toTalChargeTime = 0.8f;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;
-                myPlayerScript.maxSpecialBullet = 50;
-                myPlayerScript.weaponTotalShotCoolTime = 0.1f;
+                myPlayerScript.maxSpecialBullet = 15;
+                myPlayerScript.weaponTotalShotCoolTime = 0.2f;
                 myPlayerScript.curWeaponShotCoolTime = -1;
 
                 GM.raderScript.myPlayerScript = myPlayerScript;

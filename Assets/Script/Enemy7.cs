@@ -44,7 +44,7 @@ public class Enemy7 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity, -1, -1, 0, false);
+        EB.OP.PoolInstantiate("LaserS", transform.position, Quaternion.identity, -1, -1, 0, 0, false);
         EB.healthBarGameObject.transform.rotation = Quaternion.identity;
 
         //moveSpeed = 0.05f;

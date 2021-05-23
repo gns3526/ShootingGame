@@ -40,13 +40,15 @@ public class PoolScript : MonoBehaviourPun
     //-1 = SpecialBullet
     //0++ = Bullets
     [PunRPC]
-    void SetActiveRPC(bool a, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, bool isPlayerAttack)
+    void SetActiveRPC(bool a, int bulletIndex, int bulletAniCode, int bulletSpeedIndex, int particleIndex, bool isPlayerAttack)
     {
         if (!a)
         {
             gameObject.SetActive(false);
             return;
         }
+
+        gameObject.SetActive(true);
 
         aniCode = bulletAniCode;
         if(bulletIndex > -1)//Normal Bullet
@@ -69,6 +71,8 @@ public class PoolScript : MonoBehaviourPun
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeE[bulletIndex];
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetE[bulletIndex];
             }
+            if (particleIndex == 1)
+                ObjectPooler.OP.SmokeInstantiate(gameObject);
             if(bulletAniCode > -1)
             {
                 BulletAni();
@@ -97,7 +101,7 @@ public class PoolScript : MonoBehaviourPun
             petScript.maxShotCoolTime = petShotCool[bulletAniCode];
             petScript.bulletType = petBulletType[bulletAniCode];
         }
-        gameObject.SetActive(true);
+
     }
 
     void BulletAni()

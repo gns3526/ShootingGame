@@ -558,7 +558,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         if (JM.jobCode == 1)
             for (int i = 0; i < JM.starterPetAmountB; i++)
-                OP.PoolInstantiate("Pet", myPlayer.transform.position, Quaternion.identity, -3, 0, -1, true);
+                OP.PoolInstantiate("Pet", myPlayer.transform.position, Quaternion.identity, -3, 0, -1, 0, true);
     }
 
     public void DisConnect() => PhotonNetwork.Disconnect();

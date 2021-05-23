@@ -301,7 +301,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
             if (PhotonNetwork.IsMasterClient)
             {
-                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity, -2, -1, -1, false);
+                OP.PoolInstantiate("Explosion", transform.position, Quaternion.identity, -2, -1, -1, 0, false);
                 GM.OP.PoolDestroy(gameObject);
             }
 

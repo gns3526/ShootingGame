@@ -228,6 +228,16 @@ MonoBehaviour:
   - 8
   - 9
   - 10
+  - 11
+  - 12
+  - 13
+  - 14
+  - 15
+  - 16
+  - 17
+  - 18
+  - 19
+  - 20
   ani1:
   - {fileID: 21300000, guid: 30515ff529bef7c458206556f4795de4, type: 3}
   - {fileID: 21300000, guid: 7f854efdcb28cdd46a71b9d74d5c0898, type: 3}

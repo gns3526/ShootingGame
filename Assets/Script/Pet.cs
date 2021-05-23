@@ -104,13 +104,13 @@ public class Pet : MonoBehaviourPun, IPunObservable
                 if (jobManager.skillBOn)
                 {
                     float angle = Mathf.Atan2(jobManager.skillBPoint.transform.position.y - gameObject.transform.position.y, jobManager.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    GameObject bullet = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, true);
+                    GameObject bullet = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 2, -1, 5, 0, true);
                     bullet.GetComponent<BulletScript>().dmgPer = 0;
                     bullet.GetComponent<BulletScript>().ispetAttack = true;
                 } 
                 else if (player.isFire)
                 {
-                    GameObject bullet1 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, true);
+                    GameObject bullet1 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 5, 0, true);
                     bullet1.GetComponent<BulletScript>().dmgPer = 0;
                     bullet1.GetComponent<BulletScript>().ispetAttack = true;
                 }
@@ -120,13 +120,13 @@ public class Pet : MonoBehaviourPun, IPunObservable
                 if (jobManager.skillBOn)
                 {
                     float angle = Mathf.Atan2(jobManager.skillBPoint.transform.position.y - gameObject.transform.position.y, jobManager.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
-                    GameObject bullet2 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, true);
+                    GameObject bullet2 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, 0, true);
                     bullet2.GetComponent<BulletScript>().dmgPer = 50;
                     bullet2.GetComponent<BulletScript>().ispetAttack = true;
                 }
                 else if (player.isFire)
                 {
-                    GameObject bullet3 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, true);
+                    GameObject bullet3 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, 0, true);
                     bullet3.GetComponent<BulletScript>().dmgPer = 50;
                     bullet3.GetComponent<BulletScript>().ispetAttack = true;
                 }

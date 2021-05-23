@@ -136,24 +136,28 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
             bulletDestroyTime -= Time.deltaTime;
             if(bulletDestroyTime < 0) OP.PoolDestroy(gameObject);
-            if (isFollowTarget)
+            if (isFollowTarget && target.activeSelf)
             {
                 //float angle = Mathf.Atan2(target.transform.position.y - gameObject.transform.position.y, target.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
                 //transform.rotation = Quaternion.Euler(0, 0, angle + 90);
                 if(isPlayerAttack)
-                    transform.Translate(-bulletSpeed * Time.deltaTime, 0, 0);
+                    //transform.Translate(-bulletSpeed * Time.deltaTime, 0, 0);
+                    transform.Translate(0, -bulletSpeed * Time.deltaTime, 0);
                 else
-                    transform.Translate(bulletSpeed * Time.deltaTime, 0, 0);
+                    //transform.Translate(bulletSpeed * Time.deltaTime, 0, 0);
+                    transform.Translate(0, bulletSpeed * Time.deltaTime, 0);
                 Vector2 direction = transform.position - target.transform.position;
 
                 direction.Normalize();
 
-                float cross = Vector3.Cross(direction, transform.right).z;
+                float cross = Vector3.Cross(direction, transform.up).z;
 
                 rigid.angularVelocity = cross * homingPower;
             }
             else
             {
+                if(rigid != null)
+                rigid.angularVelocity = 0;
                 transform.Translate(new Vector3(0, -bulletSpeed * Time.deltaTime));
             }
         }

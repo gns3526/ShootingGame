@@ -92,10 +92,13 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject normalShotBotton;
     public GameObject specialShotBotton_M;
 
+    public bool canShotWeapon;
     public Text weaponBulletText_M;
     public Text weaponBulletText_D;
     public GameObject bulletMaxUi;
     public Image weaponShotButtonImage;
+    public GameObject mobileWeaponLockOb;
+    public GameObject deskTopWeaponLockOb;
 
     [Header("CodyPanel")]
     public Image lobbyPlayer;
@@ -553,7 +556,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
 
             int spawnPoint = spawnList[spawnIndex].point;
-            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity, -2, -1, 0, false);
+            curSpawnEnemy = OP.PoolInstantiate(enemyIndex, enemySpawnPoint[spawnPoint].transform.position, Quaternion.identity, -2, -1, 0, 0, false);
             
 
             if (spawnPoint == 5 || spawnPoint == 8)
@@ -680,7 +683,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
     {
-        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity, -2, -1, 0, false);
+        GameObject explosion = OP.PoolInstantiate("Explosion", Vector3.up * 100, Quaternion.identity, -2, -1, 0, 0, false);
         Explosion explosionScript = explosion.GetComponent<Explosion>();
 
         explosion.transform.position = pos;

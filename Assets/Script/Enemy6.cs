@@ -86,17 +86,17 @@ public class Enemy6 : MonoBehaviour
         randomNum = Random.Range(0, 2);
         if (randomNum == 0)
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward), -1, -1, 5, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(45, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(135, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-45, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-135, Vector3.forward), -1, -1, 5, 0, false);
         }
         else
         {
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward), -1, -1, 5, false);
-            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward), -1, -1, 5, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(0, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(90, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(180, Vector3.forward), -1, -1, 5, 0, false);
+            EB.OP.PoolInstantiate("EnemyBullet2", transform.position, Quaternion.AngleAxis(-90, Vector3.forward), -1, -1, 5, 0, false);
         }
 
         EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 2);
