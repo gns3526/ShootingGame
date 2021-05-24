@@ -123,6 +123,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
         dmg = 0;
         bulletSpeed = 0;
         dmgPer = 0;
+        attackAmount = 1;
         ispetAttack = false;
         isFollowTarget = false;
         target = null;

@@ -5,7 +5,10 @@ using UnityEngine;
 public class SmokeParticleScript : MonoBehaviour
 {
     [SerializeField] ParticleSystem particle;
+
     public GameObject followTarget;
+
+    public int particleAmount;
 
     bool following;
 
@@ -17,6 +20,9 @@ public class SmokeParticleScript : MonoBehaviour
     IEnumerator StartDelay()
     {
         yield return new WaitForSeconds(0.01f);
+        ParticleSystem.EmissionModule ps = particle.emission;
+        ps.rateOverTime = particleAmount;
+
         following = true;
     }
 

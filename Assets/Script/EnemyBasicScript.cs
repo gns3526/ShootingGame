@@ -179,7 +179,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             if (isBoss)
                 finalDamage = criticalPlusDamage + (criticalPlusDamage * (ps.bossDamagePer / 100));
             else
-                finalDamage = criticalPlusDamage;
+                finalDamage = criticalPlusDamage + (criticalPlusDamage * (ps.normalMonsterDamagePer / 100));
 
             finalDamage = (finalDamage + (finalDamage * (ps.finalDamagePer / 100)));
 

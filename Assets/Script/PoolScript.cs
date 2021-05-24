@@ -72,7 +72,7 @@ public class PoolScript : MonoBehaviourPun
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetE[bulletIndex];
             }
             if (particleIndex == 1)
-                ObjectPooler.OP.SmokeInstantiate(gameObject);
+                ObjectPooler.OP.SmokeInstantiate(gameObject, 12);
             if(bulletAniCode > -1)
             {
                 BulletAni();

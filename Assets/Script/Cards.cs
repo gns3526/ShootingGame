@@ -231,7 +231,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 1;
                 myPlayerScript.weaponDmg = 25;
-                myPlayerScript.toTalChargeTime = 1.5f;
+                myPlayerScript.toTalChargeTime = 2.5f;
                 myPlayerScript.curChargeTime = myPlayerScript.toTalChargeTime;
                 myPlayerScript.curBulletAmount = 0;
                 myPlayerScript.maxSpecialBullet = 20;

@@ -191,19 +191,18 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    weaponFire = false;
+                    //weaponFire = false;
                     isFire = true;
                 }
-                else if (Input.GetKey(KeyCode.Z))
-                {
+                else
                     isFire = false;
+                if (Input.GetKey(KeyCode.Z))
+                {
+                    //isFire = false;
                     weaponFire = true;
                 }
                 else
-                {
-                    isFire = false;
                     weaponFire = false;
-                }
             }
 
             if (maxSpecialBullet > curBulletAmount && GM.isPlaying)
@@ -319,6 +318,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                     case 1:
                         BulletScript bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 15, 1, true).GetComponent<BulletScript>();
                         bullet.dmg = weaponDmg;
+                        bullet.attackAmount = 100;
                         break;
                     case 2:
                         float randomAngle = Random.Range(-7f, 7f);

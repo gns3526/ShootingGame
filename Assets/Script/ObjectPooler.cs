@@ -41,11 +41,14 @@ public class ObjectPooler : MonoBehaviourPun
         }
     }
 
-    public void SmokeInstantiate(GameObject target)
+    public void SmokeInstantiate(GameObject target, int particleAmount)
     {
         if (index == spawnedOb.Length) index = 0;
         spawnedOb[index].SetActive(true);
-        spawnedOb[index].GetComponent<SmokeParticleScript>().followTarget = target;
+        SmokeParticleScript smoke = spawnedOb[index].GetComponent<SmokeParticleScript>();
+        smoke.followTarget = target;
+        smoke.particleAmount = particleAmount;
+
         index++;
     }
 
@@ -83,8 +86,6 @@ public class ObjectPooler : MonoBehaviourPun
                     barrier.gm = gameManager;
                     barrier.op = OP;
                     barrier.myPlayerScript = networkManager.myPlayer.GetComponent<Player>();
-
-                    Debug.Log("방벽");
                 }
 
                 curSpawnedOb.GetComponent<PhotonView>().RPC("SetActiveRPC", RpcTarget.All, false, -2, -1, 0, 0, true);
