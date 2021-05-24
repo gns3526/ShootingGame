@@ -143,7 +143,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             if (!NM.isChating)
             {
                 Move();
-                if(GM.canShotWeapon)
                 WeaponFire();
                 Fire();
             }

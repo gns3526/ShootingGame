@@ -92,13 +92,10 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject normalShotBotton;
     public GameObject specialShotBotton_M;
 
-    public bool canShotWeapon;
     public Text weaponBulletText_M;
     public Text weaponBulletText_D;
     public GameObject bulletMaxUi;
     public Image weaponShotButtonImage;
-    public GameObject mobileWeaponLockOb;
-    public GameObject deskTopWeaponLockOb;
 
     [Header("CodyPanel")]
     public Image lobbyPlayer;

@@ -12,6 +12,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     [SerializeField] ObjectPooler OP;
     [SerializeField] GameManager GM;
     [SerializeField] PlayerState ps;
+    [SerializeField] JobManager jm;
     public PhotonView pv;
 
     [Header("Cards Info")]
@@ -221,13 +222,6 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 myPlayerScript.isSpecialBulletAbility2 = true;
                 break;
             case 19:
-                GM.canShotWeapon = true;
-
-                if (GM.isAndroid)
-                    GM.mobileWeaponLockOb.SetActive(false);
-                else
-                    GM.deskTopWeaponLockOb.SetActive(false);
-
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 1;
                 myPlayerScript.weaponDmg = 25;
@@ -243,13 +237,6 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.WeaponButtonUpdate();
                 break;
             case 20:
-                GM.canShotWeapon = true;
-
-                if (GM.isAndroid)
-                    GM.mobileWeaponLockOb.SetActive(false);
-                else
-                    GM.deskTopWeaponLockOb.SetActive(false);
-
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 2;
                 myPlayerScript.weaponDmg = 2;
@@ -286,13 +273,9 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 ps.petAttackSpeedPer += 50;
                 break;
             case 28:
-                GM.canShotWeapon = false;
-
-                if (GM.isAndroid)
-                    GM.mobileWeaponLockOb.SetActive(true);
-                else
-                    GM.deskTopWeaponLockOb.SetActive(true);
-
+                jm.skillCool -= 2;
+                break;
+            case 29:
                 myPlayerScript.gotSpecialWeaponAbility = true;
                 myPlayerScript.weaponCode = 3;
                 myPlayerScript.weaponDmg = 1;

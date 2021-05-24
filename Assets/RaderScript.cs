@@ -23,8 +23,6 @@ public class RaderScript : MonoBehaviour
         if (other.gameObject.tag == "Enemy")
         {
             enemys.Add(other.gameObject);
-
-            CheckEnemyList();
         }
     }
 
@@ -32,32 +30,9 @@ public class RaderScript : MonoBehaviour
     {
         if (other.gameObject.tag == "Enemy")
         {
-
             enemys.Clear();
             circleCol.enabled = false;
             circleCol.enabled = true;
-
-            CheckEnemyList();
-        }
-    }
-
-    void CheckEnemyList()
-    {
-        if (enemys.Count == 0)
-        {
-            gm.canShotWeapon = false;
-            if (gm.isAndroid)
-                gm.mobileWeaponLockOb.SetActive(true);
-            else
-                gm.deskTopWeaponLockOb.SetActive(true);
-        }
-        else
-        {
-            gm.canShotWeapon = true;
-            if (gm.isAndroid)
-                gm.mobileWeaponLockOb.SetActive(false);
-            else
-                gm.deskTopWeaponLockOb.SetActive(false);
         }
     }
 }
