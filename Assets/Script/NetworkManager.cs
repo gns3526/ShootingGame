@@ -175,7 +175,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         JM.skillBOn = false;
 
         PhotonNetwork.LocalPlayer.NickName = nickNameInput.text;
-        welcomeText.text = "Welcome, " + PhotonNetwork.LocalPlayer.NickName;
+        welcomeText.text = PhotonNetwork.LocalPlayer.NickName + "님 환영합니다.";
 
         GM.SetExpPanel();
 
@@ -444,7 +444,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(i < PhotonNetwork.PlayerList.Length)
             {
-                roomInfoText.text = "Room title : " + PhotonNetwork.CurrentRoom.Name;
+                roomInfoText.text = "방 이름: : " + PhotonNetwork.CurrentRoom.Name;
 
                 //playerInfoGroup[i].  = 게임메니저 초상화가져옴
                 playerInfoGroup[i].SetActive(true);
@@ -591,7 +591,6 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if (isIncrease)
             {
-                Debug.Log("엥ㄹㄹ리잉");
                 readyPlayerAmount++;
             }
         }
