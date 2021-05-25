@@ -14,8 +14,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     public bool isTouchLeft;
     public bool isTouchRight;
     public bool isTouchBottom;
-    
-    public Text lifeText;
 
     public int score;
 
@@ -122,8 +120,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
             pv.RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
         }
-
-        GM.CM.CardS(19);
     }
 
     IEnumerator StartDelay()
@@ -455,11 +451,11 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         godMode = false;
     }
 
-    [PunRPC]
+    /*[PunRPC]
     public void LifeUpdate(int life)
     {
         lifeText.text = life.ToString();
-    }
+    }*/
     private void OnTriggerExit2D(Collider2D other)
     {
         if (other.tag == "Border")

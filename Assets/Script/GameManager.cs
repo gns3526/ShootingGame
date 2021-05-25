@@ -435,7 +435,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length);
+                        GiveExp(mapExpAmount[mapCode]);
                     }
                     else
                         setExpBarLerp = false;
@@ -457,7 +457,7 @@ public class GameManager : MonoBehaviourPunCallbacks
                         exp = overExp;
                         isLvUp = false;
                         ExpPanelUpdate();
-                        GiveExp(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length);
+                        GiveExp(mapExpAmount[mapCode]);
                     }
                     else
                         setExpBarLerp = false;
@@ -608,6 +608,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         {
             lifeImage[i].sprite = lifeSprite[2];
         }
+        NM.pv.RPC(nameof(NM.PlayerInfoUpdate), RpcTarget.All, NM.playerInfoGroupInt, NM.playerIconCode, jm.jobCode, ps.life);
     }
 
     //모바일
@@ -676,6 +677,22 @@ public class GameManager : MonoBehaviourPunCallbacks
         }
         pv.RPC("AlivePlayerSet", RpcTarget.All);
 
+    }
+
+    [PunRPC]
+    void Heal(int healAmount, int damageSkinCode)
+    {
+        if (jm.jobCode == 4) return;
+
+        if (ps.life >= ps.maxLife) return;
+
+        if (!myplayerScript.isDie)
+        {
+            ps.life += healAmount;
+            UpdateLifeIcon(ps.life);
+        }
+
+        OP.DamagePoolInstantiate("DamageText", myplayerScript.transform.position, Quaternion.identity, 1, 2, damageSkinCode, true);
     }
 
     public void MakeExplosionEffect(Vector3 pos, string targetType)
@@ -773,34 +790,41 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode] / PhotonNetwork.PlayerList.Length));
+        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
     }
 
     public IEnumerator ExpGiveDelay(int ExpAmount)
     {
         yield return new WaitForSeconds(2);
-
+        Debug.Log("0");
         GiveExp(ExpAmount);
     }
-
+    float finalExpAmount;
     void GiveExp(float ExpAmount)
     {
+        Debug.Log("1");
+
         if(expGIveOnce)
         {
-            
-            if(ps.expAmountPer == 0)
+
+            if (ps.expAmountPer == 0)
+            {
                 getExpAmountText.text = "+" + ExpAmount.ToString() + "Exp";
+                finalExpAmount = ExpAmount;
+            }
+                
             else
             {
-                float finalExpAmount = Mathf.Ceil(ExpAmount + (ExpAmount * (ps.expAmountPer / 100)));
+                Debug.Log("3");
+                finalExpAmount = Mathf.Ceil(ExpAmount + (ExpAmount * (ps.expAmountPer / 100)));
                 float bonusExpAmount = finalExpAmount - ExpAmount;
-                getExpAmountText.text = "|Applying Ability|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
+                getExpAmountText.text = "|어빌리티|" + "+" + finalExpAmount.ToString() + "(+" + bonusExpAmount + ")" + "Exp";
             }
+            Debug.Log("4");
             expGIveOnce = false;
-            exp += Mathf.Ceil(ExpAmount * (ps.expAmountPer / 100));
+            exp += finalExpAmount;
         }
-
-        if(exp >= maxExp)
+        if (exp >= maxExp)
         {
 
             overExp = exp - maxExp;
@@ -813,20 +837,24 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         SetExpPanel();
     }
-
+    float finalGoldAmount;
     public IEnumerator GiveGold(int GoldAmount)
     {
         yield return new WaitForSeconds(2);
         if (ps.goldAmountPer == 0)
+        {
             getGoldAmountText.text = "+" + GoldAmount.ToString() + "Gold";
+            finalGoldAmount = GoldAmount;
+        }
+            
         else
         {
-            float finalGoldAmount = Mathf.Ceil(GoldAmount + (GoldAmount * (ps.goldAmountPer / 100)));
+            finalGoldAmount = Mathf.Ceil(GoldAmount + (GoldAmount * (ps.goldAmountPer / 100)));
 
             float bonusGoldAmount = finalGoldAmount - GoldAmount;
-            getGoldAmountText.text = "|Applying Ability|" + "+" + finalGoldAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
+            getGoldAmountText.text = "|어빌리티|" + "+" + finalGoldAmount.ToString() + "(+" + bonusGoldAmount + ")" + "Gold";
         }
-        money += (int)Mathf.Ceil(GoldAmount * (ps.goldAmountPer / 100));
+        money += (int)finalGoldAmount;
         goldAmountText3.text = money.ToString();
         if(myplayerScript.isDie)
         StartCoroutine(DieReadyDelay());
@@ -982,8 +1010,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapFocus = true;
 
         mapNameinfoText.text = mapNames[code];
-        mapCoinAmountinfoText.text = "Coins per Round:" + mapCoinAmount[code].ToString();
-        mapExpAmountinfoText.text = "Exp per Round:" + mapExpAmount[code].ToString();
+        mapCoinAmountinfoText.text = "라운드당 코인:" + mapCoinAmount[code].ToString();
+        mapExpAmountinfoText.text = "라운드당 경험치:" + mapExpAmount[code].ToString();
         for (int i = 0; i < difficultStars.Length; i++)
         {
             difficultStars[i].SetActive(false);

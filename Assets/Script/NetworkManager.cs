@@ -369,7 +369,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
 
         Player player = myPlayer.GetComponent<Player>();
 
-        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + " joined the game</color>");
+        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + newPlayer.NickName + " 님이 방에 참가하셨습니다.</color>");
         
         player.GetComponent<PhotonView>().RPC("ChangeColorRPC", RpcTarget.All, colorManager.playerMainColors[0], colorManager.playerMainColors[1], colorManager.playerMainColors[2], colorManager.playerBoosterColors[0], colorManager.playerBoosterColors[1], colorManager.playerBoosterColors[2]);
     }
@@ -378,7 +378,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         RoomRenewal();
 
-        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + " left the game</color>");
+        pv.RPC("ChatRPC", RpcTarget.All, "<color=yellow>" + otherPlayer.NickName + " 님이 방을 나갔습니다.</color>");
         if (GM.isGameStart)
         {
             if (otherPlayer.IsMasterClient)
@@ -408,7 +408,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         if(myPlayer != null)
         {
             myPlayer.GetComponent<Player>().codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);
-            myplayerScript.pv.RPC(nameof(myplayerScript.LifeUpdate), RpcTarget.All, ps.life);
+            //myplayerScript.pv.RPC(nameof(myplayerScript.LifeUpdate), RpcTarget.All, ps.life);
         }
         
 
@@ -444,7 +444,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         {
             if(i < PhotonNetwork.PlayerList.Length)
             {
-                roomInfoText.text = "방 이름: : " + PhotonNetwork.CurrentRoom.Name;
+                roomInfoText.text = "방 이름: " + PhotonNetwork.CurrentRoom.Name;
 
                 //playerInfoGroup[i].  = 게임메니저 초상화가져옴
                 playerInfoGroup[i].SetActive(true);

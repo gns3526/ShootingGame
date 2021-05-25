@@ -76,8 +76,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
         GM.gamePlayExpPanel.SetActive(true);
         GM.expGIveOnce = true;
-        StartCoroutine(GM.ExpGiveDelay(GM.mapExpAmount[GM.mapCode]/ PhotonNetwork.PlayerList.Length));
-        StartCoroutine(GM.GiveGold(GM.mapCoinAmount[GM.mapCode] / PhotonNetwork.PlayerList.Length));
+        StartCoroutine(GM.ExpGiveDelay(GM.mapExpAmount[GM.mapCode]));
+        StartCoroutine(GM.GiveGold(GM.mapCoinAmount[GM.mapCode]));
 
         if (myplayerScript.isDie) return;
 
@@ -361,17 +361,17 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                     cTTime = 0.3f;
                     if(cTInt == 0)
                     {
-                        curConditionText.text = "Waiting for another myPlayerScript.";
+                        curConditionText.text = "다른플래이어를 기다리는중.";
                         cTInt = 1;
                     }
                     else if (cTInt == 1)
                     {
-                        curConditionText.text = "Waiting for another myPlayerScript..";
+                        curConditionText.text = "다른플래이어를 기다리는중..";
                         cTInt = 2;
                     }
                     else if (cTInt == 2)
                     {
-                        curConditionText.text = "Waiting for another myPlayerScript...";
+                        curConditionText.text = "다른플래이어를 기다리는중...";
                         cTInt = 0;
                     }
                 }

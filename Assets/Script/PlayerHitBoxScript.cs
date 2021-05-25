@@ -39,19 +39,6 @@ public class PlayerHitBoxScript : MonoBehaviour
 
             Hit();
         }
-        else if (other.tag == "HealBullet")
-        {
-            if (!pv.IsMine) return;
-
-            if (other.GetComponent<PhotonView>().IsMine) return;
-
-            if (GM.jm.jobCode == 4) return;
-
-            GM.OP.DamagePoolInstantiate("DamageText", transform.position, Quaternion.identity, 1, 2, GM.DTM.damageSkinCode, true);
-
-            ps.life++;
-            GM.UpdateLifeIcon(ps.life);
-        }
     }
 
     void Hit()
@@ -70,11 +57,15 @@ public class PlayerHitBoxScript : MonoBehaviour
         myPlayerScript.canHit = false;
         myPlayerScript.GM.UpdateLifeIcon(ps.life);
         myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
-        pv.RPC(nameof(myPlayerScript.LifeUpdate), RpcTarget.All, ps.life);
+        //pv.RPC(nameof(myPlayerScript.LifeUpdate), RpcTarget.All, ps.life);
         GM.NM.pv.RPC(nameof(GM.NM.PlayerInfoUpdate), RpcTarget.All, GM.NM.playerInfoGroupInt, GM.NM.playerIconCode, GM.jm.jobCode, ps.life);
 
         if (GM.jm.jobCode == 4 && !myPlayerScript.isDie)
-        GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, 0, true);
+        {
+            GM.OP.PoolInstantiate("HealWave", transform.position, Quaternion.identity, -2, 0, 0, 0, true);
+            GM.pv.RPC("Heal", RpcTarget.All, 1, GM.DTM.damageSkinCode);
+        }
+
 
         if (ps.life == 0)
         {
