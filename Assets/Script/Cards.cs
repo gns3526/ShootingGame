@@ -30,6 +30,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     List<GameObject> legendarySave;
 
     public GameObject cardPanel;
+    [SerializeField] GameObject cardGroupOb;
+    [SerializeField] Animator cardAni;
 
     [SerializeField] int rarePer;
     [SerializeField] int epicPer;
@@ -63,6 +65,9 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     public void SelectCard()
     {
+        cardGroupOb.SetActive(true);
+        cardAni.SetBool("On", true);
+
         isReady = false;
         curMin = 1;
         curSec = 0;
@@ -125,6 +130,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 Debug.Log("레전");
             }
         }
+
         cardPanel.SetActive(true);
     }
     public void SelectComplete()
@@ -140,13 +146,18 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         epic = new List<GameObject>(epicSave);
         unique = new List<GameObject>(uniqueSave);
         legendary = new List<GameObject>(legendarySave);
-        Debug.Log("카드 없앰1");
+        StartCoroutine(CardFalse());
+    }
+
+    IEnumerator CardFalse()
+    {
+        cardAni.SetBool("On", false);
+        yield return new WaitForSeconds(0.5f);
         for (int i = 0; i < cards.Count; i++)
         {
             cards[i].SetActive(false);
         }
-
-        Debug.Log("카드 없앰2");
+        cardGroupOb.SetActive(false);
     }
 
 
