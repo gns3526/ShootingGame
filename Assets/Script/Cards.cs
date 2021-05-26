@@ -45,6 +45,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     public float curSec;
 
     public bool isCellectingTime;
+    bool isCelleted;
 
 
     [SerializeField] Text curTimeText;
@@ -65,6 +66,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     public void SelectCard()
     {
+        isCelleted = false;
         cardGroupOb.SetActive(true);
         cardAni.SetBool("On", true);
 
@@ -163,6 +165,8 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     public void CardS(int num)
     {
+        if (isCelleted) return;
+        isCelleted = true;
 
         switch (num)
         {
@@ -310,6 +314,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
     IEnumerator SelectDelay()
     {
+
         if (curSec > 4)
             yield return new WaitForSeconds(4);
         else
