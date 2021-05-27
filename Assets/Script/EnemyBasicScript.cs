@@ -53,7 +53,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
     private void OnEnable()
     {
-        health = maxHealth;
+        //float maxHealthW = maxHealth * ((GM.stage * 0.3f) + 1);
+        
+        health = maxHealth * ((GM.stage * 0.3f) + 1);
         canFire = true;
         healthImage.fillAmount = 1;
 
@@ -230,7 +232,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
             return;
 
         if(healthImage2 != null)
-            healthImage2.fillAmount = health / maxHealth;
+            healthImage2.fillAmount = health / (maxHealth * ((GM.stage * 0.3f) + 1));
 
         spriteRendererEnemy.sprite = sprites[1];
         if (spriteRendererEnemy2 != null)
@@ -240,7 +242,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
         health -= Dmg;
 
-        healthImage.fillAmount = health / maxHealth;
+        healthImage.fillAmount = health / (maxHealth * ((GM.stage * 0.3f) + 1));
 
         if (GM.myplayerScript.pv.IsMine)
         {

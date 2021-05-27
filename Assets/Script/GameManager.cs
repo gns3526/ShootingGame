@@ -25,7 +25,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     public PlayerState ps;
 
     [Header("GamePlayInfo")]
-    [SerializeField] int stage;
+    public int stage;
     [SerializeField] int MaxStage;
     public bool isGameStart;
     public bool isPlaying;
