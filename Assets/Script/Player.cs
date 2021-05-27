@@ -278,25 +278,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
         if (ps.curShotCoolTime < ps.maxShotCoolTime) return;
 
-        int randomNum = Random.Range(0,101);
-
-        if(isSpecialBulletAbility1 && (20 > randomNum))
-        {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 2, -1, 8, 0, true);
-            bullet.GetComponent<BulletScript>().dmgPer = 100;
-            ps.curShotCoolTime = 0;
-
-            pv.RPC(nameof(SoundRPC), RpcTarget.All, 1);
-        }
-        if (isSpecialBulletAbility2 && (60 > randomNum))
-        {
-            GameObject bullet = OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 1, -1, 8, 0, true);
-            bullet.GetComponent<BulletScript>().dmgPer = 50;
-            ps.curShotCoolTime = 0;
-
-            pv.RPC(nameof(SoundRPC), RpcTarget.All, 2);
-        }
-
         JM.Shot();
         ps.curShotCoolTime = 0;
     }

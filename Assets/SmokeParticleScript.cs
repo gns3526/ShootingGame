@@ -5,6 +5,7 @@ using UnityEngine;
 public class SmokeParticleScript : MonoBehaviour
 {
     [SerializeField] ParticleSystem particle;
+    [SerializeField] TrailRenderer trail;
 
     public GameObject followTarget;
 
@@ -19,10 +20,14 @@ public class SmokeParticleScript : MonoBehaviour
 
     IEnumerator StartDelay()
     {
+        if (trail != null) trail.emitting = false;
         yield return new WaitForSeconds(0.01f);
-        ParticleSystem.EmissionModule ps = particle.emission;
-        ps.rateOverTime = particleAmount;
-
+        if(particle != null)
+        {
+            ParticleSystem.EmissionModule ps = particle.emission;
+            ps.rateOverTime = particleAmount;
+        }
+        if (trail != null) trail.emitting = true;
         following = true;
     }
 
@@ -40,6 +45,7 @@ public class SmokeParticleScript : MonoBehaviour
     public void ParticleDisappear()
     {
         following = false;
+        if(particle != null)
         transform.position = new Vector3(16, 16, 0);
         StartCoroutine(Delay());
     }

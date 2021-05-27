@@ -877,7 +877,9 @@ public class GameManager : MonoBehaviourPunCallbacks
         spawnEnd = false;
 
         once = true;
-       // OP.a = 0;
+        // OP.a = 0;
+
+        OP.EffectDestroyAll();
 
         if(isAndroid) mobileControlPanel.SetActive(false);
         else if(!isAndroid) deskTopControlPanel.SetActive(false);

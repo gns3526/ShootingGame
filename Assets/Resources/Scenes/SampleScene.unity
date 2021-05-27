@@ -3117,8 +3117,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "\uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\uC2DC 60%\uD655\uB960\uB85C \uCD94\uAC00\uD22C\uC0AC\uCCB4
-    \uBC1C\uC0AC\n(\uCDA9\uC811\uAC00\uB2A5)"
+  m_Text: "60%\uD655\uB960\uB85C 30%\uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
 --- !u!222 &60526650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -11179,7 +11178,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB108\uC2A4 \uC5B4\uD0DD2"
+  m_Text: "\uAC15\uD55C \uACF5\uACA92"
 --- !u!222 &222765910
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -13106,8 +13105,10 @@ MonoBehaviour:
     prefab: {fileID: 5390636990138927755, guid: 8a543ebe79994354ba51ba0f2eae7d12,
       type: 3}
     size: 10
-  spawnOb: {fileID: 5315876136812718266, guid: e94eb5ea40cad064baa6a0d8d6cbb328, type: 3}
-  spawnedOb:
+  index_S: 0
+  spawnOb_Smoke: {fileID: 5315876136812718266, guid: e94eb5ea40cad064baa6a0d8d6cbb328,
+    type: 3}
+  spawnedOb_S:
   - {fileID: 0}
   - {fileID: 0}
   - {fileID: 0}
@@ -17770,7 +17771,7 @@ MonoBehaviour:
       m_Calls: []
     m_TypeName: UnityEngine.UI.MaskableGraphic+CullStateChangedEvent, UnityEngine.UI,
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
-  m_Sprite: {fileID: 21300000, guid: ddbd32d6283ffe846b5e070704dbad9c, type: 3}
+  m_Sprite: {fileID: 21300000, guid: 234f4632b3ed1ad4b97d2a60b16ef2f3, type: 3}
   m_Type: 0
   m_PreserveAspect: 0
   m_FillCenter: 1
@@ -18003,6 +18004,8 @@ MonoBehaviour:
   skillGuage_M: {fileID: 1811754504}
   skillGuage_D: {fileID: 2055647425}
   guageMaxUi: {fileID: 1376361694}
+  bulletTail: {fileID: 5219365858979405325, guid: 07fce290ca817ec4aa14218b267a66da,
+    type: 3}
   dmgA: 3
   maxLifeA: 6
   lifeA: 6
@@ -25633,9 +25636,9 @@ RectTransform:
   m_Father: {fileID: 1983991623}
   m_RootOrder: 2
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 478.57144, y: -427.1543}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 957.1429, y: 139.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &490980201
@@ -27818,9 +27821,9 @@ RectTransform:
   m_Father: {fileID: 1983991623}
   m_RootOrder: 3
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 478.57144, y: -605.91003}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 957.1429, y: 139.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &525622762
@@ -31324,7 +31327,7 @@ MonoBehaviour:
   - {fileID: 6255328140075349651, guid: 11675c9cea1d9aa418d157a16e71555b, type: 3}
   lobbyCodyMainDummy:
   - {fileID: 21300000, guid: 3279d366b294c0942bb18e2a27ee3248, type: 3}
-  - {fileID: 21300000, guid: ddbd32d6283ffe846b5e070704dbad9c, type: 3}
+  - {fileID: 21300000, guid: 234f4632b3ed1ad4b97d2a60b16ef2f3, type: 3}
   - {fileID: 21300000, guid: 27ad306eb9ec4d8408e19e442bf61e01, type: 3}
   - {fileID: 21300000, guid: 5fc4ef3900003ce4b9ff1bc82b03b0f2, type: 3}
   lobbyParticleDummy:
@@ -38437,9 +38440,9 @@ RectTransform:
   m_Father: {fileID: 1983991623}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 478.57144, y: -69.64286}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 957.1429, y: 139.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &725142163
@@ -47947,7 +47950,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1
-  m_Text: "\uBCF4\uB108\uC2A4 \uC5B4\uD0DD1"
+  m_Text: "\uAC15\uD55C \uACF5\uACA9"
 --- !u!222 &887727085
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -73718,7 +73721,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &1148991358
 RectTransform:
   m_ObjectHideFlags: 0
@@ -83695,8 +83698,7 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "\uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\uC2DC 20%\uD655\uB960\uB85C \uCD94\uAC00\uD22C\uC0AC\uCCB4
-    \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
+  m_Text: "20%\uD655\uB960\uB85C 60%\uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
 --- !u!222 &1329877925
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -123482,9 +123484,9 @@ RectTransform:
   m_Father: {fileID: 1983991623}
   m_RootOrder: 1
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
-  m_AnchorMin: {x: 0, y: 1}
-  m_AnchorMax: {x: 0, y: 1}
-  m_AnchoredPosition: {x: 478.57144, y: -248.39859}
+  m_AnchorMin: {x: 0, y: 0}
+  m_AnchorMax: {x: 0, y: 0}
+  m_AnchoredPosition: {x: 0, y: 0}
   m_SizeDelta: {x: 957.1429, y: 139.28572}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1844325715

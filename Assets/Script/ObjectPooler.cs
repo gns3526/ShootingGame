@@ -26,30 +26,40 @@ public class ObjectPooler : MonoBehaviourPun
 
     GameObject curSpawnedOb;
 
-    int index;
-    [SerializeField] GameObject spawnOb;
-    [SerializeField] GameObject[] spawnedOb;
+    [SerializeField] int index_S;
+    [SerializeField] GameObject spawnOb_Smoke;
+    [SerializeField] GameObject[] spawnedOb_S;
+
 
     public void PreInstantiate()
     {
-        for (int i = 0; i < spawnedOb.Length; i++)
+        for (int i = 0; i < spawnedOb_S.Length; i++)
         {
-            GameObject Object = Instantiate(spawnOb, new Vector3(16, 16, 0), Quaternion.identity);
+            GameObject Object = Instantiate(spawnOb_Smoke, new Vector3(16, 16, 0), Quaternion.identity);
             Object.SetActive(false);
 
-            spawnedOb[i] = Object;
+            spawnedOb_S[i] = Object;
         }
     }
 
     public void SmokeInstantiate(GameObject target, int particleAmount)
     {
-        if (index == spawnedOb.Length) index = 0;
-        spawnedOb[index].SetActive(true);
-        SmokeParticleScript smoke = spawnedOb[index].GetComponent<SmokeParticleScript>();
+        if (index_S == spawnedOb_S.Length) index_S = 0;
+        spawnedOb_S[index_S].SetActive(true);
+        SmokeParticleScript smoke = spawnedOb_S[index_S].GetComponent<SmokeParticleScript>();
         smoke.followTarget = target;
         smoke.particleAmount = particleAmount;
 
-        index++;
+        index_S++;
+    }
+
+    public void EffectDestroyAll()
+    {
+        for (int i = 0; i < spawnedOb_S.Length; i++)
+        {
+            Destroy(spawnedOb_S[i]);
+        }
+
     }
 
     public void PrePoolInstantiate()

@@ -73,7 +73,7 @@ public class PoolScript : MonoBehaviourPun
             }
             if (particleIndex == 1)
                 ObjectPooler.OP.SmokeInstantiate(gameObject, 12);
-            if(bulletAniCode > -1)
+            if (bulletAniCode > -1)
             {
                 BulletAni();
             }
