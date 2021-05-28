@@ -612,7 +612,8 @@ public class JobManager : MonoBehaviour
             case 3:
                 GameObject laserA = OP.PoolInstantiate("LaserM", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, 0, true);
                 laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
-                laserA.GetComponent<BulletScript>().dmgPer = 3000;
+                laserA.GetComponent<BulletScript>().dmgPer = 2000;
+                laserA.GetComponent<BulletScript>().dmg = 10;
 
                 CanUseSkillUpdate(false);
                 curSkillCool = 0;

@@ -18006,7 +18006,7 @@ MonoBehaviour:
   guageMaxUi: {fileID: 1376361694}
   bulletTail: {fileID: 5219365858979405325, guid: 07fce290ca817ec4aa14218b267a66da,
     type: 3}
-  dmgA: 3
+  dmgA: 4
   maxLifeA: 6
   lifeA: 6
   moveSpeedA: 100
@@ -18042,9 +18042,9 @@ MonoBehaviour:
   barrierAmountC: 10
   barrierDuractionC: 9
   skillCoolC: 13
-  dmgD: 4
-  maxLifeD: 4
-  lifeD: 4
+  dmgD: 5
+  maxLifeD: 5
+  lifeD: 5
   moveSpeedD: 110
   fireSpeedD: 1.6
   skillCoolD: 30
@@ -34064,17 +34064,17 @@ MonoBehaviour:
   itemNameText: {fileID: 1260108948}
   itemInfoText: {fileID: 666811002}
   itemNames:
-  - Normal Character
-  - Summoner
-  - Tanker
-  - Tech
-  - Healer
+  - "\uC77C\uBC18 \uCE90\uB9AD\uD130"
+  - "\uC18C\uD658\uC0AC"
+  - "\uD0F1\uCEE4"
+  - "\uC800\uACA9\uC218"
+  - "\uD790\uB7EC"
   itemInfos:
-  - A job with strong basic firepower
-  - A job that can handle pets freely
-  - A job that blocks bullets with a hard shield
-  - A job armed with good basic attacks and strong skills
-  - A job armed with good basic attacks and strong skills
+  - "\uAC15\uD55C \uAE30\uBCF8\uACF5\uACA9"
+  - "\uD3AB\uC758 \uD6A8\uC728\uC131 \uADF9\uB300\uD654"
+  - "\uB9CE\uC740 \uCCB4\uB825\uACFC \uBCF4\uD638\uB9C9"
+  - "\uB192\uC740 \uAE30\uBCF8\uB370\uBBF8\uC9C0"
+  - "\uD300\uC744 \uCE58\uC720\uD558\uACE0 \uD53C\uD761"
 --- !u!114 &651994950
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -89980,8 +89980,8 @@ MonoBehaviour:
     MaxHpValue: 0100000003000000
     GodTime: 0100000003000000
     AttackSpeed: 1400000028000000
-    DamageValue: 050000000a000000
-    FinalDamagePerValue: 0a00000014000000
+    DamageValue: 0100000005000000
+    FinalDamagePerValue: 0a00000019000000
     NormalMonsterDamagePer: 0a00000032000000
     bossMonsterDamagePer: 0a00000032000000
     CriticalPer: 1400000028000000

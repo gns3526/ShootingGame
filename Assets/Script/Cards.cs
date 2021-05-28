@@ -307,6 +307,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
                 GM.WeaponButtonUpdate();
                 break;
         }
+        SoundManager.Play("Btn_2");
         if (!GM.isGameStart) return;
         StartCoroutine(SelectDelay());
         ClearCards();
@@ -327,7 +328,6 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
     void ReadyAmountReset()
     {
         readyAmount++;
-        Debug.Log("aaa");
         if(PhotonNetwork.PlayerList.Length == readyAmount)
         {
             curSec = -11;
