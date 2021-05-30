@@ -270,17 +270,17 @@ public class JobManager : MonoBehaviour
     {
         int randomNum = Random.Range(0, 101);
 
-        if (myplayerScript.isSpecialBulletAbility1 && (20 > randomNum))
+        if (myplayerScript.isSpecialBulletAbility1 && (25 > randomNum))
         {
             Instantiate(bulletTail, Object.transform.position, Quaternion.identity).GetComponent<SmokeParticleScript>().followTarget = Object;
-            Object.GetComponent<BulletScript>().dmgPer += 60;
+            Object.GetComponent<BulletScript>().dmgPer += 250;
 
             myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 6);
         }
-        if (myplayerScript.isSpecialBulletAbility2 && (60 > randomNum))
+        if (myplayerScript.isSpecialBulletAbility2 && (50 > randomNum))
         {
             Instantiate(bulletTail, Object.transform.position, Quaternion.identity).GetComponent<SmokeParticleScript>().followTarget = Object;
-            Object.GetComponent<BulletScript>().dmgPer += 30;
+            Object.GetComponent<BulletScript>().dmgPer += 100;
 
             myplayerScript.pv.RPC(nameof(myplayerScript.SoundRPC), RpcTarget.All, 6);
         }
@@ -415,7 +415,7 @@ public class JobManager : MonoBehaviour
     {
         GameObject laserA = OP.PoolInstantiate("LaserS", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, 0, true);
         laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
-        laserA.GetComponent<BulletScript>().dmgPer = 100;
+        laserA.GetComponent<BulletScript>().dmgPer = 200;
 
         Ability(laserA);
     }
@@ -613,7 +613,7 @@ public class JobManager : MonoBehaviour
                 GameObject laserA = OP.PoolInstantiate("LaserM", myplayerScript.transform.position, Quaternion.Euler(0,0,180), -1, -1, 0, 0, true);
                 laserA.GetComponent<BulletScript>().parentOb = myplayerScript.gameObject;
                 laserA.GetComponent<BulletScript>().dmgPer = 2000;
-                laserA.GetComponent<BulletScript>().dmg = 10;
+                laserA.GetComponent<BulletScript>().dmg = 50;
 
                 CanUseSkillUpdate(false);
                 curSkillCool = 0;

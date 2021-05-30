@@ -43,13 +43,14 @@ public class PlayerHitBoxScript : MonoBehaviour
 
     void Hit()
     {
-        if (myPlayerScript.godMode) return;
+        if (!myPlayerScript.canHit) return;
 
         int randomNum = Random.Range(0, 101);
-        if (ps.missPercentage > randomNum)
+        if (ps.missPercentage >= randomNum)
         {
             StartCoroutine(GodTime());
             myPlayerScript.GM.MakeExplosionEffect(transform.position, "Player");//폭발이펙트
+            myPlayerScript.canHit = false;
             return;
         }
 

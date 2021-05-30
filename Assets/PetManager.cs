@@ -31,11 +31,11 @@ public class PetManager : MonoBehaviour
         }
     }
 
-
+    /*
     private void Update()
     {
         if(Input.GetKeyDown(KeyCode.Alpha3)) OP.PoolInstantiate("Pet", myPlayerScript.transform.position, Quaternion.identity, -3, 1, -1, 0, true);
-    }
+    }*/
 
     [PunRPC]
     public void AddPet(int type)

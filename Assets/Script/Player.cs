@@ -146,22 +146,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 rigid.velocity = new Vector2(0, 0);
 
             Reload();
-            if (Input.GetKeyDown(KeyCode.Y))
-            {
-                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 0, -1, 0, true);
-            }
-            if (Input.GetKeyDown(KeyCode.U))
-            {
-                OP.PoolInstantiate("Pet", transform.position, Quaternion.identity, -3, 1, -1, 0, true);
-            }
-            if (Input.GetKeyDown(KeyCode.R))
-            {
-                GM.pv.RPC("ReviveTeam", RpcTarget.All, 5);
-            }
-            if(Input.GetKeyDown(KeyCode.P))
-            {
-                GM.CM.CardS(20);
-            }
+
             if (Input.GetKeyDown(KeyCode.S))
             {
                 if(JM.jobCode == 1)
@@ -186,14 +171,12 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
             {
                 if (Input.GetKey(KeyCode.A))
                 {
-                    //weaponFire = false;
                     isFire = true;
                 }
                 else
                     isFire = false;
                 if (Input.GetKey(KeyCode.Z))
                 {
-                    //isFire = false;
                     weaponFire = true;
                 }
                 else

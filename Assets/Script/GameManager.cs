@@ -92,6 +92,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public GameObject normalShotBotton;
     public GameObject specialShotBotton_M;
 
+    public GameObject border;
+
     public Text weaponBulletText_M;
     public Text weaponBulletText_D;
     public GameObject bulletMaxUi;
@@ -218,8 +220,6 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         spawnList = new List<Spawn>();
 
-
-
         for (int i = 0; i < mapPointsText.Length; i++)
             mapPointsText[i].text = mapNames[i];
     }
@@ -260,10 +260,11 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StageStart()
     {
+        UpdateLifeIcon(ps.life);
         myplayerScript.godMode = false;
         if (once)
         {
-            scoreText.text = "0";
+            scoreText.text = "Score:0";
             StartCoroutine(NM.SpawnDelay());
             nickNameText3.text = PhotonNetwork.NickName;
 
@@ -308,6 +309,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     public void StageEnd()
     {
+        UpdateLifeIcon(ps.life);
         myplayerScript.godMode = true;
         if (!stageEndOnce) return;
         stageEndOnce = false;
@@ -376,8 +378,6 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     private void Update()
     {
-        if (Input.GetKeyDown(KeyCode.K)) Debug.Log(challengeManager.challenge[0]);
-
         if (Input.GetKeyDown(KeyCode.Tab)) PlayerInfoPanelMove();
 
         if (stopTime > 0)
@@ -596,6 +596,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void UpdateLifeIcon(int life)
     {
+        if (life == 1) border.SetActive(true);
+        else border.SetActive(false);
+
         for (int i = 0; i < lifeImage.Length; i++)//끄기
         {
             lifeImage[i].sprite = lifeSprite[0]; ;
@@ -784,13 +787,14 @@ public class GameManager : MonoBehaviourPunCallbacks
         finalStageClearPanel.SetActive(true);
         Player myplayerScript = myplayer.GetComponent<Player>();
 
-        clearScoreText.text = myplayerScript.score.ToString();
+        clearScoreText.text = gameScore.ToString();
         clearLifeText.text = (ps.life * 1000).ToString();
-        clearTotalScore.text = (myplayerScript.score + (ps.life * 1000)).ToString();
+        clearTotalScore.text = (gameScore + (ps.life * 1000)).ToString();
 
         gamePlayExpPanel.SetActive(true);
         expGIveOnce = true;
-        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode]));
+        StartCoroutine(ExpGiveDelay(mapExpAmount[mapCode] * 3));
+        StartCoroutine(GiveGold(mapExpAmount[mapCode] * 3));
     }
 
     public IEnumerator ExpGiveDelay(int ExpAmount)

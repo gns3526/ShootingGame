@@ -160,7 +160,9 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedLobby()//3
     {
         Debug.Log("로비에 접속");
-        if(GM.isAndroid) GM.mobileControlPanel.SetActive(false);
+        GM.border.SetActive(false);
+
+        if (GM.isAndroid) GM.mobileControlPanel.SetActive(false);
         else if (!GM.isAndroid) GM.deskTopControlPanel.SetActive(false);
 
         roomPanel.SetActive(false);
@@ -310,6 +312,8 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     {
         Spawn();
 
+        GM.PlayerInfoPanelMove();
+        GM.border.SetActive(false);
         //Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
         //test;
         //GM.curMapCode = (int)map[roomOption];

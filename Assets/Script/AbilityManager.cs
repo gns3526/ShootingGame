@@ -259,12 +259,12 @@ public class AbilityManager : MonoBehaviour
                 abilityText[i].text = "공격력" + randomValue + "증가";
                 int a = abilityPer.DamageValue[1] - abilityPer.DamageValue[0];
                 float b = Mathf.Round(a / 3);
-                if (randomValue < abilityPer.DamageValue[0] + b)
+                if (randomValue == 1)
                 {
                     abilityBack[i].sprite = abilityBackGrade[0];
                     abilityGrade[i] = 3;
                 }
-                else if (randomValue < abilityPer.DamageValue[0] + b * 2)
+                else if (randomValue == 2)
                 {
                     abilityBack[i].sprite = abilityBackGrade[1];
                     abilityGrade[i] = 2;

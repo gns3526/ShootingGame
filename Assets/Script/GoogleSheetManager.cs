@@ -71,6 +71,7 @@ public class GoogleSheetManager : MonoBehaviour
     [SerializeField] bool makeNickComplete;
     [SerializeField] bool nickInputComplete;
 
+    /*(
     private void Update()
     {
         if (Input.GetKeyDown(KeyCode.M))
@@ -86,7 +87,7 @@ public class GoogleSheetManager : MonoBehaviour
             NM.OnJoinedLobby();
         }
     }
-
+    */
     void CompleteAllCheck()
     {
         if (movePlayerinfoComplete && makeNickComplete && nickInputComplete)

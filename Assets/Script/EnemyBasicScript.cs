@@ -54,8 +54,9 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
     private void OnEnable()
     {
         //float maxHealthW = maxHealth * ((GM.stage * 0.3f) + 1);
-        
-        health = maxHealth * ((GM.stage * 0.3f) + 1);
+        if (isBoss) health = maxHealth;
+        else health = maxHealth * ((GM.stage * 0.3f) + 1);
+
         canFire = true;
         healthImage.fillAmount = 1;
 
@@ -242,7 +243,10 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
 
         health -= Dmg;
 
-        healthImage.fillAmount = health / (maxHealth * ((GM.stage * 0.3f) + 1));
+        if (isBoss)
+            healthImage.fillAmount = health / maxHealth;
+        else
+            healthImage.fillAmount = health / (maxHealth * ((GM.stage * 0.3f) + 1));
 
         if (GM.myplayerScript.pv.IsMine)
         {
@@ -256,7 +260,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         if (health <= 0)
         {
             GM.gameScore += enemyScore;
-            GM.scoreText.text = string.Format("{0:n0}", GM.gameScore);
+            GM.scoreText.text = "Score:" + string.Format("{0:n0}", GM.gameScore);
             if (isBoss && patternIndex < maxPattern)
             {
                 if (PhotonNetwork.IsMasterClient)
