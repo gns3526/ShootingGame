@@ -58,18 +58,22 @@ public class PoolScript : MonoBehaviourPun
             if (isPlayerAttack)
             {
                 bs.bulletSpeed = -bulletSpeed[bulletSpeedIndex];
-                GetComponent<SpriteRenderer>().sprite = bulletSpriteP[bulletIndex];
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bulletSpriteP[bulletIndex];
                 transform.localScale = bulletScaleP[bulletIndex];
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeP[bulletIndex];
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetP[bulletIndex];
+
+                transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, 90);
             }
             else
             {
                 bs.bulletSpeed = bulletSpeed[bulletSpeedIndex];
-                GetComponent<SpriteRenderer>().sprite = bulletSpriteE[bulletIndex];
+                transform.GetChild(0).GetComponent<SpriteRenderer>().sprite = bulletSpriteE[bulletIndex];
                 transform.localScale = bulletScaleE[bulletIndex];
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeE[bulletIndex];
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetE[bulletIndex];
+
+                transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -90);
             }
             if (particleIndex == 1)
                 ObjectPooler.OP.SmokeInstantiate(gameObject, 12);

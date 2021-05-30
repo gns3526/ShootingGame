@@ -60,31 +60,6 @@ public class BulletScript : MonoBehaviour, IPunObservable
            animator.SetBool("Start",true);
 
 
-        /*
-        if (isPlayerAttack)
-        {
-            if (pv.IsMine)
-            {
-                if (boxCol != null)
-                    boxCol.enabled = true;
-                else if (circleCol != null)
-                    circleCol.enabled = true;
-            }
-            else
-            {
-                if (boxCol != null)
-                    boxCol.enabled = false;
-                else if (circleCol != null)
-                    circleCol.enabled = false;
-            }
-        }
-        else
-        {
-            if (boxCol != null)
-                boxCol.enabled = true;
-            else if (circleCol != null)
-                circleCol.enabled = true;
-        }*/
 
         once = true;
         Delay();
@@ -98,7 +73,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
     {
         if (!isSpecialBullet)
         {
-            GetComponent<SpriteRenderer>().sprite = null;
+            spriteRender.sprite = null;
             boxCol.size = new Vector2(0.01f, 0.01f);
             boxCol.offset = new Vector2(0.01f, 0.01f);
         }
