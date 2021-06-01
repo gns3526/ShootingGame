@@ -292,8 +292,17 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         startAni.SetTrigger("Active");//스테이지Ui
         
-        startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
-        clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
+        if(stage == MaxStage)
+        {
+            startAni.GetComponent<Text>().text = "Final" + stage.ToString() + "\nStart";
+            clearAni.GetComponent<Text>().text = "Fianl" + stage.ToString() + "\nClear";
+        }
+        else
+        {
+            startAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nStart";
+            clearAni.GetComponent<Text>().text = "Stage" + stage.ToString() + "\nClear";
+        }
+
 
         if (PhotonNetwork.IsMasterClient)
         {
@@ -760,7 +769,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         jobPanel.SetActive(a);
 
         //codySelectUpdate[4].Select();
-
+        if(!a)
         SoundManager.Play("Btn_2");
     }
 

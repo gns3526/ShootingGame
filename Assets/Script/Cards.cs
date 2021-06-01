@@ -90,8 +90,12 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
         if (myplayerScript.pets.Length == myplayerScript.petAmount)
         {
-            epic.RemoveAt(1);
-            epic.RemoveAt(2);
+            unique.RemoveAt(0);
+            unique.RemoveAt(1);
+        }
+        if(myplayerScript.power == myplayerScript.maxPower || jm.jobCode == 3)
+        {
+            epic.RemoveAt(0);
         }
 
 

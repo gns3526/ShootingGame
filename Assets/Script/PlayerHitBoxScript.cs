@@ -44,6 +44,7 @@ public class PlayerHitBoxScript : MonoBehaviour
     void Hit()
     {
         if (!myPlayerScript.canHit) return;
+        if (myPlayerScript.godMode) return;
 
         int randomNum = Random.Range(0, 101);
         if (ps.missPercentage >= randomNum)

@@ -313,11 +313,12 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         Spawn();
 
         GM.PlayerInfoPanelMove();
+        GM.PlayerInfoPanelMove();
         GM.border.SetActive(false);
-        //Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
-        //test;
-        //GM.curMapCode = (int)map[roomOption];
-        GM.curMapCode = 0;
+        Hashtable map = PhotonNetwork.CurrentRoom.CustomProperties;
+        GM.curMapCode = (int)map[roomOption];
+
+        //GM.curMapCode = 0;
 
         GM.roomMapThumnail.sprite = GM.mapThumnails[GM.curMapCode];
         GM.roomMapName.text = GM.mapNames[GM.curMapCode];

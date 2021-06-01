@@ -7,6 +7,10 @@ public class JobChangeScript : MonoBehaviour
 {
     [SerializeField] GameManager gm;
 
+    [SerializeField] GameObject selectMark;
+
+    [SerializeField] Button selectBtn;
+
     [SerializeField] Image cardImage;
     [SerializeField] Sprite[] jobSprites;
 
@@ -27,6 +31,8 @@ public class JobChangeScript : MonoBehaviour
         jobNameText.text = jobName[jobIndex];
         jobInfoText.text = jobInfo[jobIndex];
         skillInfoText.text = skillInfo[jobIndex];
+
+        JobChange(0);
     }
 
     public void JobChange(int index)
@@ -40,10 +46,24 @@ public class JobChangeScript : MonoBehaviour
         jobNameText.text = jobName[jobIndex];
         jobInfoText.text = jobInfo[jobIndex];
         skillInfoText.text = skillInfo[jobIndex];
+
+        if (jobIndex == gm.jm.jobCode)
+        {
+            selectMark.SetActive(true);
+            selectBtn.interactable = false;
+        }
+        else
+        {
+            selectMark.SetActive(false);
+            selectBtn.interactable = true;
+        }
+        SoundManager.Play("Btn_1");
     }
 
     public void JobSelect()
     {
         gm.jm.jobCode = jobIndex;
+
+        JobChange(0);
     }
 }
