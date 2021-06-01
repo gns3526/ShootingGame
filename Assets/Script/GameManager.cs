@@ -759,7 +759,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         jobPanel.SetActive(a);
 
-        codySelectUpdate[4].Select();
+        //codySelectUpdate[4].Select();
 
         SoundManager.Play("Btn_2");
     }

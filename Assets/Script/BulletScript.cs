@@ -63,6 +63,11 @@ public class BulletScript : MonoBehaviour, IPunObservable
 
         once = true;
         Delay();
+
+        //if(isPlayerAttack)
+        //    transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, 90);
+        //else
+        //    transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -90);
     }
     void Delay()
     {
@@ -102,6 +107,9 @@ public class BulletScript : MonoBehaviour, IPunObservable
         ispetAttack = false;
         isFollowTarget = false;
         target = null;
+
+        transform.rotation = Quaternion.identity;
+        //transform.GetChild(0).transform.rotation = Quaternion.identity;
     }
 
     private void Update()

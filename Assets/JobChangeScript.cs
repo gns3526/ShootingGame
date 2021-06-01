@@ -7,38 +7,42 @@ public class JobChangeScript : MonoBehaviour
 {
     [SerializeField] GameManager gm;
 
-    [SerializeField] SpriteRenderer cardSpriteRender;
+    [SerializeField] Image cardImage;
     [SerializeField] Sprite[] jobSprites;
 
     [SerializeField] Text jobNameText;
     [SerializeField] Text jobInfoText;
+    [SerializeField] Text skillInfoText;
 
     [SerializeField] string[] jobName;
     [SerializeField] string[] jobInfo;
+    [SerializeField] string[] skillInfo;
 
     int jobIndex;
     private void OnEnable()
     {
         jobIndex = gm.jm.jobCode;
 
-        cardSpriteRender.sprite = jobSprites[jobIndex];
+        cardImage.sprite = jobSprites[jobIndex];
         jobNameText.text = jobName[jobIndex];
         jobInfoText.text = jobInfo[jobIndex];
+        skillInfoText.text = skillInfo[jobIndex];
     }
 
-    void JobChange(int index)
+    public void JobChange(int index)
     {
         jobIndex += index;
 
         if (jobIndex == 5) jobIndex = 0;
         else if (jobIndex == -1) jobIndex = 4;
 
-        cardSpriteRender.sprite = jobSprites[jobIndex];
+        cardImage.sprite = jobSprites[jobIndex];
         jobNameText.text = jobName[jobIndex];
         jobInfoText.text = jobInfo[jobIndex];
+        skillInfoText.text = skillInfo[jobIndex];
     }
 
-    void JobSelect()
+    public void JobSelect()
     {
         gm.jm.jobCode = jobIndex;
     }

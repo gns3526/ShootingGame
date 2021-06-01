@@ -47,8 +47,6 @@ public class BarrierScript : MonoBehaviourPunCallbacks, IPunObservable
     private void OnDisable()
     {
         barrierCountText.enabled = false;
-
-        transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -90);
     }
 
     private void OnTriggerEnter2D(Collider2D other)

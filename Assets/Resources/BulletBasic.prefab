@@ -202,22 +202,22 @@ MonoBehaviour:
   - {fileID: 1627037474975009648, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
   - {fileID: -2257016616523596069, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
   - {fileID: 2342761248831765963, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
-  - {fileID: -4769728201665230511, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
+  - {fileID: 3991191547751712672, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
   bulletScaleP:
   - {x: 0.9, y: 0.9}
   - {x: 1, y: 1}
   - {x: 0.42, y: 0.34}
-  - {x: 1, y: 1}
+  - {x: 1, y: 1.322}
   bulletBoxSizeP:
   - {x: 0.21, y: 0.544}
   - {x: 0.249, y: 0.783}
   - {x: 0.333, y: 0.667}
-  - {x: 0.4, y: 1.45}
+  - {x: 0.511, y: 0.799}
   bulletBoxOffsetP:
   - {x: 0.02, y: 0.06}
   - {x: 0, y: 0.193}
   - {x: -0.0005, y: 0.374}
-  - {x: 0.002, y: 0.018}
+  - {x: 0.002, y: 0.184}
   bulletSpriteE:
   - {fileID: -5416491326816216934, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
   - {fileID: -7447557891173394616, guid: 101fa924eb630a84d9e614ca3d84c231, type: 3}
@@ -292,6 +292,7 @@ GameObject:
   m_Component:
   - component: {fileID: 4403362476645353680}
   - component: {fileID: 4108836756163698235}
+  - component: {fileID: 9144829426684159279}
   m_Layer: 0
   m_Name: New Sprite
   m_TagString: Untagged
@@ -362,3 +363,16 @@ SpriteRenderer:
   m_WasSpriteAssigned: 1
   m_MaskInteraction: 0
   m_SpriteSortPoint: 0
+--- !u!114 &9144829426684159279
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 4682206595795988294}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 1e1fa60bb06917f4cb4a6f94284ab69f, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  bs: {fileID: -1186807551407220135}

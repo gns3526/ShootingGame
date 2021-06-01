@@ -64,6 +64,7 @@ public class PoolScript : MonoBehaviourPun
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetP[bulletIndex];
 
                 transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, 90);
+
             }
             else
             {
@@ -73,8 +74,10 @@ public class PoolScript : MonoBehaviourPun
                 GetComponent<BoxCollider2D>().size = bulletBoxSizeE[bulletIndex];
                 GetComponent<BoxCollider2D>().offset = bulletBoxOffsetE[bulletIndex];
 
+
                 transform.GetChild(0).transform.rotation = Quaternion.Euler(0, 0, -90);
             }
+            Debug.Log(transform.GetChild(0));
             if (particleIndex == 1)
                 ObjectPooler.OP.SmokeInstantiate(gameObject, 12);
             if (bulletAniCode > -1)
