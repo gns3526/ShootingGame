@@ -73,6 +73,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject jobPanel;
     [SerializeField] GameObject reinForcePanel;
 
+    [SerializeField] GameObject helpPanel;
+
     public GameObject abilityPanel;
 
     public GameObject loginPanel;
@@ -651,7 +653,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (!isAndroid)
             {
-                weaponBulletText_D.enabled = true;
+                weaponBulletText_D.gameObject.SetActive(true);
                 weaponBulletText_D.text = myplayerScript.curBulletAmount.ToString() + "/" + myplayerScript.maxSpecialBullet.ToString(); ;
             }
         }
@@ -665,7 +667,7 @@ public class GameManager : MonoBehaviourPunCallbacks
             }
             else if (!isAndroid)
             {
-                weaponBulletText_D.enabled = false;
+                weaponBulletText_D.gameObject.SetActive(false);
             }
         }
     }
@@ -733,6 +735,13 @@ public class GameManager : MonoBehaviourPunCallbacks
         playerInfoPanelActive = !playerInfoPanelActive;
 
         playerInfoAni.SetBool("Active", playerInfoPanelActive);
+    }
+
+    public void HelpPanel(bool a)
+    {
+        helpPanel.SetActive(a);
+
+        SoundManager.Play("Btn_3");
     }
 
     public void IconPanelOpenOrClose(bool a)

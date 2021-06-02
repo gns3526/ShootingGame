@@ -113,7 +113,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     private void Start()
     {
-        GM.CM.CardS(19);
+        //GM.CM.CardS(19);
         if (pv.IsMine)
         {
             codyPv.RPC("CodyRework", RpcTarget.All, GM.codyMainCode, GM.codyBodyCode, GM.codyParticleCode);

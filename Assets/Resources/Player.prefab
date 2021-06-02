@@ -10102,7 +10102,7 @@ MonoBehaviour:
   isTouchRight: 0
   isTouchBottom: 0
   score: 0
-  power: 3
+  power: 1
   maxPower: 3
   gotSpecialWeaponAbility: 0
   weaponCode: 0
