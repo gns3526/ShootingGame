@@ -115,12 +115,12 @@ public class GoogleSheetManager : MonoBehaviour
         if (!CheckingSpecialText(regIdInput.text) && regIdInput.text != "")
         {
             idCheckBtn.interactable = true;
-            idText.text = "Corrent ID.";
+            idText.text = "올바른 아이디 입니다.";
         }
         else
         {
             idCheckBtn.interactable = false;
-            idText.text = "Contains special characters.";
+            idText.text = "특수문자가 포함되어 있습니다.";
         }
     }
     public void CheckWrongPassText()
@@ -129,13 +129,13 @@ public class GoogleSheetManager : MonoBehaviour
         {
             passwordCheck = true;
             isCurrentPass.sprite = currentSprites[0];
-            passwordText.text = "Corrent Password";
+            passwordText.text = "올바른 비밀번호 입니다";
         }
         else
         {
             passwordCheck = false;
             isCurrentPass.sprite = currentSprites[1];
-            passwordText.text = "Contains special characters.";
+            passwordText.text = "특수문자가 포함되어 있습니다.";
         }
     }
     public void CheckSamePassReText()
@@ -143,13 +143,13 @@ public class GoogleSheetManager : MonoBehaviour
         if(regPassReInput.text == regPassInput.text && regPassReInput.text != "")
         {
             passwordReCheck = true;
-            passwordReText.text = "Password match.";
+            passwordReText.text = "비밀번호가 정확히 일치합니다.";
             isCurrentPassRe.sprite = currentSprites[0];
         }
         else
         {
             passwordReCheck = false;
-            passwordReText.text = "Password mismatch.";
+            passwordReText.text = "비밀번호가 일치하지 않습니다.";
             isCurrentPassRe.sprite = currentSprites[1];
         }
     }
@@ -470,13 +470,13 @@ public class GoogleSheetManager : MonoBehaviour
             {
                 idCheck = true;
                 isCurrentId.sprite = currentSprites[0];
-                idText.text = "Username is available.";
+                idText.text = "사용가능한 아이디 입니다.";
             }
             else
             {
                 idCheck = false;
                 isCurrentId.sprite = currentSprites[1];
-                idText.text = "This is a duplicate ID.";
+                idText.text = "중복된 아이디 입니다.";
             }
         }
 
