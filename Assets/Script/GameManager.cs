@@ -84,6 +84,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     [SerializeField] GameObject gameOverPanel;
 
     [SerializeField] GameObject leftGamePanel;
+    [SerializeField] GameObject leftRoomPanel;
 
     [Header("PlayerInfo")]
     public GameObject playerInfoPanel;
@@ -607,7 +608,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     }
     public void UpdateLifeIcon(int life)
     {
-        if (life == 1) border.SetActive(true);
+        if (life == 1 || life == 0) border.SetActive(true);
         else border.SetActive(false);
 
         for (int i = 0; i < lifeImage.Length; i++)//끄기
@@ -736,6 +737,24 @@ public class GameManager : MonoBehaviourPunCallbacks
 
         playerInfoAni.SetBool("Active", playerInfoPanelActive);
     }
+
+    public void LeftRoomAskOpenOrClose(bool a)
+    {
+        if (!isGameStart)
+        {
+            GoToLobby();
+
+
+        }
+        else
+        {
+            leftRoomPanel.SetActive(a);
+
+        }
+        SoundManager.Play("Btn_3");
+    }
+
+    
 
     public void HelpPanel(bool a)
     {
@@ -912,6 +931,8 @@ public class GameManager : MonoBehaviourPunCallbacks
         gamePlayPanel.SetActive(false);
         
         finalStageClearPanel.SetActive(false);
+
+        leftRoomPanel.SetActive(false);
 
         NM.lobbyPanel.SetActive(true);
         PhotonNetwork.LeaveRoom();

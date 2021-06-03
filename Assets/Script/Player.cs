@@ -175,7 +175,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
                 }
                 else
                     isFire = false;
-                if (Input.GetKey(KeyCode.Z))
+                if (Input.GetKey(KeyCode.W))
                 {
                     weaponFire = true;
                 }
