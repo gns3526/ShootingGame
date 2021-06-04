@@ -83,6 +83,7 @@ public class BulletScript : MonoBehaviour, IPunObservable
             boxCol.offset = new Vector2(0.01f, 0.01f);
         }
         curPosPv = new Vector3(16, 16, 0);
+        transform.position = new Vector3(16, 16, 0);
 
         Invoke("ResetBulletInfo", 0.1f);
 

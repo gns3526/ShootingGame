@@ -79016,21 +79016,20 @@ MonoBehaviour:
   - {fileID: 771663470}
   - {fileID: 2011831412}
   - {fileID: 892640673}
-  epic:
   - {fileID: 927073547}
   - {fileID: 239867336}
   - {fileID: 1502513352}
-  unique:
   - {fileID: 1926653932}
+  epic:
   - {fileID: 1630939468}
   - {fileID: 1572685204}
-  legendary:
   - {fileID: 1676213616}
   - {fileID: 683308864}
   - {fileID: 842747780}
   - {fileID: 351165389}
   - {fileID: 1542762835}
   - {fileID: 1212298211}
+  unique:
   - {fileID: 475741484}
   - {fileID: 957088735}
   - {fileID: 1021407658}
@@ -79038,6 +79037,7 @@ MonoBehaviour:
   - {fileID: 1495607306}
   - {fileID: 1091113072}
   - {fileID: 1061025515}
+  legendary:
   - {fileID: 1774838979}
   - {fileID: 1974993116}
   - {fileID: 1265909957}

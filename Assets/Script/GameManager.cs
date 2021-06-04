@@ -264,6 +264,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     void StageStart()
     {
         UpdateLifeIcon(ps.life);
+        if(!myplayerScript.isDie)
         myplayerScript.godMode = false;
         if (once)
         {

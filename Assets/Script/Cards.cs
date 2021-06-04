@@ -70,6 +70,7 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
         cardGroupOb.SetActive(true);
         cardAni.SetBool("On", true);
 
+        readyAmount = 0;
         isReady = false;
         curMin = 1;
         curSec = 0;
@@ -90,12 +91,12 @@ public class Cards : MonoBehaviourPunCallbacks,IPunObservable
 
         if (myplayerScript.pets.Length == myplayerScript.petAmount)
         {
-            unique.RemoveAt(0);
-            unique.RemoveAt(1);
+            rare.RemoveAt(6);
+            epic.RemoveAt(0);
         }
         if(myplayerScript.power == myplayerScript.maxPower || jm.jobCode == 3)
         {
-            epic.RemoveAt(0);
+            rare.RemoveAt(3);
         }
 
 
