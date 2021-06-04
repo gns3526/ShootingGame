@@ -251,7 +251,7 @@ public class EnemyBasicScript : MonoBehaviourPunCallbacks, IPunObservable
         if (GM.myplayerScript.pv.IsMine)
         {
             JobManager jm = GM.jm;
-            if (jm.jobCode == 4)
+            if (jm.jobCode == 4 && !bulletScript.ispetAttack)
                 if (jm.curSkillCool < jm.skillCool)
                     jm.curSkillCool += jm.skillCoefficientE;
         }

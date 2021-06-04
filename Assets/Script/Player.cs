@@ -268,6 +268,10 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
     bool left;
     void WeaponFire()
     {
+        if (isDie) return;
+
+        if (!GM.isPlaying) return;
+
         if (gotSpecialWeaponAbility && weaponFire)
         {
             if (curBulletAmount > 0 && curWeaponShotCoolTime > weaponTotalShotCoolTime)
