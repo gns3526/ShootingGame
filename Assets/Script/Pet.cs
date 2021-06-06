@@ -121,13 +121,15 @@ public class Pet : MonoBehaviourPun, IPunObservable
                 {
                     float angle = Mathf.Atan2(jobManager.skillBPoint.transform.position.y - gameObject.transform.position.y, jobManager.skillBPoint.transform.position.x - gameObject.transform.position.x) * Mathf.Rad2Deg;
                     GameObject bullet2 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.Euler(0, 0, angle - 90), 3, -1, 5, 0, true);
-                    bullet2.GetComponent<BulletScript>().dmgPer = 50;
+                    bullet2.GetComponent<BulletScript>().dmgPer = 300;
+                    bullet2.GetComponent<BulletScript>().dmg = 5;
                     bullet2.GetComponent<BulletScript>().ispetAttack = true;
                 }
                 else if (player.isFire)
                 {
                     GameObject bullet3 = objectPooler.PoolInstantiate("BulletBasic", transform.position, Quaternion.identity, 3, -1, 5, 0, true);
-                    bullet3.GetComponent<BulletScript>().dmgPer = 50;
+                    bullet3.GetComponent<BulletScript>().dmgPer = 300;
+                    bullet3.GetComponent<BulletScript>().dmg = 5;
                     bullet3.GetComponent<BulletScript>().ispetAttack = true;
                 }
                    

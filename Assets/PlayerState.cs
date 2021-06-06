@@ -108,9 +108,15 @@ public class PlayerState : MonoBehaviour
 
         stateTexts[4].text = damage.ToString();
 
-        stateTexts[5].text = (increaseDamagePer + 100).ToString() + "%";
+        if(gm.myplayerScript != null)
+            stateTexts[5].text = (increaseDamagePer + gm.myplayerScript.damageStack + 100).ToString() + "%";
+        else
+            stateTexts[5].text = (increaseDamagePer + 100).ToString() + "%";
 
-        stateTexts[6].text = attackSpeedPer.ToString() + "%";
+        if (gm.myplayerScript != null)
+            stateTexts[6].text = (attackSpeedPer + gm.myplayerScript.attackSpeedStack).ToString() + "%";
+        else
+            stateTexts[6].text = attackSpeedPer.ToString() + "%";
 
         stateTexts[7].text = (petDamagePer + 100).ToString() + "%";
 

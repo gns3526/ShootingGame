@@ -162,6 +162,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     [SerializeField] GameObject mapPanel;
     [SerializeField] Animator mapInfoPanel;
+    [SerializeField] Image mapSelectPanelImage;
     [SerializeField] Image mapThumnail;
     [SerializeField] Text mapNameText;
     [SerializeField] GameObject[] difficultStars;
@@ -1056,6 +1057,7 @@ public class GameManager : MonoBehaviourPunCallbacks
         mapFocus = true;
 
         mapNameinfoText.text = mapNames[code];
+        mapSelectPanelImage.sprite = mapThumnails[code];
         mapCoinAmountinfoText.text = "라운드당 코인:" + mapCoinAmount[code].ToString();
         mapExpAmountinfoText.text = "라운드당 경험치:" + mapExpAmount[code].ToString();
         for (int i = 0; i < difficultStars.Length; i++)

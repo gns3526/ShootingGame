@@ -131,6 +131,8 @@ public class OptionManager : MonoBehaviour
         musicVolumeSlider.value = musicVolume;
         uiVolumeSlider.value = uiVolume;
         shotVolumeSlider.value = shotVolume;
+
+        SoundManager.Play("Btn_1");
     }
 
     public void BattlePanel()
@@ -141,6 +143,8 @@ public class OptionManager : MonoBehaviour
 
         myTransparencySlider.value = myAlpha;
         otherTransparencySlider.value = otherAlpha;
+
+        SoundManager.Play("Btn_1");
     }
 
     public void SetMyDamageTransparency(float value)
