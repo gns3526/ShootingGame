@@ -7022,7 +7022,7 @@ GameObject:
   m_Icon: {fileID: 0}
   m_NavMeshLayer: 0
   m_StaticEditorFlags: 0
-  m_IsActive: 0
+  m_IsActive: 1
 --- !u!224 &134589912
 RectTransform:
   m_ObjectHideFlags: 0
@@ -112973,8 +112973,8 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 0.5, y: 0.5}
   m_AnchorMax: {x: 0.5, y: 0.5}
-  m_AnchoredPosition: {x: 0, y: -605}
-  m_SizeDelta: {x: 1015.3, y: 138.4}
+  m_AnchoredPosition: {x: 0, y: -623}
+  m_SizeDelta: {x: 1010.9, y: 197.8}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1692461263
 MonoBehaviour:
@@ -112998,7 +112998,7 @@ MonoBehaviour:
       Version=1.0.0.0, Culture=neutral, PublicKeyToken=null
   m_FontData:
     m_Font: {fileID: 12800000, guid: 615dcd7793c333846a0eed1ae05357ca, type: 3}
-    m_FontSize: 42
+    m_FontSize: 46
     m_FontStyle: 0
     m_BestFit: 0
     m_MinSize: 10
@@ -113011,7 +113011,7 @@ MonoBehaviour:
     m_LineSpacing: 1
   m_Text: "\uC774 \uBC84\uC804\uC740 \uCCAD\uAC15\uB300 \uB300\uD68C\uC6A9\uC73C\uB85C
     \uC81C\uC791\uB41C \uBC84\uC804\uC774\uBA70\n\uBC30\uD3EC\uB098 \uBCF5\uC0AC\uB294
-    \uC0BC\uAC00\uD574 \uC8FC\uC138\uC694."
+    \uC0BC\uAC00\uD574 \uC8FC\uC138\uC694!"
 --- !u!222 &1692461264
 CanvasRenderer:
   m_ObjectHideFlags: 0
