@@ -25,6 +25,7 @@ public class ReinForceManager : MonoBehaviour
 
     [Header("ReinForce2")]
     [SerializeField] Text reinPointAmountText;
+    [SerializeField] Text goldAmountText;
     [SerializeField] GameObject[] groups;
 
     [SerializeField] GameObject resetAskPanel;
@@ -78,6 +79,7 @@ public class ReinForceManager : MonoBehaviour
     public void ReinForceRework()
     {
         reinPointAmountText.text = gm.reinPoint.ToString();
+        goldAmountText.text = gm.money.ToString();
         for (int i = 0; i < upgradeInfo.Length; i++)
         {
             if (upgradeInfo[i] == upgradeMax[i])
@@ -154,9 +156,9 @@ public class ReinForceManager : MonoBehaviour
 
     public void LobbyReinRework()
     {
-        plainLvText.text = "Lv." + gm.plainLv.ToString();
+        plainLvText.text = "전투기Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
-        costText.text = coinCost.ToString();
+        costText.text = "비용:" + coinCost.ToString();
         Disappear();
 
         CheckCanUpgrade();
@@ -167,7 +169,7 @@ public class ReinForceManager : MonoBehaviour
     {
         int randomNum = Random.RandomRange(1, 101);
         gm.money -= coinCost;
-        costText.text = coinCost.ToString();
+        costText.text = "비용:" + coinCost.ToString();
         gm.goldAmountText.text = gm.money.ToString();
         if(100 - (gm.plainLv) >= randomNum)
         {
@@ -176,23 +178,26 @@ public class ReinForceManager : MonoBehaviour
             successText.color = Color.green;
             successText.text = "강화성공!";
 
-            plusReinForce.SetActive(true);
+            //plusReinForce.SetActive(true);
         }
         else
         {
             successText.color = Color.red;
             successText.text = "강화실패!";
 
-            plusReinForce.SetActive(false);
+            //plusReinForce.SetActive(false);
         }
         successText.enabled = true;
-        plainLvText.text = "Lv." + gm.plainLv.ToString();
+        plainLvText.text = "전투기Lv." + gm.plainLv.ToString();
         successPer.text = "성공확률:" + (100 - (gm.plainLv)).ToString();
+        reinPointAmountText.text = gm.reinPoint.ToString();
+        goldAmountText.text = gm.money.ToString();
 
         if (gm.plainLv == 100)
             challengeManager.ChallengeClear(2);
 
         CheckCanUpgrade();
+        ReinForceRework();
 
         SoundManager.Play("Btn_2");
     }
@@ -211,20 +216,19 @@ public class ReinForceManager : MonoBehaviour
         }
         if (gm.plainLv == 100)
         {
-            plainLvText.text = "Lv.Max";
-            successPer.text = "";
-            successPer.text = "";
-            plusReinForce.SetActive(false);
+            plainLvText.text = "전투기Lv.Max";
+            successPer.text = "0 %";
+            //plusReinForce.SetActive(false);
             mainPlainUpgradeButton.interactable = false;
             mainPlainUpgradeButton.transform.GetChild(0).gameObject.SetActive(false);
-            costText.text = "";
+            costText.text = "비용:" + "10";
         }
     }
 
     public void Disappear()
     {
         successText.enabled = false;
-        plusReinForce.SetActive(false);
+        //plusReinForce.SetActive(false);
     }
 
     public void ReinForce2(int index)

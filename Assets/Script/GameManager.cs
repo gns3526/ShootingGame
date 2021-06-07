@@ -807,6 +807,7 @@ public class GameManager : MonoBehaviourPunCallbacks
     {
         reinForcePanel.SetActive(a);
 
+        RM.LobbyReinRework();
         RM.ReinForceRework();
 
         SoundManager.Play("Btn_2");
