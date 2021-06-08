@@ -13,9 +13,12 @@ public class GameManager : MonoBehaviourPunCallbacks
     public bool isAndroid;
 
     [Header("Managers")]
+    public static GameManager gm;
+
     public NetworkManager NM;
     public ObjectPooler OP;
     public OptionManager option;
+    [SerializeField] GoogleSheetManager GSM;
     public Cards CM;
     [SerializeField] ReinForceManager RM;
     public JobManager jm;
@@ -118,6 +121,8 @@ public class GameManager : MonoBehaviourPunCallbacks
     public Player myplayerScript;
     [SerializeField] float respawnCoolTIme;
 
+    public bool canControll;
+
     public Player[] alivePlayers;
     public Player[] allPlayers;
 
@@ -211,6 +216,7 @@ public class GameManager : MonoBehaviourPunCallbacks
 
     private void Awake()
     {
+        gm = this;
         if (SystemInfo.deviceType == DeviceType.Desktop) isAndroid = false;
         else if(SystemInfo.deviceType == DeviceType.Handheld) isAndroid = true;
 
@@ -264,11 +270,9 @@ public class GameManager : MonoBehaviourPunCallbacks
     [PunRPC]
     void StageStart()
     {
-        UpdateLifeIcon(ps.life);
-        if(!myplayerScript.isDie)
-        myplayerScript.godMode = false;
         if (once)
         {
+            StartCoroutine(PoolingLoading());
             scoreText.text = "Score:0";
             StartCoroutine(NM.SpawnDelay());
             nickNameText3.text = PhotonNetwork.NickName;
@@ -282,6 +286,10 @@ public class GameManager : MonoBehaviourPunCallbacks
             SoundManager.Stop("LobbyMusic_2");
             SoundManager.Play("LobbyMusic_3");
         }
+        UpdateLifeIcon(ps.life);
+        if(!myplayerScript.isDie)
+        myplayerScript.godMode = false;
+
         stageEndOnce = true;
 
         isPlaying = true;
@@ -351,6 +359,16 @@ public class GameManager : MonoBehaviourPunCallbacks
             StartCoroutine(CardDelay());//카드고르기
         }
     }
+
+    IEnumerator PoolingLoading()
+    {
+        canControll = false;
+        GSM.loadingPanel.SetActive(true);
+        yield return new WaitForSeconds(5);
+        canControll = true;
+        GSM.loadingPanel.SetActive(false);
+    }
+
     IEnumerator CardDelay()
     {
         yield return new WaitForSeconds(3);

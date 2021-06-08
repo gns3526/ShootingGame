@@ -3132,7 +3132,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "60%\uD655\uB960\uB85C 30%\uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
+  m_Text: "50%\uD655\uB960\uB85C 100% \uB354 \uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4
+    \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
 --- !u!222 &60526650
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -31862,6 +31863,7 @@ MonoBehaviour:
   NM: {fileID: 1905378082}
   OP: {fileID: 264256441}
   option: {fileID: 1958552792}
+  GSM: {fileID: 1418567087}
   CM: {fileID: 1229472097}
   RM: {fileID: 465414286}
   jm: {fileID: 343471261}
@@ -32002,6 +32004,7 @@ MonoBehaviour:
   myplayer: {fileID: 0}
   myplayerScript: {fileID: 0}
   respawnCoolTIme: 2
+  canControll: 0
   alivePlayers:
   - {fileID: 0}
   - {fileID: 0}
@@ -67115,7 +67118,7 @@ MonoBehaviour:
   m_Name: 
   m_EditorClassIdentifier: 
   m_Material: {fileID: 0}
-  m_Color: {r: 1, g: 0.4292453, b: 0.4292453, a: 1}
+  m_Color: {r: 1, g: 0.99738276, b: 0.06132078, a: 1}
   m_RaycastTarget: 1
   m_OnCullStateChanged:
     m_PersistentCalls:
@@ -85445,7 +85448,8 @@ MonoBehaviour:
     m_HorizontalOverflow: 0
     m_VerticalOverflow: 0
     m_LineSpacing: 1.2
-  m_Text: "20%\uD655\uB960\uB85C 60%\uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4 \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
+  m_Text: "25%\uD655\uB960\uB85C 250% \uB354 \uAC15\uD654\uB41C \uD22C\uC0AC\uCCB4
+    \uBC1C\uC0AC\n(\uCDA9\uC811\uBD88\uAC00)"
 --- !u!222 &1329877925
 CanvasRenderer:
   m_ObjectHideFlags: 0
@@ -90237,6 +90241,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: adbe0b6796fdae144a21a2716ba0d2ce, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
+  gm: {fileID: 601972270}
   myPlayerScript: {fileID: 0}
   ps: {fileID: 1222114488}
   lever: {fileID: 1695283986}

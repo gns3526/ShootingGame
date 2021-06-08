@@ -553,6 +553,8 @@ public class JobManager : MonoBehaviour
     {
         if (!canUseSkill) return;
 
+        if (!GM.canControll) return;
+
         guageMaxUi.SetActive(false);
 
         switch (jobCode)

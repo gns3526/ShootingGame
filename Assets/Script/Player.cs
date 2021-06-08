@@ -81,8 +81,6 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
 
     public bool isFire;
     public bool weaponFire;
-
-    public bool specialShot;
     
     PhotonView NMPV;
     [SerializeField] Text nickNameText;
@@ -136,7 +134,7 @@ public class Player : MonoBehaviourPunCallbacks, IPunObservable
         
         if (pv.IsMine)
         {
-            if (!NM.isChating)
+            if (!NM.isChating && GM.canControll)
             {
                 Move();
                 WeaponFire();

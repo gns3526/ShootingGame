@@ -182,7 +182,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
         GM.SetExpPanel();
 
         GM.goldAmountText.text = GM.money.ToString();
-        //RM.LobbyReinRework();
+        RM.LobbyReinRework();
         RM.CheckCanUpgrade();
 
         myList.Clear();
@@ -311,6 +311,7 @@ public class NetworkManager : MonoBehaviourPunCallbacks, IPunObservable
     public override void OnJoinedRoom()
     {
         Spawn();
+        GM.canControll = true;
 
         GM.PlayerInfoPanelMove();
         GM.PlayerInfoPanelMove();

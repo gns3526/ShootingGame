@@ -52,7 +52,7 @@ public class Pet : MonoBehaviourPun, IPunObservable
 
     private void Update()
     {
-        if (GetComponent<PhotonView>().IsMine)
+        if (GetComponent<PhotonView>().IsMine && GameManager.gm.canControll)
         {
             if (!jobManager.skillBOn)
             {

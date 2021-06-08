@@ -10154,7 +10154,6 @@ MonoBehaviour:
   isControl: 0
   isFire: 0
   weaponFire: 0
-  specialShot: 0
   nickNameText: {fileID: 9020922032865828001}
   pv: {fileID: -8026742147984905641}
   curPosPv: {x: 0, y: 0, z: 0}

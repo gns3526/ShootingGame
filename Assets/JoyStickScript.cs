@@ -6,6 +6,8 @@ using UnityEngine.EventSystems;
 
 public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IEndDragHandler
 {
+    [SerializeField] GameManager gm;
+
     public Player myPlayerScript;
     [SerializeField] PlayerState ps;
 
@@ -22,6 +24,8 @@ public class JoyStickScript : MonoBehaviour, IBeginDragHandler, IDragHandler, IE
 
     void MoveCharacter(Vector2 direction)
     {
+        if (!gm.canControll) return;
+
         if ((direction.x < 0 && myPlayerScript.isTouchLeft) || direction.x > 0 && myPlayerScript.isTouchRight) direction.x = 0;
         if ((direction.y < 0 && myPlayerScript.isTouchBottom) || direction.y > 0 && myPlayerScript.isTouchTop) direction.y = 0;
         myPlayerScript.transform.Translate(direction * (ps.moveSpeed / 100) * 4 * Time.deltaTime);
