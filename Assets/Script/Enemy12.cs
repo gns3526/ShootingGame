@@ -52,9 +52,9 @@ public class Enemy12 : MonoBehaviour
         canMove = false;
         yield return new WaitForSeconds(maxAttackCool);
 
-        for (int i = 0; i < 72; i++)//72
+        for (int i = 0; i < 45; i++)//72
         {
-            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 5, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], 0, false);
+            EB.OP.PoolInstantiate("BulletBasic", transform.position, Quaternion.AngleAxis(i * 8, Vector3.forward), EB.bulletCode[0], -1, EB.bulletSpeedCode[0], 0, false);
         }
 
         EB.pv.RPC(nameof(EB.SoundRPC), RpcTarget.All, 3);

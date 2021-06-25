@@ -18,7 +18,7 @@ public class GoogleSheetManager : MonoBehaviour
 {
                         
     const string URL = "https://script.google.com/macros/s/AKfycbxA6JYIo1zR-591bjVCbxZjW-4BQkXpJ8A3LlHnWNhWX4jhUlQFxWSYHexoQZvz6PB9/exec";
-    //const string URL = "https://script.google.com/macros/s/AKfycbxKbnF64Cg1qZtA4h8YbI7cDuY2BEXWA7evJuRZQhr7-Ym5ap9NsHAb49iwXNhkFT9P/exec"; // 테스트
+
     [SerializeField] InputField idInput, PassInput;
     public GoogleData GD;
     string id, pass;
